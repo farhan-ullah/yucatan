@@ -1,0 +1,1596 @@
+{
+  "@@locale": "de",
+  "helloWorld": "Hi World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "commonWords_app_name": "Appventure",
+  "@commonWords_app_name": {
+    "description": "App name"
+  },
+  "commonWords_notifications": "Benachrichtigungen",
+  "@commonWords_notifications": {
+    "description": "Notifications"
+  },
+  "commonWords_noInternet": "Keine Internetverbindung",
+  "@commonWords_noInternet": {
+    "description": "no internet"
+  },
+  "commonWords_deviceNotConnected": "Dein Gerät scheint gerade nicht mit dem Internet verbunden zu sein. Urn des komplette Appventure Angebot sehen zu konnen uberprufe bitte Deine Einstellungen",
+  "@commonWords_deviceNotConnected": {
+    "description": "device not connected"
+  },
+  "commonWords_germany": "Deutschland",
+  "@commonWords_germany": {
+    "description": "Germany"
+  },
+  "commonWords_week": "Woche",
+  "@commonWords_week": {
+    "description": "week"
+  },
+  "commonWords_month": "Monat",
+  "@commonWords_month": {
+    "description": "month"
+  },
+  "commonWords_year": "Jahr",
+  "@commonWords_year": {
+    "description": "year"
+  },
+  "commonWords_all": "Alle",
+  "@commonWords_all": {
+    "description": "all"
+  },
+  "commonWords_products": "Produkte",
+  "@commonWords_products": {
+    "description": "product"
+  },
+  "commonWords_booking": "Buchung",
+  "@commonWords_booking": {
+    "description": "booking"
+  },
+  "commonWords_formNotFilled": "Bitte Pflichtfelder ausfüllen",
+  "@commonWords_formNotFilled": {
+    "description": "form Not Filled"
+  },
+  "commonWords_back": "Zurück",
+  "@commonWords_back": {
+    "description": "go back"
+  },
+  "commonWords_confirm": "Bestätigen",
+  "@commonWords_confirm": {
+    "description": "go back"
+  },
+  "commonWords_ok": "Ok",
+  "@commonWords_ok": {
+    "description": "ok"
+  },
+  "commonWords_okay": "Okay",
+  "@commonWords_okay": {
+    "description": "okay"
+  },
+  "commonWords_from": "ab",
+  "@commonWords_from": {
+    "description": "from"
+  },
+  "commonWords_areYouSure": "Sicher?",
+  "@commonWords_areYouSure": {
+    "description": "are you sure?"
+  },
+  "commonWords_mistake": "Ooops!",
+  "@commonWords_mistake": {
+    "description": "mistake"
+  },
+  "commonWords_refund": "Stornieren",
+  "@commonWords_refund": {
+    "description": "refund"
+  },
+  "commonWords_ticket": "Ticket",
+  "@commonWords_ticket": {
+    "description": "Ticket"
+  },
+  "commonWords_usable": "Offen",
+  "@commonWords_usable": {
+    "description": "usable"
+  },
+  "commonWords_used": "Eingelöst",
+  "@commonWords_used": {
+    "description": "used"
+  },
+  "commonWords_request": "Anfrage",
+  "@commonWords_request": {
+    "description": "request"
+  },
+  "commonWords_refunded": "Storniert",
+  "@commonWords_refunded": {
+    "description": "refunded"
+  },
+  "commonWords_error": "Fehler!",
+  "@commonWords_error": {
+    "description": "error message"
+  },
+  "commonWords_further": "Weiter",
+  "@commonWords_further": {
+    "description": "further"
+  },
+  "commonWords_name": "Nachname",
+  "@commonWords_name": {
+    "description": "last name"
+  },
+  "commonWords_firstName": "Vorname",
+  "@commonWords_firstName": {
+    "description": "firts name"
+  },
+  "commonWords_warning_warnung": "Warnung!",
+  "@commonWords_warning_warnung": {
+    "description": "warning/warnung"
+  },
+  "commonWords_username": "Benutzername",
+  "@commonWords_username": {
+    "description": "username"
+  },
+  "commonWords_username_required": "Benutzername*",
+  "@commonWords_username_required": {
+    "description": "username required"
+  },
+  "commonWords_usernameInvalid": "Der Benutzername muss mindestens 5 Zeichen lang sein",
+  "@commonWords_usernameInvalid": {
+    "description": "username invalid"
+  },
+  "commonWords_contactData": "Kontaktdaten",
+  "@commonWords_contactData": {
+    "description": "contact data"
+  },
+  "commonWords_invoiceAddress": "Rechnungsadresse",
+  "@commonWords_invoiceAddress": {
+    "description": "invoice address"
+  },
+  "commonWords_city": "Stadt",
+  "@commonWords_city": {
+    "description": "City"
+  },
+  "commonWords_surname": "Nachname",
+  "@commonWords_surname": {
+    "description": "surname"
+  },
+  "commonWords_street": "Straße",
+  "@commonWords_street": {
+    "description": "street"
+  },
+  "commonWords_number_abbreviation": "Nr.",
+  "@commonWords_number_abbreviation": {
+    "description": "number abbreviation"
+  },
+  "commonWords_postalCode": "PLZ",
+  "@commonWords_postalCode": {
+    "description": "postal code"
+  },
+  "commonWords_postalCodeInvalid": "Gültige Postleitzahl eingeben",
+  "@commonWords_postalCodeInvalid": {
+    "description": "postal code invalid message"
+  },
+  "commonWords_location": "Ort",
+  "@commonWords_location": {
+    "description": "location"
+  },
+  "commonWords_land": "Land",
+  "@commonWords_land": {
+    "description": "land"
+  },
+  "commonWords_land_required": "Land*",
+  "@commonWords_land_required": {
+    "description": "land"
+  },
+  "commonWords_emailInvalid": "Gültige E-Mail Adresse eingeben",
+  "@commonWords_emailInvalid": {
+    "description": "email invalid message"
+  },
+  "commonWords_phone": "Telefon",
+  "@commonWords_phone": {
+    "description": "phone"
+  },
+  "commonWords_phone_required": "Telefon*",
+  "@commonWords_phone_required": {
+    "description": "phone required"
+  },
+  "commonWords_phoneInvalid": "Bitte eine gültige Telefonnummer eingeben",
+  "@commonWords_phoneInvalid": {
+    "description": "phone invalid message"
+  },
+  "commonWords_phoneInvalid2": "Gültige Telefonnummer eingeben",
+  "@commonWords_phoneInvalid2": {
+    "description": "phone invalid message"
+  },
+  "commonWords_clear": "Löschen",
+  "@commonWords_clear": {
+    "description": "clear"
+  },
+  "commonWords_calendar": "Kalender",
+  "@commonWords_calendar": {
+    "description": "calendar"
+  },
+  "commonWords_AGBpolicy1": "Ich habe die ",
+  "@commonWords_AGBpolicy1": {
+    "description": "AGB bolicy text 1"
+  },
+  "commonWords_AGBpolicy2": "AGB",
+  "@commonWords_AGBpolicy2": {
+    "description": "AGB bolicy text 2"
+  },
+  "commonWords_AGBpolicy3": " gelesen und stimme diesen zu.",
+  "@commonWords_AGBpolicy3": {
+    "description": "AGB bolicy text 3"
+  },
+  "commonWords_DSpolicy1": "Ich habe die ",
+  "@commonWords_DSpolicy1": {
+    "description": "i have "
+  },
+  "commonWords_DSpolicy2": "Datenschutzrichtlinie",
+  "@commonWords_DSpolicy2": {
+    "description": "privacy policy"
+  },
+  "commonWords_DSpolicy3": " gelesen und stimme ihr zu.",
+  "@commonWords_DSpolicy3": {
+    "description": "read and accept"
+  },
+  "commonWords_clock": "Uhr",
+  "@commonWords_clock": {
+    "description": "o'clock"
+  },
+  "commonWords_new": "Neu",
+  "@commonWords_new": {
+    "description": "new"
+  },
+  "today": "Heute",
+  "@today": {
+    "description": "today"
+  },
+  "tomorrow": "Morgen",
+  "@tomorrow": {
+    "description": "tomorrow"
+  },
+  "activityScreen_from": "ab",
+  "@activityScreen_from": {
+    "description": "price from(ab)"
+  },
+  "activityScreen_new": "Neu",
+  "@activityScreen_new": {
+    "description": "new activity has no rating"
+  },
+  "activityScreen_search": "Was würdest Du gerne machen?",
+  "@activityScreen_search": {
+    "description": "What are you looking for "
+  },
+  "forgotPasswordScreen_description": "Wenn Du Dein Kontopasswort vergessen hast, kannst Du es in diesem Bereich wiederherstellen.",
+  "@forgotPasswordScreen_description": {
+    "description": "when you forget password you can reset it."
+  },
+  "forgotPasswordScreen_emailHint": "Account (E-Mail)",
+  "@forgotPasswordScreen_emailHint": {
+    "description": "email field hint"
+  },
+  "forgotPasswordScreen_send": "Absenden",
+  "@forgotPasswordScreen_send": {
+    "description": "send button"
+  },
+  "authenticationSceen_noProfile": "Noch kein Profil bei Appventure?",
+  "@authenticationSceen_noProfile": {
+    "description": "Don't have profile  ? text"
+  },
+  "authenticationSceen_registerNow": "Hier kannst Du Dich bequem ",
+  "@authenticationSceen_registerNow": {
+    "description": "Register now"
+  },
+  "authenticationSceen_registerNowRegister": "registrieren",
+  "@authenticationSceen_registerNowRegister": {
+    "description": "register"
+  },
+  "authenticationSceen_bottomBar1": "Einfach Dein perfektes Erlebnis ",
+  "@authenticationSceen_bottomBar1": {
+    "description": "bottom bar text part 1"
+  },
+  "authenticationSceen_bottomBar2": "Finden. Buchen. ",
+  "@authenticationSceen_bottomBar2": {
+    "description": "bottom bar text part 2"
+  },
+  "authenticationSceen_bottomBar3": "Erleben!",
+  "@authenticationSceen_bottomBar3": {
+    "description": "bottom bar text part 3"
+  },
+  "authenticationSceen_emailInvalid": "Bitte eine gültige E-Mail Adresse eingeben!",
+  "@authenticationSceen_emailInvalid": {
+    "description": "email invalid message"
+  },
+  "authenticationSceen_forgotPassword": "Passwort vergessen",
+  "@authenticationSceen_forgotPassword": {
+    "description": "forgot password"
+  },
+  "authenticationSceen_password": "Passwort",
+  "@authenticationSceen_password": {
+    "description": "password field label"
+  },
+  "authenticationSceen_password_required": "Passwort*",
+  "@authenticationSceen_password_required": {
+    "description": "password field label required"
+  },
+  "authenticationSceen_email": "E-Mail Adresse",
+  "@authenticationSceen_email": {
+    "description": "email label"
+  },
+  "authenticationSceen_networkError": "Ein Netzwerkfehler ist aufgetreten",
+  "@authenticationSceen_networkError": {
+    "description": "network error"
+  },
+  "authenticationSceen_wellcome": "Willkommen bei Appventure!",
+  "@authenticationSceen_wellcome": {
+    "description": "wellcome message"
+  },
+  "authenticationSceen_passwordInvalid": "Das Passwort muss mindestens 6 Zeichen lang sein",
+  "@authenticationSceen_passwordInvalid": {
+    "description": "password invalid"
+  },
+  "loginSceen_forgotPassword": "Passwort vergessen?",
+  "@loginSceen_forgotPassword": {
+    "description": "forgot password"
+  },
+  "loginSceen_loginWaiting": "Anmelden...",
+  "@loginSceen_loginWaiting": {
+    "description": "login in progress"
+  },
+  "loginSceen_login": "Einloggen",
+  "@loginSceen_login": {
+    "description": "log in"
+  },
+  "resetPasswordSceen_title": "Passwort zurücksetzen",
+  "@resetPasswordSceen_title": {
+    "description": "title"
+  },
+  "resetPasswordSceen_reset_password": "Passwort zurücksetzen",
+  "@resetPasswordSceen_reset_password": {
+    "description": "Reset password text"
+  },
+  "resetPasswordSceen_email_username": "E-Mail oder Benutzername*",
+  "@resetPasswordSceen_email_username": {
+    "description": "Email or username text"
+  },
+  "resetPasswordSceen_enter_valid_email": "Bitte gib eine gültige E-Mail Adresse ein",
+  "@resetPasswordSceen_enter_valid_email": {
+    "description": "Enter valid data"
+  },
+  "resetPasswordSceen_email_or_username_required": "E-Mail Adresse oder Benutzername erforderlich",
+  "@resetPasswordSceen_email_or_username_required": {
+    "description": "Enter required data"
+  },
+  "resetPasswordSceen_reset_sent": "Zurücksetzen wird angefordert...",
+  "@resetPasswordSceen_reset_sent": {
+    "description": "Reset request sent text"
+  },
+  "resetPasswordSceen_reset": "Zurücksetzen",
+  "@resetPasswordSceen_reset": {
+    "description": "Reset text"
+  },
+  "resetPasswordSceen_confirm": "Ok",
+  "@resetPasswordSceen_confirm": {
+    "description": "confirm action"
+  },
+  "authenticationSceen_confirmPassword": "Passwort wiederholen*",
+  "@authenticationSceen_confirmPassword": {
+    "description": "confirm passowrd"
+  },
+  "authenticationSceen_confirmPasswordInvalid": "Passwörter stimmen nicht überein!",
+  "@authenticationSceen_confirmPasswordInvalid": {
+    "description": "confirm passowrd"
+  },
+  "bookingScreen_title": "Buchung",
+  "@bookingScreen_title": {
+    "description": "title of the screen"
+  },
+  "bookingScreen_total": "Gesamt ",
+  "@bookingScreen_total": {
+    "description": "total (price)"
+  },
+  "bookingScreen_dateNotSelected": "Ausgewähltes Datum ist nicht verfügbar. Das nächst verfügbare Datum wurde ausgewählt. ",
+  "@bookingScreen_dateNotSelected": {
+    "description": "date not selected message"
+  },
+  "bookingScreen_deleteProduct": "Möchtest Du dieses Produkt wirklich löschen?",
+  "@bookingScreen_deleteProduct": {
+    "description": "delete product warning"
+  },
+  "bookingScreen_formInvalid": "Bitte Pflichtfelder ausfüllen",
+  "@bookingScreen_formInvalid": {
+    "description": "message shown when required fields arent filled"
+  },
+  "bookingScreen_finish": "Fertig",
+  "@bookingScreen_finish": {
+    "description": "finish"
+  },
+  "bookingScreen_count": "Anzahl",
+  "@bookingScreen_count": {
+    "description": "count (number of)"
+  },
+  "bookingScreen_choose": "Wählen",
+  "@bookingScreen_choose": {
+    "description": "choose"
+  },
+  "bookingScreen_chooseDate": "Datum wählen",
+  "@bookingScreen_chooseDate": {
+    "description": "choose date"
+  },
+  "bookingScreen_chooseTime": "Uhrzeit wählen",
+  "@bookingScreen_chooseTime": {
+    "description": "choose time"
+  },
+  "bookingScreen_additionallService": "Zusatzleistungen",
+  "@bookingScreen_additionallService": {
+    "description": "additionall Service"
+  },
+  "bookingScreen_warning": "Achtung!",
+  "@bookingScreen_warning": {
+    "description": "warning"
+  },
+  "bookingScreen_closeWindowWarning": "Wenn Du das Fenster schließt, wird Deine Eingabe gelöscht!",
+  "@bookingScreen_closeWindowWarning": {
+    "description": "add-ons will be lost if you close window"
+  },
+  "bookingScreen_closeWindowSelectionWarning": "Wenn Du das Fenster schließt\nwird deine Auswahl gelöscht",
+  "@bookingScreen_closeWindowSelectionWarning": {
+    "description": "add-ons will be lost if you close window"
+  },
+  "bookingScreen_next": "Weitermachen",
+  "@bookingScreen_next": {
+    "description": "next"
+  },
+  "bookingScreen_clear": "Löschen",
+  "@bookingScreen_clear": {
+    "description": "clear"
+  },
+  "bookingScreen_add": "Hinzufügen",
+  "@bookingScreen_add": {
+    "description": "add"
+  },
+  "bookingScreen_pay": "Zur Kasse",
+  "@bookingScreen_pay": {
+    "description": "pay"
+  },
+  "bookingScreen_further": "Weiter",
+  "@bookingScreen_further": {
+    "description": "further"
+  },
+  "bookingScreen_discard": "Verwerfen",
+  "@bookingScreen_discard": {
+    "description": "discard"
+  },
+  "bookingScreen_yourChoice": "Deine Auswahl",
+  "@bookingScreen_yourChoice": {
+    "description": "your choice {cart}"
+  },
+  "bookingScreen_noProductsSelectedError": "Du hast noch keine Produkte zu Deiner Auswahl hinzugefügt",
+  "@bookingScreen_noProductsSelectedError": {
+    "description": "no products selected"
+  },
+  "bookingScreen_nothingSelected": "Nichts ausgewählt",
+  "@bookingScreen_nothingSelected": {
+    "description": "nothing selected"
+  },
+  "bookingScreen_date": "Datum",
+  "@bookingScreen_date": {
+    "description": "date"
+  },
+  "bookingScreen_totalPrice": "Gesamt: {price}€",
+  "@bookingScreen_totalPrice": {
+    "description": "totap price",
+    "placeholders": {
+      "price": {}
+    }
+  },
+  "bookingScreen_perTicket": "Pro Ticket",
+  "@bookingScreen_perTicket": {
+    "description": "per ticket"
+  },
+  "bookingScreen_enterData": "Daten eingeben",
+  "@bookingScreen_enterData": {
+    "description": "enter data"
+  },
+  "bookingScreen_moreThan": "Mehr als ",
+  "@bookingScreen_moreThan": {
+    "description": "more than"
+  },
+  "bookingScreen_more": "Noch ",
+  "@bookingScreen_more": {
+    "description": "more"
+  },
+  "bookingScreen_available": " verfügbar",
+  "@bookingScreen_available": {
+    "description": "available"
+  },
+  "bookingScreen_ticketAvailable": " Ticket verfügbar",
+  "@bookingScreen_available": {
+    "description": "available"
+  },
+  "bookingScreen_ticketsAvailablePlural": " Tickets verfügbar",
+  "@bookingScreen_available": {
+    "description": "available"
+  },
+  "bookingScreen_checkout": "Zum Checkout",
+  "@bookingScreen_checkout": {
+    "description": "Checkout"
+  },
+  "bookingListScreen_addReview_question": "Wie zufrieden warst Du mit dem Erlebnis bei diesem Anbieter?",
+  "@bookingListScreen_addReview_question": {
+    "description": "are you satisfied with services"
+  },
+  "bookingListScreen_addReview_tellUs": "Erzähl uns etwas zu Deinen Erfahrungen mit diesem Angebot!",
+  "@bookingListScreen_addReview_tellUs": {
+    "description": "tell us something about"
+  },
+  "bookingListScreen_addReview_error": "Deine Bewertung konnte aufgrund eines Fehlers nicht hinzugefügt werden",
+  "@bookingListScreen_addReview_error": {
+    "description": "add review error"
+  },
+  "bookingListScreen_addReview_thankYou": "Vielen Dank für Deine Bewertung!",
+  "@bookingListScreen_addReview_thankYou": {
+    "description": "thank you for adding review"
+  },
+  "bookingListScreen_addReview_yourReviewHelpsUs": "Deine Rückmeldungen helfen uns, Appventure und unsere Angebote für Dich zu optimieren",
+  "@bookingListScreen_addReview_yourReviewHelpsUs": {
+    "description": "your review helps us"
+  },
+  "bookingListScreen_addReview_backToOveview": "Zurück zur Übersicht",
+  "@bookingListScreen_addReview_backToOveview": {
+    "description": "back to overview"
+  },
+  "bookingListScreen_addReview_options_veryBad": "Schlecht",
+  "@bookingListScreen_addReview_options_veryBad": {
+    "description": "very bad (1 out of 5)"
+  },
+  "bookingListScreen_addReview_options_bad": "Okay",
+  "@bookingListScreen_addReview_options_bad": {
+    "description": "bad (2 out of 5)"
+  },
+  "bookingListScreen_addReview_options_ok": "Gut",
+  "@bookingListScreen_addReview_options_ok": {
+    "description": "ok (3 out of 5)"
+  },
+  "bookingListScreen_addReview_options_good": "Sehr gut",
+  "@bookingListScreen_addReview_options_good": {
+    "description": "good (4 out of 5)"
+  },
+  "bookingListScreen_addReview_options_veryGood": "Großartig",
+  "@bookingListScreen_addReview_options_veryGood": {
+    "description": "very good (5 out of 5)"
+  },
+  "bookingListScreen_requestDenied": "Anfrage abgelehnt",
+  "@bookingListScreen_requestDenied": {
+    "description": "request denied"
+  },
+  "bookingListScreen_ticketNumber": "Ticketnummer:",
+  "@bookingListScreen_ticketNumber": {
+    "description": "ticket number"
+  },
+  "bookingListScreen_refundBooking": "Möchtest Du diese Buchung wirklich stornieren?",
+  "@bookingListScreen_refundBooking": {
+    "description": "do you want to refund booking"
+  },
+  "bookingListScreen_refundTicket": "Möchtest Du dieses Ticket wirklich stornieren?",
+  "@bookingListScreen_refundTicket": {
+    "description": "do you want to refund ticket"
+  },
+  "bookingListScreen_refundBookingOrTicket": "Möchtest Du nur dieses Ticket oder die gesamte Buchung stornieren?",
+  "@bookingListScreen_refundBookingOrTicket": {
+    "description": "do you want to refund booking or ticket"
+  },
+  "bookingListScreen_refundPeriodExpired": "Leider ist der Stornierungszeitraum abgelaufen.",
+  "@bookingListScreen_refundPeriodExpired": {
+    "description": "refund period expired"
+  },
+  "bookingListScreen_vendorWillRespondeSoon": "Der Anbieter ist informiert und er gibt dir schnellstmöglich eine Rückmeldung zu deiner Buchung",
+  "@bookingListScreen_vendorWillRespondeSoon": {
+    "description": "Vendor will responde soon"
+  },
+  "bookingListScreen_refundPeriodDuration": "{count,plural, =1{Stornierung nur innerhalb von {count} Stunde möglich} other{Stornierung nur innerhalb von {count} Stunden möglich}}",
+  "@bookingListScreen_refundPeriodDuration": {
+    "description": "booking can be refunded before period",
+    "placeholders": {
+      "count": {
+      }
+    }
+  },
+  "bookingListScreen_singleTicket": "Einzelticket",
+  "@bookingListScreen_singleTicket": {
+    "description": "single ticket"
+  },
+  "bookingListScreen_entireBooking": "Gesamte Buchung",
+  "@bookingListScreen_entireBooking": {
+    "description": "Entire booking"
+  },
+  "bookingListScreen_inValueOf": "Im Wert von",
+  "@bookingListScreen_inValueOf": {
+    "description": "price"
+  },
+  "bookingListScreen_refundedTicket": "Dieses Ticket wurde storniert",
+  "@bookingListScreen_refundedTicket": {
+    "description": "refunded ticketmessage"
+  },
+  "bookingListScreen_refundSuccess": "Stornierung erfolgreich",
+  "@bookingListScreen_refundSuccess": {
+    "description": "refund success message"
+  },
+  "bookingListScreen_refundError": "Stornierung fehlgeschlagen",
+  "@bookingListScreen_refundError": {
+    "description": "refund error message"
+  },
+  "bookingListScreen_goToSearch": "Zur Suche",
+  "@bookingListScreen_goToSearch": {
+    "description": "search activities"
+  },
+  "bookingListScreen_pendingRequests": "Laufende Anfragen",
+  "@bookingListScreen_pendingRequests": {
+    "description": "active requests"
+  },
+  "bookingListScreen_denied": "Abgelehnt",
+  "@bookingListScreen_denied": {
+    "description": "request denied"
+  },
+  "bookingListScreen_requestInProgress": "Anfrage läuft...",
+  "@bookingListScreen_requestInProgress": {
+    "description": "request in progress"
+  },
+  "bookingListScreen_refundWillBePaid": "Rückzahlung erfolgt",
+  "@bookingListScreen_refundWillBePaid": {
+    "description": "refund will be paid message"
+  },
+  "bookingListScreen_details": "Details",
+  "@bookingListScreen_details": {
+    "description": "Details"
+  },
+  "bookingListScreen_addReviewButton": "Bewerten",
+  "@bookingListScreen_addReviewButton": {
+    "description": "add review"
+  },
+  "bookingListScreen_navigationButton": "Navigation",
+  "@bookingListScreen_navigationButton": {
+    "description": "navigation"
+  },
+  "bookingListScreen_noActiveBookings": "Du hast momentan keine aktiven Buchungen.",
+  "@bookingListScreen_noActiveBookings": {
+    "description": "no active bookings"
+  },
+  "bookingListScreen_noUsedBookings": "Du hast momentan keine eingelösten Tickets.",
+  "@bookingListScreen_noUsedBookings": {
+    "description": "no used bookings"
+  },
+  "bookingListScreen_noRequestedBookings": "Du hast momentan keine laufenden Anfragen.",
+  "@bookingListScreen_noRequestedBookings": {
+    "description": "no requested bookings"
+  },
+  "bookingListScreen_loginToSee": "Logge Dich ein, um Deine aktiven\nBuchungen zu sehen.",
+  "@bookingListScreen_loginToSee": {
+    "description": "user not logged in"
+  },
+  "bookingListScreen_wholeDay": "Ganztags",
+  "@bookingListScreen_wholeDay": {
+    "description": "Replacement text for when bookingTimeString is null"
+  },
+  "burgerMenuScreen_imprint": "Impressum",
+  "@burgerMenuScreen_imprint": {
+    "description": "Impressum"
+  },
+  "burgerMenuScreen_terms": "Widerrufsrecht",
+  "@burgerMenuScreen_terms": {
+    "description": "terms of use"
+  },
+  "burgerMenuScreen_AGB": "AGB",
+  "@burgerMenuScreen_AGB": {
+    "description": "AGB"
+  },
+  "burgerMenuScreen_privacy": "Datenschutz",
+  "@burgerMenuScreen_privacy": {
+    "description": "privacy policy"
+  },
+  "burgerMenuScreen_contact": "Kontakt",
+  "@burgerMenuScreen_contact": {
+    "description": "contact"
+  },
+  "burgerMenuScreen_logOut": "Abmelden",
+  "@burgerMenuScreen_logOut": {
+    "description": "log out"
+  },
+  "burgerMenuScreen_switchToUser": "Zur Useransicht",
+  "@burgerMenuScreen_switchToUser": {
+    "description": "switch to user view"
+  },
+  "burgerMenuScreen_switchToVendor": "Zur Anbieteransicht",
+  "@burgerMenuScreen_switchToVendor": {
+    "description": "switch to vendor view"
+  },
+  "burgerMenuScreen_profileSettings": "Profileinstellungen",
+  "@burgerMenuScreen_profileSettings": {
+    "description": "profile settings"
+  },
+  "burgerMenuScreen_loginNow": "Jetzt anmelden und ins\nAbenteuer stürzen!",
+  "@burgerMenuScreen_loginNow": {
+    "description": "login now"
+  },
+  "checkoutScreen_title": "Buchung abschließen",
+  "@checkoutScreen_title": {
+    "description": "title for checkout screen"
+  },
+  "checkoutScreen_paymentMethod": "Zahlungsmethode",
+  "@checkoutScreen_paymentMethod": {
+    "description": "payment method"
+  },
+  "checkoutScreen_selectPaymentMethod": "Bitte Zahlungsmethode auswählen",
+  "@checkoutScreen_selectPaymentMethod": {
+    "description": "please select payment method"
+  },
+  "checkoutScreen_requierdFieldsNotFilled": "Bitte gültige Werte eingeben",
+  "@checkoutScreen_requierdFieldsNotFilled": {
+    "description": "required field not filled"
+  },
+  "checkoutScreen_acceptAGB": "Bitte AGB akzeptieren",
+  "@checkoutScreen_acceptAGB": {
+    "description": "please accept AGB"
+  },
+  "checkoutScreen_acceptPrivacy": "Bitte Datenschutz akzeptieren",
+  "@checkoutScreen_acceptPrivacy": {
+    "description": "please accept privacy"
+  },
+  "favoritesScreen_availableFrom": "verfügbar ab",
+  "@favoritesScreen_availableFrom": {
+    "description": "available From"
+  },
+  "favoritesScreen_logInToSee": "Logge Dich ein, um Deine Favoriten zu sehen.",
+  "@favoritesScreen_logInToSee": {
+    "description": "log in to see favorites"
+  },
+  "detailedDescriptionScreen_title": "Beschreibung",
+  "@detailedDescriptionScreen_title": {
+    "description": "description"
+  },
+  "detailedDescriptionScreen_noOpeningHours": "Dieser Anbieter hat leider keine regulären Öffnungszeiten.\n\nWenn Du auf \"Buchen\" klickst, gelangst Du in die Kalenderübersicht.\n\nSobald Du dort Dein Wunschdatum ausgewählt hast, siehst Du wie viele Tickets zu welcher Uhrzeit noch verfügbar sind.",
+  "@detailedDescriptionScreen_noOpeningHours": {
+    "description": "No opening hours text"
+  },
+  "days_monday": "Montag",
+  "@days_monday": {
+    "description": "Monday"
+  },
+  "days_tuesday": "Dienstag",
+  "@days_tuesday": {
+    "description": "Tuesday"
+  },
+  "days_wednesday": "Mittwoch",
+  "@days_wednesday": {
+    "description": "Wednesday"
+  },
+  "days_thursday": "Donnerstag",
+  "@days_thursday": {
+    "description": "Thursday"
+  },
+  "days_friday": "Freitag",
+  "@days_friday": {
+    "description": "Friday"
+  },
+  "days_saturday": "Samstag",
+  "@days_saturday": {
+    "description": "Saturday"
+  },
+  "days_sunday": "Sonntag",
+  "@days_sunday": {
+    "description": "Sunday"
+  },
+  "googleMapScreen_title": "Karte",
+  "@googleMapScreen_title": {
+    "description": "map"
+  },
+  "reviewsListScren_anonymousGermany": "Anonym - Deutschland",
+  "@reviewsListScren_anonymousGermany": {
+    "description": "Anonymous - Germany"
+  },
+  "hotelDetailesScreen_description": "Detailbeschreibung",
+  "@hotelDetailesScreen_description": {
+    "description": " description"
+  },
+  "hotelDetailesScreen_covidMeasures": "Covid-19: Schutzmaßnahmen",
+  "@hotelDetailesScreen_covidMeasures": {
+    "description": " covid measures"
+  },
+  "hotelDetailesScreen_reviewCountHandlePlural": "{count,plural, =1{({count} Bewertung)} other{({count} Bewertungen})} ",
+  "@hotelDetailesScreen_reviewCountHandlePlural": {
+    "description": "plural message for review count",
+    "placeholders": {
+      "count": {
+      }
+    }
+  },
+  "hotelDetailesScreen_showAllReviews": "Alle Bewertungen anzeigen",
+  "@hotelDetailesScreen_showAllReviews": {
+    "description": "show all reviews"
+  },
+  "hotelDetailesScreen_locationNotAvailable": "Standort kann nicht angezeigt werden.",
+  "@hotelDetailesScreen_locationNotAvailable": {
+    "description": "location cannot be displayed"
+  },
+  "hotelDetailesScreen_otherRecommendations": "Weitere Empfehlungen",
+  "@hotelDetailesScreen_otherRecommendations": {
+    "description": "other Recommendations"
+  },
+  "hotelDetailesScreen_moreDetails": "Mehr Details",
+  "@hotelDetailesScreen_moreDetails": {
+    "description": "more details"
+  },
+  "hotelDetailesScreen_bookNow": "Jetzt Buchen",
+  "@hotelDetailesScreen_bookNow": {
+    "description": "book now"
+  },
+  "hotelDetailesScreen_videoError": "Video konnte nicht geladen werden.",
+  "@hotelDetailesScreen_videoError": {
+    "description": "video Error"
+  },
+  "hotelDetailesScreen_overallRating": "Gesamtbewertung",
+  "@hotelDetailesScreen_overallRating": {
+    "description": "overall rating"
+  },
+  "hotelDetailesScreen_noReviewsTitle": "Ooops!",
+  "@hotelDetailesScreen_noReviewsTitle": {
+    "description": "Title for when there are no reviews"
+  },
+  "hotelDetailesScreen_noReviewsDescription": "Für dieses Erlebnis gibt es leider noch keine Bewertungen.",
+  "@hotelDetailesScreen_noReviewsDescription": {
+    "description": "Description for when there are no reviews"
+  },
+  "inquiryScreen_makeInquiry": "Anfrage stellen",
+  "@inquiryScreen_makeInquiry": {
+    "description": "book now"
+  },
+  "inquiryScreen_limitedPlacesMessage": "Die einzelnen Punkte zeigen Dir wie Deine Anfrage abläuft.",
+  "@inquiryScreen_limitedPlacesMessage": {
+    "description": "limited places for offer"
+  },
+  "inquiryScreen_sendInquiry": "Anfrage schicken",
+  "@inquiryScreen_sendInquiry": {
+    "description": "send request"
+  },
+  "notificationsScreen_title": "Benachrichtigungen",
+  "@notificationsScreen_title": {
+    "description": "title"
+  },
+  "notificationsScreen_oneDay": "1 Tag",
+  "@notificationsScreen_oneDay": {
+    "description": "one day"
+  },
+  "notificationsScreen_twoDay": "2 Tage",
+  "@notificationsScreen_twoDay": {
+    "description": "two day"
+  },
+  "notificationsScreen_threeDay": "3 Tage",
+  "@notificationsScreen_threeDay": {
+    "description": "three day"
+  },
+  "onboardingScreen_wellcome": "Willkommen!",
+  "@onboardingScreen_wellcome": {
+    "description": "wellcome"
+  },
+  "onboardingScreen_find": "Finden.",
+  "@onboardingScreen_find": {
+    "description": "find"
+  },
+  "onboardingScreen_book": "Buchen.",
+  "@onboardingScreen_book": {
+    "description": "book"
+  },
+  "onboardingScreen_experience": "Erleben!",
+  "@onboardingScreen_experience": {
+    "description": "Experience"
+  },
+  "onboardingScreen_startNow": "Jetzt starten",
+  "@onboardingScreen_startNow": {
+    "description": "start now"
+  },
+  "onboardingScreen_text1": "Mit Appventure wird Dir nie mehr langweilig - erfahre jetzt, wie Du mit Deiner neuen Freizeit-App die perfekten Erlebnisse finden kannst.",
+  "@onboardingScreen_text1": {
+    "description": "text on 1. page"
+  },
+  "onboardingScreen_text2": "Such doch mal nach einer Ortschaft, die Du erkunden möchtest! Oder mach's ganz einfach und finde Angebote in Deiner Nähe über die Karte.",
+  "@onboardingScreen_text2": {
+    "description": "text on 2. page"
+  },
+  "onboardingScreen_text3": "Füge Produkte, die Dich interessieren zu Deiner Auswahl hinzu. Jetzt kannst Du schnell und sicher online zahlen und erhältst Dein digitales Ticket.",
+  "@onboardingScreen_text3": {
+    "description": "text on 3. page"
+  },
+  "onboardingScreen_text4": "Appventure navigiert Dich direkt zum Veranstaltungsort! Dort wird Dein Ticket kurz gescannt - und dann kann's auch schon losgehen.",
+  "@onboardingScreen_text4": {
+    "description": "text on 4. page"
+  },
+  "onboardingScreen_skip": "Überspringen",
+  "@onboardingScreen_skip": {
+    "description": "skip"
+  },
+  "paymentCreditCardScreen_creditCardDetails": "Kreditkartendetails",
+  "@paymentCreditCardScreen_creditCardDetails": {
+    "description": "credit card details"
+  },
+  "paymentCreditCardScreen_creditCardNumber": "Kartennummer",
+  "@paymentCreditCardScreen_creditCardNumber": {
+    "description": "credit card number"
+  },
+  "paymentCreditCardScreen_expDateHint": "MM/JJ",
+  "@paymentCreditCardScreen_expDateHint": {
+    "description": "credit card expDate hint"
+  },
+  "paymentCreditCardScreen_securityCode": "Sicherheitscode",
+  "@paymentCreditCardScreen_securityCode": {
+    "description": "credit card security code"
+  },
+  "paymentCreditCardScreen_securityCodeInvalid": "Der CVC ist der 3- oder 4-stellige Code auf der Rückseite Deiner Karte",
+  "@paymentCreditCardScreen_securityCodeInvalid": {
+    "description": "credit card security code invalid message"
+  },
+  "paymentCreditCardScreen_payNow": "Jetzt zahlen",
+  "@paymentCreditCardScreen_payNow": {
+    "description": "payNow"
+  },
+  "paymentCreditCardScreen_requiredFieldsNotFilled": "Pflichtfelder ausfüllen",
+  "@paymentCreditCardScreen_requiredFieldsNotFilled": {
+    "description": "required fields not filled"
+  },
+  "paymentCreditCardScreen_valuesInvalid": "Bitte gültige Werte eingeben",
+  "@paymentCreditCardScreen_valuesInvalid": {
+    "description": "values not valid message"
+  },
+  "paymentCreditCardScreen_wellDone": "Gut gemacht!",
+  "@paymentCreditCardScreen_wellDone": {
+    "description": "well done"
+  },
+  "paymentCreditCardScreen_requestReceived": "Deine Anfrage ist erfolgreich bei uns eingegangen!",
+  "@paymentCreditCardScreen_requestReceived": {
+    "description": "request received"
+  },
+  "paymentCreditCardScreen_bookingReceived": "Deine Buchung ist erfolgreich bei uns eingegangen!",
+  "@paymentCreditCardScreen_bookingReceived": {
+    "description": "booking received"
+  },
+  "paymentCreditCardScreen_willReceiveTicketsRequested": "Du erhältst Deine Tickets, sobald der\nAnbieter Deine Bestellung überprüft.\nBehalte Deine E-Mails im Auge.\nDanke!",
+  "@paymentCreditCardScreen_willReceiveTicketsRequested": {
+    "description": "Will receive tickets (Requested)"
+  },
+  "paymentCreditCardScreen_willReceiveTicketsBooking": "Unter Buchungen findest Du Deine Tickets und zusätzlich erhältst Du diese per E-Mail",
+  "@paymentCreditCardScreen_willReceiveTicketsBooking": {
+    "description": "Will receive tickets booking"
+  },
+  "paymentCreditCardScreen_bookings": "Buchungen",
+  "@paymentCreditCardScreen_bookings": {
+    "description": "bookings"
+  },
+  "paymentCreditCardScreen_startSite": "Startseite",
+  "@paymentCreditCardScreen_startSite": {
+    "description": "start site"
+  },
+  "paymentCreditCardScreen_thankYou": "Vielen Dank!",
+  "@paymentCreditCardScreen_thankYou": {
+    "description": "thank you"
+  },
+  "paymentCreditCardScreen_mistake": "Hoppla!",
+  "@paymentCreditCardScreen_mistake": {
+    "description": "mistake"
+  },
+  "paymentCreditCardScreen_paymentReceivedSuccess": "Deine Zahlung ist erfolgreich bei uns eingegangen.",
+  "@paymentCreditCardScreen_paymentReceivedSuccess": {
+    "description": "payment success"
+  },
+  "paymentCreditCardScreen_paymentReceivedError": "Leider ist bei Deiner Zahlung\nein Fehler aufgetreten.",
+  "@paymentCreditCardScreen_paymentReceivedError": {
+    "description": "payment Error"
+  },
+  "paymentCreditCardScreen_bookingCompleted": "Du findest Deine Tickets direkt in der App bei Deinen Buchungen.",
+  "@paymentCreditCardScreen_bookingCompleted": {
+    "description": "booking completed"
+  },
+  "paymentCreditCardScreen_bookingNotCompleted": "Wir konnten Deine Buchung leider\nnicht abschließen. Probiere es doch\ngleich nochmal!",
+  "@paymentCreditCardScreen_bookingNotCompleted": {
+    "description": "booking not completed try again"
+  },
+  "paymentCreditCardScreen_ticketsOnMail": "Für den Fall, dass Du Dein Ticket ausdrucken möchtest, haben wir es Dir ebenfalls per Mail zugeschickt.",
+  "@paymentCreditCardScreen_ticketsOnMail": {
+    "description": "tickets on mail"
+  },
+  "paymentCreditCardScreen_haveFun": "Viel Spaß bei Deinem Appventure!",
+  "@paymentCreditCardScreen_haveFun": {
+    "description": "have fun"
+  },
+  "paymentCreditCardScreen_goToBookings": "Zu meinen Buchungen",
+  "@paymentCreditCardScreen_goToBookings": {
+    "description": "go to bookings"
+  },
+  "paymentCreditCardScreen_tryAgain": "Erneut versuchen",
+  "@paymentCreditCardScreen_tryAgain": {
+    "description": "try agains"
+  },
+  "paymentCreditCardScreen_backTostartSite": "Zurück zur Startseite",
+  "@paymentCreditCardScreen_backTostartSite": {
+    "description": "start site (home page)"
+  },
+  "paymentCreditCardScreen_paymentSuccess": "Zahlung erfolgreich",
+  "@paymentCreditCardScreen_paymentSuccess": {
+    "description": "payment successful"
+  },
+  "paymentCreditCardScreen_paymentError": "Zahlung fehlgeschlagen",
+  "@paymentCreditCardScreen_paymentError": {
+    "description": "payment error"
+  },
+  "paymentPayPalScreen_title": "Bezahlen",
+  "@paymentPayPalScreen_title": {
+    "description": "title"
+  },
+  "profileScreen_title": "Profileinstellungen",
+  "@profileScreen_title": {
+    "description": "title"
+  },
+  "profileScreen_processing": "In Bearbeitung",
+  "@profileScreen_processing": {
+    "description": "processiong"
+  },
+  "profileScreen_editProfile": "Profil bearbeiten",
+  "@profileScreen_editProfile": {
+    "description": "edit profile"
+  },
+  "profileScreen_email": "E-Mail",
+  "@profileScreen_email": {
+    "description": "email"
+  },
+  "profileScreen_save": "Speichern",
+  "@profileScreen_save": {
+    "description": "save changes"
+  },
+  "profileScreen_cancel": "Abbrechen",
+  "@profileScreen_cancel": {
+    "description": "cancel"
+  },
+  "actions_back": "Zurück",
+  "@actions_back": {
+    "description": "back"
+  },
+  "actions_cancel": "Abbrechen",
+  "@actions_cancel": {
+    "description": "cancel"
+  },
+  "actions_confirm": "Bestätigung",
+  "@actions_confirm": {
+    "description": "confirm"
+  },
+  "qrScreen_title": "Ticketverwaltung",
+  "@qrScreen_title": {
+    "description": "title"
+  },
+  "qrScreen_home": "Home",
+  "@qrScreen_home": {
+    "description": "home"
+  },
+  "qrScreen_ticketUseSuccess": "Ticket wurde eingelöst.",
+  "@qrScreen_ticketUseSuccess": {
+    "description": "use ticket success message "
+  },
+  "qrScreen_ticketUseError": "Ticket konnte nicht eingelöst werden.",
+  "@qrScreen_ticketUseError": {
+    "description": "use ticket error message "
+  },
+  "qrScreen_ticketAlreadyRedeemedError": "Ticket wurde bereits eingelöst.",
+  "@qrScreen_ticketUseError": {
+    "description": "ticket already redeemed error message"
+  },
+  "qrScreen_ticketNotFound": "Kein Ticket gefunden.",
+  "@qrScreen_ticketNotFound": {
+    "description": "ticket not found error message "
+  },
+  "qrScreen_success": "Erfolgreich!",
+  "@qrScreen_success": {
+    "description": "success"
+  },
+  "qrScreen_error": "Fehler!",
+  "@qrScreen_error": {
+    "description": "success"
+  },
+  "searchScreen_title": "Suchen",
+  "@searchScreen_title": {
+    "description": "title"
+  },
+  "searchScreen_text": "Was würdest Du gerne machen?",
+  "@searchScreen_text": {
+    "description": "text"
+  },
+  "searchScreen_noItems": "Keine Vorschläge",
+  "@searchScreen_noItems": {
+    "description": "no items"
+  },
+  "searchScreen_iWishText": "Ich habe Lust auf...",
+  "@searchScreen_iWishText": {
+    "description": "I wish ..."
+  },
+  "searchScreen_noActivities": "Keine Aktivitäten gefunden",
+  "@searchScreen_noActivities": {
+    "description": "no items"
+  },
+  "searchScreen_availableFrom": "verfügbar ab",
+  "@searchScreen_availableFrom": {
+    "description": "availableFrom"
+  },
+  "splashScreen_text1": "Finden. Buchen. ",
+  "@splashScreen_text1": {
+    "description": "find, book"
+  },
+  "splashScreen_text2": "Erleben!",
+  "@splashScreen_text2": {
+    "description": "Experience"
+  },
+  "vendor_burgerMenuScreen_profileSettings": "Profileinstellungen",
+  "@vendor_burgerMenuScreen_profileSettings": {
+    "description": "profile setting option"
+  },
+  "vendor_burgerMenuScreen_offers": "Angebote verwalten",
+  "@vendor_burgerMenuScreen_offers": {
+    "description": "Offers(Angebote) option"
+  },
+  "vendor_burgerMenuScreen_appTour": "App Tour",
+  "@vendor_burgerMenuScreen_appTour": {
+    "description": "App Tour option"
+  },
+  "vendor_burgerMenuScreen_FAQ": "FAQ",
+  "@vendor_burgerMenuScreen_FAQ": {
+    "description": "FAQ option"
+  },
+  "vendor_burgerMenuScreen_privacy": "Datenschutz",
+  "@vendor_burgerMenuScreen_privacy": {
+    "description": "Datenschutz"
+  },
+  "vendor_burgerMenuScreen_imprint": "Impressum",
+  "@vendor_burgerMenuScreen_imprint": {
+    "description": "imprint (Impressum)"
+  },
+  "vendor_burgerMenuScreen_support": "Support und Feedback",
+  "@vendor_burgerMenuScreen_support": {
+    "description": "imprint (Impressum)"
+  },
+  "vendor_burgerMenuScreen_contact": "Kontakt",
+  "@vendor_burgerMenuScreen_contact": {
+    "description": "contact"
+  },
+  "vendor_burgerMenuScreen_logOut": "Abmelden",
+  "@vendor_burgerMenuScreen_logOut": {
+    "description": "log out"
+  },
+  "vendor_burgerMenuScreen_switchToUser": "Zur Useransicht",
+  "@vendor_burgerMenuScreen_switchToUser": {
+    "description": "switch to user view"
+  },
+  "vendor_dashboardScreen_hello": "Hallo!",
+  "@vendor_dashboardScreen_hello": {
+    "description": "hello"
+  },
+  "vendor_dashboardScreen_wellcomeToDashboard": "Das ist Dein Dashboard",
+  "@vendor_dashboardScreen_wellcomeToDashboard": {
+    "description": "wellcome message"
+  },
+  "vendor_dashboardScreen_accountInfo": "Kontostand",
+  "@vendor_dashboardScreen_accountInfo": {
+    "description": "Account balance"
+  },
+  "vendor_dashboardScreen_monthlyStatistics": "Monatliche Statistiken",
+  "@vendor_dashboardScreen_monthlyStatistics": {
+    "description": "monthly statistics"
+  },
+  "vendor_dashboardScreen_weeklyStatistics": "Wöchentliche Statistik",
+  "@vendor_dashboardScreen_weeklyStatistics": {
+    "description": "weekly statistics"
+  },
+  "vendor_dashboardScreen_sales": "Umsatz",
+  "@vendor_dashboardScreen_sales": {
+    "description": "sales"
+  },
+  "vendor_dashboardScreen_count": "Anzahl",
+  "@vendor_dashboardScreen_count": {
+    "description": "count"
+  },
+  "vendor_dashboardScreen_requirement": "Bedarf",
+  "@vendor_dashboardScreen_requirement": {
+    "description": "requirement"
+  },
+  "vendor_dashboardScreen_element": "Elemente",
+  "@vendor_dashboardScreen_element": {
+    "description": "elemente"
+  },
+  "vendor_dashboardScreen_offer": "Angebot",
+  "@vendor_dashboardScreen_offer": {
+    "description": "offer"
+  },
+  "vendor_dashboardScreen_booking_requests": "Buchungsanfragen",
+  "@vendor_dashboardScreen_booking_requests": {
+    "description": "booking requests"
+  },
+  "vendor_dashboardScreen_requests": "{count,plural, =1{{count} offene Anfrage} other{{count} offene Anfragen}}",
+  "@vendor_dashboardScreen_requests": {
+    "description": "requests",
+    "placeholders": {
+      "count": {
+      }
+    }
+  },
+  "vendor_table_count": "Anz.",
+  "@vendor_table_count": {
+    "description": "count (number)"
+  },
+  "vendor_table_date": "Datum",
+  "@vendor_table_date": {
+    "description": "date"
+  },
+  "vendor_table_customer": "Kunde",
+  "@vendor_table_customer": {
+    "description": "customer"
+  },
+  "vendor_table_amount": "Betrag({currency})",
+  "@vendor_table_amount": {
+    "description": "amount",
+    "placeholders": {
+      "currency": {
+      }
+    }
+  },
+  "vendor_table_noBookings": "Keine Buchungen vorhanden",
+  "@vendor_table_noBookings": {
+    "description": "no bookings message"
+  },
+  "vendor_demandScreen_title": "Bedarf",
+  "@vendor_demandScreen_title": {
+    "description": "title"
+  },
+  "vendor_demandScreen_noDemand": "Kein Bedarf gefunden",
+  "@vendor_demandScreen_noDemand": {
+    "description": "Kein Bedarf"
+  },
+  "vendor_orderOverview_title": "Dein Konto",
+  "@vendor_orderOverview_title": {
+    "description": "title"
+  },
+  "vendor_orderOverview_accountDisplayError": "Kontoübersicht kann nicht angezeigt werden.",
+  "@vendor_orderOverview_accountDisplayError": {
+    "description": "account cant be displayed"
+  },
+  "vendor_orderOverview_balanceUntil": "Betrag bis {date}",
+  "@vendor_orderOverview_balanceUntil": {
+    "description": "balance until date",
+    "placeholders": {
+      "date": {}
+    }
+  },
+  "vendor_orderOverview_accountOverviewDisplayError": "Kontoübersicht nicht verfügbar",
+  "@vendor_orderOverview_accountOverviewDisplayError": {
+    "description": "account overview error message"
+  },
+  "vendor_bookingOverview_title": "Buchungen",
+  "@vendor_bookingOverview_title": {
+    "description": "title"
+  },
+  "vendor_bookingOverview_booking": "Buchung",
+  "@vendor_bookingOverview_booking": {
+    "description": "booking"
+  },
+  "vendor_bookingOverview_reasonForDecline": "Bemerkung",
+  "@vendor_bookingOverview_reasonForDecline": {
+    "description": "reason for declining request"
+  },
+  "vendor_bookingOverview_reasonForDeclineInvalid": "Bemerkung muss angegeben werden",
+  "@vendor_bookingOverview_reasonForDeclineInvalid": {
+    "description": "reason for declining request invalid message"
+  },
+  "vendor_bookingOverview_decline": "Ablehnen",
+  "@vendor_bookingOverview_decline": {
+    "description": "decline request"
+  },
+  "vendor_bookingOverview_requestProcessingError": "Es ist ein Fehler aufgetreten!",
+  "@vendor_bookingOverview_requestProcessingError": {
+    "description": "request processing error message"
+  },
+  "vendor_bookingOverview_requestConfirmSuccess": "Anfrage bestätigt!",
+  "@vendor_bookingOverview_requestConfirmSuccess": {
+    "description": "request confirm successs message"
+  },
+  "vendor_bookingOverview_requestDeclineSuccess": "Anfrage abgelehnt!",
+  "@vendor_bookingOverview_requestDeclineSuccess": {
+    "description": "request decline successs message"
+  },
+  "vendor_bookingOverview_customerData": "Kundendaten",
+  "@vendor_bookingOverview_customerData": {
+    "description": "customer data"
+  },
+  "vendor_bookingOverview_seeDetails": "Details ansehen",
+  "@vendor_bookingOverview_seeDetails": {
+    "description": "seeDetails"
+  },
+  "vendor_bookingOverview_articles": "Artikel:",
+  "@vendor_bookingOverview_articles": {
+    "description": "articles"
+  },
+  "vendor_bookingOverview_creditCard": "Kreditkarte",
+  "@vendor_bookingOverview_creditCard": {
+    "description": "creditCard"
+  },
+  "vendor_bookingOverview_bookingRefunded": "Buchung storniert",
+  "@vendor_bookingOverview_bookingRefunded": {
+    "description": "bookingRefunded"
+  },
+  "vendor_bookingOverview_refundBooking": "Möchtest Du die gesamte Buchung stornieren?",
+  "@vendor_bookingOverview_refundBooking": {
+    "description": "refund boking"
+  },
+  "vendor_bookingOverview_entireBooking": "Gesamte Buchung",
+  "@vendor_bookingOverview_entireBooking": {
+    "description": "entire booking"
+  },
+  "vendor_bookingOverview_hour": "Uhr",
+  "@vendor_bookingOverview_hour": {
+    "description": "hour"
+  },
+  "noNotificationsScreen_noNotifications": "Du hast noch keine Benachrichtigungen erhalten",
+  "@noNotificationsScreen_noNotifications": {
+    "description": "no notifications"
+  },
+  "noFavoritesScreen_noFavorites": "Du hast noch keine\nFavoriten hinzugefügt.",
+  "@noFavoritesScreen_noFavorites": {
+    "description": "no favorites"
+  },
+  "noFavoritesScreen_goToSearch": "Zur Suche",
+  "@noFavoritesScreen_goToSearch": {
+    "description": "go to search"
+  },
+  "noNetworkScreen_noNetwork": "Diese Seite konnte nicht\ngeladen werden",
+  "@noNetworkScreen_noNetwork": {
+    "description": "no network"
+  },
+  "noNetworkScreen_refresh": "Aktualisieren",
+  "@noNetworkScreen_refresh": {
+    "description": "refresh"
+  },
+  "notificationsNotLoggedInScreen_loginTosee": "Logge Dich ein, um Deine Benachrichtigungen zu sehen.",
+  "@notificationsNotLoggedInScreen_loginTosee": {
+    "description": "login to see notifications"
+  },
+  "vendorStatisticScreen_title": "Statistik Buchungen",
+  "@vendorStatisticScreen_title": {
+    "description": "title"
+  },
+  "vendorStatisticScreen_sales": "Anzahl",
+  "@vendorStatisticScreen_sales": {
+    "description": "sales"
+  },
+  "vendorStatisticScreen_revenue": "Umsatz",
+  "@vendorStatisticScreen_revenue": {
+    "description": "revenue"
+  },
+  "vendorStatisticScreen_piece": "Stk.",
+  "@vendorStatisticScreen_piece": {
+    "description": "piece"
+  },
+  "customBottomNavigationBar_home": "Home",
+  "@customBottomNavigationBar_home": {
+    "description": "Home"
+  },
+  "customBottomNavigationBar_statistic": "Statistik",
+  "@customBottomNavigationBar_statistic": {
+    "description": "Statistic"
+  },
+  "customBottomNavigationBar_offers": "Angebote",
+  "@customBottomNavigationBar_offers": {
+    "description": "Offers"
+  },
+  "customBottomNavigationBar_profile": "Profil",
+  "@customBottomNavigationBar_profile": {
+    "description": "Profile"
+  },
+  "customBottomNavigationBar_find": "Finden",
+  "@customBottomNavigationBar_find": {
+    "description": "find"
+  },
+  "customBottomNavigationBar_bookings": "Buchungen",
+  "@customBottomNavigationBar_bookings": {
+    "description": "Bookings"
+  },
+  "customBottomNavigationBar_map": "Karte",
+  "@customBottomNavigationBar_map": {
+    "description": "Map"
+  },
+  "customBottomNavigationBar_favorites": "Favoriten",
+  "@customBottomNavigationBar_favorites": {
+    "description": "Favorites"
+  },
+  "customBottomNavigationBar_menu": "Menü",
+  "@customBottomNavigationBar_menu": {
+    "description": "Menu"
+  },
+  "registerScreen_title": "Registrieren",
+  "@registerScreen_title": {
+    "description": "Registrieren"
+  },
+  "registerScreen_subTitle": "Willkommen bei Appventure!",
+  "@registerScreen_subTitle": {
+    "description": "Sub title"
+  },
+  "registerScreen_securePassword": "Ein sicheres Passwort? ",
+  "@registerScreen_securePassword": {
+    "description": "secure password"
+  },
+  "registerScreen_learnMore": "Mehr erfahren",
+  "@registerScreen_learnMore": {
+    "description": "learn more"
+  },
+  "registerScreen_start": "Los geht's!",
+  "@registerScreen_start": {
+    "description": "Los geht's!"
+  },
+  "registerScreen_securePasswordCriteria": "Kriterien für die Erstellung\neines sicheren Passworts:",
+  "@registerScreen_registerScreen_securePasswordCriteriastart": {
+    "description": "securePasswordCriteria"
+  },
+  "registerScreen_minCharacters": "- Mindestens 6 Zeichen",
+  "@registerScreen_minCharacters": {
+    "description": "min 6 characters"
+  },
+  "registerScreen_minCapitalCharacters": "- Mindestens ein Großbuchstabe",
+  "@registerScreen_minCapitalCharacters": {
+    "description": "min one capital character"
+  },
+  "registerScreen_minDigit": "- Mindestens eine Ziffer zwischen\n  0 and 9",
+  "@registerScreen_minDigit": {
+    "description": "min one digit"
+  },
+  "registerScreen_minSpecialCharacters": "- Mindestens ein Sonderzeichen\n  (z.B. !, $, #, %)",
+  "@registerScreen_minSpecialCharacters": {
+    "description": "min special characters"
+  },
+  "registerScreen_dataRequiredText": "Damit Du gleich durchstarten kannst, brauchen wir einige Daten für Dein Nutzerkonto.",
+  "@registerScreen_dataRequiredText": {
+    "description": "Data required text"
+  },
+  "registerScreen_bottomBarText1": "Einfach Dein perfektes Erlebnis",
+  "@registerScreen_bottomBarText1": {
+    "description": "Register screen bottom bar text 1"
+  },
+  "registerScreen_bottomBarText2": "Finden. Buchen. ",
+  "@registerScreen_bottomBarText2": {
+    "description": "Register screen bottom bar text 2"
+  },
+  "registerScreen_bottomBarText3": "Erleben!",
+  "@registerScreen_bottomBarText3": {
+    "description": "Register screen bottom bar text 3"
+  },
+  "contact_firstname": "Vorname",
+  "@contact_firstname": {
+    "description": "user firstname"
+  },
+  "contact_lastname": "Nachname",
+  "@contact_lastname": {
+    "description": "user last name"
+  },
+  "contact_phone": "Telefon",
+  "@contact_phone": {
+    "description": "user phone number"
+  },
+  "contact_email": "E-Mail",
+  "@contact_email": {
+    "description": "user email"
+  },
+  "contact_message": "Beschreibung (max. 500 Zeichen)",
+  "@contact_message": {
+    "description": "user message"
+  },
+  "contact_dataprotection_text": "Ich stimme zu, dass meine Daten für den weiteren Verlauf und Bearbeitung meiner Anfrage gespeichert werden.",
+  "@contact_dataprotection_text": {
+    "description": "user data protection text message"
+  },
+  "contact_dataprotection": " Datenschutzerklärung",
+  "@contact_dataprotection": {
+    "description": "user data protection"
+  },
+  "contact_submit": "Absenden",
+  "@contact_submit": {
+    "description": "user Submit button text"
+  },
+  "contact_api_success_msg": "Deine Nachricht wurde erfolgreich verschickt",
+  "@contact_api_success_msg": {
+    "description": "after successful request show this message on toast"
+  },
+  "contact_screen_validation_text": "Ungültige Angaben",
+  "@contact_screen_validation_text": {
+    "description": "invalid data!"
+  },
+  "searchPopupView_title": "Was würdest Du gerne machen?",
+  "@searchPopupView_title": {
+    "description": "Search popup view title"
+  },
+  "contactInformation_message": "Wir sind immer in Deiner Nähe. Schreib uns, auf welches Problem Du gestoßen bist oder welche Informationen Du von uns erhalten möchtest.",
+  "@contactInformation_title": {
+    "description": "Contact information message below the user name"
+  },
+  "contactUserName_title": "Lieber Nutzer",
+  "@contactUserName_title": {
+    "description": "Contact user name title if user not logged in"
+  },
+  "contactUserName_hallo": "Hallo",
+  "@contactUserName_hallo": {
+    "description": "Contact user name Hallo before user name"
+  },
+  "registerPassword_validation_msg": "Das Passwort sollte min. 6 Zeichen lang sein, einen Großbuchstaben, eine Zahl und ein Sonderzeichen enthalten",
+  "@registerPassword_validation_msg": {
+    "description": "Register Screen Password validation message"
+  },
+  "registerScreen_secure_password_text": "Ein sicheres Passwort? ",
+  "@registerScreen_secure_password_text": {
+    "description": "Register Screen secure Password text"
+  },
+  "registerScreen_learn_more_text": "Mehr erfahren",
+  "@registerScreen_learn_more_text": {
+    "description": "Register Screen learn more text"
+  },
+  "profile_save_button": "Speichern",
+  "@profile_save_button": {
+    "description": "Profile save button text"
+  },
+  "activity_overview_appbar_title": "Deine Angebote",
+  "@activity_overview_appbar_title": {
+    "description": "Activity overview ppbar title text"
+  },
+  "activity_overview_offer_deactivated_text": "Angebot deaktiviert",
+  "@activity_overview_offer_deactivated_text": {
+    "description": "Activity overview Offer deactivated"
+  },
+  "activity_overview_offer_deactivated_message": "Dieses Produkt ist jetzt inaktiv und damit nicht mehr sichtbar für Deine Kunden. Es kann daher auch nicht weiter gebucht werden!",
+  "@activity_overview_offer_deactivated_message": {
+    "description": "Activity overview Offer deactivated message"
+  },
+  "burger_menu_notification_text": "Benachrichtigungen",
+  "@burger_menu_notification_text": {
+    "description": "Notification text for burger menu"
+  },
+  "burger_menu_reviews_text": "Bewertungen",
+  "@burger_menu_reviews_text": {
+    "description": "Reviews text for burger menu"
+  },
+  "burger_menu_contact_text": "Kontakt",
+  "@burger_menu_contact_text": {
+    "description": "Contact text for burger menu"
+  },
+  "burger_menu_imprint_data_protection_text": "Impressum & Datenschutz",
+  "@burger_menu_imprint_data_protection_text": {
+    "description": "Imprint Data Protection text for burger menu"
+  },
+  "burger_menu_to_the_user_view_text": "Zur Useransicht",
+  "@burger_menu_to_the_user_view_text": {
+    "description": "To the user view text for burger menu"
+  },
+  "burger_menu_to_the_provider_view_text": "Zur Anbieteransicht",
+  "@burger_menu_to_the_provider_view_text": {
+    "description": "To the provider view text for burger menu"
+  },
+  "burger_menu_sign_out_text": "Abmelden",
+  "@burger_menu_sign_out_text": {
+    "description": "Sign out text for burger menu"
+  },
+  "burger_menu_made_in_bavaria_with_text": "Made in Bavaria with",
+  "@burger_menu_made_in_bavaria_with_text": {
+    "description": "Made in Bavaria with text for burger menu"
+  },
+  "payment_processing_screen_description": "Zahlung wird verarbeitet...",
+  "@payment_processing_screen_description": {
+    "description": "Payment processing screen description text"
+  },
+  "location_permission_denied_alert_title": "Standortfreigabe benötigt",
+    "@location_permission_denied_alert_title": {
+      "description": "if location is denied by the user"
+    }
+    ,
+  "location_permission_denied_alert_body": "Bitte aktiviere die Standortfreigabe in den Einstellungen",
+   "@location_permission_denied_alert_body": {
+       "description": "if location is denied by the user"
+     }
+
+}
+
