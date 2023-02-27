@@ -51,47 +51,48 @@ class _ActivityListCategoryViewState extends State<ActivityListCategoryView>
         SizedBox(
           height: Dimensions.getScaledSize(10.0),
         ),
-        FutureBuilder<ActivityByCategoryResponse>(
-          future: activities,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data.data == null) {
-                return Container();
-              }
-              return Container(
-                height: snapshot.data.data.length > 0
-                    ? Dimensions.getHeight(percentage: 29.0)
-                    : 0,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return ActivityListViewItem(
-                      activityCategoryModel: snapshot.data.data[index],
-                      isFavorite: widget.favoriteIds == null
-                          ? false
-                          : widget.favoriteIds
-                              !.contains(snapshot.data.data[index].id),
-                      width: Dimensions.getScaledSize(280),
-                    );
-                  },
-                  itemCount: snapshot.data.data.length,
-                  scrollDirection: Axis.horizontal,
-                  padding:
-                      EdgeInsets.only(left: Dimensions.getScaledSize(12.0)),
-                ),
-              );
-            } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
+        // FutureBuilder<ActivityByCategoryResponse>(
+        //   future: activities,
+        //   builder: (context, snapshot) {
+        //     if (snapshot.hasData) {
+        //       if (snapshot.data.data == null) {
+        //         return Container();
+        //       }
+        //       return Container(
+        //         height: snapshot.data.data.length > 0
+        //             ? Dimensions.getHeight(percentage: 29.0)
+        //             : 0,
+        //         child: ListView.builder(
+        //           shrinkWrap: true,
+        //           itemBuilder: (context, index) {
+        //             return ActivityListViewItem(
+        //               activityCategoryModel: snapshot.data.data[index],
+        //               isFavorite: widget.favoriteIds == null
+        //                   ? false
+        //                   : widget.favoriteIds
+        //                       !.contains(snapshot.data.data[index].id),
+        //               width: Dimensions.getScaledSize(280),
+        //             );
+        //           },
+        //           itemCount: snapshot.data.data.length,
+        //           scrollDirection: Axis.horizontal,
+        //           padding:
+        //               EdgeInsets.only(left: Dimensions.getScaledSize(12.0)),
+        //         ),
+        //       );
+        //     } else if (snapshot.hasError) {
+        //       return Text('${snapshot.error}');
+        //     }
 
-            return Padding(
-              padding: EdgeInsets.only(left: Dimensions.getScaledSize(12.0)),
-              child: ActivityListViewShimmer(
-                width: MediaQuery.of(context).size.width * 0.60,
-              ),
-            );
-          },
+        // return
+        Padding(
+          padding: EdgeInsets.only(left: Dimensions.getScaledSize(12.0)),
+          child: ActivityListViewShimmer(
+            width: MediaQuery.of(context).size.width * 0.60,
+          ),
         ),
+        //   },
+        // ),
       ],
     );
   }
@@ -101,6 +102,6 @@ class _ActivityListCategoryViewState extends State<ActivityListCategoryView>
 }
 
 class RandomActivityData {
-  List<ActivityCategoryDataModel>? activityModelList;
+  // List<ActivityCategoryDataModel>? activityModelList;
   List<int>? randomNumbers;
 }

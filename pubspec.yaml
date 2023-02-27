@@ -42,9 +42,15 @@ dependencies:
   flutter_screenutil: ^5.6.1
   validators: ^2.0.0
   flutter_cache_manager: ^3.0.2
+  infinity_page_view: ^1.0.0
+  carousel_slider: ^2.2.1
+  google_maps_flutter: ^2.0.3
+  location: ^4.1.1
+  permission_handler: ^7.1.0
   shimmer: ^1.1.2
   font_awesome_flutter: ^8.5.0
   smooth_star_rating: ^1.0.4+2
+  flutter_vibrate: ^1.0.0
 
 dev_dependencies:
   flutter_test:

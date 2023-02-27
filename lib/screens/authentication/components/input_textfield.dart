@@ -1,74 +1,77 @@
-import 'package:appventure/screens/authentication/register/components/register_validations_bloc.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../theme/custom_theme.dart';
+import '../../../utils/widget_dimensions.dart';
 import '../auth_regex.dart';
+import '../register/components/register_validations_bloc.dart';
 
 class InputTextField extends StatefulWidget {
-  final String title;
-  final bool isPassword;
-  final bool isComingFromCheckout;
-  final bool autocorrect;
-  final TextInputType textInputType;
-  final RegExp validation;
-  final Function(String) validationFunc;
-  final Function(String) onTextChanged;
-  final String initialValue;
-  final String validationErrorMsg;
-  final String hintText;
-  final bool showUnderline;
-  final bool showHelpIcon;
-  final bool enable;
-  final bool isProfilePhoneNumber;
-  final String phoneNumberValue;
-  final RegisterValidationBloc registerValidationBloc;
+  final String? title;
+  final bool? isPassword;
+  final bool? isComingFromCheckout;
+  final bool? autocorrect;
+  final TextInputType? textInputType;
+  final RegExp? validation;
+  final Function(String)? validationFunc;
+  final Function(String)? onTextChanged;
+  final String? initialValue;
+  final String? validationErrorMsg;
+  final String? hintText;
+  final bool? showUnderline;
+  final bool? showHelpIcon;
+  final bool? enable;
+  final bool? isProfilePhoneNumber;
+  final String? phoneNumberValue;
+  final RegisterValidationBloc? registerValidationBloc;
 
   const InputTextField(
-      {Key key,
-        this.title,this.registerValidationBloc,
-        this.hintText,
-        this.isPassword = false,
-        this.textInputType = TextInputType.text,
-        this.isComingFromCheckout = false,
-        this.validation,
-        this.autocorrect = true,
-        this.onTextChanged,
-        this.initialValue,
-        this.enable = false,
-        this.validationErrorMsg,
-        this.showUnderline = true,
-        this.showHelpIcon = true,
-        this.isProfilePhoneNumber = false,
-        this.phoneNumberValue = "",
-        this.validationFunc})
+      {Key? key,
+      this.title,
+      this.registerValidationBloc,
+      this.hintText,
+      this.isPassword = false,
+      this.textInputType = TextInputType.text,
+      this.isComingFromCheckout = false,
+      this.validation,
+      this.autocorrect = true,
+      this.onTextChanged,
+      this.initialValue,
+      this.enable = false,
+      this.validationErrorMsg,
+      this.showUnderline = true,
+      this.showHelpIcon = true,
+      this.isProfilePhoneNumber = false,
+      this.phoneNumberValue = "",
+      this.validationFunc})
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _InputTextFieldState(this.isPassword ?? false);
+  State<StatefulWidget> createState() =>
+      _InputTextFieldState(this.isPassword ?? false);
 }
 
 class _InputTextFieldState extends State<InputTextField> {
   TextEditingController _controller = new TextEditingController();
   FocusNode _textFocus = new FocusNode();
-  bool _obscureText;
+  bool? _obscureText;
   static const color = Color(0xFF777777);
   bool isRegisterSubmitButtonPressed = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  _InputTextFieldState(bool obscureText) {
-    _obscureText = obscureText;
+  _InputTextFieldState(bool? obscureText) {
+    _obscureText = obscureText!;
   }
 
   @override
   void initState() {
     super.initState();
-    if (widget.isProfilePhoneNumber) {
-      _controller.text = widget.phoneNumberValue;
+    if (widget.isProfilePhoneNumber!) {
+      _controller.text = widget.phoneNumberValue!;
     }
     if (widget.registerValidationBloc != null) {
-      widget.registerValidationBloc.registerValidationStream.listen((bool event) {
+      widget.registerValidationBloc!.registerValidationStream
+          .listen((bool event) {
         if (event == true) {
           this.isRegisterSubmitButtonPressed = event;
           validate();
@@ -79,7 +82,7 @@ class _InputTextFieldState extends State<InputTextField> {
   }
 
   void validate() {
-    final FormState form = _formKey.currentState;
+    final FormState form = _formKey.currentState!;
     if (form.validate()) {
       //print('Form is valid');
     } else {
@@ -106,61 +109,65 @@ class _InputTextFieldState extends State<InputTextField> {
           children: <Widget>[
             TextFormField(
               //textAlign: TextAlign.center,
-              readOnly: widget.enable ? true : false,
+              readOnly: widget.enable! ? true : false,
               //enabled: widget.enable ? true : false,
               initialValue: widget.initialValue,
-              obscureText: _obscureText,
+              obscureText: _obscureText!,
               keyboardType: widget.textInputType,
-              validator: (String arg) {
+              validator: (String? arg) {
                 //print("--validator--arg=${arg} and ${isRegisterSubmitButtonPressed}");
                 if (isRegisterSubmitButtonPressed == false) {
                   return null;
                 }
                 if (widget.validationFunc != null) {
-                  return widget.validationFunc?.call(arg);
+                  return widget.validationFunc?.call(arg!);
                 } else if (widget.validation == null) {
                   return null;
-                } else if (arg.length == 0) {
+                } else if (arg!.length == 0) {
                   return widget.validationErrorMsg;
                 } else {
-                  if (widget.isPassword) {
-                    bool isPasswordCompliant = AuthRegex.isPasswordCompliant(
-                        arg.trim());
-                    return isPasswordCompliant ? null : widget
-                        .validationErrorMsg;
+                  if (widget.isPassword!) {
+                    bool isPasswordCompliant =
+                        AuthRegex.isPasswordCompliant(arg.trim());
+                    return isPasswordCompliant
+                        ? null
+                        : widget.validationErrorMsg;
                   } else {
-                    return widget.validation.hasMatch(arg)
-                        ? null : widget.validationErrorMsg;
+                    return widget.validation!.hasMatch(arg)
+                        ? null
+                        : widget.validationErrorMsg;
                   }
                 }
               },
               onChanged: widget.onTextChanged,
-              autocorrect: widget.autocorrect,
+              autocorrect: widget.autocorrect!,
               controller: _controller,
               focusNode: _textFocus,
-              style: widget.isComingFromCheckout
+              style: widget.isComingFromCheckout!
                   ? TextStyle(fontSize: Dimensions.getScaledSize(15))
                   : null,
-              textAlignVertical: widget.isPassword
-                  ? TextAlignVertical.center
-                  : null,
+              textAlignVertical:
+                  widget.isPassword! ? TextAlignVertical.center : null,
               decoration: new InputDecoration(
                   errorMaxLines: 4,
                   contentPadding: EdgeInsets.fromLTRB(
                       Dimensions.getScaledSize(5.0), 0, 0, 0),
                   hintText: widget.hintText,
                   hintStyle: TextStyle(color: CustomTheme.hintText),
-                  border: widget.showUnderline ? null : OutlineInputBorder(
-                    borderSide: BorderSide.none,),
+                  border: widget.showUnderline!
+                      ? null
+                      : OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                        ),
                   errorStyle: TextStyle(
                     fontStyle: FontStyle.italic,
                   ),
-                  suffixIcon: widget.enable ? arrowIcon() : widget.showHelpIcon
-                      ? _passwordToggle()
-                      : helpIcon()
-              ),
+                  suffixIcon: widget.enable!
+                      ? arrowIcon()
+                      : widget.showHelpIcon!
+                          ? _passwordToggle()
+                          : helpIcon()),
             ),
-
           ],
         ),
       ),
@@ -169,12 +176,13 @@ class _InputTextFieldState extends State<InputTextField> {
 
   //---------------------------------------------
 
-  Widget _passwordToggle() {
-    if (widget.isPassword) {
+  Widget? _passwordToggle() {
+    if (widget.isPassword!) {
       return IconButton(
         color: color,
-        icon: _obscureText ? Icon(Icons.visibility, size: 20) : Icon(
-            Icons.visibility_off, size: 20),
+        icon: _obscureText!
+            ? Icon(Icons.visibility, size: 20)
+            : Icon(Icons.visibility_off, size: 20),
         onPressed: _toggle,
       );
     } else
@@ -182,16 +190,22 @@ class _InputTextFieldState extends State<InputTextField> {
   }
 
   Widget helpIcon() {
-    return Icon(Icons.help, size: Dimensions.getScaledSize(10.0),);
+    return Icon(
+      Icons.help,
+      size: Dimensions.getScaledSize(10.0),
+    );
   }
 
   Widget arrowIcon() {
-    return Icon(Icons.keyboard_arrow_down_sharp, size: 32,);
+    return Icon(
+      Icons.keyboard_arrow_down_sharp,
+      size: 32,
+    );
   }
 
   void _toggle() {
     setState(() {
-      _obscureText = !_obscureText;
+      _obscureText = !_obscureText!;
     });
   }
 }

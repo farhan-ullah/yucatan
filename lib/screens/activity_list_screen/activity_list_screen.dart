@@ -1,35 +1,30 @@
 import 'dart:io';
 
-import 'package:appventure/components/no_network_screen.dart';
-import 'package:appventure/screens/activity_list_screen/components/activity_list_category_view.dart';
-import 'package:appventure/screens/activity_list_screen/components/activity_list_slider_view.dart';
-import 'package:appventure/screens/hotelDetailes/hotelDetailes.dart';
-import 'package:appventure/screens/notifications/notification_view.dart';
-import 'package:appventure/screens/search_screen/components/search_popup_view_new.dart';
-import 'package:appventure/services/activity_service.dart';
-import 'package:appventure/services/response/activity_single_response.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/user_provider.dart';
-import 'package:appventure/services/user_service.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/Callbacks.dart';
-import 'package:appventure/utils/datefulWidget/DateStatefulWidget.dart';
-import 'package:appventure/utils/datefulWidget/GlobalDate.dart';
-import 'package:appventure/utils/network_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yucatan/screens/activity_list_screen/components/activity_list_slider_view.dart';
+
+import '../../theme/custom_theme.dart';
+import '../../utils/datefulWidget/DateStatefulWidget.dart';
+import '../../utils/datefulWidget/GlobalDate.dart';
+import '../../utils/network_utils.dart';
+import '../../utils/widget_dimensions.dart';
+import '../notifications/notification_view.dart';
+import 'components/activity_list_category_view.dart';
 
 // ignore: must_be_immutable
 class ActivityListScreen extends DateStatefulWidget {
   static const route = '/activities';
 
-  final AnimationController animationController;
+  final AnimationController? animationController;
   final showSearch;
-  String activityId;
+  String? activityId;
 
   ActivityListScreen(
-      {Key key, this.animationController, this.showSearch = false, this.activityId})
+      {Key? key,
+      this.animationController,
+      this.showSearch = false,
+      this.activityId})
       : super(key: key);
 
   @override
@@ -38,14 +33,14 @@ class ActivityListScreen extends DateStatefulWidget {
 
 class _ActivityListScreenState extends DateState<ActivityListScreen>
     with TickerProviderStateMixin {
-  ScrollController controller;
-  AnimationController _animationController;
+  ScrollController? controller;
+  AnimationController? _animationController;
   var sliderImageHeight = 0.0;
 
   // SelectedDate _selectedDate;
 
-  Future<UserLoginModel> user;
-  Future<List<String>> favoriteActivities;
+  // Future<UserLoginModel> user;
+  Future<List<String>>? favoriteActivities;
 
   bool isNetworkAvailable = false;
   bool _searchViewVisible = false;
@@ -53,38 +48,38 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
 
   @override
   void initState() {
-    try {
-      //print("----------ActivityListScreen-------activityId=${widget.activityId}");
-      if(widget.activityId != null && !isActivityApiCalling){
-        isActivityApiCalling = false;
-        ActivityService.getActivity(widget.activityId).then((value){
-          isActivityApiCalling = true;
-          if(value != null){
-            ActivitySingleResponse activitySingleResponse = value;
-            //print("-----activitySingleResponse---=${activitySingleResponse.data.sId}");
-            if(activitySingleResponse != null && activitySingleResponse.data != null){
-              widget.activityId = null;
-              isActivityApiCalling = false;
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => HotelDetailes(
-                    //hotelData: activitySingleResponse.data,
-                    activityId: activitySingleResponse.data.sId,
-                    isFavorite: false,
-                    onFavoriteChangedCallback: (activityId) {
+    // try {
+    //   //print("----------ActivityListScreen-------activityId=${widget.activityId}");
+    //   if(widget.activityId != null && !isActivityApiCalling){
+    //     isActivityApiCalling = false;
+    //     ActivityService.getActivity(widget.activityId).then((value){
+    //       isActivityApiCalling = true;
+    //       if(value != null){
+    //         ActivitySingleResponse activitySingleResponse = value;
+    //         //print("-----activitySingleResponse---=${activitySingleResponse.data.sId}");
+    //         if(activitySingleResponse != null && activitySingleResponse.data != null){
+    //           widget.activityId = null;
+    //           isActivityApiCalling = false;
+    //           Navigator.of(context).push(
+    //             MaterialPageRoute(
+    //               builder: (context) => HotelDetailes(
+    //                 //hotelData: activitySingleResponse.data,
+    //                 activityId: activitySingleResponse.data.sId,
+    //                 isFavorite: false,
+    //                 onFavoriteChangedCallback: (activityId) {
 
-                    },
-                  ),
-                ),
-              );
-            }
+    //                 },
+    //               ),
+    //             ),
+    //           );
+    //         }
 
-          }
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
+    //       }
+    //     });
+    //   }
+    // } catch (e) {
+    //   print(e);
+    // }
 
     Future.delayed(Duration(seconds: 1), () {
       if (mounted && widget.showSearch)
@@ -102,29 +97,29 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
     });
     _animationController =
         AnimationController(duration: Duration(milliseconds: 0), vsync: this);
-    widget.animationController.forward();
+    widget.animationController!.forward();
     controller = ScrollController(initialScrollOffset: 0.0);
 
-    controller.addListener(() {
+    controller!.addListener(() {
       if (context != null) {
-        if (controller.offset < 0) {
+        if (controller!.offset < 0) {
           // we static set the just below half scrolling values
-          _animationController.animateTo(0.0);
-        } else if (controller.offset > 0.0 &&
-            controller.offset < sliderImageHeight) {
+          _animationController!.animateTo(0.0);
+        } else if (controller!.offset > 0.0 &&
+            controller!.offset < sliderImageHeight) {
           // we need around half scrolling values
-          if (controller.offset < ((sliderImageHeight / 1.5))) {
-            _animationController
-                .animateTo((controller.offset / sliderImageHeight));
+          if (controller!.offset < ((sliderImageHeight / 1.5))) {
+            _animationController!
+                .animateTo((controller!.offset / sliderImageHeight));
           } else {
             // we static set the just above half scrolling values "around == 0.64"
-            _animationController
+            _animationController!
                 .animateTo((sliderImageHeight / 1.5) / sliderImageHeight);
           }
         }
       }
     });
-    user = UserProvider.getUser();
+    // user = UserProvider.getUser();
     onDateChanged(GlobalDate.current());
 
     super.initState();
@@ -135,107 +130,123 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
     sliderImageHeight = MediaQuery.of(context).size.height * 0.39;
     return WillPopScope(
         child: AnimatedBuilder(
-      animation: widget.animationController,
-      builder: (BuildContext context, Widget child) {
-        return FadeTransition(
-          opacity: widget.animationController,
-          // FadeTransition and Transform : just for screen loading animation on fistTime
-          child: new Transform(
-            transform: new Matrix4.translationValues(
-                0.0, 40 * (1.0 - widget.animationController.value), 0.0),
-            child: Scaffold(
-              backgroundColor: CustomTheme.backgroundColor,
-              body: SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
-                child: Container(
-                  height: MediaQuery.of(context).size.height -
-                      Dimensions.getScaledSize(63) /*+
-                      MediaQuery.of(context).padding.bottom*/,
-                  child: Stack(
-                    children: <Widget>[
-                      isNetworkAvailable
-                          ? FutureBuilder<UserLoginModel>(
-                        future: user,
-                        builder: (context, snapshotUserLoginModel) {
-                          if (snapshotUserLoginModel.data == null) {
-                            return _getActivityCategoryViews([]);
-                          } else if (snapshotUserLoginModel.hasData) {
-                                        print('Data Showed 0 Farhan: ${snapshotUserLoginModel.data.sId}');
-                            favoriteActivities =
-                                UserService.getFavoriteActivitiesForUser(
-                                    snapshotUserLoginModel.data.sId);
+          animation: widget.animationController!,
+          builder: (BuildContext? context, Widget? child) {
+            return FadeTransition(
+              opacity: widget.animationController!,
+              // FadeTransition and Transform : just for screen loading animation on fistTime
+              child: new Transform(
+                transform: new Matrix4.translationValues(
+                    0.0, 40 * (1.0 - widget.animationController!.value), 0.0),
+                child: Scaffold(
+                  backgroundColor: CustomTheme.backgroundColor,
+                  body: SingleChildScrollView(
+                    physics: NeverScrollableScrollPhysics(),
+                    child: Container(
+                      height: MediaQuery.of(context!).size.height -
+                          Dimensions.getScaledSize(
+                              63) /*+
+                      MediaQuery.of(context).padding.bottom*/
+                      ,
+                      child: Stack(
+                        children: <Widget>[
+                          // isNetworkAvailable
+                          //     ? FutureBuilder<UserLoginModel>(
+                          //         future: user,
+                          //         builder: (context, snapshotUserLoginModel) {
+                          //           if (snapshotUserLoginModel.data == null) {
+                          //             return _getActivityCategoryViews([]);
+                          //           } else if (snapshotUserLoginModel.hasData) {
+                          //             print(
+                          //                 'Data Showed 0 Farhan: ${snapshotUserLoginModel.data.sId}');
+                          //             favoriteActivities = UserService
+                          //                 .getFavoriteActivitiesForUser(
+                          //                     snapshotUserLoginModel.data.sId);
 
-                            return FutureBuilder<List<String>>(
-                                future: favoriteActivities,
-                                builder: (context, snapshotFavorites) {
-                                  if (snapshotFavorites.hasData ||
-                                      snapshotFavorites.data == null) {
-                                        print('Data Showed 1 Farhan : ${snapshotFavorites.data}');
-                                    return _getActivityCategoryViews(
-                                        snapshotFavorites.data);
-                                  } else if (snapshotFavorites.hasError) {
-                                    return Padding(
-                                      padding: EdgeInsets.only(
-                                        top: Dimensions.getScaledSize(
-                                            10.0),
-                                        left: Dimensions.getScaledSize(
-                                            20.0),
-                                        bottom: Dimensions.getScaledSize(
-                                            20.0),
-                                        right: Dimensions.getScaledSize(
-                                            20.0),
-                                      ),
-                                      child: Text(
-                                          '${snapshotFavorites.error}'),
-                                    );
-                                  }
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                });
-                          } else if (snapshotUserLoginModel.hasError) {
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                top: Dimensions.getScaledSize(10.0),
-                                left: Dimensions.getScaledSize(20.0),
-                                bottom: Dimensions.getScaledSize(20.0),
-                                right: Dimensions.getScaledSize(20.0),
-                              ),
-                              child:
-                              Text('${snapshotUserLoginModel.error}'),
-                            );
-                          }
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        },
-                      )
-                          : Container(
-                        child: NoNetworkScreen(
-                          callback: () async {
-                            bool isNetworkAvailable =
-                            await NetworkUtils.isNetworkAvailable();
-                            if (isNetworkAvailable) {
-                              this.setState(() {
-                                this.isNetworkAvailable =
-                                    isNetworkAvailable;
-                              });
-                            }
-                          },
-                        ),
-                        padding: EdgeInsets.only(top: sliderImageHeight),
-                      ),
-                      // sliderUI with 3 images are moving
-                      _sliderUi(),
+                          //             return FutureBuilder<List<String>>(
+                          //                 future: favoriteActivities,
+                          //                 builder:
+                          //                     (context, snapshotFavorites) {
+                          //                   if (snapshotFavorites.hasData ||
+                          //                       snapshotFavorites.data ==
+                          //                           null) {
+                          //                     print(
+                          //                         'Data Showed 1 Farhan : ${snapshotFavorites.data}');
+                          //                     return _getActivityCategoryViews(
+                          //                         snapshotFavorites.data);
+                          //                   } else if (snapshotFavorites
+                          //                       .hasError) {
+                          //                     return Padding(
+                          //                       padding: EdgeInsets.only(
+                          //                         top: Dimensions.getScaledSize(
+                          //                             10.0),
+                          //                         left:
+                          //                             Dimensions.getScaledSize(
+                          //                                 20.0),
+                          //                         bottom:
+                          //                             Dimensions.getScaledSize(
+                          //                                 20.0),
+                          //                         right:
+                          //                             Dimensions.getScaledSize(
+                          //                                 20.0),
+                          //                       ),
+                          //                       child: Text(
+                          //                           '${snapshotFavorites.error}'),
+                          //                     );
+                          //                   }
+                          //                   return Center(
+                          //                       child:
+                          //                           CircularProgressIndicator());
+                          //                 });
+                          //           } else if (snapshotUserLoginModel
+                          //               .hasError) {
+                          //             return Padding(
+                          //               padding: EdgeInsets.only(
+                          //                 top: Dimensions.getScaledSize(10.0),
+                          //                 left: Dimensions.getScaledSize(20.0),
+                          //                 bottom:
+                          //                     Dimensions.getScaledSize(20.0),
+                          //                 right: Dimensions.getScaledSize(20.0),
+                          //               ),
+                          //               child: Text(
+                          //                   '${snapshotUserLoginModel.error}'),
+                          //             );
+                          //           }
+                          //           return Center(
+                          //             child: CircularProgressIndicator(),
+                          //           );
+                          //         },
+                          //       )
+                          //     :
+                          Container(
+                            child: Text('No Network'),
+                            // NoNetworkScreen(
+                            //   callback: () async {
+                            //     bool isNetworkAvailable =
+                            //         await NetworkUtils
+                            //             .isNetworkAvailable();
+                            //     if (isNetworkAvailable) {
+                            //       this.setState(() {
+                            //         this.isNetworkAvailable =
+                            //             isNetworkAvailable;
+                            //       });
+                            //     }
+                            //   },
+                            // ),
+                            padding: EdgeInsets.only(top: sliderImageHeight),
+                          ),
+                          // sliderUI with 3 images are moving
+                          _sliderUi(),
 
-                      //just gradient for see the time and battry Icon on "TopBar"
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        child: Container(
-                          height: Dimensions.getScaledSize(80.0),
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
+                          //just gradient for see the time and battry Icon on "TopBar"
+                          Positioned(
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              height: Dimensions.getScaledSize(80.0),
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(
                                 colors: [
                                   CustomTheme.backgroundColor.withOpacity(0.4),
                                   CustomTheme.backgroundColor.withOpacity(0.0),
@@ -243,95 +254,105 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
                               )),
-                        ),
-                      ),
-                      // serachUI on Top  Positioned
-                      Positioned(
-                        top: MediaQuery.of(context).padding.top,
-                        left: 0,
-                        right: 0,
-                        child: searchUi(),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        child: GestureDetector(
-                          onVerticalDragEnd: (DragEndDetails details) {
-                            if (details.primaryVelocity > 3) {
-                              setState(() {
-                                _searchViewVisible = false;
-                              });
-                            }
-                          },
-                          child: FutureBuilder<UserLoginModel>(
-                            future: user,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                favoriteActivities =
-                                    UserService.getFavoriteActivitiesForUser(
-                                        snapshot.data.sId);
+                            ),
+                          ),
+                          // serachUI on Top  Positioned
+                          Positioned(
+                            top: MediaQuery.of(context).padding.top,
+                            left: 0,
+                            right: 0,
+                            child: searchUi(),
+                          ),
+                          // Positioned(
+                          //   bottom: 0,
+                          //   child: GestureDetector(
+                          //       // onVerticalDragEnd: (DragEndDetails details) {
+                          //       //   if (details.primaryVelocity > 3) {
+                          //       //     setState(() {
+                          //       //       _searchViewVisible = false;
+                          //       //     });
+                          //       //   }
+                          //       // },
+                          //       child: FutureBuilder<UserLoginModel>(
+                          //         future: user,
+                          //         builder: (context, snapshot) {
+                          //           if (snapshot.hasData) {
+                          //             favoriteActivities = UserService
+                          //                 .getFavoriteActivitiesForUser(
+                          //                     snapshot.data.sId);
 
-                                return FutureBuilder<List<String>>(
-                                    future: favoriteActivities,
-                                    builder: (context, snapshotFavorites) {
-                                      List<String> fav = [];
+                          //             return FutureBuilder<List<String>>(
+                          //                 future: favoriteActivities,
+                          //                 builder:
+                          //                     (context, snapshotFavorites) {
+                          //                   List<String> fav = [];
 
-                                      if (snapshotFavorites.hasData) {
-                                        fav = snapshotFavorites.data;
-                                      }
-                                      eventBus.fire(OnSearchPopUpOpen(_searchViewVisible));
-                                      return SearchPopupView(
-                                        userData: snapshot.data,
-                                        height: MediaQuery.of(context)
-                                            .size
-                                            .height -
-                                            MediaQuery.of(context).padding.top -
-                                            MediaQuery.of(context).size.height *
-                                                0.18,
-                                        visible: _searchViewVisible,
-                                        onBackTap: () {
-                                          setState(() {
-                                            _searchViewVisible =
-                                            !_searchViewVisible;
-                                          });
-                                        },
-                                        favoriteList: fav,
-                                      );
-                                    });
-                              }
-                              eventBus.fire(OnSearchPopUpOpen(_searchViewVisible));
-                              return SearchPopupView(
-                                userData: snapshot.data,
-                                height: MediaQuery.of(context).size.height -
-                                    MediaQuery.of(context).padding.top -
-                                    MediaQuery.of(context).size.height * 0.18,
-                                visible: _searchViewVisible,
-                                onBackTap: () {
-                                  setState(() {
-                                    _searchViewVisible = !_searchViewVisible;
-                                  });
-                                },
-                                favoriteList: [],
-                              );
-                            },
-                          )
-                        ),
+                          //                   if (snapshotFavorites.hasData) {
+                          //                     fav = snapshotFavorites.data;
+                          //                   }
+                          //                   eventBus.fire(OnSearchPopUpOpen(
+                          //                       _searchViewVisible));
+                          //                   return SearchPopupView(
+                          //                     userData: snapshot.data,
+                          //                     height: MediaQuery.of(context)
+                          //                             .size
+                          //                             .height -
+                          //                         MediaQuery.of(context)
+                          //                             .padding
+                          //                             .top -
+                          //                         MediaQuery.of(context)
+                          //                                 .size
+                          //                                 .height *
+                          //                             0.18,
+                          //                     visible: _searchViewVisible,
+                          //                     onBackTap: () {
+                          //                       setState(() {
+                          //                         _searchViewVisible =
+                          //                             !_searchViewVisible;
+                          //                       });
+                          //                     },
+                          //                     favoriteList: fav,
+                          //                   );
+                          //                 });
+                          //           }
+                          //           eventBus.fire(
+                          //               OnSearchPopUpOpen(_searchViewVisible));
+                          //           return SearchPopupView(
+                          //             userData: snapshot.data,
+                          //             height: MediaQuery.of(context)
+                          //                     .size
+                          //                     .height -
+                          //                 MediaQuery.of(context).padding.top -
+                          //                 MediaQuery.of(context).size.height *
+                          //                     0.18,
+                          //             visible: _searchViewVisible,
+                          //             onBackTap: () {
+                          //               setState(() {
+                          //                 _searchViewVisible =
+                          //                     !_searchViewVisible;
+                          //               });
+                          //             },
+                          //             favoriteList: [],
+                          //           );
+                          //         },
+                          //       )),
+                          // ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-        );
-      },
-    ),
+            );
+          },
+        ),
         onWillPop: () async {
-          if(_searchViewVisible){
+          if (_searchViewVisible) {
             setState(() {
               _searchViewVisible = !_searchViewVisible;
             });
             return Future.value(false);
-          }else{
+          } else {
             return Future.value(true);
           }
         });
@@ -347,18 +368,18 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
         child: Column(
           children: [
             AnimatedBuilder(
-              animation: _animationController,
-              builder: (BuildContext context, Widget child) {
+              animation: _animationController!,
+              builder: (BuildContext? context, Widget? child) {
                 // we calculate the opacity between 0.64 to 1.0
                 var opacity = 1.0 -
-                    (_animationController.value > 0.64
+                    (_animationController!.value > 0.64
                         ? 1.0
-                        : _animationController.value);
+                        : _animationController!.value);
                 return SizedBox(
                   height: sliderImageHeight *
-                              (1.0 - _animationController.value) >=
-                          MediaQuery.of(context).size.height * 0.14
-                      ? sliderImageHeight * (1.0 - _animationController.value)
+                              (1.0 - _animationController!.value) >=
+                          MediaQuery.of(context!).size.height * 0.14
+                      ? sliderImageHeight * (1.0 - _animationController!.value)
                       : MediaQuery.of(context).size.height * 0.14,
                   child: ActivityListSliderView(
                     opValue: opacity,
@@ -544,12 +565,12 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
             child: Container(),
           ),
           AnimatedBuilder(
-            animation: _animationController,
+            animation: _animationController!,
             builder: (context, child) {
-              return _animationController.value > 0.38
+              return _animationController!.value > 0.38
                   ? Opacity(
                       opacity:
-                          _getSearchIconOpacity(_animationController.value),
+                          _getSearchIconOpacity(_animationController!.value),
                       child: GestureDetector(
                         onTap: () {
                           setState(() {

@@ -1,12 +1,13 @@
-import 'package:appventure/screens/booking/components/calendarPopupView.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/datefulWidget/GlobalDate.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../theme/custom_theme.dart';
+import '../../../utils/datefulWidget/GlobalDate.dart';
+import '../../../utils/widget_dimensions.dart';
+import '../../booking/components/calendarPopupView.dart';
+
 class DateSelector extends StatefulWidget {
-  final ValueChanged<DateTime> onDateSelected;
+  final ValueChanged<DateTime>? onDateSelected;
 
   const DateSelector({this.onDateSelected});
 
@@ -34,9 +35,9 @@ class _DateSelectorState extends State<DateSelector> {
     );
   }
 
-  void showDemoDialog({BuildContext context}) {
+  void showDemoDialog({BuildContext? context}) {
     showDialog(
-      context: context,
+      context: context!,
       builder: (BuildContext context) => CalendarPopupView(
         barrierDismissible: true,
         minimumDate: DateTime.now(),
@@ -46,7 +47,7 @@ class _DateSelectorState extends State<DateSelector> {
           setState(() {
             if (date != null) {
               selectedDate = date;
-              widget.onDateSelected.call(selectedDate);
+              widget.onDateSelected!.call(selectedDate);
             }
           });
         },
