@@ -1,18 +1,18 @@
-import 'package:appventure/screens/notifications/notifications_screen.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/screens/notifications/notifications_screen.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class QrScreenScaffold extends StatelessWidget {
   const QrScreenScaffold({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).qrScreen_title),
+        title: Text(AppLocalizations.of(context)!.qrScreen_title),
         actions: [
           GestureDetector(
             onTap: () {
@@ -45,7 +45,7 @@ class QrScreenScaffold extends StatelessWidget {
               ),
               SizedBox(height: Dimensions.getScaledSize(4.0)),
               Text(
-                AppLocalizations.of(context).qrScreen_home,
+                AppLocalizations.of(context)!.qrScreen_home,
                 style: TextStyle(
                   fontSize: Dimensions.getScaledSize(13.0),
                   fontWeight: FontWeight.w500,

@@ -1,15 +1,14 @@
-
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/screens/authentication/login/login_screen.dart';
-import 'package:appventure/screens/hotelDetailes/hotelDetailes.dart';
-import 'package:appventure/screens/main_screen/components/main_screen_parameter.dart';
-import 'package:appventure/screens/main_screen/main_screen.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/Callbacks.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/screens/authentication/login/login_screen.dart';
+import 'package:yucatan/screens/hotelDetailes/hotelDetailes.dart';
+import 'package:yucatan/screens/main_screen/components/main_screen_parameter.dart';
+import 'package:yucatan/screens/main_screen/main_screen.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/Callbacks.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -23,8 +22,8 @@ class SearchActivityItemView extends StatefulWidget {
   int index;
 
   SearchActivityItemView({
-    @required this.activity,
-    @required this.isfav,
+    required this.activity,
+    required this.isfav,
     this.onFavoriteChangedCallback,
     this.userData,
     this.index,

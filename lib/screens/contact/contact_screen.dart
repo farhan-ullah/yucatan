@@ -1,18 +1,18 @@
-import 'package:appventure/models/contact_model.dart';
-import 'package:appventure/screens/checkout_screen/components/checkout_checkbox_formfield.dart';
-import 'package:appventure/screens/impressum_datenschutz/impressum_datenschutz.dart';
-import 'package:appventure/screens/notifications/notification_view.dart';
-import 'package:appventure/screens/profile/components/profile_fields.dart';
-import 'package:appventure/services/contact_service.dart';
-import 'package:appventure/services/response/contact_response.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/user_provider.dart';
-import 'package:appventure/size_config.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/common_widgets.dart';
-import 'package:appventure/utils/network_utils.dart';
-import 'package:appventure/utils/regex_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/contact_model.dart';
+import 'package:yucatan/screens/checkout_screen/components/checkout_checkbox_formfield.dart';
+import 'package:yucatan/screens/impressum_datenschutz/impressum_datenschutz.dart';
+import 'package:yucatan/screens/notifications/notification_view.dart';
+import 'package:yucatan/screens/profile/components/profile_fields.dart';
+import 'package:yucatan/services/contact_service.dart';
+import 'package:yucatan/services/response/contact_response.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/size_config.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/common_widgets.dart';
+import 'package:yucatan/utils/network_utils.dart';
+import 'package:yucatan/utils/regex_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -112,8 +112,8 @@ class _ContactScreenState extends State<ContactScreen> {
             children: [
               Text(
                 isUserLoggedIn
-                    ? "${AppLocalizations.of(context).contactUserName_hallo} ${userLoginModel.username}!"
-                    : '${AppLocalizations.of(context).contactUserName_title}!',
+                    ? "${AppLocalizations.of(context)!.contactUserName_hallo} ${userLoginModel.username}!"
+                    : '${AppLocalizations.of(context)!.contactUserName_title}!',
                 style: TextStyle(
                   fontSize: Dimensions.getScaledSize(18.0),
                   fontWeight: FontWeight.bold,
@@ -124,7 +124,7 @@ class _ContactScreenState extends State<ContactScreen> {
                 height: Dimensions.getScaledSize(15.0),
               ),
               Text(
-                AppLocalizations.of(context).contactInformation_message,
+                AppLocalizations.of(context)!.contactInformation_message,
                 style: TextStyle(
                   fontSize: Dimensions.getScaledSize(14.0),
                   color: CustomTheme.primaryColorDark,
@@ -148,7 +148,7 @@ class _ContactScreenState extends State<ContactScreen> {
                             },
                             initialValue: contactModel.firstname,
                             placeHolder:
-                                AppLocalizations.of(context).contact_firstname,
+                                AppLocalizations.of(context)!.contact_firstname,
                             isComingFromContactScreen: true,
                             isSubmitPressed: false,
                           ),
@@ -162,7 +162,7 @@ class _ContactScreenState extends State<ContactScreen> {
                               contactModel.lastname = value;
                             },
                             placeHolder:
-                                AppLocalizations.of(context).contact_lastname,
+                                AppLocalizations.of(context)!.contact_lastname,
                             isComingFromContactScreen: true,
                             isSubmitPressed: false,
                           ),
@@ -176,7 +176,7 @@ class _ContactScreenState extends State<ContactScreen> {
                             },
                             initialValue: contactModel.phone,
                             placeHolder:
-                                AppLocalizations.of(context).contact_phone,
+                                AppLocalizations.of(context)!.contact_phone,
                             isComingFromContactScreen: true,
                             textInputType: TextInputType.number,
                             isSubmitPressed: false,
@@ -190,7 +190,7 @@ class _ContactScreenState extends State<ContactScreen> {
                             },
                             initialValue: contactModel.email,
                             placeHolder:
-                                AppLocalizations.of(context).contact_email,
+                                AppLocalizations.of(context)!.contact_email,
                             isComingFromContactScreen: true,
                             textInputType: TextInputType.emailAddress,
                             isSubmitPressed: this.isSubmitPressed,
@@ -203,8 +203,11 @@ class _ContactScreenState extends State<ContactScreen> {
                     ),
                     Container(
                       height: Dimensions.getScaledSize(270),
-                      padding: EdgeInsets.fromLTRB(Dimensions.getScaledSize(5), Dimensions.getScaledSize(10),
-                          Dimensions.getScaledSize(5), Dimensions.getScaledSize(10)),
+                      padding: EdgeInsets.fromLTRB(
+                          Dimensions.getScaledSize(5),
+                          Dimensions.getScaledSize(10),
+                          Dimensions.getScaledSize(5),
+                          Dimensions.getScaledSize(10)),
                       //decoration: messageBoxDecoration(),
                       child: ConstrainedBox(
                         constraints: BoxConstraints(
@@ -227,21 +230,36 @@ class _ContactScreenState extends State<ContactScreen> {
                                 maxLines: 100,
                                 decoration: new InputDecoration(
                                   enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(Dimensions.getScaledSize(8))),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(
+                                            Dimensions.getScaledSize(8))),
                                     borderSide: this.isSubmitPressed
                                         ? BorderSide(
-                                        color: messageController.text.isEmpty
-                                            ? CustomTheme.accentColor1
-                                            : CustomTheme.disabledColor.withOpacity(0.075), width: 1)
-                                        : BorderSide(color: CustomTheme.disabledColor.withOpacity(0.075), width: 1),
+                                            color:
+                                                messageController.text.isEmpty
+                                                    ? CustomTheme.accentColor1
+                                                    : CustomTheme.disabledColor
+                                                        .withOpacity(0.075),
+                                            width: 1)
+                                        : BorderSide(
+                                            color: CustomTheme.disabledColor
+                                                .withOpacity(0.075),
+                                            width: 1),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(Dimensions.getScaledSize(8))),
-                                    borderSide: BorderSide(color:CustomTheme.disabledColor.withOpacity(0.075), width: 1),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(
+                                            Dimensions.getScaledSize(8))),
+                                    borderSide: BorderSide(
+                                        color: CustomTheme.disabledColor
+                                            .withOpacity(0.075),
+                                        width: 1),
                                   ),
-                                  hintText: AppLocalizations.of(context).contact_message,
+                                  hintText: AppLocalizations.of(context)
+                                      .contact_message,
                                   hintStyle: TextStyle(
-                                    color: CustomTheme.disabledColor.withOpacity(0.5),
+                                    color: CustomTheme.disabledColor
+                                        .withOpacity(0.5),
                                   ),
                                 ),
                               ),
@@ -250,7 +268,6 @@ class _ContactScreenState extends State<ContactScreen> {
                         ),
                       ),
                     ),
-
                     SizedBox(
                       height: Dimensions.getScaledSize(20.0),
                     ),
@@ -317,17 +334,21 @@ class _ContactScreenState extends State<ContactScreen> {
     return BoxDecoration(
       color: Colors.white,
       border: this.isSubmitPressed
-          ? messageController.text.trim().isEmpty ? Border.all(
-        color: CustomTheme.accentColor1, // set border color
-        width: 1.0,
-      ) : Border.all(
-        color: CustomTheme.disabledColor.withOpacity(0.075), // set border color
-        width: 1.0,
-      )
+          ? messageController.text.trim().isEmpty
+              ? Border.all(
+                  color: CustomTheme.accentColor1, // set border color
+                  width: 1.0,
+                )
+              : Border.all(
+                  color: CustomTheme.disabledColor
+                      .withOpacity(0.075), // set border color
+                  width: 1.0,
+                )
           : Border.all(
-        color: CustomTheme.disabledColor.withOpacity(0.075), // set border color
-        width: 1.0,
-      ), // set border width
+              color: CustomTheme.disabledColor
+                  .withOpacity(0.075), // set border color
+              width: 1.0,
+            ), // set border width
       borderRadius: BorderRadius.all(
         Radius.circular(Dimensions.getScaledSize(8)),
       ),
@@ -368,7 +389,7 @@ class _ContactScreenState extends State<ContactScreen> {
           }
         },
         child: Text(
-          AppLocalizations.of(context).contact_submit,
+          AppLocalizations.of(context)!.contact_submit,
           style: TextStyle(
             fontSize: Dimensions.getScaledSize(18.0),
             color: CustomTheme.primaryColorDark,
@@ -397,7 +418,7 @@ class _ContactScreenState extends State<ContactScreen> {
         if (contactResponse.status == 200 &&
             contactResponse.statusCodeApiRequest == 200) {
           CommonWidget.showToast(
-            AppLocalizations.of(context).contact_api_success_msg,
+            AppLocalizations.of(context)!.contact_api_success_msg,
           );
           resetData();
         }
@@ -408,7 +429,7 @@ class _ContactScreenState extends State<ContactScreen> {
       });
     } else {
       /*CommonWidget.showToast(
-          AppLocalizations.of(context).contact_screen_validation_text);*/
+          AppLocalizations.of(context)!.contact_screen_validation_text);*/
       //print("isDataValidated=$isDataValidated");
     }
   }
@@ -423,9 +444,9 @@ class _ContactScreenState extends State<ContactScreen> {
       if (/*contactModel.firstname.trim().isNotEmpty &&*/
           /*contactModel.lastname.trim().isNotEmpty &&*/
           contactModel.email.trim().isNotEmpty &&
-          /*contactModel.phone.trim().isNotEmpty &&*/
-          contactModel.message.trim().isNotEmpty &&
-          emailValid) {
+              /*contactModel.phone.trim().isNotEmpty &&*/
+              contactModel.message.trim().isNotEmpty &&
+              emailValid) {
         isDataValidated = true;
       } else {
         isDataValidated = false;

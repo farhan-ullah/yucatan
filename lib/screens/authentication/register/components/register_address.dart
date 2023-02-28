@@ -1,12 +1,12 @@
-import 'package:appventure/screens/authentication/components/input_textfield.dart';
-import 'package:appventure/screens/authentication/register/models/address_model.dart';
+import 'package:yucatan/screens/authentication/components/input_textfield.dart';
+import 'package:yucatan/screens/authentication/register/models/address_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterAddress extends StatefulWidget {
   final ValueChanged<RegisterAddressModel> onChange;
 
-  const RegisterAddress({Key key, this.onChange}) : super(key: key);
+  const RegisterAddress({Key? key, this.onChange}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _RegisterAddressState();
@@ -20,7 +20,7 @@ class _RegisterAddressState extends State<RegisterAddress> {
     return Column(
       children: [
         InputTextField(
-          hintText: AppLocalizations.of(context).commonWords_name + '*',
+          hintText: AppLocalizations.of(context)!.commonWords_name + '*',
           onTextChanged: (String text) {
             setState(() {
               //_model.firstname = text;
@@ -30,7 +30,7 @@ class _RegisterAddressState extends State<RegisterAddress> {
           },
         ),
         InputTextField(
-          hintText: AppLocalizations.of(context).commonWords_surname + '*',
+          hintText: AppLocalizations.of(context)!.commonWords_surname + '*',
           onTextChanged: (String text) {
             setState(() {
               //_model.nachName = text;
@@ -55,7 +55,8 @@ class _RegisterAddressState extends State<RegisterAddress> {
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.65,
               child: InputTextField(
-                hintText: AppLocalizations.of(context).commonWords_street + '*',
+                hintText:
+                    AppLocalizations.of(context)!.commonWords_street + '*',
                 onTextChanged: (String text) {
                   setState(() {
                     //_model.street = text;
@@ -88,7 +89,7 @@ class _RegisterAddressState extends State<RegisterAddress> {
               width: MediaQuery.of(context).size.width * 0.35,
               child: InputTextField(
                 hintText:
-                    AppLocalizations.of(context).commonWords_postalCode + '*',
+                    AppLocalizations.of(context)!.commonWords_postalCode + '*',
                 onTextChanged: (String text) {
                   setState(() {
                     //_model.zipCode = text;
@@ -101,7 +102,8 @@ class _RegisterAddressState extends State<RegisterAddress> {
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.50,
                 child: InputTextField(
-                  hintText: AppLocalizations.of(context).commonWords_city + '*',
+                  hintText:
+                      AppLocalizations.of(context)!.commonWords_city + '*',
                   onTextChanged: (String text) {
                     setState(() {
                       //_model.city = text;

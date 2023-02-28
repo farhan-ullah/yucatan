@@ -1,10 +1,10 @@
-import 'package:appventure/components/BaseState.dart';
-import 'package:appventure/models/vendor_booking_statistic_model.dart';
-import 'package:appventure/services/response/vendor_booking_statistic_single_response_entity.dart';
-import 'package:appventure/services/service_locator.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/BaseState.dart';
+import 'package:yucatan/models/vendor_booking_statistic_model.dart';
+import 'package:yucatan/services/response/vendor_booking_statistic_single_response_entity.dart';
+import 'package:yucatan/services/service_locator.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

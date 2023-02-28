@@ -1,14 +1,14 @@
-import 'package:appventure/screens/authentication/components/input_field_box.dart';
-import 'package:appventure/screens/authentication/components/input_textfield.dart';
-import 'package:appventure/screens/authentication/register/components/register_validations_bloc.dart';
-import 'package:appventure/screens/authentication/register/models/details_model.dart';
+import 'package:yucatan/screens/authentication/components/input_field_box.dart';
+import 'package:yucatan/screens/authentication/components/input_textfield.dart';
+import 'package:yucatan/screens/authentication/register/components/register_validations_bloc.dart';
+import 'package:yucatan/screens/authentication/register/models/details_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterDetails extends StatefulWidget {
   final ValueChanged<RegisterDetailModel> onChange;
   final RegisterValidationBloc registerValidationBloc;
-  const RegisterDetails({Key key, this.onChange, this.registerValidationBloc})
+  const RegisterDetails({Key? key, this.onChange, this.registerValidationBloc})
       : super(key: key);
 
   @override
@@ -23,7 +23,7 @@ class _RegisterDetailsState extends State<RegisterDetails> {
       fields: [
         InputTextField(
           registerValidationBloc: widget.registerValidationBloc,
-          hintText: AppLocalizations.of(context).commonWords_username_required,
+          hintText: AppLocalizations.of(context)!.commonWords_username_required,
           validationFunc: (data) {
             if (data == null || data.length == 0 || data.length >= 5) {
               _model.isValid = true;
@@ -33,7 +33,7 @@ class _RegisterDetailsState extends State<RegisterDetails> {
 
             _model.isValid = false;
             widget.onChange.call(_model);
-            return AppLocalizations.of(context).commonWords_usernameInvalid;
+            return AppLocalizations.of(context)!.commonWords_usernameInvalid;
           },
           onTextChanged: (String text) {
             _model.username = text;

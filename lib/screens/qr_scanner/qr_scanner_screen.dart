@@ -1,16 +1,16 @@
 import 'dart:async';
 
-import 'package:appventure/models/booking_model.dart';
-import 'package:appventure/screens/qr_scanner/components/booking_preview_card.dart';
-import 'package:appventure/screens/qr_scanner/components/overlay_painter.dart';
-import 'package:appventure/screens/qr_scanner/components/qr_feedback.dart';
-import 'package:appventure/screens/qr_scanner/components/qr_screen_scaffold.dart';
-import 'package:appventure/services/activity_service.dart';
-import 'package:appventure/services/booking_service.dart';
-import 'package:appventure/services/response/activity_single_response.dart';
-import 'package:appventure/services/response/booking_single_response_entity.dart';
-import 'package:appventure/size_config.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/booking_model.dart';
+import 'package:yucatan/screens/qr_scanner/components/booking_preview_card.dart';
+import 'package:yucatan/screens/qr_scanner/components/overlay_painter.dart';
+import 'package:yucatan/screens/qr_scanner/components/qr_feedback.dart';
+import 'package:yucatan/screens/qr_scanner/components/qr_screen_scaffold.dart';
+import 'package:yucatan/services/activity_service.dart';
+import 'package:yucatan/services/booking_service.dart';
+import 'package:yucatan/services/response/activity_single_response.dart';
+import 'package:yucatan/services/response/booking_single_response_entity.dart';
+import 'package:yucatan/size_config.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:qr_mobile_vision/qr_camera.dart';
@@ -77,7 +77,7 @@ class _QRScannerState extends State<QRScannerScreen> {
                         left: SizeConfig.screenWidth * 0.125),
                     child: Center(
                       child: Text(
-                        AppLocalizations.of(context).qrScreen_error,
+                        AppLocalizations.of(context)!.qrScreen_error,
                         style: TextStyle(
                             color: Colors.red,
                             fontSize: Dimensions.getScaledSize(22)),
@@ -91,15 +91,15 @@ class _QRScannerState extends State<QRScannerScreen> {
           if (qrCodeReference != "" && !ticketRedeemed) getPreviewBuilder(),
           if (ticketRedeemed && !redeemedError)
             QrFeedback(
-              title: AppLocalizations.of(context).qrScreen_success,
-              text: AppLocalizations.of(context).qrScreen_ticketUseSuccess,
+              title: AppLocalizations.of(context)!.qrScreen_success,
+              text: AppLocalizations.of(context)!.qrScreen_ticketUseSuccess,
               mode: "SUCCESS",
               goBack: _reset,
             ),
           if (ticketRedeemed && redeemedError)
             QrFeedback(
-              title: AppLocalizations.of(context).qrScreen_error,
-              text: AppLocalizations.of(context).qrScreen_ticketUseError,
+              title: AppLocalizations.of(context)!.qrScreen_error,
+              text: AppLocalizations.of(context)!.qrScreen_ticketUseError,
               mode: "ERROR",
               goBack: _reset,
             ),
@@ -163,7 +163,7 @@ class _QRScannerState extends State<QRScannerScreen> {
 
                   if (ticket.status == 'USED' && !_isRedeemedDialog) {
                     return QrFeedback(
-                      title: AppLocalizations.of(context).qrScreen_error,
+                      title: AppLocalizations.of(context)!.qrScreen_error,
                       text: AppLocalizations.of(context)
                           .qrScreen_ticketAlreadyRedeemedError,
                       mode: "REDEEMED",
@@ -185,8 +185,8 @@ class _QRScannerState extends State<QRScannerScreen> {
                   );
                 } else if (isError(snapshotActivity)) {
                   return QrFeedback(
-                    title: AppLocalizations.of(context).qrScreen_error,
-                    text: AppLocalizations.of(context).qrScreen_ticketNotFound,
+                    title: AppLocalizations.of(context)!.qrScreen_error,
+                    text: AppLocalizations.of(context)!.qrScreen_ticketNotFound,
                     mode: "ERROR",
                     goBack: _reset,
                   );
@@ -195,8 +195,8 @@ class _QRScannerState extends State<QRScannerScreen> {
               });
         } else if (isError(snapshotBooking)) {
           return QrFeedback(
-            title: AppLocalizations.of(context).qrScreen_error,
-            text: AppLocalizations.of(context).qrScreen_ticketNotFound,
+            title: AppLocalizations.of(context)!.qrScreen_error,
+            text: AppLocalizations.of(context)!.qrScreen_ticketNotFound,
             mode: "ERROR",
             goBack: _reset,
           );

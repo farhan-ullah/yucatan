@@ -1,9 +1,9 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/screens/hotelDetailes/hotelDetailes.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/screens/hotelDetailes/hotelDetailes.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,9 +16,9 @@ class FavoritesItemView extends StatelessWidget {
   final bool isFavourite;
 
   const FavoritesItemView(
-      {@required this.activity,
-      @required this.deletedCallback,
-      @required this.isFavourite});
+      {required this.activity,
+      required this.deletedCallback,
+      required this.isFavourite});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class FavoritesItemView extends StatelessWidget {
                   height: Dimensions.getScaledSize(20.0),
                 ),
                 Text(
-                  AppLocalizations.of(context).commonWords_clear,
+                  AppLocalizations.of(context)!.commonWords_clear,
                   style: TextStyle(
                     fontSize: Dimensions.getScaledSize(16.0),
                     color: Colors.white,
@@ -211,7 +211,7 @@ class FavoritesItemView extends StatelessWidget {
                                                   CustomTheme.primaryColor,
                                             ),
                                             Text(
-                                                " ${AppLocalizations.of(context).commonWords_new}",
+                                                " ${AppLocalizations.of(context)!.commonWords_new}",
                                                 style: TextStyle(
                                                     fontSize: Dimensions
                                                         .getScaledSize(13.0),

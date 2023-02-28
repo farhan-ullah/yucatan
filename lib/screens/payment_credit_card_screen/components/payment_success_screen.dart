@@ -1,23 +1,23 @@
 import 'dart:io';
 
-import 'package:appventure/components/colored_divider.dart';
-import 'package:appventure/components/custom_error_screen.dart';
-import 'package:appventure/components/payment_processing_screen.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/booking_model.dart';
-import 'package:appventure/models/order_model.dart';
-import 'package:appventure/models/schedule_notification.dart';
-import 'package:appventure/screens/checkout_screen/checkout_screen.dart';
-import 'package:appventure/screens/main_screen/components/main_screen_parameter.dart';
-import 'package:appventure/screens/main_screen/main_screen.dart';
-import 'package:appventure/screens/payment_credit_card_screen/payment_credit_card_screen.dart';
-import 'package:appventure/services/analytics_service.dart';
-import 'package:appventure/services/database/database_service.dart';
-import 'package:appventure/services/notification_service/notification_service.dart';
-import 'package:appventure/services/response/payment_response.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/StringUtils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/colored_divider.dart';
+import 'package:yucatan/components/custom_error_screen.dart';
+import 'package:yucatan/components/payment_processing_screen.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/booking_model.dart';
+import 'package:yucatan/models/order_model.dart';
+import 'package:yucatan/models/schedule_notification.dart';
+import 'package:yucatan/screens/checkout_screen/checkout_screen.dart';
+import 'package:yucatan/screens/main_screen/components/main_screen_parameter.dart';
+import 'package:yucatan/screens/main_screen/main_screen.dart';
+import 'package:yucatan/screens/payment_credit_card_screen/payment_credit_card_screen.dart';
+import 'package:yucatan/services/analytics_service.dart';
+import 'package:yucatan/services/database/database_service.dart';
+import 'package:yucatan/services/notification_service/notification_service.dart';
+import 'package:yucatan/services/response/payment_response.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/StringUtils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
@@ -34,9 +34,9 @@ class PaymentSuccessScreen extends StatefulWidget {
   final List<OrderProduct> order;
 
   PaymentSuccessScreen({
-    @required this.future,
-    @required this.activity,
-    @required this.order,
+    required this.future,
+    required this.activity,
+    required this.order,
     this.isPaypal,
   });
 

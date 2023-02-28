@@ -9,11 +9,11 @@ class RiveAnimation extends StatefulWidget {
   final int startAnimationAfterMilliseconds;
 
   RiveAnimation({
-    Key key,
-    @required this.riveFileName,
-    @required this.riveAnimationName,
-    @required this.placeholderImage,
-    @required this.startAnimationAfterMilliseconds,
+    Key? key,
+    required this.riveFileName,
+    required this.riveAnimationName,
+    required this.placeholderImage,
+    required this.startAnimationAfterMilliseconds,
   }) : super(key: key);
 
   @override

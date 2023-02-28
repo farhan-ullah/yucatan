@@ -1,9 +1,9 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/screens/activity_list_screen/components/activily_list_item_shimmer.dart';
-import 'package:appventure/screens/hotelDetailes/recommended_activities_item.dart';
-import 'package:appventure/services/activity_service.dart';
-import 'package:appventure/services/response/activity_multi_response.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/screens/activity_list_screen/components/activily_list_item_shimmer.dart';
+import 'package:yucatan/screens/hotelDetailes/recommended_activities_item.dart';
+import 'package:yucatan/services/activity_service.dart';
+import 'package:yucatan/services/response/activity_multi_response.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +11,7 @@ class RecommendedActivities extends StatefulWidget {
   final String activityId;
   final Future<ActivityMultiResponse> activities;
 
-  RecommendedActivities({@required this.activityId})
+  RecommendedActivities({required this.activityId})
       : activities = ActivityService.getAll();
 
   @override
@@ -40,8 +40,7 @@ class _RecommendedActivitiesState extends State<RecommendedActivities> {
         }
 
         return ActivityListViewShimmer(
-            width: Dimensions.getWidth(percentage: 80.0)
-        );
+            width: Dimensions.getWidth(percentage: 80.0));
       },
     );
   }
@@ -62,12 +61,9 @@ class _RecommendedActivitiesState extends State<RecommendedActivities> {
       },
     );
 
-    if(widgets.isEmpty) {
-      widgets.add(
-        ActivityListViewShimmer(
-          width: Dimensions.getWidth(percentage: 80.0)
-        )
-      );
+    if (widgets.isEmpty) {
+      widgets.add(ActivityListViewShimmer(
+          width: Dimensions.getWidth(percentage: 80.0)));
     }
 
     return widgets;

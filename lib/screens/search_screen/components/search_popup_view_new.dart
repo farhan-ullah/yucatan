@@ -1,17 +1,17 @@
 import 'dart:async';
 
-import 'package:appventure/models/local_search_model.dart';
-import 'package:appventure/screens/search_screen/components/search_activity_item_view.dart';
-import 'package:appventure/screens/search_screen/components/search_history_view.dart';
-import 'package:appventure/services/activity_service.dart';
-import 'package:appventure/services/database/database_service.dart';
-import 'package:appventure/services/response/activity_multi_response.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/Callbacks.dart';
-import 'package:appventure/utils/datefulWidget/GlobalDate.dart';
-import 'package:appventure/utils/rive_animation.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/local_search_model.dart';
+import 'package:yucatan/screens/search_screen/components/search_activity_item_view.dart';
+import 'package:yucatan/screens/search_screen/components/search_history_view.dart';
+import 'package:yucatan/services/activity_service.dart';
+import 'package:yucatan/services/database/database_service.dart';
+import 'package:yucatan/services/response/activity_multi_response.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/Callbacks.dart';
+import 'package:yucatan/utils/datefulWidget/GlobalDate.dart';
+import 'package:yucatan/utils/rive_animation.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -25,10 +25,10 @@ class SearchPopupView extends StatefulWidget {
   final UserLoginModel userData;
 
   SearchPopupView({
-    @required this.height,
-    @required this.visible,
-    @required this.onBackTap,
-    @required this.favoriteList,
+    required this.height,
+    required this.visible,
+    required this.onBackTap,
+    required this.favoriteList,
     this.userData,
   });
 
@@ -174,7 +174,7 @@ class _SearchPopupViewState extends State<SearchPopupView>
                   decoration: new InputDecoration(
                     errorText: null,
                     hintText:
-                        AppLocalizations.of(context).searchPopupView_title,
+                        AppLocalizations.of(context)!.searchPopupView_title,
                     hintStyle: TextStyle(
                       fontSize: Dimensions.getScaledSize(15),
                       color: CustomTheme.hintText,

@@ -1,10 +1,9 @@
+import 'package:yucatan/screens/booking/components/calendarPopupView.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/datefulWidget/GlobalDate.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../theme/custom_theme.dart';
-import '../../../utils/datefulWidget/GlobalDate.dart';
-import '../../../utils/widget_dimensions.dart';
-import '../../booking/components/calendarPopupView.dart';
 
 class DateSelector extends StatefulWidget {
   final ValueChanged<DateTime>? onDateSelected;

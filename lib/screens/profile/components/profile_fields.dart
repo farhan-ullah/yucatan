@@ -1,6 +1,6 @@
-import 'package:appventure/screens/profile/profile_event_handler.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/screens/profile/profile_event_handler.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +18,7 @@ class ProfileField extends StatefulWidget {
   final bool isSubmitPressed;
 
   const ProfileField(
-      {Key key,
+      {Key? key,
       this.formCallback,
       this.lengthLimit = 50,
       this.onChanged,
@@ -49,9 +49,11 @@ class _ProfileFieldState extends State<ProfileField> {
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.only(
-            left: Dimensions.getScaledSize(widget.isComingFromContactScreen ? 0: 10.0),
-            right: Dimensions.getScaledSize(widget.isComingFromContactScreen ? 0 : 10.0),
-            bottom: Dimensions.getScaledSize( 5.0),
+            left: Dimensions.getScaledSize(
+                widget.isComingFromContactScreen ? 0 : 10.0),
+            right: Dimensions.getScaledSize(
+                widget.isComingFromContactScreen ? 0 : 10.0),
+            bottom: Dimensions.getScaledSize(5.0),
             top: Dimensions.getScaledSize(5.0)),
         child: Container(
           /*decoration: BoxDecoration(
@@ -72,7 +74,9 @@ class _ProfileFieldState extends State<ProfileField> {
           ),
           child: TextFormField(
             inputFormatters: widget.isComingFromContactScreen
-                ? <TextInputFormatter>[LengthLimitingTextInputFormatter(widget.lengthLimit)]
+                ? <TextInputFormatter>[
+                    LengthLimitingTextInputFormatter(widget.lengthLimit)
+                  ]
                 : null,
             style: TextStyle(fontSize: Dimensions.getScaledSize(15)),
             controller: _controller,
@@ -91,11 +95,10 @@ class _ProfileFieldState extends State<ProfileField> {
             onSaved: (String value) {
               widget.formCallback?.call(value);
             },
-            onChanged: (String value){
+            onChanged: (String value) {
               try {
                 widget.onChanged(value);
-              } catch (e) {
-              }
+              } catch (e) {}
             },
             enabled: widget.isComingFromContactScreen ? true : _isEnabled,
           ),
@@ -133,16 +136,17 @@ class _ProfileFieldState extends State<ProfileField> {
       hintText: widget.placeHolder,
       hintStyle: TextStyle(color: CustomTheme.disabledColor.withOpacity(0.5)),
       focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: CustomTheme.disabledColor.withOpacity(0.075)),
+        borderSide:
+            BorderSide(color: CustomTheme.disabledColor.withOpacity(0.075)),
       ),
       enabledBorder: UnderlineInputBorder(
           borderSide: widget.isSubmitPressed
               ? BorderSide(
-              color: _controller.text.isEmpty
-                  ? CustomTheme.accentColor1
-                  : CustomTheme.disabledColor.withOpacity(0.075))
-              : BorderSide(color: CustomTheme.disabledColor.withOpacity(0.075))
-      ),
+                  color: _controller.text.isEmpty
+                      ? CustomTheme.accentColor1
+                      : CustomTheme.disabledColor.withOpacity(0.075))
+              : BorderSide(
+                  color: CustomTheme.disabledColor.withOpacity(0.075))),
       //border: InputBorder.none,
       /*focusedBorder: InputBorder.none,
       enabledBorder: InputBorder.none,

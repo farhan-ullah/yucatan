@@ -1,5 +1,5 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -7,7 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class RecommendedActivitiesItemFooter extends StatelessWidget {
   final ActivityModel activity;
 
-  RecommendedActivitiesItemFooter({@required this.activity});
+  RecommendedActivitiesItemFooter({required this.activity});
 
   @override
   Widget build(BuildContext context) {

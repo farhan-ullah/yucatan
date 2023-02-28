@@ -1,5 +1,5 @@
-import 'package:appventure/screens/authentication/register/models/base_model.dart';
+import 'package:yucatan/screens/authentication/register/models/base_model.dart';
 
-class RegisterEmailModel extends BaseModel{
+class RegisterEmailModel extends BaseModel {
   String email;
 }

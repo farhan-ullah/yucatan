@@ -1,14 +1,14 @@
-import 'package:appventure/screens/authentication/register/components/country_selection.dart';
-import 'package:appventure/screens/authentication/register/models/country_model.dart';
-import 'package:appventure/screens/profile/bloc/profile_bloc.dart';
-import 'package:appventure/screens/profile/components/profile_fields.dart';
-import 'package:appventure/screens/profile/components/profile_header.dart';
-import 'package:appventure/screens/profile/profile_event_handler.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/size_config.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/country_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/screens/authentication/register/components/country_selection.dart';
+import 'package:yucatan/screens/authentication/register/models/country_model.dart';
+import 'package:yucatan/screens/profile/bloc/profile_bloc.dart';
+import 'package:yucatan/screens/profile/components/profile_fields.dart';
+import 'package:yucatan/screens/profile/components/profile_header.dart';
+import 'package:yucatan/screens/profile/profile_event_handler.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/size_config.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/country_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,7 +16,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 class ProfileWrapper extends StatefulWidget {
   final UserLoginModel model;
 
-  const ProfileWrapper({Key key, this.model}) : super(key: key);
+  const ProfileWrapper({Key? key, this.model}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ProfileWrapperState();

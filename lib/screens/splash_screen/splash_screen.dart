@@ -1,15 +1,14 @@
 import 'dart:async';
 
+import 'package:yucatan/screens/onboarding_screen/onboarding_screen.dart';
+import 'package:yucatan/utils/rive_animation.dart';
+import 'package:yucatan/utils/size_custom_config.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:device_info/device_info.dart';
-
-import '../../utils/rive_animation.dart';
-import '../../utils/size_custom_config.dart';
-import '../../utils/widget_dimensions.dart';
-import '../onboarding_screen/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   static const route = '/splashscreen';

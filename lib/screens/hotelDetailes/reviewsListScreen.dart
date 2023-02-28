@@ -1,6 +1,6 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -9,7 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ReviewsListScreen extends StatefulWidget {
   final ActivityModel activity;
 
-  ReviewsListScreen({@required this.activity});
+  ReviewsListScreen({required this.activity});
 
   @override
   _ReviewsListScreenState createState() => _ReviewsListScreenState();
@@ -153,8 +153,9 @@ class _ReviewsListScreenState extends State<ReviewsListScreen>
                 width: Dimensions.getScaledSize(10),
               ),
               Text(
-                AppLocalizations.of(context).hotelDetailesScreen_reviewCountHandlePlural(
-                    widget.activity.reviewCount),
+                AppLocalizations.of(context)
+                    .hotelDetailesScreen_reviewCountHandlePlural(
+                        widget.activity.reviewCount),
                 style: new TextStyle(
                   fontSize: Dimensions.getScaledSize(14.0),
                   color: CustomTheme.primaryColorDark,
@@ -176,7 +177,7 @@ class ReviewsView extends StatelessWidget {
   final bool isComingFromHotelDetails;
 
   const ReviewsView({
-    Key key,
+    Key? key,
     this.review,
     this.animationController,
     this.animation,

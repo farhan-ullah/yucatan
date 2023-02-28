@@ -1,4 +1,4 @@
-import 'package:appventure/utils/StringUtils.dart';
+import 'package:yucatan/utils/StringUtils.dart';
 import 'package:intl/intl.dart';
 
 String formatPriceDouble(double price) {

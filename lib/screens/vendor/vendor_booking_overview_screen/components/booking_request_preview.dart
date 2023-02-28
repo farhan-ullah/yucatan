@@ -1,15 +1,15 @@
-import 'package:appventure/models/booking_model.dart';
-import 'package:appventure/models/transaction_model.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_loading_indicator.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_preview_button.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_preview_feedback.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_request_preview_body.dart';
-import 'package:appventure/services/booking_service.dart';
-import 'package:appventure/services/response/booking_single_response_entity.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/price_format_utils.dart';
+import 'package:yucatan/models/booking_model.dart';
+import 'package:yucatan/models/transaction_model.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_loading_indicator.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_preview_button.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_preview_feedback.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_request_preview_body.dart';
+import 'package:yucatan/services/booking_service.dart';
+import 'package:yucatan/services/response/booking_single_response_entity.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -22,10 +22,10 @@ class VendorBookingRequestPreview extends StatefulWidget {
   final Function requestFailed;
 
   VendorBookingRequestPreview(
-      {@required this.transactionModel,
-      @required this.requestAccepted,
-      @required this.requestDenied,
-      @required this.requestFailed});
+      {required this.transactionModel,
+      required this.requestAccepted,
+      required this.requestDenied,
+      required this.requestFailed});
   createState() => _VendorBookingRequestPreviewState();
 }
 
@@ -64,7 +64,7 @@ class _VendorBookingRequestPreviewState
           if (snapshot.hasError)
             return Container(
               child: VendorBookingPreviewFeedback(
-                text: AppLocalizations.of(context).commonWords_error,
+                text: AppLocalizations.of(context)!.commonWords_error,
                 textColor: CustomTheme.accentColor1,
               ),
             );
@@ -154,7 +154,7 @@ class _VendorBookingRequestPreviewState
                 ),
                 VendorBookingPreviewButton(
                   color: CustomTheme.accentColor2,
-                  buttonText: AppLocalizations.of(context).actions_confirm,
+                  buttonText: AppLocalizations.of(context)!.actions_confirm,
                   onPressed: acceptRequest,
                   width: displayWidth * 0.3,
                   fontSize: displayHeight * 0.015,
@@ -362,8 +362,8 @@ class _VendorBookingRequestPreviewState
               flex: 2,
               child: Text(
                 transactionProduct.bookingTimeString != null
-                    ? "${_getFormattedBookingTimeString(transactionProduct.bookingTimeString)} ${AppLocalizations.of(context).commonWords_clock}"
-                    : AppLocalizations.of(context).bookingListScreen_wholeDay,
+                    ? "${_getFormattedBookingTimeString(transactionProduct.bookingTimeString)} ${AppLocalizations.of(context)!.commonWords_clock}"
+                    : AppLocalizations.of(context)!.bookingListScreen_wholeDay,
                 style: _getTextStyle(displayHeight * 0.015),
               )),
           Expanded(

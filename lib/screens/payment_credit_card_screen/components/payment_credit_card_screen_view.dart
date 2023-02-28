@@ -1,12 +1,12 @@
-import 'package:appventure/components/black_divider.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/order_model.dart';
-import 'package:appventure/screens/checkout_screen/components/booking_bar.dart';
-import 'package:appventure/screens/payment_credit_card_screen/bloc/input_field_bloc.dart';
-import 'package:appventure/screens/payment_credit_card_screen/bloc/payment_credit_card_bloc.dart';
-import 'package:appventure/screens/payment_credit_card_screen/components/payment_credit_card_screen_three_d_secure_view.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/black_divider.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/order_model.dart';
+import 'package:yucatan/screens/checkout_screen/components/booking_bar.dart';
+import 'package:yucatan/screens/payment_credit_card_screen/bloc/input_field_bloc.dart';
+import 'package:yucatan/screens/payment_credit_card_screen/bloc/payment_credit_card_bloc.dart';
+import 'package:yucatan/screens/payment_credit_card_screen/components/payment_credit_card_screen_three_d_secure_view.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:card_scanner/card_scanner.dart';
 import 'package:card_scanner/models/card_scan_options.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +24,8 @@ class PaymentCreditCardScreenView extends StatefulWidget {
   final ActivityModel activity;
 
   PaymentCreditCardScreenView({
-    @required this.order,
-    @required this.activity,
+    required this.order,
+    required this.activity,
   });
 
   @override
@@ -91,7 +91,7 @@ class _PaymentCreditCardScreenViewState
     bloc.getEmptyValidation.listen((isValid) {
       if (!isValid) {
         Fluttertoast.showToast(
-          msg: AppLocalizations.of(context).commonWords_formNotFilled,
+          msg: AppLocalizations.of(context)!.commonWords_formNotFilled,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           backgroundColor: CustomTheme.theme.primaryColorDark,

@@ -1,4 +1,4 @@
-import 'package:appventure/services/user_provider.dart';
+import 'package:yucatan/services/user_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LoginBloc {

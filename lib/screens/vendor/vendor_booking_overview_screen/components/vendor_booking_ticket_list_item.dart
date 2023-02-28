@@ -1,11 +1,11 @@
-import 'package:appventure/components/ticket_preview_header.dart';
-import 'package:appventure/components/ticket_preview_info.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/booking_model.dart';
-import 'package:appventure/models/booking_model.dart' as BookingModel;
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/ticket_preview_header.dart';
+import 'package:yucatan/components/ticket_preview_info.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/booking_model.dart';
+import 'package:yucatan/models/booking_model.dart' as BookingModel;
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'booking_categories.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -82,7 +82,7 @@ class VendorBookingTicketListItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              AppLocalizations.of(context).bookingListScreen_inValueOf,
+              AppLocalizations.of(context)!.bookingListScreen_inValueOf,
               style: TextStyle(
                 fontSize: Dimensions.getScaledSize(11.0),
                 color: _isRefundedTicket()

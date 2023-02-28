@@ -1,7 +1,5 @@
-
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
-
-import '../utils/widget_dimensions.dart';
 
 class CustomTheme {
   static ThemeData theme = ThemeData(

@@ -1,12 +1,12 @@
-import 'package:appventure/screens/payment_credit_card_screen/payment_credit_card_screen.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/screens/payment_credit_card_screen/payment_credit_card_screen.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class PaymentProviderList extends StatefulWidget {
   final Function callback;
 
-  PaymentProviderList({@required this.callback});
+  PaymentProviderList({required this.callback});
 
   @override
   _PaymentProviderListState createState() => _PaymentProviderListState();
@@ -31,7 +31,8 @@ class _PaymentProviderListState extends State<PaymentProviderList> {
               border: Border.all(
                 color: CustomTheme.darkGrey.withOpacity(0.5),
               ),
-              borderRadius: BorderRadius.circular(Dimensions.getScaledSize(5.0)),
+              borderRadius:
+                  BorderRadius.circular(Dimensions.getScaledSize(5.0)),
               color: _selectedRoute == _getPaymentProvider()[0].route
                   ? CustomTheme.darkGrey.withOpacity(0.5)
                   : Colors.white,
@@ -59,7 +60,8 @@ class _PaymentProviderListState extends State<PaymentProviderList> {
               border: Border.all(
                 color: CustomTheme.darkGrey.withOpacity(0.5),
               ),
-              borderRadius: BorderRadius.circular(Dimensions.getScaledSize(5.0)),
+              borderRadius:
+                  BorderRadius.circular(Dimensions.getScaledSize(5.0)),
               color: _selectedRoute == _getPaymentProvider()[1].route
                   ? CustomTheme.darkGrey.withOpacity(0.5)
                   : Colors.white,
@@ -100,5 +102,5 @@ class PaymentProvider {
   String image;
   String route;
 
-  PaymentProvider({@required this.image, @required this.route});
+  PaymentProvider({required this.image, required this.route});
 }

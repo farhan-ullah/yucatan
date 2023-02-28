@@ -1,13 +1,13 @@
-import 'package:appventure/screens/burger_menu/bloc/burger_menu_bloc.dart';
-import 'package:appventure/screens/contact/contact_screen.dart';
-import 'package:appventure/screens/favorites_screen/bloc/user_bloc.dart';
-import 'package:appventure/screens/impressum_datenschutz/impressum_datenschutz.dart';
-import 'package:appventure/screens/main_screen/main_screen.dart';
-import 'package:appventure/screens/notifications/notifications_screen.dart';
-import 'package:appventure/services/database/database_service.dart';
-import 'package:appventure/services/user_provider.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/screens/burger_menu/bloc/burger_menu_bloc.dart';
+import 'package:yucatan/screens/contact/contact_screen.dart';
+import 'package:yucatan/screens/favorites_screen/bloc/user_bloc.dart';
+import 'package:yucatan/screens/impressum_datenschutz/impressum_datenschutz.dart';
+import 'package:yucatan/screens/main_screen/main_screen.dart';
+import 'package:yucatan/screens/notifications/notifications_screen.dart';
+import 'package:yucatan/services/database/database_service.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -84,14 +84,14 @@ class _BurgerMenuScreenState extends State<BurgerMenuScreen> {
     _widgets.add(BurgerMenuProfileFragment(user: user));
 
     _widgets.add(BurgerMenuListItem(
-        text: AppLocalizations.of(context).burger_menu_notification_text,
+        text: AppLocalizations.of(context)!.burger_menu_notification_text,
         tapActionPre: () async =>
             {Navigator.of(context).pushNamed(NotificationsScreen.route)},
         icon: new Icon(Icons.notifications_outlined,
             color: CustomTheme.primaryColorDark)));
 
     _widgets.add(BurgerMenuListItem(
-        text: AppLocalizations.of(context).burger_menu_reviews_text,
+        text: AppLocalizations.of(context)!.burger_menu_reviews_text,
         tapActionPre: () async => {
               if (await _inAppReview.isAvailable())
                 {_inAppReview.requestReview()}
@@ -100,7 +100,7 @@ class _BurgerMenuScreenState extends State<BurgerMenuScreen> {
             new Icon(Icons.star_border, color: CustomTheme.primaryColorDark)));
 
     _widgets.add(BurgerMenuListItem(
-      text: AppLocalizations.of(context).burger_menu_contact_text,
+      text: AppLocalizations.of(context)!.burger_menu_contact_text,
       icon: new Icon(Icons.contact_support_outlined,
           color: CustomTheme.primaryColorDark),
       tapActionPre: () async =>
@@ -108,8 +108,8 @@ class _BurgerMenuScreenState extends State<BurgerMenuScreen> {
     ));
 
     _widgets.add(BurgerMenuListItem(
-      text:
-          AppLocalizations.of(context).burger_menu_imprint_data_protection_text,
+      text: AppLocalizations.of(context)!
+          .burger_menu_imprint_data_protection_text,
       tapActionPre: () async =>
           {Navigator.of(context).pushNamed(ImpressumDatenschutz.route)},
       showSvg: true,
@@ -120,7 +120,7 @@ class _BurgerMenuScreenState extends State<BurgerMenuScreen> {
       if (user.getRole() == "Vendor") {
         _widgets.add(BurgerMenuListItem(
             text:
-                AppLocalizations.of(context).burger_menu_to_the_user_view_text,
+                AppLocalizations.of(context)!.burger_menu_to_the_user_view_text,
             tapActionPre: () => user.switchToUserRole(),
             tapRoute: MainScreen.route,
             icon: Icon(Icons.view_carousel,
@@ -138,7 +138,7 @@ class _BurgerMenuScreenState extends State<BurgerMenuScreen> {
       }
 
       _widgets.add(BurgerMenuListItem(
-        text: AppLocalizations.of(context).burger_menu_sign_out_text,
+        text: AppLocalizations.of(context)!.burger_menu_sign_out_text,
         tapActionPre: () async {
           await HiveService.clearDatabase();
           await UserProvider.logout();

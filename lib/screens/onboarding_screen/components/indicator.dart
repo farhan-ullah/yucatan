@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Indicator extends StatelessWidget {
   final active;
-  Indicator({@required this.active});
+  Indicator({required this.active});
 
   @override
   Widget build(BuildContext context) {

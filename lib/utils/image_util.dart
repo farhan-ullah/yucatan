@@ -1,6 +1,6 @@
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
-import 'package:appventure/utils/rive_animation.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/rive_animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,7 +24,7 @@ class ImageUtil {
   }
 
   static Widget showPlaceholderView(
-      {@required VoidCallback onUpdateBtnClicked}) {
+      {required VoidCallback onUpdateBtnClicked}) {
     return Container(
       child: Center(
         child: Column(

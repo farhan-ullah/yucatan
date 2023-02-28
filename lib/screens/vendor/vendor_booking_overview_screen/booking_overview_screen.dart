@@ -1,29 +1,29 @@
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_preview_row.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_request_preview.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/vendor_booking_details_modal.dart';
-import 'package:appventure/services/booking_service.dart';
-import 'package:appventure/screens/notifications/notification_view.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_preview_row.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_request_preview.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/vendor_booking_details_modal.dart';
+import 'package:yucatan/services/booking_service.dart';
+import 'package:yucatan/screens/notifications/notification_view.dart';
 import 'dart:convert';
 
-import 'package:appventure/models/transaction_model.dart';
-import 'package:appventure/screens/booking/components/calendarPopupView.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_date_button.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_loading_indicator.dart';
+import 'package:yucatan/models/transaction_model.dart';
+import 'package:yucatan/screens/booking/components/calendarPopupView.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_date_button.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_loading_indicator.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_overview_screen_parameter.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_overview_tab.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_preview_model.dart';
-import 'package:appventure/services/notification_service/models/vendor_show_refunded_booking_model.dart';
-import 'package:appventure/services/notification_service/models/vendor_show_request_model.dart';
-import 'package:appventure/services/notification_service/navigatable_by_notification.dart';
-import 'package:appventure/services/notification_service/notification_actions.dart';
-import 'package:appventure/services/response/transaction_multi_response_entity.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/datefulWidget/DateStatefulWidget.dart';
-import 'package:appventure/utils/datefulWidget/GlobalDate.dart';
-import 'package:appventure/utils/image_util.dart';
-import 'package:appventure/utils/network_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_overview_screen_parameter.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_overview_tab.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_preview_model.dart';
+import 'package:yucatan/services/notification_service/models/vendor_show_refunded_booking_model.dart';
+import 'package:yucatan/services/notification_service/models/vendor_show_request_model.dart';
+import 'package:yucatan/services/notification_service/navigatable_by_notification.dart';
+import 'package:yucatan/services/notification_service/notification_actions.dart';
+import 'package:yucatan/services/response/transaction_multi_response_entity.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/datefulWidget/DateStatefulWidget.dart';
+import 'package:yucatan/utils/datefulWidget/GlobalDate.dart';
+import 'package:yucatan/utils/image_util.dart';
+import 'package:yucatan/utils/network_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -381,7 +381,7 @@ class _VendorBookingOverviewScreenState
     return Scaffold(
       backgroundColor: isNetworkAvailable ? Color(0xFFBDD4E1) : Colors.white,
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).vendor_bookingOverview_title),
+        title: Text(AppLocalizations.of(context)!.vendor_bookingOverview_title),
         centerTitle: true,
         actions: [
           Container(
@@ -403,7 +403,7 @@ class _VendorBookingOverviewScreenState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       VendorBookingDateButton(
-                          text: AppLocalizations.of(context).today,
+                          text: AppLocalizations.of(context)!.today,
                           onTap: () => _selectedDateChanges(SelectedDate.TODAY),
                           selected: _selectedDate == SelectedDate.TODAY,
                           fontSize: Dimensions.getScaledSize(14.0),
@@ -412,7 +412,7 @@ class _VendorBookingOverviewScreenState
                           color: anfrageColor),
                       SizedBox(width: Dimensions.getScaledSize(8.0)),
                       VendorBookingDateButton(
-                          text: AppLocalizations.of(context).tomorrow,
+                          text: AppLocalizations.of(context)!.tomorrow,
                           onTap: () =>
                               _selectedDateChanges(SelectedDate.TOMORROW),
                           selected: _selectedDate == SelectedDate.TOMORROW,
@@ -422,7 +422,7 @@ class _VendorBookingOverviewScreenState
                           color: anfrageColor),
                       SizedBox(width: Dimensions.getScaledSize(8.0)),
                       VendorBookingDateButton(
-                          text: AppLocalizations.of(context).commonWords_week,
+                          text: AppLocalizations.of(context)!.commonWords_week,
                           onTap: () => _selectedDateChanges(SelectedDate.WEEK),
                           selected: _selectedDate == SelectedDate.WEEK,
                           fontSize: Dimensions.getScaledSize(14.0),
@@ -457,7 +457,7 @@ class _VendorBookingOverviewScreenState
                   Row(
                     children: [
                       VendorBookingOverviewTab(
-                        text: AppLocalizations.of(context).commonWords_request,
+                        text: AppLocalizations.of(context)!.commonWords_request,
                         color: anfrageColor,
                         fontSize: Dimensions.getScaledSize(13.0),
                         height: Dimensions.getScaledSize(52.0),
@@ -466,7 +466,7 @@ class _VendorBookingOverviewScreenState
                       ),
                       SizedBox(width: Dimensions.getScaledSize(2.0)),
                       VendorBookingOverviewTab(
-                        text: AppLocalizations.of(context).commonWords_usable,
+                        text: AppLocalizations.of(context)!.commonWords_usable,
                         color: offenColor,
                         fontSize: Dimensions.getScaledSize(13.0),
                         height: Dimensions.getScaledSize(52.0),
@@ -475,7 +475,7 @@ class _VendorBookingOverviewScreenState
                       ),
                       SizedBox(width: Dimensions.getScaledSize(2.0)),
                       VendorBookingOverviewTab(
-                        text: AppLocalizations.of(context).commonWords_used,
+                        text: AppLocalizations.of(context)!.commonWords_used,
                         color: eingelostColor,
                         fontSize: Dimensions.getScaledSize(13.0),
                         height: Dimensions.getScaledSize(52.0),
@@ -484,7 +484,8 @@ class _VendorBookingOverviewScreenState
                       ),
                       SizedBox(width: Dimensions.getScaledSize(2.0)),
                       VendorBookingOverviewTab(
-                        text: AppLocalizations.of(context).commonWords_refunded,
+                        text:
+                            AppLocalizations.of(context)!.commonWords_refunded,
                         color: storniertColor,
                         fontSize: Dimensions.getScaledSize(13.0),
                         height: Dimensions.getScaledSize(52.0),

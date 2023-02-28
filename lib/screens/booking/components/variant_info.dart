@@ -1,11 +1,11 @@
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class VariantInfo extends StatelessWidget {
   // final ActivityBookingTicket variant;
 
-  // VariantInfo({@required this.variant});
+  // VariantInfo({required this.variant});
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +51,12 @@ class VariantInfo extends StatelessWidget {
                                   CustomTheme.borderRadius,
                                 ),
                               ),
-                              child: 
-                              // loadCachedNetworkImage(
-                              //     variant.imageUrl,
-                              //     fit: BoxFit.cover
-                              // ),
-                              Container(),
+                              child:
+                                  // loadCachedNetworkImage(
+                                  //     variant.imageUrl,
+                                  //     fit: BoxFit.cover
+                                  // ),
+                                  Container(),
                             ),
                           ),
                           Container(
@@ -64,10 +64,10 @@ class VariantInfo extends StatelessWidget {
                             width: MediaQuery.of(context).size.width,
                             child: SingleChildScrollView(
                               child: Padding(
-                                padding:
-                                    EdgeInsets.all(Dimensions.getScaledSize(20.0)),
+                                padding: EdgeInsets.all(
+                                    Dimensions.getScaledSize(20.0)),
                                 child: //Text(variant.customText),
-                                Text('Platzhalter'),
+                                    Text('Platzhalter'),
                               ),
                             ),
                           ),

@@ -1,14 +1,14 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RecommendedActivitiesItemPrice extends StatelessWidget {
   final ActivityModel activity;
 
-  RecommendedActivitiesItemPrice({@required this.activity});
+  RecommendedActivitiesItemPrice({required this.activity});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,7 +23,7 @@ class RecommendedActivitiesItemPrice extends StatelessWidget {
         textBaseline: TextBaseline.alphabetic,
         children: [
           Text(
-            "${AppLocalizations.of(context).commonWords_from} ",
+            "${AppLocalizations.of(context)!.commonWords_from} ",
             style: TextStyle(
                 fontSize: Dimensions.getScaledSize(12.0),
                 fontWeight: FontWeight.bold,

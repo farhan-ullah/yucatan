@@ -1,8 +1,8 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/booking_model.dart' as BookingModel;
-import 'package:appventure/screens/booking_list_screen/components/booking_ticket_list_item.dart';
-import 'package:appventure/screens/booking_list_screen/components/round_indicator_list.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/booking_model.dart' as BookingModel;
+import 'package:yucatan/screens/booking_list_screen/components/booking_ticket_list_item.dart';
+import 'package:yucatan/screens/booking_list_screen/components/round_indicator_list.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -13,10 +13,10 @@ class BookingTicketList extends StatefulWidget {
   final double initialBrightness;
 
   BookingTicketList({
-    @required this.initialBrightness,
-    @required this.booking,
-    @required this.activity,
-    @required this.offline,
+    required this.initialBrightness,
+    required this.booking,
+    required this.activity,
+    required this.offline,
   });
 
   @override

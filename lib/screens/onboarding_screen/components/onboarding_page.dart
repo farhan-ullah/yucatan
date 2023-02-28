@@ -1,4 +1,4 @@
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -51,15 +51,15 @@ class OnboardingPage extends StatelessWidget {
   final Function toPreviousPageScroll;
 
   OnboardingPage({
-    @required this.model,
-    @required this.toNextPage,
-    @required this.finish,
-    @required this.currentPage,
-    @required this.numberOfPages,
-    @required this.imageWidth,
-    @required this.horizontalColumnPadding,
-    @required this.toNextPageScroll,
-    @required this.toPreviousPageScroll,
+    required this.model,
+    required this.toNextPage,
+    required this.finish,
+    required this.currentPage,
+    required this.numberOfPages,
+    required this.imageWidth,
+    required this.horizontalColumnPadding,
+    required this.toNextPageScroll,
+    required this.toPreviousPageScroll,
   });
 
   @override
@@ -162,7 +162,7 @@ class OnboardingPage extends StatelessWidget {
               child: GestureDetector(
                 onTap: () => finish(context),
                 child: Text(
-                  AppLocalizations.of(context).onboardingScreen_skip,
+                  AppLocalizations.of(context)!.onboardingScreen_skip,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: MediaQuery.of(context).size.height > 600

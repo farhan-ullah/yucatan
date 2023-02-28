@@ -104,7 +104,7 @@ class _OnboardingState extends State<OnboardingScreen> {
           title: appLocaliations.onboardingScreen_wellcome,
           imagePath: "lib/assets/images/Gruppe_1.png",
           text: texts.elementAt(0),
-          buttonText: AppLocalizations.of(context).commonWords_further),
+          buttonText: AppLocalizations.of(context)!.commonWords_further),
       OnboardingPageModel(
           title: appLocaliations.onboardingScreen_find,
           imagePath: "lib/assets/images/Gruppe_2.png",

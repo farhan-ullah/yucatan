@@ -1,6 +1,6 @@
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/datefulWidget/GlobalDate.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/datefulWidget/GlobalDate.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -16,7 +16,7 @@ class CustomCalendarView extends StatefulWidget {
       notAvailableDates; //Not available dates are dates for a product where the quota limit has been reached
 
   const CustomCalendarView({
-    Key key,
+    Key? key,
     this.initialDate,
     this.startEndDateChange,
     this.minimumDate,

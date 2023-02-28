@@ -1,11 +1,11 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/screens/booking/components/booking_screen_time_slot_item.dart';
-import 'package:appventure/screens/booking/components/booking_screen_time_slot_item_model.dart';
-import 'package:appventure/screens/booking/components/customCalendar.dart';
-import 'package:appventure/screens/booking/util/booking_time_quota_util.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/datefulWidget/GlobalDate.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/screens/booking/components/booking_screen_time_slot_item.dart';
+import 'package:yucatan/screens/booking/components/booking_screen_time_slot_item_model.dart';
+import 'package:yucatan/screens/booking/components/customCalendar.dart';
+import 'package:yucatan/screens/booking/util/booking_time_quota_util.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/datefulWidget/GlobalDate.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,12 +22,12 @@ class BookingScreenTimeSelection extends StatefulWidget {
       onAvailableTimeSlotsChanged;
 
   BookingScreenTimeSelection({
-    @required this.product,
-    @required this.onTimeSlotSelected,
-    @required this.category,
-    @required this.subCategory,
+    required this.product,
+    required this.onTimeSlotSelected,
+    required this.category,
+    required this.subCategory,
     this.specificDate,
-    @required this.onAvailableTimeSlotsChanged,
+    required this.onAvailableTimeSlotsChanged,
   });
 
   @override
@@ -128,7 +128,7 @@ class _BookingScreenTimeSelectionState
               ),
               child: Text(
                 _selectedDate == null
-                    ? AppLocalizations.of(context).bookingScreen_chooseDate
+                    ? AppLocalizations.of(context)!.bookingScreen_chooseDate
                     : widget.product.timeSlots != null &&
                             widget.product.timeSlots.hasTimeSlots
                         ? _timeSlotsForDate.length > 0 &&
@@ -154,7 +154,8 @@ class _BookingScreenTimeSelectionState
                         top: Dimensions.getScaledSize(5),
                         left: Dimensions.getScaledSize(14),
                         right: Dimensions.getScaledSize(14),
-                        bottom: MediaQuery.of(context).padding.bottom + Dimensions.getScaledSize(15),
+                        bottom: MediaQuery.of(context).padding.bottom +
+                            Dimensions.getScaledSize(15),
                       ),
                       itemCount: _timeSlotsForDate.length,
                       itemBuilder: (context, index) {

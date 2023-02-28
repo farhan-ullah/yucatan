@@ -1,18 +1,18 @@
-import 'package:appventure/components/custom_app_bar.dart';
-import 'package:appventure/screens/booking/components/calendarPopupView.dart';
-import 'package:appventure/screens/notifications/notification_view.dart';
-import 'package:appventure/screens/vendor/demand_screen/vendor_demand_bloc/vendor_demand_bloc.dart';
-import 'package:appventure/screens/vendor/demand_screen/vendor_demand_bloc/date_options_bloc.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_date_button.dart';
-import 'package:appventure/services/connection/NetworkObserver.dart';
-import 'package:appventure/services/response/product_demand_response.dart';
-import 'package:appventure/services/service_locator.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/common_widgets.dart';
-import 'package:appventure/utils/datefulWidget/DateStatefulWidget.dart';
-import 'package:appventure/utils/datefulWidget/GlobalDate.dart';
-import 'package:appventure/utils/image_util.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/custom_app_bar.dart';
+import 'package:yucatan/screens/booking/components/calendarPopupView.dart';
+import 'package:yucatan/screens/notifications/notification_view.dart';
+import 'package:yucatan/screens/vendor/demand_screen/vendor_demand_bloc/vendor_demand_bloc.dart';
+import 'package:yucatan/screens/vendor/demand_screen/vendor_demand_bloc/date_options_bloc.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_date_button.dart';
+import 'package:yucatan/services/connection/NetworkObserver.dart';
+import 'package:yucatan/services/response/product_demand_response.dart';
+import 'package:yucatan/services/service_locator.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/common_widgets.dart';
+import 'package:yucatan/utils/datefulWidget/DateStatefulWidget.dart';
+import 'package:yucatan/utils/datefulWidget/GlobalDate.dart';
+import 'package:yucatan/utils/image_util.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -42,7 +42,7 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
   @override
   void initState() {
     super.initState();
-    if(!this.network.offline){
+    if (!this.network.offline) {
       onDateOptionClicked(SelectedDate.TODAY);
     }
   }
@@ -50,10 +50,12 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: !this.network.offline ? CustomTheme.vendorMenubackground : Colors.white,
-        appBar: CustomAppBar(
+      backgroundColor: !this.network.offline
+          ? CustomTheme.vendorMenubackground
+          : Colors.white,
+      appBar: CustomAppBar(
         centerTitle: true,
-        title: AppLocalizations.of(context).vendor_demandScreen_title,
+        title: AppLocalizations.of(context)!.vendor_demandScreen_title,
         appBar: AppBar(),
         backgroundColor: CustomTheme.primaryColorLight,
         actions: [
@@ -74,228 +76,248 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
           ),
         ],
       ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            StreamBuilder<SelectedDate>(
-                stream: dateOptionsBloc.dateOptionStream,
-                builder: (context, snapshot) {
-                  if(this.network.offline){
-                    return Container();
-                  }
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return Expanded(child: Container(child: CommonWidget.showSpinner()));
-                    default:
-                      if (snapshot.hasError){
-                        return Text('${snapshot.error}');
-                      } else{
-                        _selectedDate = snapshot.data;
-                        return Container(
-                          color: !this.network.offline ? CustomTheme.vendorMenubackground : Colors.white,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              top: Dimensions.getScaledSize(12.0),
-                              bottom: 0,
-                              left: Dimensions.getScaledSize(15.0),
-                              right: Dimensions.getScaledSize(15.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                VendorBookingDateButton(
-                                    text: AppLocalizations.of(context).today,
-                                    onTap: () => onDateOptionClicked(SelectedDate.TODAY),
-                                    selected: _selectedDate == SelectedDate.TODAY,
-                                    fontSize: Dimensions.getScaledSize(14.0),
-                                    height: Dimensions.getScaledSize(40.0),
-                                    width: double.infinity,
-                                    color: CustomTheme.primaryColorLight),
-                                SizedBox(
-                                  width: Dimensions.getScaledSize(celldiff),
-                                ),
-                                VendorBookingDateButton(
-                                    text: AppLocalizations.of(context).tomorrow,
-                                    onTap: () =>
-                                        onDateOptionClicked(SelectedDate.TOMORROW),
-                                    selected: _selectedDate == SelectedDate.TOMORROW,
-                                    fontSize: Dimensions.getScaledSize(14.0),
-                                    height: Dimensions.getScaledSize(40.0),
-                                    width: double.infinity,
-                                    color: CustomTheme.primaryColorLight),
-                                SizedBox(
-                                  width: Dimensions.getScaledSize(celldiff),
-                                ),
-                                VendorBookingDateButton(
-                                    text: AppLocalizations.of(context).commonWords_week,
-                                    onTap: () => onDateOptionClicked(SelectedDate.WEEK),
-                                    selected: _selectedDate == SelectedDate.WEEK,
-                                    fontSize: Dimensions.getScaledSize(14.0),
-                                    height: Dimensions.getScaledSize(40.0),
-                                    width: double.infinity,
-                                    color: CustomTheme.primaryColorLight),
-                                SizedBox(
-                                  width: Dimensions.getScaledSize(celldiff),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    _selectCustomDate();
-                                  },
-                                  child: Container(
-                                    height: Dimensions.getScaledSize(40.0),
-                                    width: MediaQuery.of(context).size.width * 0.1,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: CustomTheme.primaryColorLight,
-                                    ),
-                                    child: Center(
-                                      child: SvgPicture.asset(
-                                        'lib/assets/images/calendar.svg',
-                                        color: Colors.white,
-                                        height: Dimensions.getScaledSize(24),
-                                        width: Dimensions.getScaledSize(24),
-                                      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          StreamBuilder<SelectedDate>(
+              stream: dateOptionsBloc.dateOptionStream,
+              builder: (context, snapshot) {
+                if (this.network.offline) {
+                  return Container();
+                }
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return Expanded(
+                        child: Container(child: CommonWidget.showSpinner()));
+                  default:
+                    if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    } else {
+                      _selectedDate = snapshot.data;
+                      return Container(
+                        color: !this.network.offline
+                            ? CustomTheme.vendorMenubackground
+                            : Colors.white,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: Dimensions.getScaledSize(12.0),
+                            bottom: 0,
+                            left: Dimensions.getScaledSize(15.0),
+                            right: Dimensions.getScaledSize(15.0),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              VendorBookingDateButton(
+                                  text: AppLocalizations.of(context)!.today,
+                                  onTap: () =>
+                                      onDateOptionClicked(SelectedDate.TODAY),
+                                  selected: _selectedDate == SelectedDate.TODAY,
+                                  fontSize: Dimensions.getScaledSize(14.0),
+                                  height: Dimensions.getScaledSize(40.0),
+                                  width: double.infinity,
+                                  color: CustomTheme.primaryColorLight),
+                              SizedBox(
+                                width: Dimensions.getScaledSize(celldiff),
+                              ),
+                              VendorBookingDateButton(
+                                  text: AppLocalizations.of(context)!.tomorrow,
+                                  onTap: () => onDateOptionClicked(
+                                      SelectedDate.TOMORROW),
+                                  selected:
+                                      _selectedDate == SelectedDate.TOMORROW,
+                                  fontSize: Dimensions.getScaledSize(14.0),
+                                  height: Dimensions.getScaledSize(40.0),
+                                  width: double.infinity,
+                                  color: CustomTheme.primaryColorLight),
+                              SizedBox(
+                                width: Dimensions.getScaledSize(celldiff),
+                              ),
+                              VendorBookingDateButton(
+                                  text: AppLocalizations.of(context)
+                                      .commonWords_week,
+                                  onTap: () =>
+                                      onDateOptionClicked(SelectedDate.WEEK),
+                                  selected: _selectedDate == SelectedDate.WEEK,
+                                  fontSize: Dimensions.getScaledSize(14.0),
+                                  height: Dimensions.getScaledSize(40.0),
+                                  width: double.infinity,
+                                  color: CustomTheme.primaryColorLight),
+                              SizedBox(
+                                width: Dimensions.getScaledSize(celldiff),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  _selectCustomDate();
+                                },
+                                child: Container(
+                                  height: Dimensions.getScaledSize(40.0),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.1,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: CustomTheme.primaryColorLight,
+                                  ),
+                                  child: Center(
+                                    child: SvgPicture.asset(
+                                      'lib/assets/images/calendar.svg',
+                                      color: Colors.white,
+                                      height: Dimensions.getScaledSize(24),
+                                      width: Dimensions.getScaledSize(24),
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                }
+              }),
+          StreamBuilder<ProductDemandResponse>(
+              stream: vendorDemandBloc.vendorDemandStream,
+              builder: (context, snapshot) {
+                if (this.network.offline) {
+                  return Expanded(
+                      child:
+                          Container(child: Center(child: showPlaceholder())));
+                }
+                if (snapshot.data == null) {
+                  return Expanded(
+                      child: Container(child: CommonWidget.showSpinner()));
+                }
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return Expanded(
+                        child: Container(child: CommonWidget.showSpinner()));
+                  default:
+                    if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    } else {
+                      productsList = snapshot.data.productsList;
+                      if (productsList.isEmpty) {
+                        return showEmptyView();
+                      } else {
+                        return Container(
+                          width: double.infinity,
+                          color: !this.network.offline
+                              ? CustomTheme.vendorMenubackground
+                              : Colors.white,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.fromLTRB(
+                                  Dimensions.getScaledSize(15.0),
+                                  Dimensions.getScaledSize(10.0),
+                                  Dimensions.getScaledSize(15.0),
+                                  Dimensions.getScaledSize(15.0),
+                                ),
+                                width: double
+                                    .infinity, //To make it use as much space as it wants
+                                height: Dimensions.getHeight(percentage: 78),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: Colors.white,
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(borderRadius),
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.all(
+                                          Dimensions.getScaledSize(20.0)),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            AppLocalizations.of(context)
+                                                .commonWords_products,
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  Dimensions.getScaledSize(
+                                                      15.0),
+                                              color:
+                                                  CustomTheme.primaryColorLight,
+                                              fontFamily:
+                                                  CustomTheme.fontFamily,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          Text(
+                                            AppLocalizations.of(context)
+                                                .vendor_table_count,
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  Dimensions.getScaledSize(
+                                                      15.0),
+                                              color:
+                                                  CustomTheme.primaryColorLight,
+                                              fontFamily:
+                                                  CustomTheme.fontFamily,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: ListView.builder(
+                                        itemCount: productsList.length,
+                                        //physics: ScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) {
+                                          return providerListRow(
+                                              "${productsList[index].title}",
+                                              "${productsList[index].quantity}",
+                                              true);
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         );
                       }
-                  }
+                    }
                 }
-            ),
-            StreamBuilder<ProductDemandResponse>(
-                stream: vendorDemandBloc.vendorDemandStream,
-                builder: (context, snapshot) {
-                  if(this.network.offline){
-                    return Expanded(child: Container(child: Center(child: showPlaceholder())));
-                  }
-                  if(snapshot.data == null){
-                    return Expanded(child: Container(child: CommonWidget.showSpinner()));
-                  }
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return Expanded(child: Container(child: CommonWidget.showSpinner()));
-                    default:
-                      if (snapshot.hasError){
-                        return Text('${snapshot.error}');
-                      } else{
-                        productsList = snapshot.data.productsList;
-                        if(productsList.isEmpty){
-                          return showEmptyView();
-                        }else{
-
-                          return Container(
-                            width: double.infinity,
-                            color: !this.network.offline ? CustomTheme.vendorMenubackground : Colors.white,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(
-                                    Dimensions.getScaledSize(15.0),
-                                    Dimensions.getScaledSize(10.0),
-                                    Dimensions.getScaledSize(15.0),
-                                    Dimensions.getScaledSize(15.0) ,
-                                  ),
-                                  width: double.infinity, //To make it use as much space as it wants
-                                  height: Dimensions.getHeight(percentage: 78),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color: Colors.white,
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(borderRadius),
-                                    ),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.all(Dimensions.getScaledSize(20.0)),
-                                        child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              AppLocalizations.of(context)
-                                                  .commonWords_products,
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                fontSize: Dimensions.getScaledSize(15.0),
-                                                color: CustomTheme.primaryColorLight,
-                                                fontFamily: CustomTheme.fontFamily,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            Text(
-                                              AppLocalizations.of(context)
-                                                  .vendor_table_count,
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                fontSize: Dimensions.getScaledSize(15.0),
-                                                color: CustomTheme.primaryColorLight,
-                                                fontFamily: CustomTheme.fontFamily,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: ListView.builder(
-                                          itemCount: productsList.length,
-                                          //physics: ScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemBuilder: (context, index) {
-                                            return providerListRow(
-                                                "${productsList[index].title}",
-                                                "${productsList[index].quantity}",
-                                                true);
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                      }
-                  }
-                }
-            ),
-          ],
-        ),
-    );
-  }
-
-  Widget showEmptyView(){
-
-    return Expanded(
-      child: Container(
-        color: CustomTheme.vendorMenubackground,
-        width: double.infinity,height: double.infinity,
-        child: Center(
-            child: Text(
-              AppLocalizations.of(context)
-                  .vendor_demandScreen_noDemand,
-              style: TextStyle(
-                  color: CustomTheme
-                      .primaryColorLight),
-            )),
+              }),
+        ],
       ),
     );
   }
 
-  Widget showPlaceholder(){
+  Widget showEmptyView() {
+    return Expanded(
+      child: Container(
+        color: CustomTheme.vendorMenubackground,
+        width: double.infinity,
+        height: double.infinity,
+        child: Center(
+            child: Text(
+          AppLocalizations.of(context)!.vendor_demandScreen_noDemand,
+          style: TextStyle(color: CustomTheme.primaryColorLight),
+        )),
+      ),
+    );
+  }
+
+  Widget showPlaceholder() {
     return ImageUtil.showPlaceholderView(onUpdateBtnClicked: () async {
-      if(!this.network.offline){
+      if (!this.network.offline) {
         onDateOptionClicked(SelectedDate.TODAY);
       }
     });
@@ -362,27 +384,31 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
       dateOptionsBloc.updateSelectedDate(_selectedDate);
       dateOptionsBloc.eventSink.add(DateOptionsAction.SelectedDate);
       vendorDemandBloc.updateDateParams(dateParameters);
-      vendorDemandBloc.eventSink.add(VendorDemandBlocAction.FetchVendorDemandData);
+      vendorDemandBloc.eventSink
+          .add(VendorDemandBlocAction.FetchVendorDemandData);
     } else if (dateValue == SelectedDate.TOMORROW) {
       _selectedDate = SelectedDate.TOMORROW;
       dateParameters.getTomorrowParams();
       dateOptionsBloc.updateSelectedDate(_selectedDate);
       dateOptionsBloc.eventSink.add(DateOptionsAction.SelectedDate);
       vendorDemandBloc.updateDateParams(dateParameters);
-      vendorDemandBloc.eventSink.add(VendorDemandBlocAction.FetchVendorDemandData);
+      vendorDemandBloc.eventSink
+          .add(VendorDemandBlocAction.FetchVendorDemandData);
     } else if (dateValue == SelectedDate.WEEK) {
       _selectedDate = SelectedDate.WEEK;
       dateParameters.getWeekParams();
       dateOptionsBloc.updateSelectedDate(_selectedDate);
       dateOptionsBloc.eventSink.add(DateOptionsAction.SelectedDate);
       vendorDemandBloc.updateDateParams(dateParameters);
-      vendorDemandBloc.eventSink.add(VendorDemandBlocAction.FetchVendorDemandData);
+      vendorDemandBloc.eventSink
+          .add(VendorDemandBlocAction.FetchVendorDemandData);
     } else if (dateValue == SelectedDate.CUSTOM) {
       _selectedDate = SelectedDate.CUSTOM;
       dateOptionsBloc.updateSelectedDate(_selectedDate);
       dateOptionsBloc.eventSink.add(DateOptionsAction.SelectedDate);
       vendorDemandBloc.updateDateParams(dateParameters);
-      vendorDemandBloc.eventSink.add(VendorDemandBlocAction.FetchVendorDemandData);
+      vendorDemandBloc.eventSink
+          .add(VendorDemandBlocAction.FetchVendorDemandData);
     }
   }
 
@@ -395,21 +421,24 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
       dateOptionsBloc.updateSelectedDate(_selectedDate);
       dateOptionsBloc.eventSink.add(DateOptionsAction.SelectedDate);
       vendorDemandBloc.updateDateParams(dateParameters);
-      vendorDemandBloc.eventSink.add(VendorDemandBlocAction.FetchVendorDemandData);
+      vendorDemandBloc.eventSink
+          .add(VendorDemandBlocAction.FetchVendorDemandData);
     } else if (GlobalDate.isTomorrow(dateTime)) {
       _selectedDate = SelectedDate.TOMORROW;
       dateParameters.getTomorrowParams();
       dateOptionsBloc.updateSelectedDate(_selectedDate);
       dateOptionsBloc.eventSink.add(DateOptionsAction.SelectedDate);
       vendorDemandBloc.updateDateParams(dateParameters);
-      vendorDemandBloc.eventSink.add(VendorDemandBlocAction.FetchVendorDemandData);
+      vendorDemandBloc.eventSink
+          .add(VendorDemandBlocAction.FetchVendorDemandData);
     } else {
       _selectedDate = SelectedDate.CUSTOM;
       dateParameters.getCustomParams(dateTime);
       dateOptionsBloc.updateSelectedDate(_selectedDate);
       dateOptionsBloc.eventSink.add(DateOptionsAction.SelectedDate);
       vendorDemandBloc.updateDateParams(dateParameters);
-      vendorDemandBloc.eventSink.add(VendorDemandBlocAction.FetchVendorDemandData);
+      vendorDemandBloc.eventSink
+          .add(VendorDemandBlocAction.FetchVendorDemandData);
     }
   }
 

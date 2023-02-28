@@ -1,9 +1,9 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/screens/booking/util/booking_time_quota_util.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/screens/booking/util/booking_time_quota_util.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -131,7 +131,7 @@ class BookingScreenCard extends StatelessWidget {
                           isProduct
                               ? Container()
                               : Text(
-                                  '${AppLocalizations.of(context).commonWords_from} ',
+                                  '${AppLocalizations.of(context)!.commonWords_from} ',
                                   style: TextStyle(
                                     fontSize: Dimensions.getScaledSize(11.0),
                                     fontWeight: FontWeight.bold,

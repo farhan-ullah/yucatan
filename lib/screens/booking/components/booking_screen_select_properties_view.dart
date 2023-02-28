@@ -1,17 +1,17 @@
-import 'package:appventure/screens/booking/components/booking_screen_time_slot_item_model.dart';
-import 'package:appventure/utils/StringUtils.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/screens/booking/components/booking_screen_time_slot_item_model.dart';
+import 'package:yucatan/utils/StringUtils.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:appventure/components/colored_divider.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/order_model.dart';
-import 'package:appventure/screens/booking/components/booking_bar.dart';
-import 'package:appventure/screens/booking/components/booking_screen_select_additional_services_view.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/colored_divider.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/order_model.dart';
+import 'package:yucatan/screens/booking/components/booking_bar.dart';
+import 'package:yucatan/screens/booking/components/booking_screen_select_additional_services_view.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
@@ -25,11 +25,11 @@ class BookingScreenSelectPropertiesView extends StatefulWidget {
   final int index;
 
   BookingScreenSelectPropertiesView({
-    @required this.product,
-    @required this.bookingScreenTimeSlotItemModel,
-    @required this.onAddOrderProduct,
-    @required this.onPreviousBookingStep,
-    @required this.bookingDetails,
+    required this.product,
+    required this.bookingScreenTimeSlotItemModel,
+    required this.onAddOrderProduct,
+    required this.onPreviousBookingStep,
+    required this.bookingDetails,
     this.existingOrderProduct,
     this.index,
   });
@@ -208,7 +208,7 @@ class _BookingScreenSelectPropertiesViewState
                                   ),
                                 ),
                                 Text(
-                                  '  ${AppLocalizations.of(context).bookingScreen_perTicket}',
+                                  '  ${AppLocalizations.of(context)!.bookingScreen_perTicket}',
                                   style: TextStyle(
                                     fontSize: Dimensions.getScaledSize(12.0),
                                     color: CustomTheme.primaryColor,
@@ -248,7 +248,7 @@ class _BookingScreenSelectPropertiesViewState
                                           right: Dimensions.getScaledSize(8.0),
                                         ),
                                         child: Text(
-                                          "${widget.bookingScreenTimeSlotItemModel.timeString} ${AppLocalizations.of(context).commonWords_clock}",
+                                          "${widget.bookingScreenTimeSlotItemModel.timeString} ${AppLocalizations.of(context)!.commonWords_clock}",
                                           style: TextStyle(
                                             fontSize:
                                                 Dimensions.getScaledSize(13),
@@ -589,7 +589,7 @@ class _BookingScreenSelectPropertiesViewState
                       widget.onAddOrderProduct(orderProduct, widget.index);
                     },
                     buttonText:
-                        AppLocalizations.of(context).bookingScreen_finish,
+                        AppLocalizations.of(context)!.bookingScreen_finish,
                   ),
                 ),
               ],
@@ -687,7 +687,7 @@ class _BookingScreenSelectPropertiesViewState
             },
             underline: Container(),
             hint: Text(
-              AppLocalizations.of(context).bookingScreen_choose,
+              AppLocalizations.of(context)!.bookingScreen_choose,
               style: TextStyle(
                 fontSize: Dimensions.getScaledSize(14.0),
                 color: CustomTheme.primaryColorDark,
@@ -758,7 +758,7 @@ class _BookingScreenSelectPropertiesViewState
               color: CustomTheme.primaryColorDark,
             ),
             decoration: InputDecoration(
-              hintText: AppLocalizations.of(context).bookingScreen_enterData,
+              hintText: AppLocalizations.of(context)!.bookingScreen_enterData,
               hintStyle: TextStyle(
                 fontSize: Dimensions.getScaledSize(14),
                 color: CustomTheme.mediumGrey,
@@ -806,7 +806,7 @@ class _BookingScreenSelectPropertiesViewState
             ),
             cursorColor: Theme.of(context).primaryColor,
             decoration: new InputDecoration(
-              hintText: AppLocalizations.of(context).bookingScreen_enterData,
+              hintText: AppLocalizations.of(context)!.bookingScreen_enterData,
               hintStyle: TextStyle(
                 fontSize: Dimensions.getScaledSize(12),
                 color: CustomTheme.mediumGrey,
@@ -1102,21 +1102,21 @@ class _BookingScreenSelectPropertiesViewState
     if (widget.bookingScreenTimeSlotItemModel.remainingQuota -
             orderProduct.amount >
         10)
-      return AppLocalizations.of(context).bookingScreen_moreThan;
+      return AppLocalizations.of(context)!.bookingScreen_moreThan;
     else
-      return AppLocalizations.of(context).bookingScreen_more;
+      return AppLocalizations.of(context)!.bookingScreen_more;
   }
 
   String _getSecondQuotaText() {
     if (widget.bookingScreenTimeSlotItemModel.remainingQuota -
             orderProduct.amount >
         10)
-      return AppLocalizations.of(context).bookingScreen_available;
+      return AppLocalizations.of(context)!.bookingScreen_available;
     else if (widget.bookingScreenTimeSlotItemModel.remainingQuota -
             orderProduct.amount ==
         1)
-      return AppLocalizations.of(context).bookingScreen_ticketAvailable;
+      return AppLocalizations.of(context)!.bookingScreen_ticketAvailable;
     else
-      return AppLocalizations.of(context).bookingScreen_ticketsAvailablePlural;
+      return AppLocalizations.of(context)!.bookingScreen_ticketsAvailablePlural;
   }
 }

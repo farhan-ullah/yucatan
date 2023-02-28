@@ -1,7 +1,7 @@
-import 'package:appventure/screens/profile/components/profile_wrapper.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/user_provider.dart';
-import 'package:appventure/theme/custom_theme.dart';
+import 'package:yucatan/screens/profile/components/profile_wrapper.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/theme/custom_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -25,7 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).profileScreen_title),
+        title: Text(AppLocalizations.of(context)!.profileScreen_title),
         backgroundColor: CustomTheme.primaryColorDark,
       ),
       backgroundColor: CustomTheme.backgroundColor,

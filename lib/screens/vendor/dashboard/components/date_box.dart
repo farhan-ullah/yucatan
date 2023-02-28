@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/image_util.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/image_util.dart';
 
 class VendorDashboardDateBox extends StatelessWidget {
   final bool isLoading;
@@ -13,12 +12,12 @@ class VendorDashboardDateBox extends StatelessWidget {
   final double elementHeight;
 
   VendorDashboardDateBox(
-      {@required this.isLoading,
-      @required this.onClick,
-      @required this.openBookingsForDay,
-      @required this.boxText,
-      @required this.elementWidth,
-      @required this.elementHeight});
+      {required this.isLoading,
+      required this.onClick,
+      required this.openBookingsForDay,
+      required this.boxText,
+      required this.elementWidth,
+      required this.elementHeight});
 
   @override
   Widget build(BuildContext context) {

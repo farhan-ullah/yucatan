@@ -1,17 +1,17 @@
-import 'package:appventure/components/custom_app_bar.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/screens/activity_list_screen/activity_list_screen.dart';
-import 'package:appventure/screens/booking/components/calendarPopupView.dart';
-import 'package:appventure/screens/hotelDetailes/hotelDetailes.dart';
-import 'package:appventure/services/activity_service.dart';
-import 'package:appventure/services/response/activity_multi_response.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/StringUtils.dart';
-import 'package:appventure/utils/datefulWidget/DateStatefulWidget.dart';
-import 'package:appventure/utils/datefulWidget/GlobalDate.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/custom_app_bar.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/screens/activity_list_screen/activity_list_screen.dart';
+import 'package:yucatan/screens/booking/components/calendarPopupView.dart';
+import 'package:yucatan/screens/hotelDetailes/hotelDetailes.dart';
+import 'package:yucatan/services/activity_service.dart';
+import 'package:yucatan/services/response/activity_multi_response.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/StringUtils.dart';
+import 'package:yucatan/utils/datefulWidget/DateStatefulWidget.dart';
+import 'package:yucatan/utils/datefulWidget/GlobalDate.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -63,7 +63,7 @@ class _SearchScreenState extends DateState<SearchScreen> {
     return Scaffold(
       backgroundColor: CustomTheme.backgroundColor,
       appBar: CustomAppBar(
-        title: AppLocalizations.of(context).searchScreen_title,
+        title: AppLocalizations.of(context)!.searchScreen_title,
         appBar: AppBar(),
         centerTitle: true,
       ),
@@ -95,7 +95,7 @@ class _SearchScreenState extends DateState<SearchScreen> {
                       ),
                     ),
                     child: Text(
-                      AppLocalizations.of(context).today,
+                      AppLocalizations.of(context)!.today,
                       style: TextStyle(
                         fontSize: Dimensions.getScaledSize(15.0),
                         fontWeight: FontWeight.bold,
@@ -124,7 +124,7 @@ class _SearchScreenState extends DateState<SearchScreen> {
                       ),
                     ),
                     child: Text(
-                      AppLocalizations.of(context).tomorrow,
+                      AppLocalizations.of(context)!.tomorrow,
                       style: TextStyle(
                         fontSize: Dimensions.getScaledSize(15.0),
                         fontWeight: FontWeight.bold,
@@ -292,7 +292,7 @@ class _SearchScreenState extends DateState<SearchScreen> {
                           right: Dimensions.getScaledSize(24.0),
                         ),
                         child: Text(
-                          AppLocalizations.of(context).searchScreen_iWishText,
+                          AppLocalizations.of(context)!.searchScreen_iWishText,
                           style: TextStyle(
                             fontSize: Dimensions.getScaledSize(18.0),
                             fontWeight: FontWeight.bold,

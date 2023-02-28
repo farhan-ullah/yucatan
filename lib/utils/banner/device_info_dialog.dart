@@ -1,10 +1,10 @@
 import 'dart:io';
 
+import 'package:yucatan/config/flavor_config.dart';
+import 'package:yucatan/utils/device_utils.dart';
+import 'package:yucatan/utils/string_utils.dart';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
-
-import '../device_utils.dart';
-import '../string_utils.dart';
 
 class DeviceInfoDialog extends StatelessWidget {
   DeviceInfoDialog();
@@ -44,14 +44,14 @@ class DeviceInfoDialog extends StatelessWidget {
         builder: (context, AsyncSnapshot<IosDeviceInfo> snapshot) {
           if (!snapshot.hasData) return Container();
 
-          IosDeviceInfo? device = snapshot.data;
+          IosDeviceInfo device = snapshot.data;
           return SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                // _buildTile('Flavor:', '${FlavorConfig.instance.name}'),
+                _buildTile('Flavor:', '${FlavorConfig.instance.name}'),
                 _buildTile('Build mode:',
                     '${StringUtils.enumName(DeviceUtils.currentBuildMode().toString())}'),
-                _buildTile('Physical device?:', '${device!.isPhysicalDevice}'),
+                _buildTile('Physical device?:', '${device.isPhysicalDevice}'),
                 _buildTile('Device:', '${device.name}'),
                 _buildTile('Model:', '${device.model}'),
                 _buildTile('System name:', '${device.systemName}'),
@@ -68,14 +68,14 @@ class DeviceInfoDialog extends StatelessWidget {
         builder: (context, AsyncSnapshot<AndroidDeviceInfo> snapshot) {
           if (!snapshot.hasData) return Container();
 
-          AndroidDeviceInfo? device = snapshot.data;
+          AndroidDeviceInfo device = snapshot.data;
           return SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                // _buildTile('Flavor:', '${FlavorConfig.instance.name}'),
+                _buildTile('Flavor:', '${FlavorConfig.instance.name}'),
                 _buildTile('Build mode:',
                     '${StringUtils.enumName(DeviceUtils.currentBuildMode().toString())}'),
-                _buildTile('Physical device?:', '${device!.isPhysicalDevice}'),
+                _buildTile('Physical device?:', '${device.isPhysicalDevice}'),
                 _buildTile('Manufacturer:', '${device.manufacturer}'),
                 _buildTile('Model:', '${device.model}'),
                 _buildTile('Android version:', '${device.version.release}'),

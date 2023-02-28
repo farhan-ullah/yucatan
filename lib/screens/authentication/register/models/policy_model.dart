@@ -1,4 +1,4 @@
-import 'package:appventure/screens/authentication/register/models/base_model.dart';
+import 'package:yucatan/screens/authentication/register/models/base_model.dart';
 
 class RegisterPolicyModel extends BaseModel {
   bool tosAccepted = false;

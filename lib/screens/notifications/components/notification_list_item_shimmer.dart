@@ -1,13 +1,12 @@
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-
 
 class NotificationListViewShimmer extends StatelessWidget {
   final double width;
 
-  const NotificationListViewShimmer({Key key, this.width}) : super(key: key);
+  const NotificationListViewShimmer({Key? key, this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

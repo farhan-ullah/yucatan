@@ -3,6 +3,20 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/screens/activity_list_screen/components/activily_list_item_shimmer.dart';
+import 'package:yucatan/screens/activity_list_screen/components/activity_list_item_view.dart';
+import 'package:yucatan/services/activity_service.dart';
+import 'package:yucatan/services/response/activity_multi_response.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/services/user_service.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/Callbacks.dart';
+import 'package:yucatan/utils/DialogUtils.dart';
+import 'package:yucatan/utils/datefulWidget/DateStatefulWidget.dart';
+import 'package:yucatan/utils/datefulWidget/GlobalDate.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,13 +24,6 @@ import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
 import 'package:permission_handler/permission_handler.dart';
-
-import '../../theme/custom_theme.dart';
-import '../../utils/Callbacks.dart';
-import '../../utils/DialogUtils.dart';
-import '../../utils/datefulWidget/DateStatefulWidget.dart';
-import '../../utils/datefulWidget/GlobalDate.dart';
-import '../../utils/widget_dimensions.dart';
 
 class ActivityMapScreen extends DateStatefulWidget {
   @override
@@ -39,22 +46,22 @@ class _ActivityMapScreenState extends DateState<ActivityMapScreen> {
   loc.Location _location = loc.Location();
   CarouselController carouselController = CarouselController();
 
-  // List<ActivityModel> activities = <ActivityModel>[];
-  // ActivityModel currentlyLargeMarkerActivity;
+  List<ActivityModel> activities = <ActivityModel>[];
+  ActivityModel? currentlyLargeMarkerActivity;
 
   bool collapsed = false;
   DateTime selectedDate = DateTime.now();
 
-  // UserLoginModel _user;
+  UserLoginModel? _user;
   List<String> _favoriteActivities = [];
   bool? showAppBar;
 
   @override
   void initState() {
     showAppBar = true;
-    // _loadActivities();
+    _loadActivities();
     _loadMarkerIcons();
-    // _loadFavoriteActivities();
+    _loadFavoriteActivities();
 
     selectedDate = GlobalDate.current();
 
@@ -85,14 +92,14 @@ class _ActivityMapScreenState extends DateState<ActivityMapScreen> {
         Dimensions.getScaledSize(90.0).toInt());
   }
 
-  // void _loadFavoriteActivities() async {
-  //   _user = await UserProvider.getUser();
+  void _loadFavoriteActivities() async {
+    _user = await UserProvider.getUser();
 
-  //   if (_user == null) return;
+    if (_user == null) return;
 
-  //   _favoriteActivities =
-  //       await UserService.getFavoriteActivitiesForUser(_user.sId);
-  // }
+    _favoriteActivities =
+        await UserService.getFavoriteActivitiesForUser(_user!.sId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -163,20 +170,20 @@ class _ActivityMapScreenState extends DateState<ActivityMapScreen> {
                           //     ),
                           //   ),
                           // ),
-                          // CarouselSlider(
-                          //   carouselController: carouselController,
-                          //   items: _buildRecommendedActivities(activities),
-                          //   options: CarouselOptions(
-                          //     height: Dimensions.getHeight(percentage: 29.0),
-                          //     viewportFraction: 0.7,
-                          //     onPageChanged: (index, reason) {
-                          //       Vibrate.feedback(FeedbackType.selection);
+                          CarouselSlider(
+                            carouselController: carouselController,
+                            items: _buildRecommendedActivities(activities),
+                            options: CarouselOptions(
+                              height: Dimensions.getHeight(percentage: 29.0),
+                              viewportFraction: 0.7,
+                              onPageChanged: (index, reason) {
+                                Vibrate.feedback(FeedbackType.selection);
 
-                          //       _setLargeIconForActivity(activities[index]);
-                          //       _adjustMapsCamera(index);
-                          //     },
-                          //   ),
-                          // ),
+                                _setLargeIconForActivity(activities[index]);
+                                _adjustMapsCamera(index);
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     )
@@ -242,109 +249,109 @@ class _ActivityMapScreenState extends DateState<ActivityMapScreen> {
     });
   }*/
 
-  // void _loadActivities() async {
-  //   ActivityMultiResponse result = await ActivityService.getAll();
+  void _loadActivities() async {
+    ActivityMultiResponse result = await ActivityService.getAll();
 
-  //   Set<Marker> localMarkers = Set<Marker>();
+    Set<Marker> localMarkers = Set<Marker>();
 
-  //   if (result.errors == null) {
-  //     activities = result.data;
-  //     result.data.forEach(
-  //       (element) async {
-  //         if (element.location.lat != null && element.location.lon != null) {
-  //           localMarkers.add(
-  //             Marker(
-  //               markerId: MarkerId(element.sId),
-  //               icon: BitmapDescriptor.fromBytes(markerIconSmall),
-  //               position: LatLng(
-  //                 double.parse(element.location.lat),
-  //                 double.parse(element.location.lon),
-  //               ),
-  //               onTap: () {
-  //                 if (mounted) {
-  //                   setState(() {
-  //                     collapsed = false;
-  //                   });
-  //                 }
-  //                 _setLargeIconForActivity(element);
-  //                 _animateToActivity(element);
-  //               },
-  //             ),
-  //           );
-  //         }
-  //       },
-  //     );
-  //   }
+    if (result.errors == null) {
+      activities = result.data;
+      result.data.forEach(
+        (element) async {
+          if (element.location!.lat != null && element.location!.lon != null) {
+            localMarkers.add(
+              Marker(
+                markerId: MarkerId(element.sId!),
+                icon: BitmapDescriptor.fromBytes(markerIconSmall!),
+                position: LatLng(
+                  double.parse(element.location!.lat!),
+                  double.parse(element.location!.lon!),
+                ),
+                onTap: () {
+                  if (mounted) {
+                    setState(() {
+                      collapsed = false;
+                    });
+                  }
+                  _setLargeIconForActivity(element);
+                  _animateToActivity(element);
+                },
+              ),
+            );
+          }
+        },
+      );
+    }
 
-  //   if (mounted) {
-  //     setState(() {
-  //       markers = localMarkers;
-  //     });
-  //   }
-  // }
+    if (mounted) {
+      setState(() {
+        markers = localMarkers;
+      });
+    }
+  }
 
-  // List<Widget> _buildRecommendedActivities(List<ActivityModel> activities) {
-  //   List<Widget> widgets = [];
+  List<Widget> _buildRecommendedActivities(List<ActivityModel> activities) {
+    List<Widget> widgets = [];
 
-  //   activities.forEach(
-  //     (element) {
-  //       widgets.add(
-  //         ActivityListViewItem(
-  //           isComingFromFullMapScreen: true,
-  //           activityModel: element,
-  //           isFavorite: _favoriteActivities.contains(element.sId),
-  //           width: Dimensions.getWidth(percentage: 75.0),
-  //           onFavoriteChangedCallback: (String activityId) {
-  //             if (mounted) {
-  //               setState(() {
-  //                 if (_favoriteActivities.contains(activityId))
-  //                   _favoriteActivities.remove(activityId);
-  //                 else
-  //                   _favoriteActivities.add(activityId);
-  //               });
-  //             }
-  //           },
-  //         ),
-  //       );
-  //     },
-  //   );
+    activities.forEach(
+      (element) {
+        widgets.add(
+          ActivityListViewItem(
+            isComingFromFullMapScreen: true,
+            activityModel: element,
+            isFavorite: _favoriteActivities.contains(element.sId),
+            width: Dimensions.getWidth(percentage: 75.0),
+            onFavoriteChangedCallback: (String activityId) {
+              if (mounted) {
+                setState(() {
+                  if (_favoriteActivities.contains(activityId))
+                    _favoriteActivities.remove(activityId);
+                  else
+                    _favoriteActivities.add(activityId);
+                });
+              }
+            },
+          ),
+        );
+      },
+    );
 
-  //   if (widgets.isEmpty) {
-  //     widgets.add(ActivityListViewShimmer(
-  //       width: Dimensions.getWidth(percentage: 75.0),
-  //       isComingFromFullMapScreen: true,
-  //     ));
-  //   }
+    if (widgets.isEmpty) {
+      widgets.add(ActivityListViewShimmer(
+        width: Dimensions.getWidth(percentage: 75.0),
+        isComingFromFullMapScreen: true,
+      ));
+    }
 
-  //   return widgets;
-  // }
+    return widgets;
+  }
 
-  // void _animateToActivity(ActivityModel activity) {
-  //   if (collapsed == false) {
-  //     var index = activities.indexOf(activity);
-  //     carouselController.jumpToPage(
-  //       index,
-  //     );
-  //   }
-  // }
+  void _animateToActivity(ActivityModel activity) {
+    if (collapsed == false) {
+      var index = activities.indexOf(activity);
+      carouselController.jumpToPage(
+        index,
+      );
+    }
+  }
 
-  // void _adjustMapsCamera(int index) async {
-  //   var activity = activities[index];
-  //   if (activity.location.lat != null && activity.location.lon != null) {
-  //     final GoogleMapController controller = await _controller.future;
-  //     var zoom = await controller.getZoomLevel();
-  //     controller.animateCamera(
-  //       CameraUpdate.newCameraPosition(
-  //         CameraPosition(
-  //             target: LatLng(
-  //               double.parse(activity.location.lat),
-  //               double.parse(activity.location.lon),
-  //             ),
-  //             zoom: zoom),
-  //       ),
-  //     );
-  //   }
-  // }
+  void _adjustMapsCamera(int index) async {
+    var activity = activities[index];
+    if (activity.location!.lat != null && activity.location!.lon != null) {
+      final GoogleMapController controller = await _controller.future;
+      var zoom = await controller.getZoomLevel();
+      controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+              target: LatLng(
+                double.parse(activity.location!.lat!),
+                double.parse(activity.location!.lon!),
+              ),
+              zoom: zoom),
+        ),
+      );
+    }
+  }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
@@ -356,43 +363,43 @@ class _ActivityMapScreenState extends DateState<ActivityMapScreen> {
         .asUint8List();
   }
 
-  // void _setMarkerIconForMarker(ActivityModel activity, Uint8List icon) {
-  //   if (activity.location.lat != null && activity.location.lon != null) {
-  //     markers.removeWhere((element) => element.markerId.value == activity.sId);
-  //     markers.add(
-  //       Marker(
-  //         markerId: MarkerId(activity.sId),
-  //         icon: BitmapDescriptor.fromBytes(icon),
-  //         position: LatLng(
-  //           double.parse(activity.location.lat),
-  //           double.parse(activity.location.lon),
-  //         ),
-  //         onTap: () {
-  //           if (mounted) {
-  //             setState(() {
-  //               collapsed = false;
-  //             });
-  //           }
-  //           _setLargeIconForActivity(activity);
-  //           _animateToActivity(activity);
-  //         },
-  //       ),
-  //     );
-  //   }
-  // }
+  void _setMarkerIconForMarker(ActivityModel activity, Uint8List icon) {
+    if (activity.location!.lat != null && activity.location!.lon != null) {
+      markers.removeWhere((element) => element.markerId.value == activity.sId);
+      markers.add(
+        Marker(
+          markerId: MarkerId(activity.sId!),
+          icon: BitmapDescriptor.fromBytes(icon),
+          position: LatLng(
+            double.parse(activity.location!.lat!),
+            double.parse(activity.location!.lon!),
+          ),
+          onTap: () {
+            if (mounted) {
+              setState(() {
+                collapsed = false;
+              });
+            }
+            _setLargeIconForActivity(activity);
+            _animateToActivity(activity);
+          },
+        ),
+      );
+    }
+  }
 
-  // void _setLargeIconForActivity(ActivityModel activity) {
-  //   if (mounted) {
-  //     setState(() {
-  //       if (currentlyLargeMarkerActivity != null) {
-  //         _setMarkerIconForMarker(
-  //             currentlyLargeMarkerActivity, markerIconSmall);
-  //       }
-  //       currentlyLargeMarkerActivity = activity;
-  //       _setMarkerIconForMarker(activity, markerIconLarge);
-  //     });
-  //   }
-  // }
+  void _setLargeIconForActivity(ActivityModel activity) {
+    if (mounted) {
+      setState(() {
+        if (currentlyLargeMarkerActivity != null) {
+          _setMarkerIconForMarker(
+              currentlyLargeMarkerActivity!, markerIconSmall!);
+        }
+        currentlyLargeMarkerActivity = activity;
+        _setMarkerIconForMarker(activity, markerIconLarge!);
+      });
+    }
+  }
 
   void _currentLocation() async {
     if (Platform.isIOS) {

@@ -1,23 +1,23 @@
-import 'package:appventure/components/BaseState.dart';
-import 'package:appventure/screens/favorites_screen/bloc/user_bloc.dart';
-import 'package:appventure/screens/main_screen/components/main_screen_parameter.dart';
-import 'package:appventure/screens/main_screen/main_screen.dart';
-import 'package:appventure/screens/notifications/notification_view.dart';
-import 'package:appventure/screens/vendor/dashboard/components/date_box.dart';
-import 'package:appventure/screens/vendor/demand_screen/vendor_demand_screen.dart';
-import 'package:appventure/screens/vendor/order_overview/components/order_overview_screen_parameter.dart';
-import 'package:appventure/screens/vendor/order_overview/order_overview_screen.dart';
-import 'package:appventure/screens/vendor/statistic/vendor_statistic_screen.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/booking_overview_screen.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_categories.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_overview_screen_parameter.dart';
-import 'package:appventure/services/response/vendor_dashboard_response.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/service_locator.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/image_util.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/BaseState.dart';
+import 'package:yucatan/screens/favorites_screen/bloc/user_bloc.dart';
+import 'package:yucatan/screens/main_screen/components/main_screen_parameter.dart';
+import 'package:yucatan/screens/main_screen/main_screen.dart';
+import 'package:yucatan/screens/notifications/notification_view.dart';
+import 'package:yucatan/screens/vendor/dashboard/components/date_box.dart';
+import 'package:yucatan/screens/vendor/demand_screen/vendor_demand_screen.dart';
+import 'package:yucatan/screens/vendor/order_overview/components/order_overview_screen_parameter.dart';
+import 'package:yucatan/screens/vendor/order_overview/order_overview_screen.dart';
+import 'package:yucatan/screens/vendor/statistic/vendor_statistic_screen.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/booking_overview_screen.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_categories.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_overview_screen_parameter.dart';
+import 'package:yucatan/services/response/vendor_dashboard_response.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/service_locator.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/image_util.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -674,7 +674,7 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                                             ? AppLocalizations
                                                                     .of(context)
                                                                 .vendor_dashboardScreen_element
-                                                            : "${snapshotVendorResponse.data.data.demandForToday} ${AppLocalizations.of(context).vendor_dashboardScreen_element}",
+                                                            : "${snapshotVendorResponse.data.data.demandForToday} ${AppLocalizations.of(context)!.vendor_dashboardScreen_element}",
                                                         textAlign:
                                                             TextAlign.start,
                                                         style: TextStyle(

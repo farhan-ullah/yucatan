@@ -1,4 +1,4 @@
-import 'package:appventure/services/notification_service/notification_actions.dart';
+import 'package:yucatan/services/notification_service/notification_actions.dart';
 
 class MainScreenParameter {
   int bottomNavigationBarIndex;
@@ -7,11 +7,10 @@ class MainScreenParameter {
   String activityId = "0";
   bool isBookingRequestType;
 
-  MainScreenParameter({
-    this.bottomNavigationBarIndex,
-    this.notificationAction,
-    this.notificationData,
-    this.activityId,
-    this.isBookingRequestType = false
-  });
+  MainScreenParameter(
+      {this.bottomNavigationBarIndex,
+      this.notificationAction,
+      this.notificationData,
+      this.activityId,
+      this.isBookingRequestType = false});
 }

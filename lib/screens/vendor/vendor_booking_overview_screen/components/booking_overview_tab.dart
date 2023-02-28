@@ -1,4 +1,4 @@
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class VendorBookingOverviewTab extends StatelessWidget {

@@ -1,6 +1,6 @@
-import 'package:appventure/services/response/api_error.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/user_provider.dart';
+import 'package:yucatan/services/response/api_error.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/user_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ProfileBloc {

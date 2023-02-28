@@ -1,17 +1,17 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/booking_detailed_model.dart';
-import 'package:appventure/screens/booking_list_screen/components/booking_add_review_view.dart';
-import 'package:appventure/screens/booking_list_screen/components/booking_list_card_type.dart';
-import 'package:appventure/screens/booking_list_screen/components/booking_request_denied_info.dart';
-import 'package:appventure/screens/booking_list_screen/components/booking_ticket_list.dart';
-import 'package:appventure/screens/booking_list_screen/offline_components/booking_list_action_button.dart';
-import 'package:appventure/screens/hotelDetailes/hotelDetailes.dart';
-import 'package:appventure/services/notification_service/navigatable_by_notification.dart';
-import 'package:appventure/services/notification_service/notification_actions.dart';
-import 'package:appventure/size_config.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/booking_detailed_model.dart';
+import 'package:yucatan/screens/booking_list_screen/components/booking_add_review_view.dart';
+import 'package:yucatan/screens/booking_list_screen/components/booking_list_card_type.dart';
+import 'package:yucatan/screens/booking_list_screen/components/booking_request_denied_info.dart';
+import 'package:yucatan/screens/booking_list_screen/components/booking_ticket_list.dart';
+import 'package:yucatan/screens/booking_list_screen/offline_components/booking_list_action_button.dart';
+import 'package:yucatan/screens/hotelDetailes/hotelDetailes.dart';
+import 'package:yucatan/services/notification_service/navigatable_by_notification.dart';
+import 'package:yucatan/services/notification_service/notification_actions.dart';
+import 'package:yucatan/size_config.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -28,9 +28,9 @@ class BookingOfflineListViewItem extends StatefulWidget {
   final dynamic notificationData;
 
   BookingOfflineListViewItem({
-    @required this.online,
-    @required this.booking,
-    @required this.bookingListCardType,
+    required this.online,
+    required this.booking,
+    required this.bookingListCardType,
     this.notificationAction,
     this.notificationData,
   });

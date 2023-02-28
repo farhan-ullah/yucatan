@@ -1,12 +1,12 @@
-import 'package:appventure/components/custom_error_screen.dart';
-import 'package:appventure/models/booking_detailed_model.dart';
-import 'package:appventure/screens/booking_list_screen/components/booking_list_card_type.dart';
-import 'package:appventure/services/notification_service/navigatable_by_notification.dart';
-import 'package:appventure/services/notification_service/notification_actions.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/Callbacks.dart';
-import 'package:appventure/utils/rive_animation.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/custom_error_screen.dart';
+import 'package:yucatan/models/booking_detailed_model.dart';
+import 'package:yucatan/screens/booking_list_screen/components/booking_list_card_type.dart';
+import 'package:yucatan/services/notification_service/navigatable_by_notification.dart';
+import 'package:yucatan/services/notification_service/notification_actions.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/Callbacks.dart';
+import 'package:yucatan/utils/rive_animation.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -29,12 +29,12 @@ class BookingListOfflineView extends StatelessWidget
   final ItemScrollController _itemScrollController = ItemScrollController();
 
   BookingListOfflineView({
-    Key key,
+    Key? key,
     this.bookings,
     this.refresh,
-    @required this.online,
-    @required this.noBookingsTitle,
-    @required this.bookingListCardType,
+    required this.online,
+    required this.noBookingsTitle,
+    required this.bookingListCardType,
     this.notificationAction,
     this.notificationData,
     this.removeDeniedRequest,
@@ -93,7 +93,7 @@ class BookingListOfflineView extends StatelessWidget
 
     return bookings.length == 0
         ? CustomErrorEmptyScreen(
-            title: AppLocalizations.of(context).commonWords_mistake,
+            title: AppLocalizations.of(context)!.commonWords_mistake,
             description: noBookingsTitle,
             rive: RiveAnimation(
               riveFileName: 'tickets_animiert_loop.riv',
@@ -102,7 +102,7 @@ class BookingListOfflineView extends StatelessWidget
               startAnimationAfterMilliseconds: 0,
             ),
             customButtonText:
-                AppLocalizations.of(context).bookingListScreen_goToSearch,
+                AppLocalizations.of(context)!.bookingListScreen_goToSearch,
             callback: () {
               eventBus.fire(OnOpenSearch());
             },
@@ -180,7 +180,7 @@ class BookingListOfflineView extends StatelessWidget
                               height: Dimensions.getScaledSize(20.0),
                             ),
                             Text(
-                              AppLocalizations.of(context).commonWords_clear,
+                              AppLocalizations.of(context)!.commonWords_clear,
                               style: TextStyle(
                                 fontSize: Dimensions.getScaledSize(16.0),
                                 color: Colors.white,

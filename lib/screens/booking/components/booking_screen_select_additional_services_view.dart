@@ -1,12 +1,12 @@
-import 'package:appventure/components/colored_divider.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/order_model.dart';
-import 'package:appventure/screens/booking/components/booking_bar.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/StringUtils.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/colored_divider.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/order_model.dart';
+import 'package:yucatan/screens/booking/components/booking_bar.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/StringUtils.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -19,10 +19,10 @@ class BookingScreenSelectAdditionalServicesView extends StatefulWidget {
   final OrderProduct orderProduct;
 
   BookingScreenSelectAdditionalServicesView({
-    @required this.additionalService,
-    @required this.onAddAdditionalService,
-    @required this.bookingDetails,
-    @required this.orderProduct,
+    required this.additionalService,
+    required this.onAddAdditionalService,
+    required this.bookingDetails,
+    required this.orderProduct,
   });
 
   @override
@@ -450,7 +450,7 @@ class _BookingScreenSelectAdditionalServicesViewState
                           orderProductAdditionalService);
                     },
                     buttonText:
-                        AppLocalizations.of(context).bookingScreen_finish,
+                        AppLocalizations.of(context)!.bookingScreen_finish,
                   ),
                 ),
                 Positioned(
@@ -728,7 +728,7 @@ class _BookingScreenSelectAdditionalServicesViewState
           child: DropdownButton(
             underline: Container(),
             hint: Text(
-              AppLocalizations.of(context).bookingScreen_choose,
+              AppLocalizations.of(context)!.bookingScreen_choose,
               style: TextStyle(
                 fontSize: Dimensions.getScaledSize(20.0),
                 fontWeight: FontWeight.bold,

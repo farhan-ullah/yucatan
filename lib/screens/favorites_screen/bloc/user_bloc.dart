@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/user_provider.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/user_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
-enum UserLoginAction {FetchLoggedInUser}
+enum UserLoginAction { FetchLoggedInUser }
 
-class UserLoginModelBloc{
-
+class UserLoginModelBloc {
   //This StreamController is used to update the state of widgets
   PublishSubject<UserLoginModel> _stateStreamController = new PublishSubject();
   StreamSink<UserLoginModel> get _userModelSink => _stateStreamController.sink;
@@ -20,17 +19,15 @@ class UserLoginModelBloc{
 
   UserLoginModelBloc() {
     _eventStream.listen((event) async {
-      if (event == UserLoginAction.FetchLoggedInUser){
+      if (event == UserLoginAction.FetchLoggedInUser) {
         UserLoginModel userLoginModel = await UserProvider.getUser();
         _userModelSink.add(userLoginModel);
       }
-
     });
   }
 
-  void dispose(){
+  void dispose() {
     _stateStreamController.close();
     _eventStreamController.close();
   }
-
 }

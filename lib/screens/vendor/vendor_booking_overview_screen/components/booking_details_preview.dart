@@ -1,13 +1,13 @@
 import 'dart:ui';
 
-import 'package:appventure/models/booking_detailed_model.dart';
-import 'package:appventure/models/booking_model.dart';
-import 'package:appventure/models/user_model.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_preview_button.dart';
-import 'package:appventure/services/payment_service.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/booking_detailed_model.dart';
+import 'package:yucatan/models/booking_model.dart';
+import 'package:yucatan/models/user_model.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_preview_button.dart';
+import 'package:yucatan/services/payment_service.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,10 +24,10 @@ class BookingDetailsPreview extends StatefulWidget {
   final Function refresh;
 
   BookingDetailsPreview(
-      {@required this.booking,
-      @required this.category,
-      @required this.openTicketList,
-      @required this.refresh});
+      {required this.booking,
+      required this.category,
+      required this.openTicketList,
+      required this.refresh});
 
   @override
   State<StatefulWidget> createState() {
@@ -154,12 +154,12 @@ class BookingDetailsBody extends StatelessWidget {
   final Color fieldColor = Color(0xFFECF5FE);
 
   BookingDetailsBody({
-    @required this.booking,
-    @required this.canBeRefunded,
-    @required this.showRefund,
-    @required this.userModel,
+    required this.booking,
+    required this.canBeRefunded,
+    required this.showRefund,
+    required this.userModel,
     this.openTicketList,
-    @required this.category,
+    required this.category,
   });
 
   @override
@@ -169,7 +169,7 @@ class BookingDetailsBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _getInfoTitleText(
-            AppLocalizations.of(context).vendor_bookingOverview_customerData),
+            AppLocalizations.of(context)!.vendor_bookingOverview_customerData),
         SizedBox(height: Dimensions.getScaledSize(10), child: Container()),
         _getUserInfoRow(
             icon: Icons.account_circle_outlined,
@@ -210,7 +210,7 @@ class BookingDetailsBody extends StatelessWidget {
               padding: Dimensions.getScaledSize(5)),
         ),
         SizedBox(height: Dimensions.getScaledSize(10), child: Container()),
-        _getInfoTitleText(AppLocalizations.of(context).commonWords_booking),
+        _getInfoTitleText(AppLocalizations.of(context)!.commonWords_booking),
         SizedBox(height: Dimensions.getScaledSize(10), child: Container()),
         _getBookingInfo(context),
         SizedBox(height: Dimensions.getScaledSize(10)),
@@ -228,7 +228,7 @@ class BookingDetailsBody extends StatelessWidget {
                 padding: Dimensions.getScaledSize(10))),
         SizedBox(height: Dimensions.getScaledSize(10)),
         _getInfoTitleText(
-            AppLocalizations.of(context).vendor_bookingOverview_articles),
+            AppLocalizations.of(context)!.vendor_bookingOverview_articles),
         SizedBox(height: Dimensions.getScaledSize(10)),
         Container(
           height: 0.25 * MediaQuery.of(context).size.height,
@@ -259,7 +259,7 @@ class BookingDetailsBody extends StatelessWidget {
                   color: CustomTheme.accentColor1,
                 ),
                 Text(
-                  AppLocalizations.of(context).commonWords_refund,
+                  AppLocalizations.of(context)!.commonWords_refund,
                   style: TextStyle(
                     fontSize: Dimensions.getScaledSize(14),
                     color: CustomTheme.accentColor1,
@@ -462,9 +462,9 @@ class _BookingRefundBody extends StatefulWidget {
   final Function refresh;
 
   _BookingRefundBody({
-    @required this.bookingId,
+    required this.bookingId,
     this.refresh,
-    @required this.hideRefund,
+    required this.hideRefund,
   });
 
   @override
@@ -478,7 +478,7 @@ class _BookingRefundBodyState extends State<_BookingRefundBody> {
 
   void _handleError() {
     Fluttertoast.showToast(
-      msg: AppLocalizations.of(context).commonWords_error,
+      msg: AppLocalizations.of(context)!.commonWords_error,
       backgroundColor: CustomTheme.accentColor1,
       gravity: ToastGravity.CENTER,
       textColor: Colors.white,
@@ -526,7 +526,7 @@ class _BookingRefundBodyState extends State<_BookingRefundBody> {
               children: [
                 Expanded(child: Container()),
                 Text(
-                  AppLocalizations.of(context).commonWords_warning_warnung,
+                  AppLocalizations.of(context)!.commonWords_warning_warnung,
                   style: TextStyle(
                     color: CustomTheme.accentColor1,
                     fontWeight: FontWeight.w900,
@@ -559,14 +559,15 @@ class _BookingRefundBodyState extends State<_BookingRefundBody> {
                 Expanded(child: Container()),
                 VendorBookingPreviewButton(
                     color: CustomTheme.accentColor1,
-                    buttonText: AppLocalizations.of(context).commonWords_refund,
+                    buttonText:
+                        AppLocalizations.of(context)!.commonWords_refund,
                     onPressed: refundBooking,
                     fontSize: Dimensions.getScaledSize(15),
                     width: MediaQuery.of(context).size.width * 0.55,
                     fontWeight: FontWeight.w900),
                 VendorBookingPreviewButton(
                   color: CustomTheme.accentColor2,
-                  buttonText: AppLocalizations.of(context).actions_back,
+                  buttonText: AppLocalizations.of(context)!.actions_back,
                   onPressed: widget.hideRefund,
                   fontSize: Dimensions.getScaledSize(15),
                   width: MediaQuery.of(context).size.width * 0.55,

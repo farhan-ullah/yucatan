@@ -1,13 +1,13 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class RecommendedActivitiesItemImage extends StatelessWidget {
   final ActivityModel activity;
 
-  RecommendedActivitiesItemImage({@required this.activity});
+  RecommendedActivitiesItemImage({required this.activity});
 
   @override
   Widget build(BuildContext context) {

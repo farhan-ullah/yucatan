@@ -1,6 +1,6 @@
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/StringUtils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/StringUtils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -15,7 +15,7 @@ class BurgerMenuListItem extends StatelessWidget {
   final String svgPath;
 
   BurgerMenuListItem(
-      {Key key,
+      {Key? key,
       this.text,
       this.subtitle,
       this.tapRoute,

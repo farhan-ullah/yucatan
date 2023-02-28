@@ -1,6 +1,6 @@
-import 'package:appventure/components/custom_app_bar.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/screens/booking/components/booking_screen_view.dart';
+import 'package:yucatan/components/custom_app_bar.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/screens/booking/components/booking_screen_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class _BookingScreenState extends State<BookingScreen> {
         child: BookingScreenView(activity: activity),
       ),
       appBar: CustomAppBar(
-        title: AppLocalizations.of(context).bookingScreen_title,
+        title: AppLocalizations.of(context)!.bookingScreen_title,
         appBar: AppBar(),
         centerTitle: true,
       ),

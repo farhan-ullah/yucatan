@@ -1,15 +1,15 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/file_model.dart';
-import 'package:appventure/screens/hotelDetailes/images_fullscreen_view.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/file_model.dart';
+import 'package:yucatan/screens/hotelDetailes/images_fullscreen_view.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class HotelRoomeList extends StatefulWidget {
   final ActivityModel activity;
 
-  HotelRoomeList({@required this.activity});
+  HotelRoomeList({required this.activity});
 
   @override
   _HotelRoomeListState createState() => _HotelRoomeListState();

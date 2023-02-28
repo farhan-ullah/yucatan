@@ -1,12 +1,12 @@
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DiscardDialog extends StatefulWidget {
-
   final bool isComingFromAdditionalService;
-  DiscardDialog(this.callback, this.callBackClose,this.isComingFromAdditionalService);
+  DiscardDialog(
+      this.callback, this.callBackClose, this.isComingFromAdditionalService);
   final VoidCallback callback;
   final VoidCallback callBackClose;
 
@@ -84,7 +84,7 @@ class _DiscardDialogState extends State<DiscardDialog> {
                   height: Dimensions.getScaledSize(5.0),
                 ),
                 Text(
-                  AppLocalizations.of(context).bookingScreen_warning,
+                  AppLocalizations.of(context)!.bookingScreen_warning,
                   style: TextStyle(
                     fontSize: Dimensions.getScaledSize(18.0),
                     fontWeight: FontWeight.bold,
@@ -101,8 +101,10 @@ class _DiscardDialogState extends State<DiscardDialog> {
                   ),
                   child: Text(
                     widget.isComingFromAdditionalService
-                        ? AppLocalizations.of(context).bookingScreen_closeWindowWarning
-                        : AppLocalizations.of(context).bookingScreen_closeWindowSelectionWarning,
+                        ? AppLocalizations.of(context)
+                            .bookingScreen_closeWindowWarning
+                        : AppLocalizations.of(context)
+                            .bookingScreen_closeWindowSelectionWarning,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: Dimensions.getScaledSize(16.0),
@@ -130,7 +132,8 @@ class _DiscardDialogState extends State<DiscardDialog> {
                           color: CustomTheme.darkGrey,
                         ))),
                     child: Center(
-                      child: Text(AppLocalizations.of(context).bookingScreen_next ,
+                      child: Text(
+                        AppLocalizations.of(context)!.bookingScreen_next,
                         style: TextStyle(
                           fontSize: Dimensions.getScaledSize(16.0),
                           fontWeight: FontWeight.bold,
@@ -161,7 +164,7 @@ class _DiscardDialogState extends State<DiscardDialog> {
                         ))),
                     child: Center(
                       child: Text(
-                        AppLocalizations.of(context).bookingScreen_clear,
+                        AppLocalizations.of(context)!.bookingScreen_clear,
                         style: TextStyle(
                           fontSize: Dimensions.getScaledSize(16.0),
                           fontWeight: FontWeight.bold,

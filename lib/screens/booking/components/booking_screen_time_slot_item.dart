@@ -1,6 +1,6 @@
-import 'package:appventure/screens/booking/components/booking_screen_time_slot_item_model.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/screens/booking/components/booking_screen_time_slot_item_model.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class BookingScreenTimeSlotItem extends StatefulWidget {
@@ -9,9 +9,9 @@ class BookingScreenTimeSlotItem extends StatefulWidget {
   final Function(BookingScreenTimeSlotItemModel) onSelected;
 
   BookingScreenTimeSlotItem({
-    @required this.timeSlotItemModel,
-    @required this.hasTime,
-    @required this.onSelected,
+    required this.timeSlotItemModel,
+    required this.hasTime,
+    required this.onSelected,
   });
 
   @override
@@ -22,7 +22,6 @@ class BookingScreenTimeSlotItem extends StatefulWidget {
 class _BookingScreenTimeSlotItemState extends State<BookingScreenTimeSlotItem> {
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: () {
         widget.onSelected(widget.timeSlotItemModel);
@@ -159,7 +158,8 @@ class _BookingScreenTimeSlotItemState extends State<BookingScreenTimeSlotItem> {
   ///Return second text based on remaining quota
   String _getSecondQuotaText() {
     if (widget.timeSlotItemModel.remainingQuota > 10) return " verfügbar";
-    if (widget.timeSlotItemModel.remainingQuota == 1) return " Ticket verfügbar";
+    if (widget.timeSlotItemModel.remainingQuota == 1)
+      return " Ticket verfügbar";
     if (widget.timeSlotItemModel.remainingQuota == 0) return "";
     return " Tickets verfügbar";
   }

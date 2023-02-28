@@ -1,5 +1,5 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/utils/datefulWidget/GlobalDate.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/utils/datefulWidget/GlobalDate.dart';
 
 ///Class for time and quota logic throughout the booking funnel
 class BookingTimeQuotaUtil {
@@ -58,7 +58,8 @@ class BookingTimeQuotaUtil {
       minute = minute != null ? minute : 0;
     }
 
-    var filterDate = DateTime.utc(date.year, date.month, date.day, hour, minute);
+    var filterDate =
+        DateTime.utc(date.year, date.month, date.day, hour, minute);
 
     var availableQuotaObject = product.timeSlots.quotaAvailability?.firstWhere(
       (element) {

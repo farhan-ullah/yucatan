@@ -1,10 +1,10 @@
-import 'package:appventure/models/activity_model.dart'
+import 'package:yucatan/models/activity_model.dart'
     hide ProductAdditionalService;
-import 'package:appventure/models/booking_model.dart';
-import 'package:appventure/screens/qr_scanner/components/booking_preview_header.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/booking_model.dart';
+import 'package:yucatan/screens/qr_scanner/components/booking_preview_header.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -18,12 +18,12 @@ class BookingPreviewCard extends StatelessWidget {
   final bool isAlreadyRedeemed;
 
   BookingPreviewCard(
-      {@required this.activityModel,
-      @required this.booking,
-      @required this.ticket,
-      @required this.goBack,
-      @required this.redeem,
-      @required this.isAlreadyRedeemed});
+      {required this.activityModel,
+      required this.booking,
+      required this.ticket,
+      required this.goBack,
+      required this.redeem,
+      required this.isAlreadyRedeemed});
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +99,7 @@ class BookingPreviewCard extends StatelessWidget {
                         thickness: 1,
                       ),
                       SizedBox(height: displayHeight * 0.02),
-                      Text(AppLocalizations.of(context).commonWords_booking,
+                      Text(AppLocalizations.of(context)!.commonWords_booking,
                           style: getTextStyleBold(titleSize)),
                       SizedBox(height: displayHeight * 0.01),
                       Text(
@@ -123,7 +123,7 @@ class BookingPreviewCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   children: [
                     Text(
-                      AppLocalizations.of(context).bookingListScreen_inValueOf,
+                      AppLocalizations.of(context)!.bookingListScreen_inValueOf,
                       style: getTextStyle(0.03 * displayHeight),
                     ),
                     SizedBox(width: displayHeight * 0.01),
@@ -140,12 +140,13 @@ class BookingPreviewCard extends StatelessWidget {
                   children: [
                     BookingPreviewButton(
                         color: Colors.red,
-                        buttonText: AppLocalizations.of(context).actions_cancel,
+                        buttonText:
+                            AppLocalizations.of(context)!.actions_cancel,
                         onPressed: goBack),
                     BookingPreviewButton(
                         color: isAlreadyRedeemed ? Colors.grey : Colors.green,
                         buttonText:
-                            AppLocalizations.of(context).actions_confirm,
+                            AppLocalizations.of(context)!.actions_confirm,
                         onPressed: isAlreadyRedeemed ? null : redeem)
                   ],
                 ),
@@ -275,9 +276,7 @@ class BookingPreviewButton extends StatelessWidget {
   final Function onPressed;
 
   BookingPreviewButton(
-      {@required this.color,
-      @required this.buttonText,
-      @required this.onPressed});
+      {required this.color, required this.buttonText, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

@@ -1,17 +1,16 @@
 import 'dart:async';
 
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_page_view/infinity_page_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../theme/custom_theme.dart';
-import '../../../utils/widget_dimensions.dart';
-
 class ActivityListSliderView extends StatefulWidget {
-  final double? opValue;
-  final VoidCallback? onSearchTap;
-  final AnimationController? animationController;
+  final double opValue;
+  final VoidCallback onSearchTap;
+  final AnimationController animationController;
 
   const ActivityListSliderView({
     Key? key,
@@ -28,7 +27,7 @@ class _ActivityListSliderViewState extends State<ActivityListSliderView> {
   var indicatorPageController = PageController();
   var pageViewModelData = <PageViewData>[];
 
-  Timer? sliderTimer;
+  Timer sliderTimer;
   var currentShowIndex = 0;
 
   @override
@@ -51,7 +50,7 @@ class _ActivityListSliderViewState extends State<ActivityListSliderView> {
 
     try {
       sliderTimer = Timer.periodic(Duration(seconds: 4), (timer) {
-        if (widget.animationController!.value <= 0) {
+        if (widget.animationController.value <= 0) {
           pageController.pageController.nextPage(
             duration: Duration(seconds: 1),
             curve: Curves.fastOutSlowIn,
@@ -67,7 +66,7 @@ class _ActivityListSliderViewState extends State<ActivityListSliderView> {
   @override
   void dispose() {
     sliderTimer?.cancel();
-    pageController.dispose();
+    pageController?.dispose();
     super.dispose();
   }
 
@@ -81,17 +80,17 @@ class _ActivityListSliderViewState extends State<ActivityListSliderView> {
               case 0:
                 return PagePopup(
                   imageData: pageViewModelData[0],
-                  opValue: widget.opValue!,
+                  opValue: widget.opValue,
                 );
               case 1:
                 return PagePopup(
                   imageData: pageViewModelData[1],
-                  opValue: widget.opValue!,
+                  opValue: widget.opValue,
                 );
               case 2:
                 return PagePopup(
                   imageData: pageViewModelData[2],
-                  opValue: widget.opValue!,
+                  opValue: widget.opValue,
                 );
               default:
                 return Container();
@@ -105,14 +104,14 @@ class _ActivityListSliderViewState extends State<ActivityListSliderView> {
           },
           controller: pageController,
         ),
-        widget.animationController!.value <= 0.54
+        widget.animationController.value <= 0.54
             ? Positioned(
                 bottom: 20,
                 left: 0,
                 right: 0,
                 child: Opacity(
                   opacity:
-                      _getOpacityForSearchUi(widget.animationController!.value),
+                      _getOpacityForSearchUi(widget.animationController.value),
                   child: searchUi(),
                 ),
               )
@@ -156,7 +155,7 @@ class _ActivityListSliderViewState extends State<ActivityListSliderView> {
                 ),
               ),
               onTap: () {
-                widget.onSearchTap!();
+                widget.onSearchTap();
               },
               child: Row(
                 children: <Widget>[
@@ -196,8 +195,8 @@ class _ActivityListSliderViewState extends State<ActivityListSliderView> {
 }
 
 class PagePopup extends StatelessWidget {
-  final PageViewData? imageData;
-  final double? opValue;
+  final PageViewData imageData;
+  final double opValue;
 
   const PagePopup({Key? key, this.imageData, this.opValue: 0.0})
       : super(key: key);
@@ -210,7 +209,7 @@ class PagePopup extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.39,
           width: MediaQuery.of(context).size.width,
           child: Image.asset(
-            imageData!.assetsImage!,
+            imageData.assetsImage,
             fit: BoxFit.cover,
           ),
         ),
@@ -237,9 +236,9 @@ class PagePopup extends StatelessWidget {
 }
 
 class PageViewData {
-  final String? titleText;
-  final String? subText;
-  final String? assetsImage;
+  final String titleText;
+  final String subText;
+  final String assetsImage;
 
   PageViewData({this.titleText, this.subText, this.assetsImage});
 }

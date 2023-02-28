@@ -1,11 +1,11 @@
 import 'dart:collection';
 
-import 'package:appventure/bloc/AppStateBloc.dart';
-import 'package:appventure/models/notification_model.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/user_provider.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/bloc/AppStateBloc.dart';
+import 'package:yucatan/models/notification_model.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 

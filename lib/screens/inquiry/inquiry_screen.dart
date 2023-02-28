@@ -1,13 +1,13 @@
-import 'package:appventure/components/custom_app_bar.dart';
-import 'package:appventure/components/dashed_divider.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/order_model.dart';
-import 'package:appventure/screens/booking/components/booking_bar.dart';
-import 'package:appventure/screens/inquiry/components/inquiry_screen_parameter.dart';
-import 'package:appventure/screens/payment_credit_card_screen/components/payment_credit_card_screen_parameter.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/rive_animation.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/custom_app_bar.dart';
+import 'package:yucatan/components/dashed_divider.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/order_model.dart';
+import 'package:yucatan/screens/booking/components/booking_bar.dart';
+import 'package:yucatan/screens/inquiry/components/inquiry_screen_parameter.dart';
+import 'package:yucatan/screens/payment_credit_card_screen/components/payment_credit_card_screen_parameter.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/rive_animation.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -31,7 +31,7 @@ class _InquiryScreenState extends State<InquiryScreen> {
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: AppLocalizations.of(context).inquiryScreen_makeInquiry,
+        title: AppLocalizations.of(context)!.inquiryScreen_makeInquiry,
         appBar: AppBar(),
         centerTitle: true,
       ),
@@ -109,7 +109,7 @@ class _InquiryScreenState extends State<InquiryScreen> {
                       ),
                     );
                   },
-                  buttonText: AppLocalizations.of(context).commonWords_further,
+                  buttonText: AppLocalizations.of(context)!.commonWords_further,
                   showDivider: !_showInfoContainer,
                 ),
               ),

@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:appventure/screens/authentication/register/models/country_model.dart';
-import 'package:appventure/screens/authentication/register/models/details_email.dart';
-import 'package:appventure/screens/authentication/register/models/details_model.dart';
-import 'package:appventure/screens/authentication/register/models/password_model.dart';
-import 'package:appventure/screens/authentication/register/models/policy_model.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/response/user_single_response_entity.dart';
-import 'package:appventure/services/user_service.dart';
+import 'package:yucatan/screens/authentication/register/models/country_model.dart';
+import 'package:yucatan/screens/authentication/register/models/details_email.dart';
+import 'package:yucatan/screens/authentication/register/models/details_model.dart';
+import 'package:yucatan/screens/authentication/register/models/password_model.dart';
+import 'package:yucatan/screens/authentication/register/models/policy_model.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/response/user_single_response_entity.dart';
+import 'package:yucatan/services/user_service.dart';
 
 enum LoadingState { START, STOP }
 
@@ -37,7 +37,10 @@ class RegisterBloc {
       RegisterPasswordModel passwordModel,
       RegisterPolicyModel policyModel,
       CountryPhoneModel countryPhoneModel) async {
-    if (detailModel == null || passwordModel == null || emailModel == null || policyModel == null ||
+    if (detailModel == null ||
+        passwordModel == null ||
+        emailModel == null ||
+        policyModel == null ||
         countryPhoneModel == null) {
       return;
     }
@@ -62,8 +65,8 @@ class RegisterBloc {
       return;
     }
 
-    if(passwordModel != null){
-      if(passwordModel.password == passwordModel.passwordRepeat){
+    if (passwordModel != null) {
+      if (passwordModel.password == passwordModel.passwordRepeat) {
         passwordModel.isValid = true;
       }
     }

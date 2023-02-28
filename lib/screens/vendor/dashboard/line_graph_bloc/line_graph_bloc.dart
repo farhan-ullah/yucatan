@@ -1,20 +1,23 @@
 import 'dart:async';
-import 'package:appventure/models/vendor_booking_statistic_model.dart';
-import 'package:appventure/services/response/vendor_booking_statistic_single_response_entity.dart';
-import 'package:appventure/services/statistic_service.dart';
+import 'package:yucatan/models/vendor_booking_statistic_model.dart';
+import 'package:yucatan/services/response/vendor_booking_statistic_single_response_entity.dart';
+import 'package:yucatan/services/statistic_service.dart';
 import 'package:rxdart/rxdart.dart';
 
-enum LineGraphAction {FetchGraphData}
+enum LineGraphAction { FetchGraphData }
 
-class LineGraphBloc{
-
+class LineGraphBloc {
   //This StreamController is used to update the state of widgets
-  StreamController<VendorBookingStatisticSingleResponseEntity> _stateStreamController = new BehaviorSubject();
-  StreamSink<VendorBookingStatisticSingleResponseEntity> get _lineGraphSink => _stateStreamController.sink;
-  Stream<VendorBookingStatisticSingleResponseEntity> get lineGraphStream => _stateStreamController.stream;
+  StreamController<VendorBookingStatisticSingleResponseEntity>
+      _stateStreamController = new BehaviorSubject();
+  StreamSink<VendorBookingStatisticSingleResponseEntity> get _lineGraphSink =>
+      _stateStreamController.sink;
+  Stream<VendorBookingStatisticSingleResponseEntity> get lineGraphStream =>
+      _stateStreamController.stream;
 
   //user input event StreamController
-  StreamController<LineGraphAction> _eventStreamController = new BehaviorSubject();
+  StreamController<LineGraphAction> _eventStreamController =
+      new BehaviorSubject();
   StreamSink<LineGraphAction> get eventSink => _eventStreamController.sink;
   Stream<LineGraphAction> get _eventStream => _eventStreamController.stream;
 
@@ -27,18 +30,18 @@ class LineGraphBloc{
 
   LineGraphBloc() {
     _eventStream.listen((event) async {
-      if (event == LineGraphAction.FetchGraphData){
+      if (event == LineGraphAction.FetchGraphData) {
         _dateTo = getCurrentDate();
         _dateFrom = _dateTo.subtract(Duration(days: 7));
         VendorBookingStatisticSingleResponseEntity response =
-        await StatisticService.getVendorDetailedStatistic(getDateString(_dateFrom), getDateString(_dateTo));
+            await StatisticService.getVendorDetailedStatistic(
+                getDateString(_dateFrom), getDateString(_dateTo));
         if (response.status == 200) {
           fullItemsList = [];
           _maxRevenue = 0;
           _maxBookingAmount = 0;
           fullItemsList = getItemsForAllDates(response.data.dailyRevenueItems);
-          if (_maxRevenue == 0)
-            _maxRevenue = 100;
+          if (_maxRevenue == 0) _maxRevenue = 100;
           fullItemsList = getItemsForAllDates(response.data.dailyRevenueItems);
           response.fullItemsList = fullItemsList;
           response.maxRevenue = _maxRevenue;
@@ -85,9 +88,8 @@ class LineGraphBloc{
     return fullList;
   }
 
-  void dispose(){
+  void dispose() {
     _stateStreamController.close();
     _eventStreamController.close();
   }
-
 }

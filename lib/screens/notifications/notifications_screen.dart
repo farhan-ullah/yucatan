@@ -1,26 +1,26 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:appventure/components/custom_app_bar.dart';
-import 'package:appventure/components/custom_error_screen.dart';
-import 'package:appventure/models/notification_model.dart';
-import 'package:appventure/screens/authentication/login/login_screen.dart';
-import 'package:appventure/screens/main_screen/components/main_screen_parameter.dart';
-import 'package:appventure/screens/main_screen/main_screen.dart';
-import 'package:appventure/services/notification_service/notification_actions.dart';
-import 'package:appventure/services/notification_service/notification_service.dart';
-import 'package:appventure/services/notifications_to_read_response.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/response/user_notification_response.dart';
-import 'package:appventure/services/user_notification_service.dart';
-import 'package:appventure/services/user_provider.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/StringUtils.dart';
-import 'package:appventure/utils/datefulWidget/GlobalDate.dart';
-import 'package:appventure/utils/image_util.dart';
-import 'package:appventure/utils/network_utils.dart';
-import 'package:appventure/utils/rive_animation.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/custom_app_bar.dart';
+import 'package:yucatan/components/custom_error_screen.dart';
+import 'package:yucatan/models/notification_model.dart';
+import 'package:yucatan/screens/authentication/login/login_screen.dart';
+import 'package:yucatan/screens/main_screen/components/main_screen_parameter.dart';
+import 'package:yucatan/screens/main_screen/main_screen.dart';
+import 'package:yucatan/services/notification_service/notification_actions.dart';
+import 'package:yucatan/services/notification_service/notification_service.dart';
+import 'package:yucatan/services/notifications_to_read_response.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/response/user_notification_response.dart';
+import 'package:yucatan/services/user_notification_service.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/StringUtils.dart';
+import 'package:yucatan/utils/datefulWidget/GlobalDate.dart';
+import 'package:yucatan/utils/image_util.dart';
+import 'package:yucatan/utils/network_utils.dart';
+import 'package:yucatan/utils/rive_animation.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class NotificationsScreen extends StatefulWidget {
   final Function(HashMap) onNotificationClicked;
 
   NotificationsScreen({
-    @required this.onNotificationClicked,
+    required this.onNotificationClicked,
   });
 
   @override
@@ -131,7 +131,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       backgroundColor:
           userRole == "User" ? null : CustomTheme.vendorMenubackground,
       appBar: CustomAppBar(
-          title: AppLocalizations.of(context).notificationsScreen_title,
+          title: AppLocalizations.of(context)!.notificationsScreen_title,
           appBar: AppBar(),
           centerTitle: true,
           backgroundColor: userRole == "User"
@@ -166,7 +166,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 builder: (context, snapshot) {
                   if (_user == null) {
                     return CustomErrorEmptyScreen(
-                      title: AppLocalizations.of(context).commonWords_mistake,
+                      title: AppLocalizations.of(context)!.commonWords_mistake,
                       description: AppLocalizations.of(context)
                           .notificationsNotLoggedInScreen_loginTosee,
                       rive: RiveAnimation(
@@ -177,7 +177,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         startAnimationAfterMilliseconds: 0,
                       ),
                       customButtonText:
-                          AppLocalizations.of(context).loginSceen_login,
+                          AppLocalizations.of(context)!.loginSceen_login,
                       callback: () {
                         Navigator.of(context).pushNamed(LoginScreen.route).then(
                           (value) {
@@ -462,7 +462,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     var now = DateTime.now();
 
     if (GlobalDate.isToday(notificationModel.publishDateTime)) {
-      return AppLocalizations.of(context).today;
+      return AppLocalizations.of(context)!.today;
     } else if (notificationModel.publishDateTime.isAfter(
       DateTime(
         now.year,
@@ -472,7 +472,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         Duration(days: 1),
       ),
     )) {
-      return AppLocalizations.of(context).notificationsScreen_oneDay;
+      return AppLocalizations.of(context)!.notificationsScreen_oneDay;
     } else if (notificationModel.publishDateTime.isAfter(
       DateTime(
         now.year,
@@ -482,7 +482,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         Duration(days: 2),
       ),
     )) {
-      return AppLocalizations.of(context).notificationsScreen_twoDay;
+      return AppLocalizations.of(context)!.notificationsScreen_twoDay;
     } else if (notificationModel.publishDateTime.isAfter(
       DateTime(
         now.year,
@@ -492,7 +492,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         Duration(days: 3),
       ),
     )) {
-      return AppLocalizations.of(context).notificationsScreen_threeDay;
+      return AppLocalizations.of(context)!.notificationsScreen_threeDay;
     } else {
       return DateFormat('dd.MM.yy').format(notificationModel.publishDateTime);
     }

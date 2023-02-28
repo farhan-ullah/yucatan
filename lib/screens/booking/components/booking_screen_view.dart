@@ -1,22 +1,22 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/order_model.dart';
-import 'package:appventure/screens/authentication/login/login_screen.dart';
-import 'package:appventure/screens/booking/components/booking_bar.dart';
-import 'package:appventure/screens/booking/components/booking_delete_dialog.dart';
-import 'package:appventure/screens/booking/components/booking_screen_add_button.dart';
-import 'package:appventure/screens/booking/components/booking_screen_card.dart';
-import 'package:appventure/screens/booking/components/booking_screen_select_properties_view.dart';
-import 'package:appventure/screens/booking/components/booking_screen_selected_date.dart';
-import 'package:appventure/screens/booking/components/booking_screen_time_selection.dart';
-import 'package:appventure/screens/booking/components/booking_screen_time_slot_item_model.dart';
-import 'package:appventure/screens/checkout_screen/checkout_screen.dart';
-import 'package:appventure/screens/checkout_screen/components/checkout_screen_parameter.dart';
-import 'package:appventure/services/analytics_service.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/user_provider.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/order_model.dart';
+import 'package:yucatan/screens/authentication/login/login_screen.dart';
+import 'package:yucatan/screens/booking/components/booking_bar.dart';
+import 'package:yucatan/screens/booking/components/booking_delete_dialog.dart';
+import 'package:yucatan/screens/booking/components/booking_screen_add_button.dart';
+import 'package:yucatan/screens/booking/components/booking_screen_card.dart';
+import 'package:yucatan/screens/booking/components/booking_screen_select_properties_view.dart';
+import 'package:yucatan/screens/booking/components/booking_screen_selected_date.dart';
+import 'package:yucatan/screens/booking/components/booking_screen_time_selection.dart';
+import 'package:yucatan/screens/booking/components/booking_screen_time_slot_item_model.dart';
+import 'package:yucatan/screens/checkout_screen/checkout_screen.dart';
+import 'package:yucatan/screens/checkout_screen/components/checkout_screen_parameter.dart';
+import 'package:yucatan/services/analytics_service.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -149,8 +149,8 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                 _handleContinueButton();
               },
               buttonText: orderProducts.length > 0
-                  ? AppLocalizations.of(context).bookingScreen_pay
-                  : AppLocalizations.of(context).bookingScreen_further,
+                  ? AppLocalizations.of(context)!.bookingScreen_pay
+                  : AppLocalizations.of(context)!.bookingScreen_further,
               showDivider: true,
             ),
           ),
@@ -267,7 +267,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
             right: Dimensions.getScaledSize(24.0),
           ),
           child: Text(
-            AppLocalizations.of(context).bookingScreen_yourChoice,
+            AppLocalizations.of(context)!.bookingScreen_yourChoice,
             style: TextStyle(
               fontSize: Dimensions.getScaledSize(16.0),
               fontWeight: FontWeight.bold,
@@ -1262,7 +1262,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
   void _proceedToCheckoutIfOrderNotEmpty() async {
     if (orderProducts.length == 0) {
       Fluttertoast.showToast(
-        msg: AppLocalizations.of(context).bookingScreen_nothingSelected,
+        msg: AppLocalizations.of(context)!.bookingScreen_nothingSelected,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         backgroundColor: CustomTheme.theme.primaryColorDark,
@@ -1356,7 +1356,8 @@ class _BookingScreenViewState extends State<BookingScreenView> {
           _availableTimeSlots.length == 1 &&
           _availableTimeSlots.first.remainingQuota > 0) {
         _selectedBookingScreenTimeSlotItemModel = _availableTimeSlots.first;
-        print('Data Showed 5 Farhan : $_selectedBookingScreenTimeSlotItemModel');
+        print(
+            'Data Showed 5 Farhan : $_selectedBookingScreenTimeSlotItemModel');
         _nextBookingStep();
       }
       return;

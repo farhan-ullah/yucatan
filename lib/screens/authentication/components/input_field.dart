@@ -1,7 +1,6 @@
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../utils/widget_dimensions.dart';
 
 class InputField extends StatefulWidget {
   final String? title;
@@ -34,7 +33,7 @@ class InputField extends StatefulWidget {
 
 class _InputFieldState extends State<InputField> {
   TextEditingController _controller = new TextEditingController();
-  FocusNode _textFocus = new FocusNode();
+  FocusNode _textFocus = FocusNode();
   bool? _obscureText;
 
   static const color = Color(0xFF777777);

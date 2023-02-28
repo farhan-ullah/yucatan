@@ -1,6 +1,6 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -64,7 +64,7 @@ class _TotalCostCardState extends State<TotalCostCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      '${AppLocalizations.of(context).bookingScreen_total}: ${_getTotal()}€',
+                      '${AppLocalizations.of(context)!.bookingScreen_total}: ${_getTotal()}€',
                       style: TextStyle(
                         fontSize: Dimensions.getScaledSize(16.0),
                         fontWeight: FontWeight.bold,
@@ -75,7 +75,7 @@ class _TotalCostCardState extends State<TotalCostCard> {
                         widget.callback.call();
                       },
                       child: Text(
-                        AppLocalizations.of(context).bookingScreen_checkout,
+                        AppLocalizations.of(context)!.bookingScreen_checkout,
                         style: TextStyle(
                           fontSize: Dimensions.getScaledSize(16.0),
                           fontWeight: FontWeight.bold,

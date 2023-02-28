@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:appventure/models/booking_model.dart';
-import 'package:appventure/models/order_model.dart';
-import 'package:appventure/services/payment_service.dart';
-import 'package:appventure/services/response/payment_response.dart';
-import 'package:appventure/services/response/paypal_payment_purchase_response.dart';
+import 'package:yucatan/models/booking_model.dart';
+import 'package:yucatan/models/order_model.dart';
+import 'package:yucatan/services/payment_service.dart';
+import 'package:yucatan/services/response/payment_response.dart';
+import 'package:yucatan/services/response/paypal_payment_purchase_response.dart';
 
 class PaymentPaypalBloc {
   final _paypalController = StreamController<PaypalPaymentPurchaseResponse>();
@@ -30,7 +30,7 @@ class PaymentPaypalBloc {
   }
 
   proceedPaymentResponse(String data) {
-    BookingModel bookingModel;
+    BookingModel? bookingModel;
     try {
       var parsedData = _parseData(data);
       bookingModel = BookingModel.fromJson(jsonDecode(parsedData)['data']);
@@ -40,7 +40,7 @@ class PaymentPaypalBloc {
       return PaymentResponse(
           status: bookingModel == null ? 500 : 200,
           success: bookingModel == null ? false : true,
-          booking: bookingModel);
+          booking: bookingModel!);
     });
 
     _setPaymentResponse = future;

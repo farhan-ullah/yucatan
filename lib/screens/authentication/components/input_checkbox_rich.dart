@@ -1,17 +1,16 @@
+import 'package:yucatan/screens/authentication/register/components/register_validations_bloc.dart';
+import 'package:yucatan/theme/custom_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../../../theme/custom_theme.dart';
-import '../register/components/register_validations_bloc.dart';
-
 class InputCheckboxRich extends StatefulWidget {
-  final TextSpan? text;
+  final TextSpan text;
   final Function(bool)? onChanged;
   final RegisterValidationBloc? registerValidationBloc;
   const InputCheckboxRich(
       {Key? key,
-      @required this.text,
+      required this.text,
       this.onChanged,
       this.registerValidationBloc})
       : super(key: key);
@@ -71,7 +70,7 @@ class _InputCheckboxRichState extends State<InputCheckboxRich> {
                         style: TextStyle(
                             color: Colors.black,
                             fontFamily: CustomTheme.fontFamily),
-                        children: [widget.text!]),
+                        children: [widget.text]),
                   )
                 ],
               ),

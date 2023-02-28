@@ -1,8 +1,6 @@
-String? trimLeading(String? pattern, String? from) {
-  if (from == null) {
-    return null;
-  } else if (pattern == null)
-    return from;
+String trimLeading(String pattern, String from) {
+  if(from == null) return null;
+  else if(pattern == null) return from;
   else {
     int i = 0;
     while (from.startsWith(pattern, i)) i += pattern.length;
@@ -10,11 +8,12 @@ String? trimLeading(String? pattern, String? from) {
   }
 }
 
-bool isNotNullOrEmpty(String str) {
+bool isNotNullOrEmpty(String str){
   return str != null && str.isNotEmpty;
 }
 
 ///check for null or empty or string
-bool checkIfNullOrEmpty(String str) {
-  return (str != null && str.trim().isNotEmpty);
+bool checkIfNullOrEmpty(String str){
+  return  (str != null && str.trim().isNotEmpty);
 }
+

@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:appventure/models/booking_model.dart';
-import 'package:appventure/services/database/database_service.dart';
-import 'package:appventure/services/response/payment_response.dart';
+import 'package:yucatan/models/booking_model.dart';
+import 'package:yucatan/services/database/database_service.dart';
+import 'package:yucatan/services/response/payment_response.dart';
 
 class Payment3DSecureBloc {
   final _webviewController = StreamController<bool>();

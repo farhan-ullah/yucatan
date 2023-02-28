@@ -1,9 +1,9 @@
-import 'package:appventure/models/booking_detailed_model.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_details_preview.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_preview_model.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/vendor_booking_ticket_list_item.dart';
-import 'package:appventure/services/booking_service.dart';
-import 'package:appventure/services/response/booking_detailed_single_response_entity.dart';
+import 'package:yucatan/models/booking_detailed_model.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_details_preview.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_preview_model.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/vendor_booking_ticket_list_item.dart';
+import 'package:yucatan/services/booking_service.dart';
+import 'package:yucatan/services/response/booking_detailed_single_response_entity.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -16,9 +16,9 @@ class VendorBookingDetailsModal extends StatefulWidget {
   final Function refresh;
 
   VendorBookingDetailsModal({
-    @required this.vendorBookingPreviewModel,
+    required this.vendorBookingPreviewModel,
     this.category,
-    @required this.refresh,
+    required this.refresh,
   });
 
   @override
@@ -90,7 +90,8 @@ class _VendorBookingDetailsModalState extends State<VendorBookingDetailsModal> {
 
                 if (snapshot.hasError) {
                   return Center(
-                    child: Text(AppLocalizations.of(context).commonWords_error),
+                    child:
+                        Text(AppLocalizations.of(context)!.commonWords_error),
                   );
                 }
                 return Center(

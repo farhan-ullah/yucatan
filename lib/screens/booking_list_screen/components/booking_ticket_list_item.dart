@@ -1,18 +1,18 @@
-import 'package:appventure/components/qr_code.dart';
-import 'package:appventure/components/ticket_preview_header.dart';
-import 'package:appventure/components/ticket_preview_info.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/booking_model.dart' as BookingModel;
-import 'package:appventure/screens/main_screen/components/main_screen_parameter.dart';
-import 'package:appventure/screens/main_screen/main_screen.dart';
-import 'package:appventure/services/database/database_service.dart';
-import 'package:appventure/services/notification_service/notification_service.dart';
-import 'package:appventure/services/payment_service.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/StringUtils.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/qr_code.dart';
+import 'package:yucatan/components/ticket_preview_header.dart';
+import 'package:yucatan/components/ticket_preview_info.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/booking_model.dart' as BookingModel;
+import 'package:yucatan/screens/main_screen/components/main_screen_parameter.dart';
+import 'package:yucatan/screens/main_screen/main_screen.dart';
+import 'package:yucatan/services/database/database_service.dart';
+import 'package:yucatan/services/notification_service/notification_service.dart';
+import 'package:yucatan/services/payment_service.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/StringUtils.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,11 +27,11 @@ class BookingTicketListItem extends StatefulWidget {
   final double initialBrightness;
 
   const BookingTicketListItem(
-      {@required this.initialBrightness,
-      @required this.activity,
-      @required this.booking,
-      @required this.ticket,
-      @required this.offline});
+      {required this.initialBrightness,
+      required this.activity,
+      required this.booking,
+      required this.ticket,
+      required this.offline});
 
   @override
   _BookingTicketListItemState createState() => _BookingTicketListItemState();
@@ -349,7 +349,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                                     child: Container(),
                                   ),
                                   Text(
-                                    AppLocalizations.of(context).actions_back,
+                                    AppLocalizations.of(context)!.actions_back,
                                     style: TextStyle(
                                       fontSize: Dimensions.getScaledSize(16.0),
                                       fontWeight: FontWeight.bold,
@@ -990,7 +990,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
 
     if (result.status == 200) {
       Fluttertoast.showToast(
-          msg: AppLocalizations.of(context).bookingListScreen_refundSuccess,
+          msg: AppLocalizations.of(context)!.bookingListScreen_refundSuccess,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           backgroundColor: Color(0xff656565).withOpacity(0.9),
@@ -1006,7 +1006,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
       HiveService.updateDatabase();
     } else {
       Fluttertoast.showToast(
-          msg: AppLocalizations.of(context).bookingListScreen_refundError,
+          msg: AppLocalizations.of(context)!.bookingListScreen_refundError,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           backgroundColor: Color(0xff656565).withOpacity(0.9),
@@ -1024,7 +1024,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
     if (result.status == 200) {
       Screen.setBrightness(widget.initialBrightness);
       Fluttertoast.showToast(
-          msg: AppLocalizations.of(context).bookingListScreen_refundSuccess,
+          msg: AppLocalizations.of(context)!.bookingListScreen_refundSuccess,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           backgroundColor: Color(0xff656565).withOpacity(0.9),
@@ -1052,7 +1052,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
       HiveService.updateDatabase();
     } else {
       Fluttertoast.showToast(
-          msg: AppLocalizations.of(context).bookingListScreen_refundError,
+          msg: AppLocalizations.of(context)!.bookingListScreen_refundError,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           backgroundColor: Color(0xff656565).withOpacity(0.9),

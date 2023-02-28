@@ -1,7 +1,7 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/screens/activity_list_screen/components/activity_list_item_view.dart';
-import 'package:appventure/screens/hotelDetailes/hotelDetailes.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/screens/activity_list_screen/components/activity_list_item_view.dart';
+import 'package:yucatan/screens/hotelDetailes/hotelDetailes.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class RecommendedActivitiesItem extends StatefulWidget {

@@ -1,10 +1,10 @@
-import 'package:appventure/components/colored_divider.dart';
-import 'package:appventure/screens/authentication/forgot/forgot_bloc.dart';
-import 'package:appventure/screens/authentication/register/register_screen.dart';
-import 'package:appventure/services/forogt_password_service.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/DialogUtils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/colored_divider.dart';
+import 'package:yucatan/screens/authentication/forgot/forgot_bloc.dart';
+import 'package:yucatan/screens/authentication/register/register_screen.dart';
+import 'package:yucatan/services/forogt_password_service.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/DialogUtils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -48,11 +48,11 @@ class _ForgotScreenState extends State<ForgotScreen> {
       switch (validation) {
         case ValidationState.INVALID:
           showErrorMsg(
-              AppLocalizations.of(context).authenticationSceen_emailInvalid);
+              AppLocalizations.of(context)!.authenticationSceen_emailInvalid);
           break;
         case ValidationState.EMPTY:
           showErrorMsg(
-              AppLocalizations.of(context).authenticationSceen_emailInvalid);
+              AppLocalizations.of(context)!.authenticationSceen_emailInvalid);
           break;
       }
     });
@@ -66,10 +66,10 @@ class _ForgotScreenState extends State<ForgotScreen> {
         } else {
           var dialogResult = await DialogUtils.displayForgotDialog(
               context,
-              AppLocalizations.of(context).authenticationSceen_forgotPassword,
+              AppLocalizations.of(context)!.authenticationSceen_forgotPassword,
               "${result.message}",
-              AppLocalizations.of(context).actions_back,
-              AppLocalizations.of(context).actions_back,
+              AppLocalizations.of(context)!.actions_back,
+              AppLocalizations.of(context)!.actions_back,
               showCancelButton: false,
               showOKButton: true);
           if (dialogResult != null) {
@@ -78,7 +78,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
         }
       } else {
         showErrorMsg(
-            AppLocalizations.of(context).authenticationSceen_networkError);
+            AppLocalizations.of(context)!.authenticationSceen_networkError);
       }
     });
   }
@@ -200,7 +200,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   ),
                   child: Center(
                       child: Text(
-                    AppLocalizations.of(context).forgotPasswordScreen_send,
+                    AppLocalizations.of(context)!.forgotPasswordScreen_send,
                     style: TextStyle(
                         color: CustomTheme.primaryColorDark,
                         fontSize: Dimensions.getScaledSize(18)),
@@ -296,7 +296,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
   void performForgotApiCall() async {
     if (emailController.text.trim().isEmpty) {
       showErrorMsg(
-          AppLocalizations.of(context).authenticationSceen_emailInvalid);
+          AppLocalizations.of(context)!.authenticationSceen_emailInvalid);
       return;
     }
     if (validateEmail(emailController.text.trim())) {
@@ -310,10 +310,10 @@ class _ForgotScreenState extends State<ForgotScreen> {
         } else {
           var dialogResult = await DialogUtils.displayForgotDialog(
               context,
-              AppLocalizations.of(context).authenticationSceen_forgotPassword,
+              AppLocalizations.of(context)!.authenticationSceen_forgotPassword,
               "${result.message}",
-              AppLocalizations.of(context).actions_back,
-              AppLocalizations.of(context).actions_back,
+              AppLocalizations.of(context)!.actions_back,
+              AppLocalizations.of(context)!.actions_back,
               showCancelButton: false,
               showOKButton: true);
           if (dialogResult != null) {
@@ -322,11 +322,11 @@ class _ForgotScreenState extends State<ForgotScreen> {
         }
       } else {
         showErrorMsg(
-            AppLocalizations.of(context).authenticationSceen_networkError);
+            AppLocalizations.of(context)!.authenticationSceen_networkError);
       }
     } else {
       showErrorMsg(
-          AppLocalizations.of(context).authenticationSceen_emailInvalid);
+          AppLocalizations.of(context)!.authenticationSceen_emailInvalid);
     }
   }
 

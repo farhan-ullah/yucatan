@@ -1,17 +1,17 @@
-import 'package:appventure/components/BaseState.dart';
-import 'package:appventure/services/statistic_service.dart';
-import 'package:appventure/utils/image_util.dart';
-import 'package:appventure/utils/price_format_utils.dart';
+import 'package:yucatan/components/BaseState.dart';
+import 'package:yucatan/services/statistic_service.dart';
+import 'package:yucatan/utils/image_util.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:appventure/screens/notifications/notification_view.dart';
-import 'package:appventure/screens/vendor/vendor_booking_overview_screen/components/booking_date_button.dart';
-import 'package:appventure/services/response/vendor_booking_statistic_single_response_entity.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/screens/notifications/notification_view.dart';
+import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/components/booking_date_button.dart';
+import 'package:yucatan/services/response/vendor_booking_statistic_single_response_entity.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:appventure/models/vendor_booking_statistic_model.dart';
+import 'package:yucatan/models/vendor_booking_statistic_model.dart';
 import 'package:intl/intl.dart';
 
 class VendorStatisticScreen extends StatefulWidget {
@@ -157,7 +157,8 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
         //ADD app Locallization
         appBar: AppBar(
           centerTitle: true,
-          title: Text(AppLocalizations.of(context).vendorStatisticScreen_title),
+          title:
+              Text(AppLocalizations.of(context)!.vendorStatisticScreen_title),
           actions: [
             Container(
                 margin: EdgeInsets.fromLTRB(
@@ -170,258 +171,294 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
         body: this.network.offline
             ? getPlaceholderVeiw()
             : SingleChildScrollView(
-            child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: Dimensions.getScaledSize(18)),
-          child: Column(
-            children: [
-              SizedBox(height: Dimensions.getScaledSize(20.0)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  VendorBookingDateButton(
-                      text: AppLocalizations.of(context).commonWords_week,
-                      onTap: () => _selectedDateChanges(SelectedPeriod.WEEK),
-                      selected: _selectedPeriod == SelectedPeriod.WEEK,
-                      fontSize: Dimensions.getScaledSize(14.0),
-                      height: Dimensions.getScaledSize(40.0),
-                      width: double.infinity,
-                      color: buttonColor),
-                  SizedBox(width: Dimensions.getScaledSize(8.0)),
-                  VendorBookingDateButton(
-                      text: AppLocalizations.of(context).commonWords_month,
-                      onTap: () => _selectedDateChanges(SelectedPeriod.MONTH),
-                      selected: _selectedPeriod == SelectedPeriod.MONTH,
-                      fontSize: Dimensions.getScaledSize(14.0),
-                      height: Dimensions.getScaledSize(40.0),
-                      width: double.infinity,
-                      color: buttonColor),
-                  SizedBox(width: Dimensions.getScaledSize(8.0)),
-                  VendorBookingDateButton(
-                      text: AppLocalizations.of(context).commonWords_year,
-                      onTap: () => _selectedDateChanges(SelectedPeriod.YEAR),
-                      selected: _selectedPeriod == SelectedPeriod.YEAR,
-                      fontSize: Dimensions.getScaledSize(14.0),
-                      height: Dimensions.getScaledSize(40.0),
-                      width: double.infinity,
-                      color: buttonColor),
-                  SizedBox(width: Dimensions.getScaledSize(8.0)),
-                  VendorBookingDateButton(
-                      text: AppLocalizations.of(context).commonWords_all,
-                      onTap: () => _selectedDateChanges(SelectedPeriod.ALL),
-                      selected: _selectedPeriod == SelectedPeriod.ALL,
-                      fontSize: Dimensions.getScaledSize(14.0),
-                      height: Dimensions.getScaledSize(40.0),
-                      width: double.infinity,
-                      color: buttonColor),
-                ],
-              ),
-              SizedBox(height: Dimensions.getScaledSize(20.0)),
-              FutureBuilder<VendorBookingStatisticSingleResponseEntity>(
-                future: bookingStatistic,
-                builder: (context, snapshodStatistics) {
-                  if (snapshodStatistics.connectionState ==
-                      ConnectionState.waiting) return getShimmer(context);
-                  // return Container(
-                  //   width: double.infinity,
-                  //   padding: EdgeInsets.only(
-                  //       top: Dimensions.getHeight(percentage: 50.0) -
-                  //           Scaffold.of(context).appBarMaxHeight),
-                  //   child: Center(
-                  //     child: CircularProgressIndicator(),
-                  //   ),
-                  // );
+                child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Dimensions.getScaledSize(18)),
+                child: Column(
+                  children: [
+                    SizedBox(height: Dimensions.getScaledSize(20.0)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        VendorBookingDateButton(
+                            text:
+                                AppLocalizations.of(context)!.commonWords_week,
+                            onTap: () =>
+                                _selectedDateChanges(SelectedPeriod.WEEK),
+                            selected: _selectedPeriod == SelectedPeriod.WEEK,
+                            fontSize: Dimensions.getScaledSize(14.0),
+                            height: Dimensions.getScaledSize(40.0),
+                            width: double.infinity,
+                            color: buttonColor),
+                        SizedBox(width: Dimensions.getScaledSize(8.0)),
+                        VendorBookingDateButton(
+                            text:
+                                AppLocalizations.of(context)!.commonWords_month,
+                            onTap: () =>
+                                _selectedDateChanges(SelectedPeriod.MONTH),
+                            selected: _selectedPeriod == SelectedPeriod.MONTH,
+                            fontSize: Dimensions.getScaledSize(14.0),
+                            height: Dimensions.getScaledSize(40.0),
+                            width: double.infinity,
+                            color: buttonColor),
+                        SizedBox(width: Dimensions.getScaledSize(8.0)),
+                        VendorBookingDateButton(
+                            text:
+                                AppLocalizations.of(context)!.commonWords_year,
+                            onTap: () =>
+                                _selectedDateChanges(SelectedPeriod.YEAR),
+                            selected: _selectedPeriod == SelectedPeriod.YEAR,
+                            fontSize: Dimensions.getScaledSize(14.0),
+                            height: Dimensions.getScaledSize(40.0),
+                            width: double.infinity,
+                            color: buttonColor),
+                        SizedBox(width: Dimensions.getScaledSize(8.0)),
+                        VendorBookingDateButton(
+                            text: AppLocalizations.of(context)!.commonWords_all,
+                            onTap: () =>
+                                _selectedDateChanges(SelectedPeriod.ALL),
+                            selected: _selectedPeriod == SelectedPeriod.ALL,
+                            fontSize: Dimensions.getScaledSize(14.0),
+                            height: Dimensions.getScaledSize(40.0),
+                            width: double.infinity,
+                            color: buttonColor),
+                      ],
+                    ),
+                    SizedBox(height: Dimensions.getScaledSize(20.0)),
+                    FutureBuilder<VendorBookingStatisticSingleResponseEntity>(
+                      future: bookingStatistic,
+                      builder: (context, snapshodStatistics) {
+                        if (snapshodStatistics.connectionState ==
+                            ConnectionState.waiting) return getShimmer(context);
+                        // return Container(
+                        //   width: double.infinity,
+                        //   padding: EdgeInsets.only(
+                        //       top: Dimensions.getHeight(percentage: 50.0) -
+                        //           Scaffold.of(context).appBarMaxHeight),
+                        //   child: Center(
+                        //     child: CircularProgressIndicator(),
+                        //   ),
+                        // );
 
-                  if (snapshodStatistics.hasData) {
-                    return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                  Dimensions.getScaledSize(18.0)),
-                              color: Colors.white,
-                            ),
-                            constraints: BoxConstraints(
-                                minHeight:
-                                    Dimensions.getHeight(percentage: 70)),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: Dimensions.getScaledSize(15)),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                      height: Dimensions.getScaledSize(20)),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        width: Dimensions.getScaledSize(200),
-                                        height: Dimensions.getScaledSize(45),
-                                        child: Text(
-                                          _statisticPreviewMode ==
-                                                  StatisticPreviewMode.REVENUE
-                                              ? formatPriceDoubleWithCurrency(
-                                                  currentValue)
-                                              : "${formatInteger(currentValue)} ${AppLocalizations.of(context).vendorStatisticScreen_piece}",
-                                          style: TextStyle(
-                                              color: buttonColor,
-                                              fontSize:
-                                                  Dimensions.getScaledSize(
-                                                      24.0),
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      OutlinedButton(
-                                        onPressed: () {
-                                          if (_statisticPreviewMode ==
-                                              StatisticPreviewMode.REVENUE) {
-                                            _statisticPreviewMode =
-                                                StatisticPreviewMode.AMOUNT;
-                                            currentValue =
-                                                totalBookingAmount.toDouble();
-                                          } else {
-                                            _statisticPreviewMode =
-                                                StatisticPreviewMode.REVENUE;
-                                            currentValue = totalRevenue;
-                                          }
-                                          setState(() {});
-                                        },
-                                        child: Text(
-                                          _statisticPreviewMode ==
-                                                  StatisticPreviewMode.REVENUE
-                                              ? AppLocalizations.of(context)
-                                                  .vendorStatisticScreen_revenue
-                                              : AppLocalizations.of(context)
-                                                  .vendorStatisticScreen_sales,
-                                          style: TextStyle(
-                                              color: CustomTheme
-                                                  .primaryColorLight),
-                                        ),
-                                        style: ButtonStyle(
-                                            shape: MaterialStateProperty.all(
-                                              RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        Dimensions
-                                                            .getScaledSize(7)),
-                                              ),
-                                            ),
-                                            side: MaterialStateProperty.all(
-                                              BorderSide(
-                                                color: CustomTheme.mediumGrey,
-                                                width: Dimensions.getScaledSize(
-                                                    2.0),
-                                              ),
-                                            ),
-                                            minimumSize:
-                                                MaterialStateProperty.all(Size(
-                                                    Dimensions.getScaledSize(
-                                                        110),
-                                                    Dimensions.getScaledSize(
-                                                        45)))),
-                                      ),
-                                    ],
+                        if (snapshodStatistics.hasData) {
+                          return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        Dimensions.getScaledSize(18.0)),
+                                    color: Colors.white,
                                   ),
-                                  SizedBox(
-                                      height: Dimensions.getScaledSize(30.0)),
-                                  Container(
-                                    height:
-                                        Dimensions.getHeight(percentage: 30),
-                                    width: double.infinity,
-                                    child: LineChart(
-                                      LineChartData(
-                                        lineTouchData: LineTouchData(
-                                          touchTooltipData:
-                                              LineTouchTooltipData(
-                                                  fitInsideHorizontally: true,
-                                                  fitInsideVertically: true,
-                                                  getTooltipItems:
-                                                      (List<LineBarSpot>
-                                                          spots) {
-                                                    return spots
-                                                        .map(
-                                                          (spot) =>
-                                                              LineTooltipItem(
-                                                            getToolTipText(
-                                                                spot.x.toInt()),
-                                                            TextStyle(
-                                                                color: Colors
-                                                                    .black),
-                                                          ),
-                                                        )
-                                                        .toList();
-                                                  }),
-                                          getTouchedSpotIndicator:
-                                              getTouchedSpotIndcator,
-                                          getTouchLineEnd:
-                                              (LineChartBarData barData,
-                                                  int index) {
-                                            return _statisticPreviewMode ==
-                                                    StatisticPreviewMode.REVENUE
-                                                ? (1.1 * maxRevenue)
-                                                : (1.1 * maxBookingAmount);
-                                          },
-                                          touchCallback: handleTouch,
+                                  constraints: BoxConstraints(
+                                      minHeight:
+                                          Dimensions.getHeight(percentage: 70)),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            Dimensions.getScaledSize(15)),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                            height:
+                                                Dimensions.getScaledSize(20)),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width:
+                                                  Dimensions.getScaledSize(200),
+                                              height:
+                                                  Dimensions.getScaledSize(45),
+                                              child: Text(
+                                                _statisticPreviewMode ==
+                                                        StatisticPreviewMode
+                                                            .REVENUE
+                                                    ? formatPriceDoubleWithCurrency(
+                                                        currentValue)
+                                                    : "${formatInteger(currentValue)} ${AppLocalizations.of(context)!.vendorStatisticScreen_piece}",
+                                                style: TextStyle(
+                                                    color: buttonColor,
+                                                    fontSize: Dimensions
+                                                        .getScaledSize(24.0),
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            OutlinedButton(
+                                              onPressed: () {
+                                                if (_statisticPreviewMode ==
+                                                    StatisticPreviewMode
+                                                        .REVENUE) {
+                                                  _statisticPreviewMode =
+                                                      StatisticPreviewMode
+                                                          .AMOUNT;
+                                                  currentValue =
+                                                      totalBookingAmount
+                                                          .toDouble();
+                                                } else {
+                                                  _statisticPreviewMode =
+                                                      StatisticPreviewMode
+                                                          .REVENUE;
+                                                  currentValue = totalRevenue;
+                                                }
+                                                setState(() {});
+                                              },
+                                              child: Text(
+                                                _statisticPreviewMode ==
+                                                        StatisticPreviewMode
+                                                            .REVENUE
+                                                    ? AppLocalizations.of(
+                                                            context)
+                                                        .vendorStatisticScreen_revenue
+                                                    : AppLocalizations.of(
+                                                            context)
+                                                        .vendorStatisticScreen_sales,
+                                                style: TextStyle(
+                                                    color: CustomTheme
+                                                        .primaryColorLight),
+                                              ),
+                                              style: ButtonStyle(
+                                                  shape:
+                                                      MaterialStateProperty.all(
+                                                    RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius
+                                                          .circular(Dimensions
+                                                              .getScaledSize(
+                                                                  7)),
+                                                    ),
+                                                  ),
+                                                  side:
+                                                      MaterialStateProperty.all(
+                                                    BorderSide(
+                                                      color: CustomTheme
+                                                          .mediumGrey,
+                                                      width: Dimensions
+                                                          .getScaledSize(2.0),
+                                                    ),
+                                                  ),
+                                                  minimumSize:
+                                                      MaterialStateProperty.all(
+                                                          Size(
+                                                              Dimensions
+                                                                  .getScaledSize(
+                                                                      110),
+                                                              Dimensions
+                                                                  .getScaledSize(
+                                                                      45)))),
+                                            ),
+                                          ],
                                         ),
-                                        lineBarsData: [
-                                          getLineChartBarData(revenueItems)
-                                        ],
-                                        gridData: FlGridData(show: false),
-                                        borderData: FlBorderData(show: false),
-                                        axisTitleData:
-                                            FlAxisTitleData(show: false),
-                                        titlesData: FlTitlesData(show: false),
-                                        extraLinesData: ExtraLinesData(
-                                            horizontalLines: [
-                                              getHorizontalLine()
-                                            ]),
-                                      ),
+                                        SizedBox(
+                                            height:
+                                                Dimensions.getScaledSize(30.0)),
+                                        Container(
+                                          height: Dimensions.getHeight(
+                                              percentage: 30),
+                                          width: double.infinity,
+                                          child: LineChart(
+                                            LineChartData(
+                                              lineTouchData: LineTouchData(
+                                                touchTooltipData:
+                                                    LineTouchTooltipData(
+                                                        fitInsideHorizontally:
+                                                            true,
+                                                        fitInsideVertically:
+                                                            true,
+                                                        getTooltipItems:
+                                                            (List<LineBarSpot>
+                                                                spots) {
+                                                          return spots
+                                                              .map(
+                                                                (spot) =>
+                                                                    LineTooltipItem(
+                                                                  getToolTipText(spot
+                                                                      .x
+                                                                      .toInt()),
+                                                                  TextStyle(
+                                                                      color: Colors
+                                                                          .black),
+                                                                ),
+                                                              )
+                                                              .toList();
+                                                        }),
+                                                getTouchedSpotIndicator:
+                                                    getTouchedSpotIndcator,
+                                                getTouchLineEnd:
+                                                    (LineChartBarData barData,
+                                                        int index) {
+                                                  return _statisticPreviewMode ==
+                                                          StatisticPreviewMode
+                                                              .REVENUE
+                                                      ? (1.1 * maxRevenue)
+                                                      : (1.1 *
+                                                          maxBookingAmount);
+                                                },
+                                                touchCallback: handleTouch,
+                                              ),
+                                              lineBarsData: [
+                                                getLineChartBarData(
+                                                    revenueItems)
+                                              ],
+                                              gridData: FlGridData(show: false),
+                                              borderData:
+                                                  FlBorderData(show: false),
+                                              axisTitleData:
+                                                  FlAxisTitleData(show: false),
+                                              titlesData:
+                                                  FlTitlesData(show: false),
+                                              extraLinesData: ExtraLinesData(
+                                                  horizontalLines: [
+                                                    getHorizontalLine()
+                                                  ]),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                            height:
+                                                Dimensions.getScaledSize(20.0)),
+                                        ...(statistic?.activityBookingDataList
+                                            ?.map(
+                                              (e) => _VendorStatisticActivity(
+                                                activity: e,
+                                                statisticPreviewMode:
+                                                    _statisticPreviewMode,
+                                              ),
+                                            )
+                                            ?.toList())
+                                      ],
                                     ),
                                   ),
-                                  SizedBox(
-                                      height: Dimensions.getScaledSize(20.0)),
-                                  ...(statistic?.activityBookingDataList
-                                      ?.map(
-                                        (e) => _VendorStatisticActivity(
-                                          activity: e,
-                                          statisticPreviewMode:
-                                              _statisticPreviewMode,
-                                        ),
-                                      )
-                                      ?.toList())
-                                ],
-                              ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).padding.bottom +
+                                          Dimensions.getScaledSize(20.0),
+                                ),
+                              ]);
+                        }
+
+                        if (snapshodStatistics.hasError)
+                          return Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.only(
+                                top: Dimensions.getHeight(percentage: 50.0) -
+                                    Scaffold.of(context).appBarMaxHeight),
+                            child: Center(
+                              child: Text(AppLocalizations.of(context)
+                                  .commonWords_error),
                             ),
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).padding.bottom +
-                                Dimensions.getScaledSize(20.0),
-                          ),
-                        ]);
-                  }
+                          );
 
-                  if (snapshodStatistics.hasError)
-                    return Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.only(
-                          top: Dimensions.getHeight(percentage: 50.0) -
-                              Scaffold.of(context).appBarMaxHeight),
-                      child: Center(
-                        child: Text(
-                            AppLocalizations.of(context).commonWords_error),
-                      ),
-                    );
-
-                  return getShimmer(context);
-                },
-              ),
-            ],
-          ),
-        )));
+                        return getShimmer(context);
+                      },
+                    ),
+                  ],
+                ),
+              )));
   }
 
   Widget getPlaceholderVeiw() {
@@ -512,8 +549,8 @@ class _VendorStatisticActivity extends StatelessWidget {
   final StatisticPreviewMode statisticPreviewMode;
 
   _VendorStatisticActivity({
-    @required this.activity,
-    @required this.statisticPreviewMode,
+    required this.activity,
+    required this.statisticPreviewMode,
   });
 
   @override
@@ -552,8 +589,8 @@ class _VendorStatisticProductRow extends StatelessWidget {
   final ProductDataItem productDataItem;
   final StatisticPreviewMode statisticPreviewMode;
   _VendorStatisticProductRow({
-    @required this.productDataItem,
-    @required this.statisticPreviewMode,
+    required this.productDataItem,
+    required this.statisticPreviewMode,
   });
 
   rowTableTextStyle() {
@@ -617,7 +654,7 @@ class _VendorStatisticProductRow extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: Text(
-                    "${formatInteger(productDataItem.bookingAmount)} ${AppLocalizations.of(context).vendorStatisticScreen_piece}",
+                    "${formatInteger(productDataItem.bookingAmount)} ${AppLocalizations.of(context)!.vendorStatisticScreen_piece}",
                     style: rowTableTextStyle(),
                     maxLines: 2,
                     textAlign: TextAlign.right,

@@ -1,16 +1,16 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/screens/activity_list_screen/activity_list_screen.dart';
-import 'package:appventure/screens/booking/components/calendarPopupView.dart';
-import 'package:appventure/screens/hotelDetailes/hotelDetailes.dart';
-import 'package:appventure/services/activity_service.dart';
-import 'package:appventure/services/response/activity_multi_response.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/StringUtils.dart';
-import 'package:appventure/utils/datefulWidget/DateStatefulWidget.dart';
-import 'package:appventure/utils/datefulWidget/GlobalDate.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/screens/activity_list_screen/activity_list_screen.dart';
+import 'package:yucatan/screens/booking/components/calendarPopupView.dart';
+import 'package:yucatan/screens/hotelDetailes/hotelDetailes.dart';
+import 'package:yucatan/services/activity_service.dart';
+import 'package:yucatan/services/response/activity_multi_response.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/StringUtils.dart';
+import 'package:yucatan/utils/datefulWidget/DateStatefulWidget.dart';
+import 'package:yucatan/utils/datefulWidget/GlobalDate.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -25,9 +25,9 @@ class SearchPopupView extends DateStatefulWidget {
   final Function onBackTap;
 
   SearchPopupView({
-    @required this.height,
-    @required this.visible,
-    @required this.onBackTap,
+    required this.height,
+    required this.visible,
+    required this.onBackTap,
   });
 
   @override
@@ -122,7 +122,7 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
                       decoration: new InputDecoration(
                         errorText: null,
                         hintText:
-                            AppLocalizations.of(context).searchScreen_text,
+                            AppLocalizations.of(context)!.searchScreen_text,
                         hintStyle: TextStyle(
                           fontSize: Dimensions.getScaledSize(18),
                           color: CustomTheme.hintText,
@@ -153,7 +153,7 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
                       return Padding(
                         padding: EdgeInsets.all(Dimensions.getScaledSize(10.0)),
                         child: Text(
-                            AppLocalizations.of(context).searchScreen_noItems),
+                            AppLocalizations.of(context)!.searchScreen_noItems),
                       );
                     },
                     suggestionsCallback: (pattern) async {
@@ -227,7 +227,7 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
                       ),
                       child: Center(
                         child: Text(
-                          AppLocalizations.of(context).today,
+                          AppLocalizations.of(context)!.today,
                           style: TextStyle(
                             fontSize: Dimensions.getScaledSize(15),
                             fontWeight: FontWeight.bold,
@@ -263,7 +263,7 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
                       ),
                       child: Center(
                         child: Text(
-                          AppLocalizations.of(context).tomorrow,
+                          AppLocalizations.of(context)!.tomorrow,
                           style: TextStyle(
                             fontSize: Dimensions.getScaledSize(15),
                             fontWeight: FontWeight.bold,
@@ -332,7 +332,8 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
                             height: Dimensions.getScaledSize(20.0),
                           ),
                           Text(
-                            AppLocalizations.of(context).searchScreen_iWishText,
+                            AppLocalizations.of(context)!
+                                .searchScreen_iWishText,
                             style: TextStyle(
                               fontSize: Dimensions.getScaledSize(20.0),
                               fontWeight: FontWeight.bold,
@@ -786,7 +787,7 @@ class ActivitySearchListViewItem extends StatelessWidget {
                                               Row(
                                                 children: [
                                                   Text(
-                                                    "${AppLocalizations.of(context).commonWords_from} ",
+                                                    "${AppLocalizations.of(context)!.commonWords_from} ",
                                                     style: TextStyle(
                                                         fontSize: Dimensions
                                                             .getScaledSize(

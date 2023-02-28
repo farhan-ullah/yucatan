@@ -1,18 +1,18 @@
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-
 
 class VendorActivityOverviewListViewShimmer extends StatelessWidget {
   final double width;
   final bool isComingFromFullMapScreen;
 
-  const VendorActivityOverviewListViewShimmer({Key key, this.width, this.isComingFromFullMapScreen = false}) : super(key: key);
+  const VendorActivityOverviewListViewShimmer(
+      {Key? key, this.width, this.isComingFromFullMapScreen = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       child: Padding(
         padding: EdgeInsets.only(
@@ -23,7 +23,8 @@ class VendorActivityOverviewListViewShimmer extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              width: width,height: Dimensions.getHeight(percentage: 20),
+              width: width,
+              height: Dimensions.getHeight(percentage: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(
                     Radius.circular(Dimensions.getScaledSize(16.0))),
@@ -37,7 +38,8 @@ class VendorActivityOverviewListViewShimmer extends StatelessWidget {
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(Dimensions.getScaledSize(16.0))),
+                borderRadius: BorderRadius.all(
+                    Radius.circular(Dimensions.getScaledSize(16.0))),
                 child: Shimmer.fromColors(
                   baseColor: Colors.grey[300],
                   highlightColor: Colors.grey[100],
@@ -63,24 +65,21 @@ class VendorActivityOverviewListViewShimmer extends StatelessWidget {
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius:
-                                      BorderRadius
-                                          .circular(
-                                          16.0)),
+                                          BorderRadius.circular(16.0)),
                                   width: width * 0.33,
-                                  height: Dimensions
-                                      .getScaledSize(
-                                      13.0),
+                                  height: Dimensions.getScaledSize(13.0),
                                 ),
                               ),
                             ),
                             Expanded(
                               child: Container(
                                 child: Padding(
-                                  padding: EdgeInsets.all(Dimensions.getScaledSize(8.0)),
+                                  padding: EdgeInsets.all(
+                                      Dimensions.getScaledSize(8.0)),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Stack(
                                         children: [
@@ -88,52 +87,72 @@ class VendorActivityOverviewListViewShimmer extends StatelessWidget {
                                             children: [
                                               SizedBox(
                                                 height:
-                                                Dimensions.getScaledSize(
-                                                    5.0),
+                                                    Dimensions.getScaledSize(
+                                                        5.0),
                                               ),
                                               Padding(
-                                                padding:
-                                                EdgeInsets.only(top: Dimensions.getScaledSize(!isComingFromFullMapScreen ? 4.0 : 0)),
+                                                padding: EdgeInsets.only(
+                                                    top: Dimensions.getScaledSize(
+                                                        !isComingFromFullMapScreen
+                                                            ? 4.0
+                                                            : 0)),
                                                 child: Row(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
+                                                      CrossAxisAlignment.end,
                                                   children: <Widget>[
                                                     Padding(
-                                                      padding: EdgeInsets.only(left: Dimensions.getScaledSize(2.0), bottom: Dimensions.getScaledSize(2.0)),
+                                                      padding: EdgeInsets.only(
+                                                          left: Dimensions
+                                                              .getScaledSize(
+                                                                  2.0),
+                                                          bottom: Dimensions
+                                                              .getScaledSize(
+                                                                  2.0)),
                                                       child: Container(
                                                         decoration: BoxDecoration(
                                                             color: Colors.white,
                                                             borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                5.0)),
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0)),
                                                         width: width * 0.33,
                                                         height: Dimensions
                                                             .getScaledSize(
-                                                            13.0),
+                                                                13.0),
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
                                               Padding(
-                                                padding:
-                                                EdgeInsets.only(top: Dimensions.getScaledSize(!isComingFromFullMapScreen ? 4.0 : 0)),
+                                                padding: EdgeInsets.only(
+                                                    top: Dimensions.getScaledSize(
+                                                        !isComingFromFullMapScreen
+                                                            ? 4.0
+                                                            : 0)),
                                                 child: Row(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
+                                                      CrossAxisAlignment.end,
                                                   children: <Widget>[
                                                     Padding(
-                                                      padding: EdgeInsets.only(left: Dimensions.getScaledSize(2.0), bottom: Dimensions.getScaledSize(2.0)),
+                                                      padding: EdgeInsets.only(
+                                                          left: Dimensions
+                                                              .getScaledSize(
+                                                                  2.0),
+                                                          bottom: Dimensions
+                                                              .getScaledSize(
+                                                                  2.0)),
                                                       child: Container(
                                                         decoration: BoxDecoration(
                                                             color: Colors.white,
                                                             borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                5.0)),
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0)),
                                                         width: width * 0.33,
-                                                        height: Dimensions.getScaledSize(50.0),
+                                                        height: Dimensions
+                                                            .getScaledSize(
+                                                                50.0),
                                                       ),
                                                     ),
                                                   ],
@@ -144,12 +163,16 @@ class VendorActivityOverviewListViewShimmer extends StatelessWidget {
                                           Align(
                                             alignment: Alignment.topRight,
                                             child: Container(
-                                              margin: EdgeInsets.fromLTRB(0, 5, 10, 0),
+                                              margin: EdgeInsets.fromLTRB(
+                                                  0, 5, 10, 0),
                                               decoration: BoxDecoration(
                                                   color: Colors.white,
-                                                  borderRadius: BorderRadius.circular(  8.0)),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0)),
                                               width: width * 0.1,
-                                              height: Dimensions.getScaledSize(21.0),
+                                              height: Dimensions.getScaledSize(
+                                                  21.0),
                                             ),
                                           )
                                         ],

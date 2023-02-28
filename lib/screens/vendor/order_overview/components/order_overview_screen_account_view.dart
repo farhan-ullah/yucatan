@@ -1,19 +1,19 @@
-import 'package:appventure/components/BaseState.dart';
-import 'package:appventure/models/transaction_model.dart';
-import 'package:appventure/screens/vendor/order_overview/order_overview_bloc/transactions_for_date_range_bloc.dart';
-import 'package:appventure/screens/vendor/order_overview/order_overview_bloc/vendor_account_balance_bloc.dart';
-import 'package:appventure/screens/vendor/order_overview/order_overview_bloc/vendor_next_payout_date_bloc.dart';
-import 'package:appventure/screens/vendor/order_overview/order_overview_bloc/vendor_payouts_bloc.dart';
-import 'package:appventure/services/response/vendor_next_payout_response.dart';
-import 'package:appventure/services/response/vendor_payouts_response.dart';
-import 'package:appventure/services/response/vendor_dashboard_response.dart';
-import 'package:appventure/services/response/transaction_multi_response_entity.dart';
-import 'package:appventure/services/service_locator.dart';
-import 'package:appventure/services/vendor_accountbalance_response.dart';
-import 'package:appventure/utils/image_util.dart';
-import 'package:appventure/utils/price_format_utils.dart';
+import 'package:yucatan/components/BaseState.dart';
+import 'package:yucatan/models/transaction_model.dart';
+import 'package:yucatan/screens/vendor/order_overview/order_overview_bloc/transactions_for_date_range_bloc.dart';
+import 'package:yucatan/screens/vendor/order_overview/order_overview_bloc/vendor_account_balance_bloc.dart';
+import 'package:yucatan/screens/vendor/order_overview/order_overview_bloc/vendor_next_payout_date_bloc.dart';
+import 'package:yucatan/screens/vendor/order_overview/order_overview_bloc/vendor_payouts_bloc.dart';
+import 'package:yucatan/services/response/vendor_next_payout_response.dart';
+import 'package:yucatan/services/response/vendor_payouts_response.dart';
+import 'package:yucatan/services/response/vendor_dashboard_response.dart';
+import 'package:yucatan/services/response/transaction_multi_response_entity.dart';
+import 'package:yucatan/services/service_locator.dart';
+import 'package:yucatan/services/vendor_accountbalance_response.dart';
+import 'package:yucatan/utils/image_util.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:appventure/theme/custom_theme.dart';
+import 'package:yucatan/theme/custom_theme.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -21,7 +21,7 @@ class OrderOverviewScreenAccountView extends StatefulWidget {
   final VendorDashboardResponse vendorDashboardResponse;
 
   OrderOverviewScreenAccountView({
-    @required this.vendorDashboardResponse,
+    required this.vendorDashboardResponse,
   });
 
   @override

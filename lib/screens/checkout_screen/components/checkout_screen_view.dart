@@ -1,21 +1,21 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/order_model.dart';
-import 'package:appventure/screens/authentication/components/input_field_box.dart';
-import 'package:appventure/screens/authentication/components/input_textfield.dart';
-import 'package:appventure/screens/checkout_screen/components/booking_bar.dart';
-import 'package:appventure/screens/checkout_screen/components/payment_provider.dart';
-import 'package:appventure/screens/impressum_datenschutz/impressum_datenschutz.dart';
-import 'package:appventure/screens/inquiry/components/inquiry_screen_parameter.dart';
-import 'package:appventure/screens/inquiry/inquiry_screen.dart';
-import 'package:appventure/screens/payment_credit_card_screen/components/payment_credit_card_screen_parameter.dart';
-import 'package:appventure/services/analytics_service.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/user_provider.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/StringUtils.dart';
-import 'package:appventure/utils/country_utils.dart';
-import 'package:appventure/utils/regex_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/order_model.dart';
+import 'package:yucatan/screens/authentication/components/input_field_box.dart';
+import 'package:yucatan/screens/authentication/components/input_textfield.dart';
+import 'package:yucatan/screens/checkout_screen/components/booking_bar.dart';
+import 'package:yucatan/screens/checkout_screen/components/payment_provider.dart';
+import 'package:yucatan/screens/impressum_datenschutz/impressum_datenschutz.dart';
+import 'package:yucatan/screens/inquiry/components/inquiry_screen_parameter.dart';
+import 'package:yucatan/screens/inquiry/inquiry_screen.dart';
+import 'package:yucatan/screens/payment_credit_card_screen/components/payment_credit_card_screen_parameter.dart';
+import 'package:yucatan/services/analytics_service.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/StringUtils.dart';
+import 'package:yucatan/utils/country_utils.dart';
+import 'package:yucatan/utils/regex_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/gestures.dart';
@@ -30,7 +30,7 @@ class CheckoutScreenView extends StatefulWidget {
   final ActivityModel activity;
   final OrderModel order;
 
-  CheckoutScreenView({@required this.activity, @required this.order});
+  CheckoutScreenView({required this.activity, required this.order});
 
   @override
   _CheckoutScreenViewState createState() => _CheckoutScreenViewState();
@@ -163,7 +163,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                       ),
                     ),
                     child: Text(
-                      AppLocalizations.of(context).commonWords_invoiceAddress,
+                      AppLocalizations.of(context)!.commonWords_invoiceAddress,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: Dimensions.getScaledSize(18.0),
@@ -271,8 +271,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                         _proceedToPayment();
                       },
                       buttonText:
-                          AppLocalizations.of(context).commonWords_further,
-                          
+                          AppLocalizations.of(context)!.commonWords_further,
                       showDivider: true,
                     ),
                   );
@@ -300,7 +299,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
       children: [
         InputField(
           context: context,
-          hint: AppLocalizations.of(context).commonWords_name,
+          hint: AppLocalizations.of(context)!.commonWords_name,
           keyboardType: TextInputType.text,
           callback: handleNameChanged,
           initialValue: initialFirstname,
@@ -308,7 +307,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
         ),
         InputField(
           context: context,
-          hint: AppLocalizations.of(context).commonWords_surname,
+          hint: AppLocalizations.of(context)!.commonWords_surname,
           keyboardType: TextInputType.text,
           callback: handleLastNameChanged,
           initialValue: initialLastname,
@@ -321,7 +320,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
               child: InputField(
                 context: context,
                 isWeiterBtnPressed: this.isWeiterBtnPressed,
-                hint: AppLocalizations.of(context).commonWords_street,
+                hint: AppLocalizations.of(context)!.commonWords_street,
                 keyboardType: TextInputType.text,
                 callback: handleStreetChanged,
                 initialValue: initialStreet,
@@ -351,13 +350,13 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
               child: InputField(
                 context: context,
                 isWeiterBtnPressed: this.isWeiterBtnPressed,
-                hint: AppLocalizations.of(context).commonWords_postalCode,
+                hint: AppLocalizations.of(context)!.commonWords_postalCode,
                 keyboardType: TextInputType.number,
                 callback: handleZipCodeChanged,
                 initialValue: initialZipcode,
                 validation: RegexUtils.zipcode,
                 validationErrorMsg:
-                    AppLocalizations.of(context).commonWords_postalCodeInvalid,
+                    AppLocalizations.of(context)!.commonWords_postalCodeInvalid,
               ),
             ),
             SizedBox(
@@ -368,7 +367,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
               child: InputField(
                 isWeiterBtnPressed: this.isWeiterBtnPressed,
                 context: context,
-                hint: AppLocalizations.of(context).commonWords_location,
+                hint: AppLocalizations.of(context)!.commonWords_location,
                 keyboardType: TextInputType.text,
                 initialValue: initialCity,
                 callback: handleCityChanged,
@@ -394,7 +393,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
           child: SimpleAutoCompleteTextField(
             key: key,
             decoration: new InputDecoration(
-              hintText: AppLocalizations.of(context).commonWords_land,
+              hintText: AppLocalizations.of(context)!.commonWords_land,
               suffixIcon: new Icon(
                 Icons.keyboard_arrow_down_rounded,
                 size: Dimensions.getScaledSize(30),
@@ -432,13 +431,13 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
         InputField(
           isWeiterBtnPressed: this.isWeiterBtnPressed,
           context: context,
-          hint: AppLocalizations.of(context).authenticationSceen_email,
+          hint: AppLocalizations.of(context)!.authenticationSceen_email,
           keyboardType: TextInputType.emailAddress,
           callback: handleEmailChanged,
           initialValue: initialEmail,
           validation: RegexUtils.email,
           validationErrorMsg:
-              AppLocalizations.of(context).authenticationSceen_emailInvalid,
+              AppLocalizations.of(context)!.authenticationSceen_emailInvalid,
         ),
         Container(
           decoration: myBoxDecoration(),
@@ -563,7 +562,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                           isProfilePhoneNumber: true,
                           phoneNumberValue: phoneNumber,
                           hintText:
-                              AppLocalizations.of(context).commonWords_phone,
+                              AppLocalizations.of(context)!.commonWords_phone,
                           showUnderline: false,
                           textInputType: TextInputType.number,
                           validationErrorMsg: AppLocalizations.of(context)
@@ -591,9 +590,10 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
           initialValue: false,
           callback: handlecheckboxAGBChanged,
           text: TextSpan(children: [
-            TextSpan(text: AppLocalizations.of(context).commonWords_AGBpolicy1),
             TextSpan(
-              text: AppLocalizations.of(context).commonWords_AGBpolicy2,
+                text: AppLocalizations.of(context)!.commonWords_AGBpolicy1),
+            TextSpan(
+              text: AppLocalizations.of(context)!.commonWords_AGBpolicy2,
               style: TextStyle(
                   color: CustomTheme.primaryColor,
                   fontFamily: CustomTheme.fontFamily),
@@ -609,7 +609,8 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                   );
                 },
             ),
-            TextSpan(text: AppLocalizations.of(context).commonWords_AGBpolicy3),
+            TextSpan(
+                text: AppLocalizations.of(context)!.commonWords_AGBpolicy3),
           ]),
         ),
         CheckoutCheckboxFormField(
@@ -617,9 +618,9 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
           initialValue: false,
           callback: handlecheckboxDataChanged,
           text: TextSpan(children: [
-            TextSpan(text: AppLocalizations.of(context).commonWords_DSpolicy1),
+            TextSpan(text: AppLocalizations.of(context)!.commonWords_DSpolicy1),
             TextSpan(
-              text: AppLocalizations.of(context).commonWords_DSpolicy2,
+              text: AppLocalizations.of(context)!.commonWords_DSpolicy2,
               style: TextStyle(
                   color: CustomTheme.primaryColor,
                   fontFamily: CustomTheme.fontFamily),
@@ -635,14 +636,14 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                   );
                 },
             ),
-            TextSpan(text: AppLocalizations.of(context).commonWords_DSpolicy3)
+            TextSpan(text: AppLocalizations.of(context)!.commonWords_DSpolicy3)
           ]),
         ),
         SizedBox(
           height: Dimensions.getScaledSize(20),
         ),
         Text(
-          AppLocalizations.of(context).checkoutScreen_paymentMethod,
+          AppLocalizations.of(context)!.checkoutScreen_paymentMethod,
           style: TextStyle(
             fontSize: Dimensions.getScaledSize(18.0),
             fontWeight: FontWeight.bold,
@@ -791,8 +792,8 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
 
         if (_selectedRoute == '') {
           Fluttertoast.showToast(
-            msg:
-                AppLocalizations.of(context).checkoutScreen_selectPaymentMethod,
+            msg: AppLocalizations.of(context)!
+                .checkoutScreen_selectPaymentMethod,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             backgroundColor: CustomTheme.theme.primaryColorDark,
@@ -820,7 +821,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
       } else {
         //ADD FORM FIELD IN TRANSLATION
         Fluttertoast.showToast(
-          msg: AppLocalizations.of(context).commonWords_formNotFilled,
+          msg: AppLocalizations.of(context)!.commonWords_formNotFilled,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           backgroundColor: CustomTheme.theme.primaryColorDark,
@@ -829,11 +830,11 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
       }
     } else {
       String errorMsg =
-          AppLocalizations.of(context).checkoutScreen_requierdFieldsNotFilled;
+          AppLocalizations.of(context)!.checkoutScreen_requierdFieldsNotFilled;
       if (checkboxAGB == null || checkboxAGB == false)
-        errorMsg = AppLocalizations.of(context).checkoutScreen_acceptAGB;
+        errorMsg = AppLocalizations.of(context)!.checkoutScreen_acceptAGB;
       else if (checkboxData == null || checkboxData == false)
-        errorMsg = AppLocalizations.of(context).checkoutScreen_acceptPrivacy;
+        errorMsg = AppLocalizations.of(context)!.checkoutScreen_acceptPrivacy;
       Fluttertoast.showToast(
         msg: errorMsg,
         toastLength: Toast.LENGTH_SHORT,

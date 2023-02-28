@@ -1,6 +1,6 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/file_model.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/file_model.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ class ImagesFullscreenView extends StatefulWidget {
   final ActivityModel activity;
   final String imageUrl;
 
-  ImagesFullscreenView({@required this.activity, @required this.imageUrl});
+  ImagesFullscreenView({required this.activity, required this.imageUrl});
 
   @override
   _ImagesFullscreenViewState createState() => _ImagesFullscreenViewState();
@@ -61,14 +61,16 @@ class _ImagesFullscreenViewState extends State<ImagesFullscreenView> {
                   scrollPhysics: const BouncingScrollPhysics(),
                   builder: (BuildContext context, int index) {
                     return PhotoViewGalleryPageOptions(
-                      imageProvider: CachedNetworkImageProvider(sortedImages[index]),
+                      imageProvider:
+                          CachedNetworkImageProvider(sortedImages[index]),
                       initialScale: PhotoViewComputedScale.contained,
                       heroAttributes: PhotoViewHeroAttributes(tag: index),
                       maxScale: PhotoViewComputedScale.contained * 4.0,
                       minScale: PhotoViewComputedScale.contained * 1.0,
                     );
                   },
-                  customSize: Size(Dimensions.getWidth(percentage: 98.5), Dimensions.getHeight(percentage: 100.0)),
+                  customSize: Size(Dimensions.getWidth(percentage: 98.5),
+                      Dimensions.getHeight(percentage: 100.0)),
                   itemCount: sortedImages.length,
                   loadingBuilder: (context, event) => Center(
                     child: Container(
@@ -102,10 +104,14 @@ class _ImagesFullscreenViewState extends State<ImagesFullscreenView> {
                   SizedBox(
                     height: AppBar().preferredSize.height,
                     child: Padding(
-                      padding: EdgeInsets.only(top: Dimensions.getScaledSize(8.0), left: Dimensions.getScaledSize(8.0)),
+                      padding: EdgeInsets.only(
+                          top: Dimensions.getScaledSize(8.0),
+                          left: Dimensions.getScaledSize(8.0)),
                       child: Container(
-                        width: AppBar().preferredSize.height - Dimensions.getScaledSize(8.0),
-                        height: AppBar().preferredSize.height - Dimensions.getScaledSize(8.0),
+                        width: AppBar().preferredSize.height -
+                            Dimensions.getScaledSize(8.0),
+                        height: AppBar().preferredSize.height -
+                            Dimensions.getScaledSize(8.0),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
                                 .disabledColor
@@ -121,7 +127,8 @@ class _ImagesFullscreenViewState extends State<ImagesFullscreenView> {
                               Navigator.pop(context);
                             },
                             child: Padding(
-                              padding:  EdgeInsets.all(Dimensions.getScaledSize(8.0)),
+                              padding:
+                                  EdgeInsets.all(Dimensions.getScaledSize(8.0)),
                               child:
                                   Icon(Icons.arrow_back, color: Colors.white),
                             ),

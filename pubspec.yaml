@@ -44,7 +44,9 @@ dependencies:
   flutter_cache_manager: ^3.0.2
   infinity_page_view: ^1.0.0
   carousel_slider: ^2.2.1
+  hive: ^2.2.3
   google_maps_flutter: ^2.0.3
+  fluttertoast: ^7.0.2
   location: ^4.1.1
   permission_handler: ^7.1.0
   shimmer: ^1.1.2

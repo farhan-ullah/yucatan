@@ -1,8 +1,8 @@
-import 'package:appventure/components/colored_divider.dart';
-import 'package:appventure/services/reset_password_service.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/DialogUtils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/colored_divider.dart';
+import 'package:yucatan/services/reset_password_service.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/DialogUtils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -52,7 +52,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 //Navigator.of(context, rootNavigator: true).pop(context);
               },
             ),
-            title: Text(AppLocalizations.of(context).resetPasswordSceen_title),
+            title: Text(AppLocalizations.of(context)!.resetPasswordSceen_title),
             centerTitle: true,
             backgroundColor: CustomTheme.primaryColorDark,
           ),
@@ -277,10 +277,10 @@ class _ResetPasswordState extends State<ResetPassword> {
         } else {
           var dialogResult = await DialogUtils.displayDialog(
               context,
-              AppLocalizations.of(context).authenticationSceen_forgotPassword,
+              AppLocalizations.of(context)!.authenticationSceen_forgotPassword,
               "${result.message}",
-              AppLocalizations.of(context).actions_cancel,
-              AppLocalizations.of(context).actions_confirm,
+              AppLocalizations.of(context)!.actions_cancel,
+              AppLocalizations.of(context)!.actions_confirm,
               showCancelButton: false,
               showOKButton: true);
           if (dialogResult != null) {

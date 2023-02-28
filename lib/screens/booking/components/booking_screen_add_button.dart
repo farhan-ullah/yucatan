@@ -1,13 +1,13 @@
-import 'package:appventure/components/black_divider.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/black_divider.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookingScreenAddButton extends StatelessWidget {
   final Function nextBookingStep;
 
-  BookingScreenAddButton({@required this.nextBookingStep});
+  BookingScreenAddButton({required this.nextBookingStep});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class BookingScreenAddButton extends StatelessWidget {
               color: Colors.white,
               child: Center(
                 child: Text(
-                  AppLocalizations.of(context).bookingScreen_add,
+                  AppLocalizations.of(context)!.bookingScreen_add,
                   style: TextStyle(
                     fontSize: Dimensions.getScaledSize(20.0),
                     fontWeight: FontWeight.bold,

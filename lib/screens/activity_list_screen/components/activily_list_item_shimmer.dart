@@ -1,11 +1,10 @@
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../theme/custom_theme.dart';
-import '../../../utils/widget_dimensions.dart';
 
 class ActivityListViewShimmer extends StatelessWidget {
   final double? width;

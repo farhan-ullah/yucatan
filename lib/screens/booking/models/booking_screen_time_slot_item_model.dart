@@ -6,8 +6,8 @@ class BookingScreenTimeSlotItemModel {
   int remainingQuota;
 
   BookingScreenTimeSlotItemModel({
-    @required this.dateTime,
-    @required this.timeString,
-    @required this.remainingQuota,
+    required this.dateTime,
+    required this.timeString,
+    required this.remainingQuota,
   });
 }

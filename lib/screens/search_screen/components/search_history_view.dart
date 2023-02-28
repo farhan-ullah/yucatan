@@ -1,7 +1,7 @@
-import 'package:appventure/components/black_divider.dart';
-import 'package:appventure/services/database/database_service.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/black_divider.dart';
+import 'package:yucatan/services/database/database_service.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +12,10 @@ class SearchHistoryView extends StatefulWidget {
   final VoidCallback refreshLocalHistory;
   final SearchCallback searchCallback;
 
-  SearchHistoryView(this.localSearchHistory, this.refreshLocalHistory, this.searchCallback, {Key key}) : super(key: key);
+  SearchHistoryView(
+      this.localSearchHistory, this.refreshLocalHistory, this.searchCallback,
+      {Key? key})
+      : super(key: key);
 
   @override
   _SearchHistoryViewState createState() {
@@ -93,7 +96,8 @@ class HistoryView extends StatelessWidget {
   final bool isHistoryView;
   final String data;
 
-  HistoryView({this.isHistoryView = true, this.data, @required this.callback}) : super();
+  HistoryView({this.isHistoryView = true, this.data, required this.callback})
+      : super();
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +105,8 @@ class HistoryView extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: Dimensions.getScaledSize(8.0)),
+            padding:
+                EdgeInsets.symmetric(vertical: Dimensions.getScaledSize(8.0)),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -110,7 +115,8 @@ class HistoryView extends StatelessWidget {
                   height: Dimensions.getScaledSize(32.0),
                   width: Dimensions.getScaledSize(32.0),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(Dimensions.getScaledSize(8.0)),
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.getScaledSize(8.0)),
                     color: CustomTheme.primaryColorLight.withOpacity(0.2),
                   ),
                   child: isHistoryView

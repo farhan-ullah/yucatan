@@ -1,5 +1,5 @@
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -8,7 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookingPreviewHeader extends StatelessWidget {
   final String ticketNumber;
-  BookingPreviewHeader({@required this.ticketNumber});
+  BookingPreviewHeader({required this.ticketNumber});
   @override
   Widget build(BuildContext context) {
     double displayHeight = MediaQuery.of(context).size.height;
@@ -40,7 +40,7 @@ class BookingPreviewHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                AppLocalizations.of(context).bookingListScreen_ticketNumber,
+                AppLocalizations.of(context)!.bookingListScreen_ticketNumber,
                 style: TextStyle(
                   fontSize: 0.03 * displayWidth,
                   color: Colors.white,

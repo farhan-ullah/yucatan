@@ -1,11 +1,11 @@
-import 'package:appventure/components/payment_processing_screen.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/booking_model.dart';
-import 'package:appventure/models/order_model.dart';
-import 'package:appventure/screens/payment_credit_card_screen/bloc/payment_3d_secure_bloc.dart';
-import 'package:appventure/screens/payment_credit_card_screen/components/payment_success_screen.dart';
-import 'package:appventure/services/database/database_service.dart';
-import 'package:appventure/services/response/payment_response.dart';
+import 'package:yucatan/components/payment_processing_screen.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/booking_model.dart';
+import 'package:yucatan/models/order_model.dart';
+import 'package:yucatan/screens/payment_credit_card_screen/bloc/payment_3d_secure_bloc.dart';
+import 'package:yucatan/screens/payment_credit_card_screen/components/payment_success_screen.dart';
+import 'package:yucatan/services/database/database_service.dart';
+import 'package:yucatan/services/response/payment_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
@@ -15,9 +15,9 @@ class PaymentCreditCardScreenThreeDSecureView extends StatefulWidget {
   final List<OrderProduct> order;
 
   PaymentCreditCardScreenThreeDSecureView({
-    @required this.future,
-    @required this.activity,
-    @required this.order,
+    required this.future,
+    required this.activity,
+    required this.order,
   });
 
   @override

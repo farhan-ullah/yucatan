@@ -1,12 +1,12 @@
-import 'package:appventure/screens/authentication/login/loginbloc/login_screen.dart';
-import 'package:appventure/screens/authentication/register/register_screen.dart';
-import 'package:appventure/screens/burger_menu/components/burger_menu_list_item_spacer.dart';
-import 'package:appventure/screens/main_screen/main_screen.dart';
-import 'package:appventure/screens/profile/profile_screen.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/user_provider.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/screens/authentication/login/loginbloc/login_screen.dart';
+import 'package:yucatan/screens/authentication/register/register_screen.dart';
+import 'package:yucatan/screens/burger_menu/components/burger_menu_list_item_spacer.dart';
+import 'package:yucatan/screens/main_screen/main_screen.dart';
+import 'package:yucatan/screens/profile/profile_screen.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ import 'burger_menu_list_item.dart';
 class BurgerMenuProfileFragment extends StatefulWidget {
   final UserLoginModel user;
 
-  const BurgerMenuProfileFragment({Key key, this.user}) : super(key: key);
+  const BurgerMenuProfileFragment({Key? key, this.user}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _BurgerMenuProfileFragmentState();
@@ -51,7 +51,7 @@ class _BurgerMenuProfileFragmentState extends State<BurgerMenuProfileFragment> {
         children: [
           SizedBox(height: Dimensions.pixels_25),
           Text(
-            AppLocalizations.of(context).burgerMenuScreen_loginNow,
+            AppLocalizations.of(context)!.burgerMenuScreen_loginNow,
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: Dimensions.getScaledSize(20.0),
@@ -76,7 +76,7 @@ class _BurgerMenuProfileFragmentState extends State<BurgerMenuProfileFragment> {
                 vertical: Dimensions.getScaledSize(10.0),
                 horizontal: Dimensions.pixels_75),
             child: Text(
-              AppLocalizations.of(context).loginSceen_login,
+              AppLocalizations.of(context)!.loginSceen_login,
               style: TextStyle(
                   fontSize: Dimensions.getScaledSize(18.0),
                   color: CustomTheme.primaryColorDark,
@@ -85,7 +85,7 @@ class _BurgerMenuProfileFragmentState extends State<BurgerMenuProfileFragment> {
           ),
           SizedBox(height: Dimensions.getScaledSize(35.0)),
           Text(
-            AppLocalizations.of(context).authenticationSceen_noProfile,
+            AppLocalizations.of(context)!.authenticationSceen_noProfile,
             textAlign: TextAlign.center,
             style: TextStyle(fontWeight: FontWeight.w500),
           ),
@@ -153,7 +153,9 @@ class _BurgerMenuProfileFragmentState extends State<BurgerMenuProfileFragment> {
                             top: MediaQuery.of(context).size.height * 0.015),
                         child: Text(
                           widget.user.username != null
-                              ? widget.user.username.isEmpty ? "U" : widget.user.username[0]
+                              ? widget.user.username.isEmpty
+                                  ? "U"
+                                  : widget.user.username[0]
                               : 'U',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -181,7 +183,7 @@ class _BurgerMenuProfileFragmentState extends State<BurgerMenuProfileFragment> {
           ),
         ),
         BurgerMenuListItem(
-          text: AppLocalizations.of(context).burgerMenuScreen_profileSettings,
+          text: AppLocalizations.of(context)!.burgerMenuScreen_profileSettings,
           //icon: Icon(Icons.person),
           showSvg: true,
           svgPath: "lib/assets/images/portrait_black_24dp.svg",

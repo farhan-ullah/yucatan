@@ -1,10 +1,10 @@
 import 'package:yucatan/utils/datefulWidget/GlobalDateEvent.dart';
 
 class GlobalDate {
-  static DateTime? _x;
+  static DateTime _x;
 
   /// returns the current set date
-  static DateTime current() => _x!;
+  static DateTime current() => _x;
 
   /// sets the DateTime to a custom value
   static DateTime set(DateTime dateTime) {
@@ -19,10 +19,10 @@ class GlobalDate {
   static DateTime setTomorrow() => set(DateTime.now().add(Duration(days: 1)));
 
   /// adds [Duration] to the current set DateTime
-  static DateTime add(Duration duration) => set(_x!.add(duration));
+  static DateTime add(Duration duration) => set(_x.add(duration));
 
   /// subtracts [Duration] from the current set DateTime
-  static DateTime subtract(Duration duration) => set(_x!.subtract(duration));
+  static DateTime subtract(Duration duration) => set(_x.subtract(duration));
 
   static bool isToday(DateTime dateTime) {
     final now = DateTime.now();

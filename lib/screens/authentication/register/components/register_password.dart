@@ -1,8 +1,8 @@
-import 'package:appventure/screens/authentication/register/bloc/password_bloc.dart';
-import 'package:appventure/screens/authentication/register/components/register_validations_bloc.dart';
-import 'package:appventure/screens/authentication/register/models/password_model.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/screens/authentication/register/bloc/password_bloc.dart';
+import 'package:yucatan/screens/authentication/register/components/register_validations_bloc.dart';
+import 'package:yucatan/screens/authentication/register/models/password_model.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,7 +12,8 @@ import '../../auth_regex.dart';
 class RegisterPassword extends StatefulWidget {
   final ValueChanged<RegisterPasswordModel> onChange;
   final RegisterValidationBloc registerValidationBloc;
-  const RegisterPassword({Key key, this.onChange,this.registerValidationBloc}) : super(key: key);
+  const RegisterPassword({Key? key, this.onChange, this.registerValidationBloc})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _RegisterPasswordState();
@@ -31,7 +32,8 @@ class _RegisterPasswordState extends State<RegisterPassword> {
   @override
   void initState() {
     if (widget.registerValidationBloc != null) {
-      widget.registerValidationBloc.registerValidationStream.listen((bool event) {
+      widget.registerValidationBloc.registerValidationStream
+          .listen((bool event) {
         if (event == true) {
           this.isRegisterSubmitButtonPressed = event;
           _formKey.currentState.validate();
@@ -107,16 +109,18 @@ class _RegisterPasswordState extends State<RegisterPassword> {
                           if (isRegisterSubmitButtonPressed == false) {
                             return null;
                           }
-                          bool isPasswordCompliant =  AuthRegex.isPasswordCompliant(arg);
+                          bool isPasswordCompliant =
+                              AuthRegex.isPasswordCompliant(arg);
                           return isPasswordCompliant
                               ? null
-                              : AppLocalizations.of(context).registerPassword_validation_msg;
+                              : AppLocalizations.of(context)
+                                  .registerPassword_validation_msg;
                         },
                         onChanged: (String text) {
                           _model.password = text;
 
-                          if(isRegisterSubmitButtonPressed)
-                          _model.isValid = _formKey.currentState.validate();
+                          if (isRegisterSubmitButtonPressed)
+                            _model.isValid = _formKey.currentState.validate();
                           widget.onChange.call(_model);
                         },
                         controller: _passwordController,
@@ -147,18 +151,20 @@ class _RegisterPasswordState extends State<RegisterPassword> {
                           if (isRegisterSubmitButtonPressed == false) {
                             return null;
                           }
-                          if(isRegisterSubmitButtonPressed && arg.isEmpty){
-                            return AppLocalizations.of(context).authenticationSceen_confirmPasswordInvalid;
-                          }else{
+                          if (isRegisterSubmitButtonPressed && arg.isEmpty) {
+                            return AppLocalizations.of(context)
+                                .authenticationSceen_confirmPasswordInvalid;
+                          } else {
                             return _passwordController.text == arg
                                 ? null
-                                : AppLocalizations.of(context).authenticationSceen_confirmPasswordInvalid;
+                                : AppLocalizations.of(context)
+                                    .authenticationSceen_confirmPasswordInvalid;
                           }
                         },
                         onChanged: (String text) {
                           _model.passwordRepeat = text;
-                          if(isRegisterSubmitButtonPressed)
-                          _model.isValid = _formKey.currentState.validate();
+                          if (isRegisterSubmitButtonPressed)
+                            _model.isValid = _formKey.currentState.validate();
                           widget.onChange.call(_model);
                         },
                         controller: _passwordRepeatController,

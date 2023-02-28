@@ -1,10 +1,10 @@
-import 'package:appventure/components/colored_divider.dart';
-import 'package:appventure/screens/authentication/forgot/forgot_screen.dart';
-import 'package:appventure/screens/authentication/login/loginbloc/login_bloc.dart';
-import 'package:appventure/screens/authentication/register/register_screen.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/StringUtils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/colored_divider.dart';
+import 'package:yucatan/screens/authentication/forgot/forgot_screen.dart';
+import 'package:yucatan/screens/authentication/login/loginbloc/login_bloc.dart';
+import 'package:yucatan/screens/authentication/register/register_screen.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/StringUtils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -220,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       child: Center(
           child: Text(
-        AppLocalizations.of(context).loginSceen_login,
+        AppLocalizations.of(context)!.loginSceen_login,
         style: TextStyle(
             color: CustomTheme.primaryColorDark,
             fontSize: Dimensions.getScaledSize(18),
@@ -246,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Container(
                   margin: EdgeInsets.only(top: Dimensions.getScaledSize(10)),
                   child: Text(
-                    AppLocalizations.of(context).loginSceen_loginWaiting,
+                    AppLocalizations.of(context)!.loginSceen_loginWaiting,
                     style: TextStyle(
                         fontSize: Dimensions.getScaledSize(15),
                         color: CustomTheme.theme.primaryColor),

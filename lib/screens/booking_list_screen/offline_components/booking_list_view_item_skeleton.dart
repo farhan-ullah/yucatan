@@ -1,4 +1,4 @@
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -13,7 +13,8 @@ class BookingListViewItemSkeleton extends StatelessWidget {
         child: Container(
           width: MediaQuery.of(context).size.width * 0.9,
           height: MediaQuery.of(context).size.height * 0.22,
-          margin: EdgeInsets.symmetric(vertical: Dimensions.getScaledSize(10.0)),
+          margin:
+              EdgeInsets.symmetric(vertical: Dimensions.getScaledSize(10.0)),
           child: Column(
             children: [
               Row(
@@ -23,7 +24,8 @@ class BookingListViewItemSkeleton extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.35,
                     height: MediaQuery.of(context).size.height * 0.14,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(Dimensions.getScaledSize(16.0)),
+                      borderRadius:
+                          BorderRadius.circular(Dimensions.getScaledSize(16.0)),
                       color: Colors.black,
                     ),
                   ),
@@ -34,8 +36,8 @@ class BookingListViewItemSkeleton extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.015,
                           margin: EdgeInsets.only(
                             top: Dimensions.getScaledSize(5.0),
-                            left:  Dimensions.getScaledSize(10.0),
-                            right:  Dimensions.getScaledSize(10.0),
+                            left: Dimensions.getScaledSize(10.0),
+                            right: Dimensions.getScaledSize(10.0),
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
@@ -43,15 +45,16 @@ class BookingListViewItemSkeleton extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height:  Dimensions.getScaledSize(5.0),
+                          height: Dimensions.getScaledSize(5.0),
                         ),
                         Container(
                           height: MediaQuery.of(context).size.height * 0.015,
                           margin: EdgeInsets.symmetric(
-                            horizontal:  Dimensions.getScaledSize(10.0),
+                            horizontal: Dimensions.getScaledSize(10.0),
                           ),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(Dimensions.getScaledSize(16.0)),
+                            borderRadius: BorderRadius.circular(
+                                Dimensions.getScaledSize(16.0)),
                             color: Colors.black,
                           ),
                         ),
@@ -68,7 +71,8 @@ class BookingListViewItemSkeleton extends StatelessWidget {
                                 horizontal: Dimensions.getScaledSize(10.0),
                               ),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(Dimensions.getScaledSize(200.0)),
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.getScaledSize(200.0)),
                                 color: Colors.black,
                               ),
                             ),
@@ -113,7 +117,8 @@ class BookingListViewItemSkeleton extends StatelessWidget {
                       vertical: Dimensions.getScaledSize(5.0),
                     ),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(Dimensions.getScaledSize(16.0)),
+                      borderRadius:
+                          BorderRadius.circular(Dimensions.getScaledSize(16.0)),
                       color: Colors.black,
                     ),
                   ),
@@ -129,7 +134,8 @@ class BookingListViewItemSkeleton extends StatelessWidget {
                         right: Dimensions.getScaledSize(10.0),
                       ),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(Dimensions.getScaledSize(16.0)),
+                        borderRadius: BorderRadius.circular(
+                            Dimensions.getScaledSize(16.0)),
                         color: Colors.black,
                       ),
                     ),

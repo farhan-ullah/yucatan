@@ -1,6 +1,6 @@
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +10,7 @@ class ProfileHeader extends StatefulWidget {
   final UserLoginModel model;
   final ProfileEventHandler eventHandler;
 
-  const ProfileHeader({Key key, this.model, this.eventHandler})
+  const ProfileHeader({Key? key, this.model, this.eventHandler})
       : super(key: key);
 
   @override
@@ -54,7 +54,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                     top: MediaQuery.of(context).size.height * 0.01),
                 child: Center(
                     child: Text(
-                      _username.isEmpty ? "U" : _username[0],
+                  _username.isEmpty ? "U" : _username[0],
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.8),

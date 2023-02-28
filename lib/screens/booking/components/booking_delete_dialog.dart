@@ -1,5 +1,5 @@
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 
 import 'booking_dialog_button.dart';
@@ -9,7 +9,7 @@ class BookingDeleteDialog extends StatelessWidget {
   final Function delete;
 
   BookingDeleteDialog({
-    @required this.delete,
+    required this.delete,
   });
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class BookingDeleteDialog extends StatelessWidget {
               height: 0.02 * displayHeight,
             ),
             Text(
-              AppLocalizations.of(context).bookingScreen_deleteProduct,
+              AppLocalizations.of(context)!.bookingScreen_deleteProduct,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 0.02 * displayHeight,
@@ -65,7 +65,7 @@ class BookingDeleteDialog extends StatelessWidget {
                 delete();
                 Navigator.of(context).pop();
               },
-              buttonText: AppLocalizations.of(context).actions_confirm,
+              buttonText: AppLocalizations.of(context)!.actions_confirm,
               color: CustomTheme.primaryColorDark,
             ),
           ],

@@ -1,10 +1,10 @@
-import 'package:appventure/components/payment_processing_screen.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/order_model.dart';
-import 'package:appventure/screens/payment_credit_card_screen/components/payment_success_screen.dart';
-import 'package:appventure/screens/payment_paypal_screen/bloc/payment_paypal_bloc.dart';
-import 'package:appventure/services/response/paypal_payment_purchase_response.dart';
-import 'package:appventure/utils/StringUtils.dart';
+import 'package:yucatan/components/payment_processing_screen.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/order_model.dart';
+import 'package:yucatan/screens/payment_credit_card_screen/components/payment_success_screen.dart';
+import 'package:yucatan/screens/payment_paypal_screen/bloc/payment_paypal_bloc.dart';
+import 'package:yucatan/services/response/paypal_payment_purchase_response.dart';
+import 'package:yucatan/utils/StringUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -14,8 +14,8 @@ class PaymentPaypalScreenView extends StatefulWidget {
   final ActivityModel activity;
 
   PaymentPaypalScreenView({
-    @required this.order,
-    @required this.activity,
+    required this.order,
+    required this.activity,
   });
 
   @override
@@ -67,7 +67,7 @@ class _PaymentPaypalScreenViewState extends State<PaymentPaypalScreenView> {
           if (snapshot.hasData) {
             if (!isNotNullOrEmpty(snapshot.data.url)) {
               return Center(
-                  child: Text(AppLocalizations.of(context).commonWords_error));
+                  child: Text(AppLocalizations.of(context)!.commonWords_error));
             }
             return InAppWebView(
               initialUrlRequest: URLRequest(url: Uri.parse(snapshot.data.url)),

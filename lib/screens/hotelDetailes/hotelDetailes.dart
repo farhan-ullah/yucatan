@@ -2,31 +2,31 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:appventure/components/colored_divider.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/screens/authentication/login/login_screen.dart';
-import 'package:appventure/screens/booking/booking_screen.dart';
-import 'package:appventure/screens/hotelDetailes/description_items.dart';
-import 'package:appventure/screens/hotelDetailes/detailed_description_screen_view.dart';
-import 'package:appventure/screens/hotelDetailes/google_maps_fullscreen.dart';
-import 'package:appventure/screens/hotelDetailes/recommended_activities.dart';
-import 'package:appventure/screens/hotelDetailes/reviewsListScreen.dart';
-import 'package:appventure/screens/main_screen/components/main_screen_parameter.dart';
-import 'package:appventure/screens/main_screen/main_screen.dart';
-import 'package:appventure/services/activity_service.dart';
-import 'package:appventure/services/response/activity_single_response.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/user_provider.dart';
-import 'package:appventure/services/user_service.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/StringUtils.dart';
-import 'package:appventure/utils/bool_utils.dart';
-import 'package:appventure/utils/common_widgets.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/share_utils.dart';
-import 'package:appventure/utils/rive_animation.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/colored_divider.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/screens/authentication/login/login_screen.dart';
+import 'package:yucatan/screens/booking/booking_screen.dart';
+import 'package:yucatan/screens/hotelDetailes/description_items.dart';
+import 'package:yucatan/screens/hotelDetailes/detailed_description_screen_view.dart';
+import 'package:yucatan/screens/hotelDetailes/google_maps_fullscreen.dart';
+import 'package:yucatan/screens/hotelDetailes/recommended_activities.dart';
+import 'package:yucatan/screens/hotelDetailes/reviewsListScreen.dart';
+import 'package:yucatan/screens/main_screen/components/main_screen_parameter.dart';
+import 'package:yucatan/screens/main_screen/main_screen.dart';
+import 'package:yucatan/services/activity_service.dart';
+import 'package:yucatan/services/response/activity_single_response.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/services/user_service.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/StringUtils.dart';
+import 'package:yucatan/utils/bool_utils.dart';
+import 'package:yucatan/utils/common_widgets.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/share_utils.dart';
+import 'package:yucatan/utils/rive_animation.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:better_player/better_player.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -49,10 +49,10 @@ class HotelDetailes extends StatefulWidget {
   final Function(String activityId) onFavoriteChangedCallback;
 
   HotelDetailes({
-    Key key,
+    Key? key,
     //this.hotelData,
-    @required this.activityId,
-    @required this.isFavorite,
+    required this.activityId,
+    required this.isFavorite,
     this.onFavoriteChangedCallback,
   }) : super(key: key);
 
@@ -1335,7 +1335,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                             child: Text(
                               widget.hotelData.reviewCount == null ||
                                       widget.hotelData.reviewCount == 0
-                                  ? "(${AppLocalizations.of(context).commonWords_new})"
+                                  ? "(${AppLocalizations.of(context)!.commonWords_new})"
                                   : "(${widget.hotelData.reviewCount})",
                               style: TextStyle(
                                 fontSize: Dimensions.getScaledSize(14.0),
@@ -1381,7 +1381,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                       crossAxisAlignment: CrossAxisAlignment.baseline,
                       children: [
                         Text(
-                          "${AppLocalizations.of(context).commonWords_from} ",
+                          "${AppLocalizations.of(context)!.commonWords_from} ",
                           style: TextStyle(
                             fontSize: Dimensions.getScaledSize(15),
                             fontWeight: FontWeight.bold,

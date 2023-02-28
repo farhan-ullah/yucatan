@@ -1,22 +1,22 @@
-import 'package:appventure/components/custom_error_screen.dart';
-import 'package:appventure/models/booking_detailed_model.dart';
-import 'package:appventure/screens/authentication/login/login_screen.dart';
-import 'package:appventure/screens/booking_list_screen/components/booking_list_card_type.dart';
-import 'package:appventure/screens/booking_list_screen/offline_components/booking_list_offline_tabview.dart';
-import 'package:appventure/screens/booking_list_screen/offline_components/booking_list_view_item_skeleton.dart';
-import 'package:appventure/screens/main_screen/components/main_screen_parameter.dart';
-import 'package:appventure/screens/main_screen/main_screen.dart';
-import 'package:appventure/services/booking_service.dart';
-import 'package:appventure/services/database/database_service.dart';
-import 'package:appventure/services/notification_service/navigatable_by_notification.dart';
-import 'package:appventure/services/notification_service/notification_actions.dart';
-import 'package:appventure/services/response/booking_detailed_multi_response.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/status_service.dart';
-import 'package:appventure/services/user_provider.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/rive_animation.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/custom_error_screen.dart';
+import 'package:yucatan/models/booking_detailed_model.dart';
+import 'package:yucatan/screens/authentication/login/login_screen.dart';
+import 'package:yucatan/screens/booking_list_screen/components/booking_list_card_type.dart';
+import 'package:yucatan/screens/booking_list_screen/offline_components/booking_list_offline_tabview.dart';
+import 'package:yucatan/screens/booking_list_screen/offline_components/booking_list_view_item_skeleton.dart';
+import 'package:yucatan/screens/main_screen/components/main_screen_parameter.dart';
+import 'package:yucatan/screens/main_screen/main_screen.dart';
+import 'package:yucatan/services/booking_service.dart';
+import 'package:yucatan/services/database/database_service.dart';
+import 'package:yucatan/services/notification_service/navigatable_by_notification.dart';
+import 'package:yucatan/services/notification_service/notification_actions.dart';
+import 'package:yucatan/services/response/booking_detailed_multi_response.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/status_service.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/rive_animation.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +72,7 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
       });
     } else
       Fluttertoast.showToast(
-          msg: AppLocalizations.of(context).commonWords_error);
+          msg: AppLocalizations.of(context)!.commonWords_error);
   }
 
   void refresh() {
@@ -101,7 +101,10 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
     if (widget.notificationAction != null && widget.notificationData != null) {
       handleNavigation(widget.notificationAction, widget.notificationData);
     } else {
-      _tabController = TabController(length: 3, initialIndex: widget.isBookingRequestType ? 2 : 0, vsync: this);
+      _tabController = TabController(
+          length: 3,
+          initialIndex: widget.isBookingRequestType ? 2 : 0,
+          vsync: this);
     }
 
     super.initState();
@@ -174,9 +177,11 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
                     fontFamily: 'AcuminProWide',
                   ),
                   tabs: [
-                    Tab(text: AppLocalizations.of(context).commonWords_usable),
-                    Tab(text: AppLocalizations.of(context).commonWords_used),
-                    Tab(text: AppLocalizations.of(context).commonWords_request),
+                    Tab(text: AppLocalizations.of(context)!.commonWords_usable),
+                    Tab(text: AppLocalizations.of(context)!.commonWords_used),
+                    Tab(
+                        text:
+                            AppLocalizations.of(context)!.commonWords_request),
                   ],
                 ),
               ),
@@ -321,7 +326,8 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
                       );
                     } else if (userSnapshot.data == null) {
                       return CustomErrorEmptyScreen(
-                        title: AppLocalizations.of(context).commonWords_mistake,
+                        title:
+                            AppLocalizations.of(context)!.commonWords_mistake,
                         description: AppLocalizations.of(context)
                             .bookingListScreen_loginToSee,
                         rive: RiveAnimation(
@@ -332,7 +338,7 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
                           startAnimationAfterMilliseconds: 0,
                         ),
                         customButtonText:
-                            AppLocalizations.of(context).loginSceen_login,
+                            AppLocalizations.of(context)!.loginSceen_login,
                         callback: _navigateToLogin,
                       );
                     }

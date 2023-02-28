@@ -8,11 +8,11 @@ class VendorBookingPreviewButton extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
   VendorBookingPreviewButton(
-      {@required this.color,
-      @required this.buttonText,
-      @required this.onPressed,
-      @required this.width,
-      @required this.fontSize,
+      {required this.color,
+      required this.buttonText,
+      required this.onPressed,
+      required this.width,
+      required this.fontSize,
       this.fontWeight = FontWeight.bold});
   @override
   Widget build(BuildContext context) {

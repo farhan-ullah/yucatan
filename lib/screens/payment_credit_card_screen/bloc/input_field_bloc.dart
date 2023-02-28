@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:appventure/screens/payment_credit_card_screen/components/payment_credit_card_screen_view.dart';
+import 'package:yucatan/screens/payment_credit_card_screen/components/payment_credit_card_screen_view.dart';
 
 class InputFieldBloc {
   final _validationController = StreamController<ValidationType>();

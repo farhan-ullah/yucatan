@@ -5,7 +5,7 @@ import 'round_indicator.dart';
 class RoundIndicatorList extends StatelessWidget {
   final int currentPage;
   final int numberOfPages;
-  RoundIndicatorList({@required this.currentPage, this.numberOfPages});
+  RoundIndicatorList({required this.currentPage, this.numberOfPages});
 
   Widget _getIndicators() {
     List<Widget> indicatorList = [];

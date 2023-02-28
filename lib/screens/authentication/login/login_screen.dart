@@ -1,9 +1,9 @@
-import 'package:appventure/components/colored_divider.dart';
-import 'package:appventure/screens/authentication/forgot/forgot_screen.dart';
-import 'package:appventure/screens/authentication/register/register_screen.dart';
-import 'package:appventure/services/user_provider.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/colored_divider.dart';
+import 'package:yucatan/screens/authentication/forgot/forgot_screen.dart';
+import 'package:yucatan/screens/authentication/register/register_screen.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
@@ -250,7 +250,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: Center(
                       child: Text(
-                    AppLocalizations.of(context).loginSceen_login,
+                    AppLocalizations.of(context)!.loginSceen_login,
                     style: TextStyle(
                         color: CustomTheme.primaryColorDark,
                         fontSize: Dimensions.getScaledSize(18),

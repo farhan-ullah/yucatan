@@ -5,7 +5,7 @@ import 'indicator.dart';
 class IndicatorList extends StatelessWidget {
   final int currentPage;
   final int numberOfPages;
-  IndicatorList({@required this.currentPage, this.numberOfPages});
+  IndicatorList({required this.currentPage, this.numberOfPages});
 
   Widget _getIndicators() {
     List<Widget> indicatorList = [];

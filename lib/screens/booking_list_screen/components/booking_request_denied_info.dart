@@ -1,5 +1,5 @@
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -8,8 +8,8 @@ class BookingRequestDeniedInfo extends StatelessWidget {
   final String titleText;
 
   BookingRequestDeniedInfo({
-    @required this.text,
-    @required this.titleText,
+    required this.text,
+    required this.titleText,
   });
 
   @override
@@ -18,10 +18,12 @@ class BookingRequestDeniedInfo extends StatelessWidget {
     final double displayWidth = MediaQuery.of(context).size.width;
 
     return Dialog(
-      insetPadding: EdgeInsets.symmetric( horizontal: displayWidth * 0.1, vertical: displayHeight * 0.1),
+      insetPadding: EdgeInsets.symmetric(
+          horizontal: displayWidth * 0.1, vertical: displayHeight * 0.1),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       child: Container(
-        padding: EdgeInsets.symmetric( horizontal: 0.05 * displayWidth, vertical: 0.03 * displayHeight),
+        padding: EdgeInsets.symmetric(
+            horizontal: 0.05 * displayWidth, vertical: 0.03 * displayHeight),
         height: 0.45 * displayHeight,
         width: 0.78 * displayHeight,
         child: Column(
@@ -51,7 +53,7 @@ class BookingRequestDeniedInfo extends StatelessWidget {
             ),
             Text(
               titleText != null ? titleText : "",
-              //AppLocalizations.of(context).bookingListScreen_requestDenied,
+              //AppLocalizations.of(context)!.bookingListScreen_requestDenied,
               style: TextStyle(
                 fontFamily: "AcuminProWide",
                 fontWeight: FontWeight.w600,
@@ -84,7 +86,7 @@ class BookingRequestDeniedInfo extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              buttonText: AppLocalizations.of(context).commonWords_ok,
+              buttonText: AppLocalizations.of(context)!.commonWords_ok,
               color: CustomTheme.accentColor1,
             ),
           ],
@@ -99,9 +101,7 @@ class BookingListRequestDeniedButton extends StatelessWidget {
   final String buttonText;
   final Function onPressed;
   BookingListRequestDeniedButton(
-      {@required this.color,
-      @required this.buttonText,
-      @required this.onPressed});
+      {required this.color, required this.buttonText, required this.onPressed});
   @override
   Widget build(BuildContext context) {
     return SizedBox(

@@ -1,3 +1,19 @@
+import 'package:yucatan/models/activity_category_data_model.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/screens/authentication/login/login_screen.dart';
+import 'package:yucatan/screens/hotelDetailes/hotelDetailes.dart';
+import 'package:yucatan/screens/main_screen/components/main_screen_parameter.dart';
+import 'package:yucatan/screens/main_screen/main_screen.dart';
+import 'package:yucatan/services/analytics_service.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/services/user_service.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/StringUtils.dart';
+import 'package:yucatan/utils/bool_utils.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -5,28 +21,20 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-import '../../../theme/custom_theme.dart';
-import '../../../utils/networkImage/network_image_loader.dart';
-import '../../../utils/price_format_utils.dart';
-import '../../../utils/widget_dimensions.dart';
-import '../../authentication/login/login_screen.dart';
-import '../../main_screen/components/main_screen_parameter.dart';
-import '../../main_screen/main_screen.dart';
-
 // ignore: must_be_immutable
 class ActivityListViewItem extends StatefulWidget {
-  // ActivityCategoryDataModel activityCategoryModel;
-  // final ActivityModel? activityModel;
+  ActivityCategoryDataModel? activityCategoryModel;
+  final ActivityModel? activityModel;
   final bool? isFavorite;
   final bool? isComingFromFullMapScreen;
   final double? width;
   final Function(String activityId)? onFavoriteChangedCallback;
 
   ActivityListViewItem({
-    // this.activityCategoryModel,
-    @required this.isFavorite,
-    @required this.width,
-    // this.activityModel,
+    this.activityCategoryModel,
+    required this.isFavorite,
+    required this.width,
+    this.activityModel,
     this.onFavoriteChangedCallback,
     this.isComingFromFullMapScreen = false,
   });
@@ -37,43 +45,43 @@ class ActivityListViewItem extends StatefulWidget {
 
 class _ActivityListViewItemState extends State<ActivityListViewItem> {
   bool? _isFavorite;
-  // UserLoginModel _user;
+  UserLoginModel? _user;
 
   @override
   void initState() {
-    // checkIfActivityCategoryModelNotNull();
+    checkIfActivityCategoryModelNotNull();
     _isFavorite = widget.isFavorite;
-    // _loadUser();
+    _loadUser();
     super.initState();
   }
 
-  // void checkIfActivityCategoryModelNotNull() {
-  //   if (widget.activityCategoryModel == null && widget.activityModel != null) {
-  //     widget.activityCategoryModel = ActivityCategoryDataModel();
-  //     widget.activityCategoryModel.id = widget.activityModel.sId;
-  //     Location locationObject = Location();
-  //     locationObject.lat = widget.activityModel.location.lat;
-  //     locationObject.lon = widget.activityModel.location.lon;
-  //     locationObject.state = widget.activityModel.location.state;
-  //     locationObject.city = widget.activityModel.location.city;
-  //     locationObject.country = widget.activityModel.location.country;
-  //     locationObject.zipcode = widget.activityModel.location.zipcode;
-  //     locationObject.housenumber = widget.activityModel.location.housenumber;
-  //     locationObject.street = widget.activityModel.location.street;
-  //     widget.activityCategoryModel.location = locationObject;
-  //     widget.activityCategoryModel.reviewCount =
-  //         widget.activityModel.reviewCount;
-  //     widget.activityCategoryModel.reviewAverageRating =
-  //         widget.activityModel.reviewAverageRating;
-  //     widget.activityCategoryModel.priceFrom = widget.activityModel.priceFrom;
-  //     widget.activityCategoryModel.title = widget.activityModel.title;
-  //     widget.activityCategoryModel.thumbnail = widget.activityModel.thumbnail;
-  //   }
-  // }
+  void checkIfActivityCategoryModelNotNull() {
+    if (widget.activityCategoryModel == null && widget.activityModel != null) {
+      widget.activityCategoryModel = ActivityCategoryDataModel();
+      widget.activityCategoryModel!.id = widget.activityModel!.sId;
+      Location locationObject = Location();
+      locationObject.lat = widget.activityModel!.location!.lat;
+      locationObject.lon = widget.activityModel!.location!.lon;
+      locationObject.state = widget.activityModel!.location!.state;
+      locationObject.city = widget.activityModel!.location!.city;
+      locationObject.country = widget.activityModel!.location!.country;
+      locationObject.zipcode = widget.activityModel!.location!.zipcode;
+      locationObject.housenumber = widget.activityModel!.location!.housenumber;
+      locationObject.street = widget.activityModel!.location!.street;
+      widget.activityCategoryModel!.location = locationObject;
+      widget.activityCategoryModel!.reviewCount =
+          widget.activityModel!.reviewCount;
+      widget.activityCategoryModel!.reviewAverageRating =
+          widget.activityModel!.reviewAverageRating;
+      widget.activityCategoryModel!.priceFrom = widget.activityModel!.priceFrom;
+      widget.activityCategoryModel!.title = widget.activityModel!.title;
+      widget.activityCategoryModel!.thumbnail = widget.activityModel!.thumbnail;
+    }
+  }
 
-  // void _loadUser() async {
-  //   _user = await UserProvider.getUser();
-  // }
+  void _loadUser() async {
+    _user = await UserProvider.getUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +93,7 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
         child: Column(
           children: <Widget>[
             Container(
-              width: widget.width!,
+              width: widget.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(
                   Radius.circular(
@@ -97,31 +105,31 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
               ),
               child: GestureDetector(
                 onTap: () {
-                  // shuffelActivitysList = false;
-                  // print('How are you Farhan!!!!');
-                  // //Log firebase event
-                  // AnalyticsService.logViewContent(
-                  //     widget.activityCategoryModel, widget.activityModel);
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (context) => HotelDetailes(
-                  //       //hotelData: widget.activity,
-                  //       activityId: widget.activityCategoryModel == null
-                  //           ? widget.activityModel != null
-                  //               ? widget.activityModel.sId
-                  //               : ""
-                  //           : widget.activityCategoryModel.id,
-                  //       isFavorite: _isFavorite,
-                  //       onFavoriteChangedCallback: (activityId) {
-                  //         if (widget.onFavoriteChangedCallback != null)
-                  //           widget.onFavoriteChangedCallback(activityId);
-                  //         setState(() {
-                  //           _isFavorite = !_isFavorite;
-                  //         });
-                  //       },
-                  //     ),
-                  //   ),
-                  // );
+                  shuffelActivitysList = false;
+                  print('How are you Farhan!!!!');
+                  //Log firebase event
+                  AnalyticsService.logViewContent(
+                      widget.activityCategoryModel!, widget.activityModel!);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => HotelDetailes(
+                        //hotelData: widget.activity,
+                        activityId: widget.activityCategoryModel == null
+                            ? widget.activityModel != null
+                                ? widget.activityModel!.sId
+                                : ""
+                            : widget.activityCategoryModel!.id.toString(),
+                        isFavorite: _isFavorite,
+                        onFavoriteChangedCallback: (activityId) {
+                          if (widget.onFavoriteChangedCallback != null)
+                            widget.onFavoriteChangedCallback!(activityId);
+                          setState(() {
+                            _isFavorite = !_isFavorite!;
+                          });
+                        },
+                      ),
+                    ),
+                  );
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(
@@ -135,20 +143,19 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                               Container(
                                 height: Dimensions.getHeight(percentage: 20.0),
                                 child: loadCachedNetworkImage(
-                                  // widget.activityCategoryModel == null
-                                  //     ? widget.activityModel != null
-                                  //         ? widget.activityModel.thumbnail
-                                  //             ?.publicUrl
-                                  //         : ""
-                                  //     : isNotNullOrEmpty(widget
-                                  //             .activityCategoryModel
-                                  //             .thumbnail
-                                  //             ?.publicUrl)
-                                  //         ? widget.activityCategoryModel
-                                  //             .thumbnail?.publicUrl
-                                  //         :
-                                  "",
-                                  width: widget.width!,
+                                  widget.activityCategoryModel == null
+                                      ? widget.activityModel != null
+                                          ? widget.activityModel!.thumbnail
+                                              ?.publicUrl
+                                          : ""
+                                      : isNotNullOrEmpty(widget
+                                              .activityCategoryModel
+                                              .thumbnail
+                                              ?.publicUrl)
+                                          ? widget.activityCategoryModel
+                                              .thumbnail?.publicUrl
+                                          : "",
+                                  width: widget.width,
                                   fit: BoxFit.cover,
                                   height:
                                       Dimensions.getHeight(percentage: 20.0),
@@ -159,7 +166,7 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                 child: Container(
                                   height:
                                       Dimensions.getHeight(percentage: 11.0),
-                                  width: widget.width!,
+                                  width: widget.width,
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
                                       begin: Alignment.bottomCenter,
@@ -174,15 +181,15 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                 ),
                               ),
                               Positioned(
-                                bottom: widget.isComingFromFullMapScreen!
+                                bottom: widget.isComingFromFullMapScreen
                                     ? 0
                                     : Dimensions.getScaledSize(10.0),
                                 child: Container(
-                                  width: widget.width!,
+                                  width: widget.width,
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: widget
-                                                .isComingFromFullMapScreen!
+                                                .isComingFromFullMapScreen
                                             ? 0
                                             : Dimensions.getScaledSize(12.0)),
                                     child: Column(
@@ -191,7 +198,7 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        widget.isComingFromFullMapScreen!
+                                        widget.isComingFromFullMapScreen
                                             ? Container(
                                                 margin: EdgeInsets.fromLTRB(
                                                     Dimensions.getScaledSize(
@@ -202,21 +209,20 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                                 height:
                                                     Dimensions.getScaledSize(
                                                         40.0),
-                                                width: widget.width! -
+                                                width: widget.width -
                                                     Dimensions.getScaledSize(
                                                         135.0),
                                                 child: Align(
                                                   alignment:
                                                       Alignment.bottomLeft,
                                                   child: Text(
-                                                    // widget.activityCategoryModel ==
-                                                    //         null
-                                                    //     ? widget.activityModel !=
-                                                    //             null
-                                                    //         ? "${widget.activityModel.title.trim()}"
-                                                    //         :
-                                                    "",
-                                                    // : "${widget.activityCategoryModel.title.trim()}",
+                                                    widget.activityCategoryModel ==
+                                                            null
+                                                        ? widget.activityModel !=
+                                                                null
+                                                            ? "${widget.activityModel!.title.trim()}"
+                                                            : ""
+                                                        : "${widget.activityCategoryModel!.title.trim()}",
                                                     overflow: TextOverflow.clip,
                                                     textAlign: TextAlign.left,
                                                     maxLines: 2,
@@ -234,19 +240,18 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                                 height:
                                                     Dimensions.getScaledSize(
                                                         40.0),
-                                                width: widget.width!,
+                                                width: widget.width,
                                                 child: Align(
                                                   alignment:
                                                       Alignment.bottomLeft,
                                                   child: Text(
-                                                    // widget.activityCategoryModel ==
-                                                    //         null
-                                                    //     ? widget.activityModel !=
-                                                    //             null
-                                                    //         ? "${widget.activityModel.title.trim()}"
-                                                    //         :
-                                                    "",
-                                                    // : "${widget.activityCategoryModel.title.trim()}",
+                                                    widget.activityCategoryModel ==
+                                                            null
+                                                        ? widget.activityModel !=
+                                                                null
+                                                            ? "${widget.activityModel!.title.trim()}"
+                                                            : ""
+                                                        : "${widget.activityCategoryModel!.title.trim()}",
                                                     overflow: TextOverflow.clip,
                                                     textAlign: TextAlign.left,
                                                     maxLines: 2,
@@ -271,7 +276,7 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                             ],
                           ),
                           Visibility(
-                            visible: widget.isComingFromFullMapScreen! == true
+                            visible: widget.isComingFromFullMapScreen == true
                                 ? false
                                 : true,
                             child: Positioned(
@@ -279,11 +284,11 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                               right: Dimensions.getScaledSize(8.0),
                               child: GestureDetector(
                                 onTap: () {
-                                  // widget.activityCategoryModel == null
-                                  //     ? _onFavoriteButtonPressed(
-                                  //         widget.activityModel.sId)
-                                  //     : _onFavoriteButtonPressed(
-                                  //         widget.activityCategoryModel.id);
+                                  widget.activityCategoryModel == null
+                                      ? _onFavoriteButtonPressed(
+                                          widget.activityModel!.sId)
+                                      : _onFavoriteButtonPressed(
+                                          widget.activityCategoryModel!.id);
                                 },
                                 child: Container(
                                   height: Dimensions.getScaledSize(32.0),
@@ -291,7 +296,7 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(
                                         Dimensions.getScaledSize(48.0)),
-                                    color: _isFavorite!
+                                    color: _isFavorite
                                         ? CustomTheme.accentColor1
                                         : Colors.white,
                                   ),
@@ -299,7 +304,7 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                     child: Icon(
                                       Icons.favorite_border,
                                       size: Dimensions.getScaledSize(24.0),
-                                      color: _isFavorite!
+                                      color: _isFavorite
                                           ? Colors.white
                                           : CustomTheme.accentColor1,
                                     ),
@@ -347,7 +352,7 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                               ),
                                               Visibility(
                                                 visible:
-                                                    widget.isComingFromFullMapScreen! ==
+                                                    widget.isComingFromFullMapScreen ==
                                                             true
                                                         ? false
                                                         : true,
@@ -377,14 +382,13 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                                               .getScaledSize(3),
                                                         ),
                                                         child: Text(
-                                                          // widget.activityCategoryModel ==
-                                                          //         null
-                                                          //     ? widget.activityModel !=
-                                                          //             null
-                                                          //         ? '${widget.activityModel.location.zipcode} ${widget.activityModel.location.city} '
-                                                          // :
-                                                          "",
-                                                          // : '${widget.activityCategoryModel.location.zipcode} ${widget.activityCategoryModel.location.city} ',
+                                                          widget.activityCategoryModel ==
+                                                                  null
+                                                              ? widget.activityModel !=
+                                                                      null
+                                                                  ? '${widget.activityModel!.location!.zipcode} ${widget.activityModel!.location!.city} '
+                                                                  : ""
+                                                              : '${widget.activityCategoryModel!.location!.zipcode} ${widget.activityCategoryModel!.location!.city} ',
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           style: TextStyle(
@@ -402,7 +406,7 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                               Padding(
                                                 padding: EdgeInsets.only(
                                                   top:
-                                                      widget.isComingFromFullMapScreen! ==
+                                                      widget.isComingFromFullMapScreen ==
                                                               true
                                                           ? 0
                                                           : Dimensions
@@ -425,96 +429,95 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                                       borderColor: CustomTheme
                                                           .primaryColor,
                                                     ),
-                                                    // widget.activityCategoryModel ==
-                                                    //         null
-                                                    //     ? widget.activityModel !=
-                                                    //             null
-                                                    //         ? (widget.activityModel
-                                                    //                         .reviewCount !=
-                                                    //                     null &&
-                                                    //                 widget.activityModel
-                                                    //                         .reviewCount >
-                                                    //                     0)
-                                                    //             ? Row(
-                                                    //                 children: [
-                                                    //                   Text(
-                                                    //                     " ${widget.activityModel.reviewAverageRating.toString().replaceAll('.', ',')}",
-                                                    //                     style:
-                                                    //                         TextStyle(
-                                                    //                       fontSize:
-                                                    //                           Dimensions.getScaledSize(13.0),
-                                                    //                       color:
-                                                    //                           Colors.grey,
-                                                    //                     ),
-                                                    //                   ),
-                                                    //                   Text(
-                                                    //                     "",
-                                                    //                     // (${widget.activityModel.reviewCount.toString()})
-
-                                                    //                     style:
-                                                    //                         TextStyle(
-                                                    //                       fontSize:
-                                                    //                           Dimensions.getScaledSize(13.0),
-                                                    //                       color:
-                                                    //                           Colors.grey,
-                                                    //                     ),
-                                                    //                   ),
-                                                    //                 ],
-                                                    //               )
-                                                    //             : Text(
-                                                    //                 " ${AppLocalizations.of(context)!.activityScreen_new}",
-                                                    //                 style:
-                                                    //                     TextStyle(
-                                                    //                   fontSize:
-                                                    //                       Dimensions.getScaledSize(
-                                                    //                           13.0),
-                                                    //                   color: Colors
-                                                    //                       .grey,
-                                                    //                 ),
-                                                    //               )
-                                                    //         : Container()
-                                                    //     : (widget.activityCategoryModel
-                                                    //                     .reviewCount !=
-                                                    //                 null &&
-                                                    //             widget.activityCategoryModel
-                                                    //                     .reviewCount >
-                                                    //                 0)
-                                                    //         ? Row(
-                                                    //             children: [
-                                                    //               Text(
-                                                    //                 " ${widget.activityCategoryModel.reviewAverageRating.toString().replaceAll('.', ',')}",
-                                                    //                 style:
-                                                    //                     TextStyle(
-                                                    //                   fontSize:
-                                                    //                       Dimensions.getScaledSize(
-                                                    //                           13.0),
-                                                    //                   color: Colors
-                                                    //                       .grey,
-                                                    //                 ),
-                                                    //               ),
-                                                    //               Text(
-                                                    //                 " (${widget.activityCategoryModel.reviewCount.toString()})",
-                                                    //                 style:
-                                                    //                     TextStyle(
-                                                    //                   fontSize:
-                                                    //                       Dimensions.getScaledSize(
-                                                    //                           13.0),
-                                                    //                   color: Colors
-                                                    //                       .grey,
-                                                    //                 ),
-                                                    //               ),
-                                                    //             ],
-                                                    //           )
-                                                    //         :
-                                                    Text(
-                                                      " ${AppLocalizations.of(context)!.activityScreen_new}",
-                                                      style: TextStyle(
-                                                        fontSize: Dimensions
-                                                            .getScaledSize(
-                                                                13.0),
-                                                        color: Colors.grey,
-                                                      ),
-                                                    ),
+                                                    widget.activityCategoryModel ==
+                                                            null
+                                                        ? widget.activityModel !=
+                                                                null
+                                                            ? (widget.activityModel
+                                                                            .reviewCount !=
+                                                                        null &&
+                                                                    widget.activityModel
+                                                                            .reviewCount >
+                                                                        0)
+                                                                ? Row(
+                                                                    children: [
+                                                                      Text(
+                                                                        " ${widget.activityModel!.reviewAverageRating.toString().replaceAll('.', ',')}",
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              Dimensions.getScaledSize(13.0),
+                                                                          color:
+                                                                              Colors.grey,
+                                                                        ),
+                                                                      ),
+                                                                      Text(
+                                                                        " (${widget.activityModel!.reviewCount.toString()})",
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              Dimensions.getScaledSize(13.0),
+                                                                          color:
+                                                                              Colors.grey,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  )
+                                                                : Text(
+                                                                    " ${AppLocalizations.of(context)!.activityScreen_new}",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          Dimensions.getScaledSize(
+                                                                              13.0),
+                                                                      color: Colors
+                                                                          .grey,
+                                                                    ),
+                                                                  )
+                                                            : Container()
+                                                        : (widget.activityCategoryModel
+                                                                        .reviewCount !=
+                                                                    null &&
+                                                                widget.activityCategoryModel
+                                                                        .reviewCount >
+                                                                    0)
+                                                            ? Row(
+                                                                children: [
+                                                                  Text(
+                                                                    " ${widget.activityCategoryModel!.reviewAverageRating.toString().replaceAll('.', ',')}",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          Dimensions.getScaledSize(
+                                                                              13.0),
+                                                                      color: Colors
+                                                                          .grey,
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    " (${widget.activityCategoryModel!.reviewCount.toString()})",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          Dimensions.getScaledSize(
+                                                                              13.0),
+                                                                      color: Colors
+                                                                          .grey,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              )
+                                                            : Text(
+                                                                " ${AppLocalizations.of(context)!.activityScreen_new}",
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: Dimensions
+                                                                      .getScaledSize(
+                                                                          13.0),
+                                                                  color: Colors
+                                                                      .grey,
+                                                                ),
+                                                              ),
                                                   ],
                                                 ),
                                               ),
@@ -537,19 +540,18 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                                       color: Colors.grey),
                                                 ),
                                                 Text(
-                                                  // widget.activityCategoryModel ==
-                                                  //         null
-                                                  //     ? widget.activityModel !=
-                                                  //             null
-                                                  //         ? formatPriceDouble(
-                                                  //             widget
-                                                  //                 .activityModel
-                                                  //                 .priceFrom)
-                                                  //         :
-                                                  "",
-                                                  // : formatPriceDouble(widget
-                                                  //     .activityCategoryModel
-                                                  //     .priceFrom),
+                                                  widget.activityCategoryModel ==
+                                                          null
+                                                      ? widget.activityModel !=
+                                                              null
+                                                          ? formatPriceDouble(
+                                                              widget
+                                                                  .activityModel
+                                                                  .priceFrom)
+                                                          : ""
+                                                      : formatPriceDouble(widget
+                                                          .activityCategoryModel
+                                                          .priceFrom),
                                                   textAlign: TextAlign.left,
                                                   style: TextStyle(
                                                       fontWeight:
@@ -612,28 +614,28 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
   void _onFavoriteButtonPressed(String activityId) {
     Vibrate.feedback(FeedbackType.light);
 
-    // if (_user == null) {
-    //   _navigateToLogin();
-    //   return;
-    // }
+    if (_user == null) {
+      _navigateToLogin();
+      return;
+    }
 
-    // if (_isFavorite) {
-    //   UserService.deleteUserFavoriteActivity(
-    //     activityId: activityId,
-    //     userId: _user.sId,
-    //   );
-    // } else {
-    //   UserService.addUserFavoriteActivity(
-    //     activityId: activityId,
-    //     userId: _user.sId,
-    //   );
-    // }
+    if (_isFavorite) {
+      UserService.deleteUserFavoriteActivity(
+        activityId: activityId,
+        userId: _user.sId,
+      );
+    } else {
+      UserService.addUserFavoriteActivity(
+        activityId: activityId,
+        userId: _user.sId,
+      );
+    }
 
     if (widget.onFavoriteChangedCallback != null)
-      widget.onFavoriteChangedCallback!(activityId);
+      widget.onFavoriteChangedCallback(activityId);
 
     setState(() {
-      _isFavorite = !_isFavorite!;
+      _isFavorite = !_isFavorite;
     });
   }
 }

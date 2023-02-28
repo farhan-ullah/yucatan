@@ -1,4 +1,4 @@
-import 'package:appventure/models/transaction_model.dart';
+import 'package:yucatan/models/transaction_model.dart';
 import 'package:flutter/material.dart';
 
 class VendorBookingPreviewModel {
@@ -10,10 +10,10 @@ class VendorBookingPreviewModel {
   List<TransactionTicket> ticketList;
 
   VendorBookingPreviewModel(
-      {@required this.transactionModel,
-      @required this.dateTime,
-      @required this.buyer,
-      @required this.tickets,
-      @required this.totalPrice,
-      @required this.ticketList});
+      {required this.transactionModel,
+      required this.dateTime,
+      required this.buyer,
+      required this.tickets,
+      required this.totalPrice,
+      required this.ticketList});
 }

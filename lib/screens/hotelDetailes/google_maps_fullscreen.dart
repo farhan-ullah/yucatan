@@ -1,7 +1,7 @@
-import 'package:appventure/components/custom_app_bar.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/custom_app_bar.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -27,7 +27,7 @@ class _GoogleMapsFullscreenState extends State<GoogleMapsFullscreen> {
     return Scaffold(
       appBar: CustomAppBar(
         appBar: AppBar(),
-        title: AppLocalizations.of(context).googleMapScreen_title,
+        title: AppLocalizations.of(context)!.googleMapScreen_title,
         centerTitle: true,
       ),
       floatingActionButton: new Row(

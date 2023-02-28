@@ -1,6 +1,6 @@
-import 'package:appventure/services/forogt_password_service.dart';
-import 'package:appventure/services/response/ForgotPasswordModel.dart';
-import 'package:appventure/utils/regex_utils.dart';
+import 'package:yucatan/services/forogt_password_service.dart';
+import 'package:yucatan/services/response/ForgotPasswordModel.dart';
+import 'package:yucatan/utils/regex_utils.dart';
 import 'package:rxdart/rxdart.dart';
 
 enum ValidationState { INVALID, EMPTY }

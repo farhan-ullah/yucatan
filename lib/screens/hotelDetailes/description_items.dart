@@ -1,5 +1,5 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class DescriptionItems extends StatelessWidget {
@@ -7,8 +7,8 @@ class DescriptionItems extends StatelessWidget {
   final bool shortDescription;
 
   DescriptionItems({
-    @required this.descriptionItems,
-    @required this.shortDescription,
+    required this.descriptionItems,
+    required this.shortDescription,
   });
 
   final Map<String, IconData> _iconMapping = {

@@ -1,18 +1,18 @@
-import 'package:appventure/components/BaseState.dart';
-import 'package:appventure/components/custom_error_screen.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/screens/authentication/login/login_screen.dart';
-import 'package:appventure/screens/favorites_screen/favorites_item_shimmer.dart';
-import 'package:appventure/screens/main_screen/components/main_screen_parameter.dart';
-import 'package:appventure/screens/main_screen/main_screen.dart';
-import 'package:appventure/screens/search_screen/components/search_activity_item_view.dart';
-import 'package:appventure/services/response/activity_single_response.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/service_locator.dart';
-import 'package:appventure/services/user_service.dart';
-import 'package:appventure/utils/Callbacks.dart';
-import 'package:appventure/utils/rive_animation.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/BaseState.dart';
+import 'package:yucatan/components/custom_error_screen.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/screens/authentication/login/login_screen.dart';
+import 'package:yucatan/screens/favorites_screen/favorites_item_shimmer.dart';
+import 'package:yucatan/screens/main_screen/components/main_screen_parameter.dart';
+import 'package:yucatan/screens/main_screen/main_screen.dart';
+import 'package:yucatan/screens/search_screen/components/search_activity_item_view.dart';
+import 'package:yucatan/services/response/activity_single_response.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/service_locator.dart';
+import 'package:yucatan/services/user_service.dart';
+import 'package:yucatan/utils/Callbacks.dart';
+import 'package:yucatan/utils/rive_animation.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -37,7 +37,6 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
   final favoriteActivitiesForUserBloc = getIt<FavoriteActivitiesForUserBloc>();
   final getActivityBloc = getIt<GetActivityBloc>();
 
-
   @override
   void initState() {
     super.initState();
@@ -54,9 +53,9 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
         if (snapshot.data == null) {
           return CustomErrorEmptyScreen(
             topPadding: Scaffold.of(context).appBarMaxHeight,
-            title: AppLocalizations.of(context).commonWords_mistake,
+            title: AppLocalizations.of(context)!.commonWords_mistake,
             description:
-                AppLocalizations.of(context).favoritesScreen_logInToSee,
+                AppLocalizations.of(context)!.favoritesScreen_logInToSee,
             //image: "lib/assets/images/favorites_empty.png",
             rive: RiveAnimation(
               riveFileName: 'favorites_animiert_loop.riv',
@@ -64,20 +63,23 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
               placeholderImage: 'lib/assets/images/favorites_empty.png',
               startAnimationAfterMilliseconds: 0,
             ),
-            customButtonText: AppLocalizations.of(context).loginSceen_login,
+            customButtonText: AppLocalizations.of(context)!.loginSceen_login,
             callback: _navigateToLogin,
           );
         } else if (snapshot.hasData) {
           userId = snapshot.data.sId;
           favoriteActivitiesForUserBloc.setUserId(userId);
-          favoriteActivitiesForUserBloc.eventSink.add(FavoriteActivitiesForUserAction.FetchFavoriteActivitiesForUser);
+          favoriteActivitiesForUserBloc.eventSink.add(
+              FavoriteActivitiesForUserAction.FetchFavoriteActivitiesForUser);
           return StreamBuilder<List<String>>(
-            stream: favoriteActivitiesForUserBloc.favoriteActivitiesForUserStream,
+            stream:
+                favoriteActivitiesForUserBloc.favoriteActivitiesForUserStream,
             builder: (context, snapshotFavorites) {
-              if (snapshotFavorites.data == null || snapshotFavorites.data.length == 0) {
+              if (snapshotFavorites.data == null ||
+                  snapshotFavorites.data.length == 0) {
                 return CustomErrorEmptyScreen(
                   topPadding: Scaffold.of(context).appBarMaxHeight,
-                  title: AppLocalizations.of(context).commonWords_mistake,
+                  title: AppLocalizations.of(context)!.commonWords_mistake,
                   description: AppLocalizations.of(context)
                       .noFavoritesScreen_noFavorites,
                   //image: "lib/assets/images/favorites_empty.png",
@@ -87,8 +89,8 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
                     placeholderImage: 'lib/assets/images/favorites_empty.png',
                     startAnimationAfterMilliseconds: 0,
                   ),
-                  customButtonText:
-                      AppLocalizations.of(context).noFavoritesScreen_goToSearch,
+                  customButtonText: AppLocalizations.of(context)!
+                      .noFavoritesScreen_goToSearch,
                   callback: () {
                     eventBus.fire(OnOpenSearch());
                   },
@@ -106,26 +108,29 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
                       if (snapshotActivity.data == null) {
                         return Container();
                       } else {
-                        if(snapshotActivity.data == null || snapshotActivity.data.length == 0){
+                        if (snapshotActivity.data == null ||
+                            snapshotActivity.data.length == 0) {
                           return CustomErrorEmptyScreen(
                             topPadding: Scaffold.of(context).appBarMaxHeight,
-                            title: AppLocalizations.of(context).commonWords_mistake,
+                            title: AppLocalizations.of(context)
+                                .commonWords_mistake,
                             description: AppLocalizations.of(context)
                                 .noFavoritesScreen_noFavorites,
                             //image: "lib/assets/images/favorites_empty.png",
                             rive: RiveAnimation(
                               riveFileName: 'favorites_animiert_loop.riv',
                               riveAnimationName: 'Animation 1',
-                              placeholderImage: 'lib/assets/images/favorites_empty.png',
+                              placeholderImage:
+                                  'lib/assets/images/favorites_empty.png',
                               startAnimationAfterMilliseconds: 0,
                             ),
-                            customButtonText:
-                            AppLocalizations.of(context).noFavoritesScreen_goToSearch,
+                            customButtonText: AppLocalizations.of(context)
+                                .noFavoritesScreen_goToSearch,
                             callback: () {
                               eventBus.fire(OnOpenSearch());
                             },
                           );
-                        }else{
+                        } else {
                           return Container(
                             height: MediaQuery.of(context).size.height,
                             width: MediaQuery.of(context).size.width,
@@ -145,7 +150,8 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
                                   ),
                                   child: SearchActivityItemView(
                                     activity: snapshotActivity.data[index].data,
-                                    onFavoriteChangedCallback: _onFavoriteDeleted,
+                                    onFavoriteChangedCallback:
+                                        _onFavoriteDeleted,
                                     isfav: true,
                                     userData: snapshot.data,
                                     index: index,
@@ -222,7 +228,8 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
   }
 
   void _onFavoriteDeleted(ActivityModel activity) async {
-    await UserService.deleteUserFavoriteActivity(userId: userId,activityId: activity.sId);
+    await UserService.deleteUserFavoriteActivity(
+        userId: userId, activityId: activity.sId);
     favoriteActivities.remove(activity.sId);
     getActivityBloc.sendFavoriteActivities(favoriteActivities);
     getActivityBloc.eventSink.add(GetActivityAction.FetchActivity);

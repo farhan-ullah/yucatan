@@ -1,17 +1,17 @@
-import 'package:appventure/components/black_divider.dart';
-import 'package:appventure/components/custom_app_bar.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/screens/hotelDetailes/description_items.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/StringUtils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/black_divider.dart';
+import 'package:yucatan/components/custom_app_bar.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/screens/hotelDetailes/description_items.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/StringUtils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DetailedDescriptionScreenView extends StatefulWidget {
   final ActivityModel activity;
 
-  DetailedDescriptionScreenView({@required this.activity});
+  DetailedDescriptionScreenView({required this.activity});
 
   @override
   _DetailedDescriptionScreenViewState createState() =>
@@ -344,7 +344,7 @@ class _DetailedDescriptionScreenViewState
         ),
       ),
       appBar: CustomAppBar(
-        title: AppLocalizations.of(context).detailedDescriptionScreen_title,
+        title: AppLocalizations.of(context)!.detailedDescriptionScreen_title,
         centerTitle: true,
         appBar: AppBar(),
       ),
@@ -366,19 +366,19 @@ class _DetailedDescriptionScreenViewState
   _getDayFromDayOfWeek(int dayOfWeek) {
     switch (dayOfWeek) {
       case 0:
-        return AppLocalizations.of(context).days_sunday;
+        return AppLocalizations.of(context)!.days_sunday;
       case 1:
-        return AppLocalizations.of(context).days_monday;
+        return AppLocalizations.of(context)!.days_monday;
       case 2:
-        return AppLocalizations.of(context).days_tuesday;
+        return AppLocalizations.of(context)!.days_tuesday;
       case 3:
-        return AppLocalizations.of(context).days_wednesday;
+        return AppLocalizations.of(context)!.days_wednesday;
       case 4:
-        return AppLocalizations.of(context).days_thursday;
+        return AppLocalizations.of(context)!.days_thursday;
       case 5:
-        return AppLocalizations.of(context).days_friday;
+        return AppLocalizations.of(context)!.days_friday;
       case 6:
-        return AppLocalizations.of(context).days_saturday;
+        return AppLocalizations.of(context)!.days_saturday;
     }
   }
 

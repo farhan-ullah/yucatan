@@ -1,4 +1,4 @@
-import 'package:appventure/screens/authentication/register/models/base_model.dart';
+import 'package:yucatan/screens/authentication/register/models/base_model.dart';
 
 class CountryPhoneModel extends BaseModel {
   String countryISO2Code;

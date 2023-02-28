@@ -1,5 +1,5 @@
-import 'package:appventure/services/booking_service.dart';
-import 'package:appventure/services/response/product_demand_response.dart';
+import 'package:yucatan/services/booking_service.dart';
+import 'package:yucatan/services/response/product_demand_response.dart';
 import 'package:rxdart/rxdart.dart';
 import 'dart:async';
 

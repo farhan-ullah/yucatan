@@ -1,18 +1,18 @@
-import 'package:appventure/components/colored_divider.dart';
-import 'package:appventure/components/custom_app_bar.dart';
-import 'package:appventure/services/response/vendor_activty_overview_response.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/common_widgets.dart';
-import 'package:appventure/utils/image_util.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
-import 'package:appventure/utils/network_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/colored_divider.dart';
+import 'package:yucatan/components/custom_app_bar.dart';
+import 'package:yucatan/services/response/vendor_activty_overview_response.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/common_widgets.dart';
+import 'package:yucatan/utils/image_util.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/network_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'activity_overview_bloc/activity_overview_bloc.dart';
 import 'activity_overview_bloc/activity_status_update_bloc.dart';
 import 'components/vendor_activity_overview_shimmer.dart';
 import 'dart:math' as math;
-import 'package:appventure/screens/notifications/notification_view.dart';
+import 'package:yucatan/screens/notifications/notification_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VendorActivityOverview extends StatefulWidget {
@@ -64,7 +64,7 @@ class _VendorActivityOverviewState extends State<VendorActivityOverview> {
           appBar: AppBar(
             elevation: 0,
           ),
-          title: AppLocalizations.of(context).activity_overview_appbar_title,
+          title: AppLocalizations.of(context)!.activity_overview_appbar_title,
           centerTitle: true,
           backgroundColor: CustomTheme.primaryColorLight,
           actions: [

@@ -1,6 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:yucatan/models/activity_category_data_model.dart';
 import 'package:yucatan/screens/activity_list_screen/components/activily_list_item_shimmer.dart';
-import '../../../utils/widget_dimensions.dart';
+import 'package:yucatan/services/activity_service.dart';
+import 'package:yucatan/services/response/activity_by_category_response.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
+import 'package:flutter/material.dart';
 import 'activity_list_item_view.dart';
 
 class ActivityListCategoryView extends StatefulWidget {
@@ -21,13 +24,14 @@ class ActivityListCategoryView extends StatefulWidget {
 
 class _ActivityListCategoryViewState extends State<ActivityListCategoryView>
     with AutomaticKeepAliveClientMixin {
-  // Future<ActivityByCategoryResponse> activities;
+  Future<ActivityByCategoryResponse>? activities;
   //List<ActivityModel> activityList = [];
 
   @override
   void initState() {
     super.initState();
-    // activities = ActivityService.getAllForCategory(widget.categoryId, widget.category);
+    activities =
+        ActivityService.getAllForCategory(widget.categoryId!, widget.category!);
   }
 
   @override
@@ -51,48 +55,47 @@ class _ActivityListCategoryViewState extends State<ActivityListCategoryView>
         SizedBox(
           height: Dimensions.getScaledSize(10.0),
         ),
-        // FutureBuilder<ActivityByCategoryResponse>(
-        //   future: activities,
-        //   builder: (context, snapshot) {
-        //     if (snapshot.hasData) {
-        //       if (snapshot.data.data == null) {
-        //         return Container();
-        //       }
-        //       return Container(
-        //         height: snapshot.data.data.length > 0
-        //             ? Dimensions.getHeight(percentage: 29.0)
-        //             : 0,
-        //         child: ListView.builder(
-        //           shrinkWrap: true,
-        //           itemBuilder: (context, index) {
-        //             return ActivityListViewItem(
-        //               activityCategoryModel: snapshot.data.data[index],
-        //               isFavorite: widget.favoriteIds == null
-        //                   ? false
-        //                   : widget.favoriteIds
-        //                       !.contains(snapshot.data.data[index].id),
-        //               width: Dimensions.getScaledSize(280),
-        //             );
-        //           },
-        //           itemCount: snapshot.data.data.length,
-        //           scrollDirection: Axis.horizontal,
-        //           padding:
-        //               EdgeInsets.only(left: Dimensions.getScaledSize(12.0)),
-        //         ),
-        //       );
-        //     } else if (snapshot.hasError) {
-        //       return Text('${snapshot.error}');
-        //     }
+        FutureBuilder<ActivityByCategoryResponse>(
+          future: activities,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data!.data == null) {
+                return Container();
+              }
+              return Container(
+                height: snapshot.data!.data.length > 0
+                    ? Dimensions.getHeight(percentage: 29.0)
+                    : 0,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ActivityListViewItem(
+                      activityCategoryModel: snapshot.data!.data[index],
+                      isFavorite: widget.favoriteIds == null
+                          ? false
+                          : widget.favoriteIds!
+                              .contains(snapshot.data!.data[index].id),
+                      width: Dimensions.getScaledSize(280),
+                    );
+                  },
+                  itemCount: snapshot.data!.data.length,
+                  scrollDirection: Axis.horizontal,
+                  padding:
+                      EdgeInsets.only(left: Dimensions.getScaledSize(12.0)),
+                ),
+              );
+            } else if (snapshot.hasError) {
+              return Text('${snapshot.error}');
+            }
 
-        // return
-        Padding(
-          padding: EdgeInsets.only(left: Dimensions.getScaledSize(12.0)),
-          child: ActivityListViewShimmer(
-            width: MediaQuery.of(context).size.width * 0.60,
-          ),
+            return Padding(
+              padding: EdgeInsets.only(left: Dimensions.getScaledSize(12.0)),
+              child: ActivityListViewShimmer(
+                width: MediaQuery.of(context).size.width * 0.60,
+              ),
+            );
+          },
         ),
-        //   },
-        // ),
       ],
     );
   }
@@ -102,6 +105,6 @@ class _ActivityListCategoryViewState extends State<ActivityListCategoryView>
 }
 
 class RandomActivityData {
-  // List<ActivityCategoryDataModel>? activityModelList;
+  List<ActivityCategoryDataModel>? activityModelList;
   List<int>? randomNumbers;
 }

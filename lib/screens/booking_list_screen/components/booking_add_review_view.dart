@@ -1,11 +1,11 @@
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/services/activity_service.dart';
-import 'package:appventure/services/response/activity_single_response.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/user_provider.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/networkImage/network_image_loader.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/services/activity_service.dart';
+import 'package:yucatan/services/response/activity_single_response.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/networkImage/network_image_loader.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -13,7 +13,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class BookingAddReviewView extends StatefulWidget {
   final ActivityModel activity;
 
-  BookingAddReviewView({@required this.activity});
+  BookingAddReviewView({required this.activity});
 
   @override
   _BookingAddReviewViewState createState() => _BookingAddReviewViewState();
@@ -162,7 +162,7 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
           right: Dimensions.getScaledSize(20.0),
         ),
         child: Text(
-          AppLocalizations.of(context).bookingListScreen_addReview_question,
+          AppLocalizations.of(context)!.bookingListScreen_addReview_question,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: Dimensions.getScaledSize(14.0),
@@ -239,7 +239,7 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
           right: Dimensions.getScaledSize(20.0),
         ),
         child: Text(
-          AppLocalizations.of(context).bookingListScreen_addReview_tellUs,
+          AppLocalizations.of(context)!.bookingListScreen_addReview_tellUs,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: Dimensions.getScaledSize(14),
@@ -448,7 +448,7 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
                   ),
                   child: Center(
                     child: Text(
-                      AppLocalizations.of(context).actions_back,
+                      AppLocalizations.of(context)!.actions_back,
                       style: TextStyle(
                         fontSize: Dimensions.getScaledSize(16),
                         color: Colors.white,
@@ -481,7 +481,7 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
                   ),
                   child: Center(
                     child: Text(
-                      AppLocalizations.of(context).commonWords_further,
+                      AppLocalizations.of(context)!.commonWords_further,
                       style: TextStyle(
                         fontSize: Dimensions.getScaledSize(16.0),
                         color: Colors.white,

@@ -1,9 +1,9 @@
-import 'package:appventure/components/colored_divider.dart';
-import 'package:appventure/models/activity_model.dart';
-import 'package:appventure/models/order_model.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/price_format_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/colored_divider.dart';
+import 'package:yucatan/models/activity_model.dart';
+import 'package:yucatan/models/order_model.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/price_format_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -15,10 +15,10 @@ class BookingBar extends StatefulWidget {
   final bool showDivider;
 
   BookingBar({
-    @required this.bookingDetails,
-    @required this.orderProducts,
-    @required this.onTap,
-    @required this.buttonText,
+    required this.bookingDetails,
+    required this.orderProducts,
+    required this.onTap,
+    required this.buttonText,
     this.showDivider = false,
   });
 
@@ -57,7 +57,7 @@ class _BookingBarState extends State<BookingBar> {
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     children: [
                       Text(
-                        AppLocalizations.of(context).bookingScreen_total,
+                        AppLocalizations.of(context)!.bookingScreen_total,
                         style: TextStyle(
                           fontSize: Dimensions.getScaledSize(15),
                           fontWeight: FontWeight.bold,

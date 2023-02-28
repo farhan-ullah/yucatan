@@ -1,8 +1,8 @@
-import 'package:appventure/screens/notifications/notification_view.dart';
-import 'package:appventure/services/common_service.dart';
-import 'package:appventure/services/response/legal_docwebpage_response.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/screens/notifications/notification_view.dart';
+import 'package:yucatan/services/common_service.dart';
+import 'package:yucatan/services/response/legal_docwebpage_response.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
@@ -11,7 +11,9 @@ class ImpressumDatenschutz extends StatefulWidget {
   final bool isComingFromCheckOut;
   final WebViewValues webViewValues;
 
-  ImpressumDatenschutz({this.isComingFromCheckOut = false,this.webViewValues = WebViewValues.IMPRINT});
+  ImpressumDatenschutz(
+      {this.isComingFromCheckOut = false,
+      this.webViewValues = WebViewValues.IMPRINT});
 
   @override
   _ImpressumDatenschutzState createState() {
@@ -33,9 +35,9 @@ class _ImpressumDatenschutzState extends State<ImpressumDatenschutz> {
   @override
   void initState() {
     super.initState();
-    if(widget.isComingFromCheckOut){
+    if (widget.isComingFromCheckOut) {
       _currentWebViewValue = widget.webViewValues;
-    }else{
+    } else {
       _currentWebViewValue = WebViewValues.IMPRINT;
     }
     CommonService.getLegalDocWebPageUrl().then((value) {
@@ -57,8 +59,8 @@ class _ImpressumDatenschutzState extends State<ImpressumDatenschutz> {
           backgroundColor: CustomTheme.primaryColorDark,
           actions: [
             Container(
-                margin:
-                    EdgeInsets.fromLTRB(0, 0, Dimensions.getScaledSize(15.0), 0),
+                margin: EdgeInsets.fromLTRB(
+                    0, 0, Dimensions.getScaledSize(15.0), 0),
                 child: NotificationView(
                   negativePadding: false,
                 )),
@@ -127,8 +129,8 @@ class _ImpressumDatenschutzState extends State<ImpressumDatenschutz> {
                 color: Colors.white,
                 child: InAppWebView(
                   key: webViewKey,
-                  initialUrlRequest:
-                      URLRequest(url: Uri.parse(getViews(_currentWebViewValue))),
+                  initialUrlRequest: URLRequest(
+                      url: Uri.parse(getViews(_currentWebViewValue))),
                   initialOptions: InAppWebViewGroupOptions(),
                   onWebViewCreated: (InAppWebViewController controller) {
                     this.webViewController = controller;
@@ -136,10 +138,8 @@ class _ImpressumDatenschutzState extends State<ImpressumDatenschutz> {
                   onLoadStart: (
                     InAppWebViewController controller,
                     Uri url,
-                  ) {
-                  },
-                  onUpdateVisitedHistory: (_, Uri uri, __) {
-                  },
+                  ) {},
+                  onUpdateVisitedHistory: (_, Uri uri, __) {},
                 ),
               ),
             ),

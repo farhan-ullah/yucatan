@@ -1,9 +1,9 @@
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class RoundIndicator extends StatelessWidget {
   final active;
-  RoundIndicator({@required this.active});
+  RoundIndicator({required this.active});
 
   @override
   Widget build(BuildContext context) {

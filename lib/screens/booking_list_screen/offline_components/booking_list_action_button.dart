@@ -1,5 +1,5 @@
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class BookingListActionButton extends StatelessWidget {
@@ -11,12 +11,12 @@ class BookingListActionButton extends StatelessWidget {
   final Color backgroundColor;
 
   BookingListActionButton(
-      {@required this.action,
-      @required this.iconData,
-      @required this.iconColor,
-      @required this.text,
-      @required this.requestedOrRefunded,
-      @required this.backgroundColor});
+      {required this.action,
+      required this.iconData,
+      required this.iconColor,
+      required this.text,
+      required this.requestedOrRefunded,
+      required this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:appventure/screens/vendor/burger_menu/vendor_burger_menu_screen.dart';
+import 'package:yucatan/screens/vendor/burger_menu/vendor_burger_menu_screen.dart';
 import 'package:rxdart/rxdart.dart';
 
 class VendorBurgerMenuBloc {

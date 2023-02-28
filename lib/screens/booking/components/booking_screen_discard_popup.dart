@@ -1,6 +1,6 @@
-import 'package:appventure/components/colored_divider.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/colored_divider.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -49,7 +49,7 @@ class BookingScreenDiscardPopup extends StatelessWidget {
                       height: Dimensions.getScaledSize(5.0),
                     ),
                     Text(
-                      AppLocalizations.of(context).bookingScreen_warning,
+                      AppLocalizations.of(context)!.bookingScreen_warning,
                       style: TextStyle(
                         fontSize: Dimensions.getScaledSize(20.0),
                         fontWeight: FontWeight.bold,
@@ -92,7 +92,7 @@ class BookingScreenDiscardPopup extends StatelessWidget {
                                 CustomTheme.primaryColorDark)),
                         child: Center(
                           child: Text(
-                            AppLocalizations.of(context).bookingScreen_next,
+                            AppLocalizations.of(context)!.bookingScreen_next,
                             style: TextStyle(
                               fontSize: Dimensions.getScaledSize(16.0),
                               fontWeight: FontWeight.bold,
@@ -120,7 +120,7 @@ class BookingScreenDiscardPopup extends StatelessWidget {
                                 CustomTheme.primaryColorDark)),
                         child: Center(
                           child: Text(
-                            AppLocalizations.of(context).bookingScreen_discard,
+                            AppLocalizations.of(context)!.bookingScreen_discard,
                             style: TextStyle(
                               fontSize: Dimensions.getScaledSize(16.0),
                               fontWeight: FontWeight.bold,

@@ -1,5 +1,5 @@
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -10,10 +10,10 @@ class QrFeedback extends StatelessWidget {
   final String mode;
 
   QrFeedback(
-      {@required this.title,
-      @required this.text,
-      @required this.mode,
-      @required this.goBack});
+      {required this.title,
+      required this.text,
+      required this.mode,
+      required this.goBack});
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +89,8 @@ class QrFeedback extends StatelessWidget {
                   onPressed: () => goBack(),
                   child: Text(
                     mode != "REDEEMED"
-                        ? AppLocalizations.of(context).actions_back
-                        : AppLocalizations.of(context).commonWords_ok,
+                        ? AppLocalizations.of(context)!.actions_back
+                        : AppLocalizations.of(context)!.commonWords_ok,
                     style: TextStyle(
                         color: CustomTheme.primaryColorDark,
                         fontFamily: "AcuminProWide",

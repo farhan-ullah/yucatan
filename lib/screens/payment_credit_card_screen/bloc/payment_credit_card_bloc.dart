@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:appventure/models/credit_card_model.dart';
-import 'package:appventure/models/order_model.dart';
-import 'package:appventure/services/payment_service.dart';
-import 'package:appventure/services/response/payment_response.dart';
+import 'package:yucatan/models/credit_card_model.dart';
+import 'package:yucatan/models/order_model.dart';
+import 'package:yucatan/services/payment_service.dart';
+import 'package:yucatan/services/response/payment_response.dart';
 
 class PaymentCreditCardBloc {
   final _tooltipController = StreamController<bool>();

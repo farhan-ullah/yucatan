@@ -1,20 +1,20 @@
-import 'package:appventure/components/colored_divider.dart';
-import 'package:appventure/components/custom_app_bar.dart';
-import 'package:appventure/screens/authentication/register/components/register_bloc.dart';
-import 'package:appventure/screens/authentication/register/components/register_details.dart';
-import 'package:appventure/screens/authentication/register/components/register_email.dart';
-import 'package:appventure/screens/authentication/register/components/register_password.dart';
-import 'package:appventure/screens/authentication/register/components/register_policy.dart';
-import 'package:appventure/screens/authentication/register/models/details_model.dart';
-import 'package:appventure/screens/authentication/register/models/password_model.dart';
-import 'package:appventure/screens/authentication/register/models/policy_model.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/services/user_provider.dart';
-import 'package:appventure/services/user_service.dart';
-import 'package:appventure/size_config.dart';
-import 'package:appventure/theme/custom_theme.dart';
-import 'package:appventure/utils/country_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/components/colored_divider.dart';
+import 'package:yucatan/components/custom_app_bar.dart';
+import 'package:yucatan/screens/authentication/register/components/register_bloc.dart';
+import 'package:yucatan/screens/authentication/register/components/register_details.dart';
+import 'package:yucatan/screens/authentication/register/components/register_email.dart';
+import 'package:yucatan/screens/authentication/register/components/register_password.dart';
+import 'package:yucatan/screens/authentication/register/components/register_policy.dart';
+import 'package:yucatan/screens/authentication/register/models/details_model.dart';
+import 'package:yucatan/screens/authentication/register/models/password_model.dart';
+import 'package:yucatan/screens/authentication/register/models/policy_model.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/services/user_provider.dart';
+import 'package:yucatan/services/user_service.dart';
+import 'package:yucatan/size_config.dart';
+import 'package:yucatan/theme/custom_theme.dart';
+import 'package:yucatan/utils/country_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -99,7 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
-        title: AppLocalizations.of(context).registerScreen_title,
+        title: AppLocalizations.of(context)!.registerScreen_title,
         appBar: AppBar(
           elevation: 0,
         ),
@@ -119,7 +119,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                          AppLocalizations.of(context).registerScreen_subTitle,
+                          AppLocalizations.of(context)!.registerScreen_subTitle,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -214,14 +214,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                        "${AppLocalizations.of(context).registerScreen_bottomBarText1} ",
+                        "${AppLocalizations.of(context)!.registerScreen_bottomBarText1} ",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: Dimensions.getScaledSize(15.0))),
                     RichText(
                       text: TextSpan(
                         text:
-                            "${AppLocalizations.of(context).registerScreen_bottomBarText2} ",
+                            "${AppLocalizations.of(context)!.registerScreen_bottomBarText2} ",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: Dimensions.getScaledSize(15.0)),
@@ -366,7 +366,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          AppLocalizations.of(context).registerScreen_minDigit,
+                          AppLocalizations.of(context)!.registerScreen_minDigit,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: CustomTheme.primaryColorDark,
@@ -405,7 +405,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                          "${AppLocalizations.of(context).registerScreen_bottomBarText1} ",
+                          "${AppLocalizations.of(context)!.registerScreen_bottomBarText1} ",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: Dimensions.getScaledSize(15.0))),

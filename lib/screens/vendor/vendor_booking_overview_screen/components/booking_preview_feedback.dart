@@ -4,7 +4,7 @@ class VendorBookingPreviewFeedback extends StatelessWidget {
   final String text;
   final Color textColor;
 
-  VendorBookingPreviewFeedback({@required this.textColor, @required this.text});
+  VendorBookingPreviewFeedback({required this.textColor, required this.text});
 
   Widget build(BuildContext context) {
     final displayHeight = MediaQuery.of(context).size.height;

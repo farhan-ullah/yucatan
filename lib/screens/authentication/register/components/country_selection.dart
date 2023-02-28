@@ -1,16 +1,16 @@
-import 'package:appventure/screens/authentication/components/input_field_box.dart';
-import 'package:appventure/screens/authentication/components/input_textfield.dart';
-import 'package:appventure/screens/authentication/register/models/country_model.dart';
-import 'package:appventure/services/response/user_login_response.dart';
-import 'package:appventure/utils/StringUtils.dart';
-import 'package:appventure/utils/country_utils.dart';
-import 'package:appventure/utils/widget_dimensions.dart';
+import 'package:yucatan/screens/authentication/components/input_field_box.dart';
+import 'package:yucatan/screens/authentication/components/input_textfield.dart';
+import 'package:yucatan/screens/authentication/register/models/country_model.dart';
+import 'package:yucatan/services/response/user_login_response.dart';
+import 'package:yucatan/utils/StringUtils.dart';
+import 'package:yucatan/utils/country_utils.dart';
+import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:appventure/screens/authentication/register/components/register_validations_bloc.dart';
+import 'package:yucatan/screens/authentication/register/components/register_validations_bloc.dart';
 import '../../auth_regex.dart';
 
 class CountrySelection extends StatefulWidget {
@@ -21,14 +21,15 @@ class CountrySelection extends StatefulWidget {
   final bool isComingFromProfile;
   final RegisterValidationBloc registerValidationBloc;
 
-  CountrySelection(
-      {Key key,
-        this.onChange,
-        this.countryObject,
-        this.phone = "",
-        this.userLoginModel,
-        this.isComingFromProfile = false,
-        this.registerValidationBloc,});
+  CountrySelection({
+    Key? key,
+    this.onChange,
+    this.countryObject,
+    this.phone = "",
+    this.userLoginModel,
+    this.isComingFromProfile = false,
+    this.registerValidationBloc,
+  });
 
   @override
   State<StatefulWidget> createState() => _CountrySelectionState();
@@ -53,15 +54,15 @@ class _CountrySelectionState extends State<CountrySelection> {
       _model.countryISO2Name = widget.countryObject.countryList
           .firstWhere(
               (element) =>
-          element.country.toLowerCase() ==
-              _model.countryISO2Code.toLowerCase(),
-          orElse: () => CountryData('', ''))
+                  element.country.toLowerCase() ==
+                  _model.countryISO2Code.toLowerCase(),
+              orElse: () => CountryData('', ''))
           .countryName;
 
       _model.phone = widget.phone == null ? "" : widget.phone;
 
       var flagValue = widget.countryObject.jsonPhoneMap.keys.firstWhere(
-              (k) => widget.countryObject.jsonPhoneMap[k] == defaultPhoneValue,
+          (k) => widget.countryObject.jsonPhoneMap[k] == defaultPhoneValue,
           orElse: () => "DE");
 
       defaultFlagValue = flagValue;
@@ -93,13 +94,14 @@ class _CountrySelectionState extends State<CountrySelection> {
             child: SimpleAutoCompleteTextField(
               key: key,
               decoration: new InputDecoration(
-                  hintText: AppLocalizations.of(context).commonWords_land_required,
+                  hintText:
+                      AppLocalizations.of(context)!.commonWords_land_required,
                   suffixIcon: new Icon(
                     Icons.keyboard_arrow_down_rounded,
                     size: 30,
                   )),
               controller:
-              TextEditingController(text: "${_model.countryISO2Name}"),
+                  TextEditingController(text: "${_model.countryISO2Name}"),
               suggestions: widget.countryObject.countryList2,
               textChanged: (text) => currentText = text,
               clearOnSubmit: false,
@@ -115,7 +117,7 @@ class _CountrySelectionState extends State<CountrySelection> {
                   String country = findCountry(text).country;
 
                   this.defaultPhoneValue =
-                  widget.countryObject.jsonPhoneMap[country];
+                      widget.countryObject.jsonPhoneMap[country];
                   this.defaultFlagValue = country;
                   _model.areaCode = widget.countryObject.jsonPhoneMap[country];
                   _model.countryISO2Code = country;
@@ -167,9 +169,9 @@ class _CountrySelectionState extends State<CountrySelection> {
                                   maxLines: 2,
                                   style: widget.isComingFromProfile
                                       ? TextStyle(
-                                    fontSize:
-                                    Dimensions.getScaledSize(15),
-                                  )
+                                          fontSize:
+                                              Dimensions.getScaledSize(15),
+                                        )
                                       : null,
                                 ),
                               ),
@@ -188,8 +190,8 @@ class _CountrySelectionState extends State<CountrySelection> {
                           maxLines: 2,
                           style: widget.isComingFromProfile
                               ? TextStyle(
-                            fontSize: Dimensions.getScaledSize(15),
-                          )
+                                  fontSize: Dimensions.getScaledSize(15),
+                                )
                               : null,
                         ),
                       );
@@ -200,8 +202,8 @@ class _CountrySelectionState extends State<CountrySelection> {
                         var flagValue = widget.countryObject.jsonPhoneMap.keys
                             .firstWhere(
                                 (k) =>
-                            widget.countryObject.jsonPhoneMap[k] == val,
-                            orElse: () => "DE");
+                                    widget.countryObject.jsonPhoneMap[k] == val,
+                                orElse: () => "DE");
                         defaultFlagValue = flagValue;
                         _model.areaCode = defaultPhoneValue;
                         widget.onChange.call(_model);
@@ -214,17 +216,22 @@ class _CountrySelectionState extends State<CountrySelection> {
                 child: InputFieldBox(
                   fields: [
                     InputTextField(
-                        registerValidationBloc: widget.registerValidationBloc == null ? null : widget.registerValidationBloc,
+                        registerValidationBloc:
+                            widget.registerValidationBloc == null
+                                ? null
+                                : widget.registerValidationBloc,
                         showUnderline: false,
                         isComingFromCheckout: true,
                         phoneNumberValue: widget.phone,
                         isProfilePhoneNumber: true,
-                        hintText:
-                        AppLocalizations.of(context).commonWords_phone_required,
+                        hintText: AppLocalizations.of(context)
+                            .commonWords_phone_required,
                         textInputType: TextInputType.number,
                         validationErrorMsg: AppLocalizations.of(context)
                             .commonWords_phoneInvalid,
-                        validation: _model.phone == null || _model.phone.isEmpty ? AuthRegex.emptyValue : null,
+                        validation: _model.phone == null || _model.phone.isEmpty
+                            ? AuthRegex.emptyValue
+                            : null,
                         autocorrect: false,
                         onTextChanged: (String text) {
                           _model.phone = text;

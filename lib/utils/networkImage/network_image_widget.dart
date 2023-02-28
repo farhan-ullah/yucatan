@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:appventure/utils/networkImage/network_image_cache.dart';
+import 'package:yucatan/utils/networkImage/network_image_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:validators/validators.dart';
 
@@ -16,7 +16,7 @@ class NetworkImageCustom extends StatefulWidget {
   final double width;
 
   const NetworkImageCustom(
-      {Key key,
+      {Key? key,
       this.url,
       this.errorMessage,
       this.showError = true,
