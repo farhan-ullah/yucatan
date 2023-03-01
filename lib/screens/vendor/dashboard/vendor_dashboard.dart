@@ -37,7 +37,7 @@ class VendorDashboard extends StatefulWidget {
 
 class _VendorDashboardState extends BaseState<VendorDashboard> {
   String vendorName = "";
-  UserLoginModel userObject;
+  UserLoginModel? userObject;
   bool isLoading = false;
 
   //Future<VendorDashboardResponse> vendorDashboardResponse;
@@ -58,10 +58,10 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
   void initState() {
     userLoginModelBloc.eventSink.add(UserLoginAction.FetchLoggedInUser);
     sidePadding = 15;
-    elementWidth = (SizeConfig.screenWidth / 3.45).round().toDouble();
-    elementHeight = (SizeConfig.screenWidth / 3.2).round().toDouble();
+    elementWidth = (SizeConfig.screenWidth! / 3.45).round().toDouble();
+    elementHeight = (SizeConfig.screenWidth! / 3.2).round().toDouble();
     innerPadding =
-        (SizeConfig.screenWidth - 2 * sidePadding - 3 * elementWidth) / 2;
+        (SizeConfig.screenWidth! - 2 * sidePadding - 3 * elementWidth) / 2;
     bigElementWidth = 2 * elementWidth + innerPadding;
     bigElementHeight = 2 * elementHeight + innerPadding;
     super.initState();
@@ -70,7 +70,7 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
   Widget getLoadingIndicator() {
     return Container(
       height: double.infinity,
-      child: Center(
+      child: const Center(
         child: CircularProgressIndicator(),
       ),
     );
@@ -102,7 +102,7 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
             snapshotUser.hasData && snapshotUser.data == null)
           return getPlaceholderVeiw();
         if (snapshotUser.hasData && snapshotUser.data != null) {
-          this.userObject = snapshotUser.data;
+          this.userObject = snapshotUser.data!;
           vendorDashboardBloc.eventSink
               .add(VendorDashboardAction.FetchDashboardData);
           return StreamBuilder<VendorDashboardResponse>(
@@ -114,7 +114,7 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                   snapshotVendorResponse.data != null) isLoading = false;
               if (snapshotVendorResponse.hasError ||
                   snapshotVendorResponse.hasData &&
-                      snapshotVendorResponse.data.data == null)
+                      snapshotVendorResponse.data!.data == null)
                 return getLoadingIndicator();
 
               return Container(
@@ -128,7 +128,7 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                             height: Dimensions.getScaledSize(220.0),
                             padding: EdgeInsets.symmetric(
                                 horizontal: Dimensions.getScaledSize(20.0)),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(
                                     "lib/assets/images/vendor_bg_image.jpg"),
@@ -186,7 +186,7 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                   height: Dimensions.getScaledSize(5.0),
                                 ),
                                 Text(
-                                  "${this.userObject.firstname == null ? "" : this.userObject.firstname}",
+                                  "${this.userObject!.firstname == null ? "" : this.userObject!.firstname}",
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontSize: Dimensions.getScaledSize(20.0),
@@ -201,7 +201,7 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                     AppLocalizations.of(context)!
                                         .vendor_dashboardScreen_wellcomeToDashboard,
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: CustomTheme.primaryColorLight,
                                     ),
                                   ),
@@ -248,7 +248,7 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
 
                               //     )
                               // ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               Row(
                                 children: [
                                   Expanded(
@@ -264,19 +264,19 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                         );
                                       },
                                       child: Container(
-                                        height: SizeConfig.screenHeight / 7,
+                                        height: SizeConfig.screenHeight! / 7,
                                         width: double.infinity,
                                         margin: EdgeInsets.fromLTRB(
                                             sidePadding, 0, sidePadding, 0),
                                         decoration: BoxDecoration(
                                           border: Border.all(
                                             color: isLoading
-                                                ? Colors.grey[300]
-                                                : Color(0xffFBA300),
+                                                ? Colors.grey[300]!
+                                                : const Color(0xffFBA300),
                                           ),
-                                          borderRadius: BorderRadius.all(
+                                          borderRadius: const BorderRadius.all(
                                               Radius.circular(10)),
-                                          gradient: LinearGradient(
+                                          gradient: const LinearGradient(
                                             colors: [
                                               Color(0xffFBA300),
                                               Color(0xffFBA300),
@@ -294,28 +294,28 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsets.fromLTRB(
+                                                        const EdgeInsets.fromLTRB(
                                                             10, 10, 0, 0),
                                                     child: Row(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .center,
                                                       children: [
-                                                        Icon(
+                                                        const Icon(
                                                           Icons
                                                               .account_balance_wallet_outlined,
                                                           size: 30,
                                                         ),
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           width: 10,
                                                         ),
                                                         Text(
                                                           AppLocalizations.of(
-                                                                  context)
+                                                                  context)!
                                                               .vendor_dashboardScreen_accountInfo,
                                                           textAlign:
                                                               TextAlign.start,
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                               fontSize: 16,
                                                               color: CustomTheme
                                                                   .primaryColorDark,
@@ -354,15 +354,15 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                                         Alignment.centerRight,
                                                     child: Container(
                                                       margin:
-                                                          EdgeInsets.fromLTRB(
+                                                          const EdgeInsets.fromLTRB(
                                                               0, 0, 10, 10),
                                                       child: Text(
                                                         isLoading
                                                             ? "€"
-                                                            : "${formatPriceDoubleWithCurrency(snapshotVendorResponse.data.data.accountBalance)}",
+                                                            : "${formatPriceDoubleWithCurrency(snapshotVendorResponse.data!.data!.accountBalance!)}",
                                                         textAlign:
                                                             TextAlign.start,
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             fontSize: 20,
                                                             color: CustomTheme
                                                                 .primaryColorDark,
@@ -492,7 +492,7 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                         children: [
                                           VendorDashboardDateBox(
                                             boxText:
-                                                AppLocalizations.of(context)
+                                                AppLocalizations.of(context)!
                                                     .today,
                                             elementHeight: elementHeight,
                                             elementWidth: elementWidth,
@@ -508,19 +508,19 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                             },
                                             openBookingsForDay: isLoading
                                                 ? ""
-                                                : "${snapshotVendorResponse.data.data.openBookingsForToday}",
+                                                : "${snapshotVendorResponse.data!.data!.openBookingsForToday}",
                                           ),
                                           SizedBox(height: innerPadding),
                                           VendorDashboardDateBox(
                                             boxText:
-                                                AppLocalizations.of(context)
+                                                AppLocalizations.of(context)!
                                                     .tomorrow,
                                             elementHeight: elementHeight,
                                             elementWidth: elementWidth,
                                             isLoading: isLoading,
                                             openBookingsForDay: isLoading
                                                 ? ""
-                                                : "${snapshotVendorResponse.data.data.openBookingsForTomorrow}",
+                                                : "${snapshotVendorResponse.data!.data!.openBookingsForTomorrow}",
                                             onClick: () {
                                               Navigator.of(context).pushNamed(
                                                 VendorBookingOverviewScreen
@@ -543,10 +543,10 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                               : Colors.white,
                                           border: Border.all(
                                             color: isLoading
-                                                ? Colors.grey[300]
+                                                ? Colors.grey[300]!
                                                 : Colors.white,
                                           ),
-                                          borderRadius: BorderRadius.all(
+                                          borderRadius: const BorderRadius.all(
                                               Radius.circular(10)),
                                         ),
                                         width: double.infinity,
@@ -576,14 +576,14 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                 child: Row(
                                   children: [
                                     VendorDashboardDateBox(
-                                      boxText: AppLocalizations.of(context)
+                                      boxText: AppLocalizations.of(context)!
                                           .commonWords_week,
                                       elementHeight: elementHeight,
                                       elementWidth: elementWidth,
                                       isLoading: isLoading,
                                       openBookingsForDay: isLoading
                                           ? ""
-                                          : "${snapshotVendorResponse.data.data.openBookingsForWeek}",
+                                          : "${snapshotVendorResponse.data!.data!.openBookingsForWeek!}",
                                       onClick: () {
                                         Navigator.of(context).pushNamed(
                                           VendorBookingOverviewScreen.route,
@@ -595,7 +595,7 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                     ),
                                     SizedBox(width: innerPadding),
                                     VendorDashboardDateBox(
-                                      boxText: AppLocalizations.of(context)
+                                      boxText: AppLocalizations.of(context)!
                                           .commonWords_calendar,
                                       elementHeight: elementHeight,
                                       elementWidth: elementWidth,
@@ -625,31 +625,33 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                                 : Colors.white,
                                             border: Border.all(
                                               color: isLoading
-                                                  ? Colors.grey[300]
+                                                  ? Colors.grey[300]!
                                                   : Colors.white,
                                             ),
-                                            borderRadius: BorderRadius.all(
+                                            borderRadius: const BorderRadius.all(
                                                 Radius.circular(10))),
                                         child: isLoading
                                             ? ImageUtil.showShimmerPlaceholder(
-                                                width: SizeConfig.screenWidth /
+                                                width: SizeConfig.screenWidth! /
                                                     3.2,
-                                                height: SizeConfig.screenWidth /
+                                                height: SizeConfig.screenWidth! /
                                                     3.2)
                                             : Column(
                                                 children: [
                                                   Align(
+                                                    alignment:
+                                                        Alignment.centerLeft,
                                                     child: Padding(
                                                       padding: const EdgeInsets
                                                               .fromLTRB(
                                                           10, 10, 0, 0),
                                                       child: Text(
                                                         AppLocalizations.of(
-                                                                context)
+                                                                context)!
                                                             .vendor_dashboardScreen_requirement,
                                                         textAlign:
                                                             TextAlign.start,
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             fontSize: 16,
                                                             color: CustomTheme
                                                                 .primaryColorLight,
@@ -661,10 +663,10 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                                                     .w600),
                                                       ),
                                                     ),
-                                                    alignment:
-                                                        Alignment.centerLeft,
                                                   ),
                                                   Align(
+                                                    alignment:
+                                                        Alignment.centerLeft,
                                                     child: Padding(
                                                       padding: const EdgeInsets
                                                               .fromLTRB(
@@ -672,12 +674,12 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                                       child: Text(
                                                         isLoading
                                                             ? AppLocalizations
-                                                                    .of(context)
+                                                                    .of(context)!
                                                                 .vendor_dashboardScreen_element
-                                                            : "${snapshotVendorResponse.data.data.demandForToday} ${AppLocalizations.of(context)!.vendor_dashboardScreen_element}",
+                                                            : "${snapshotVendorResponse.data!.data!.demandForToday} ${AppLocalizations.of(context)!.vendor_dashboardScreen_element}",
                                                         textAlign:
                                                             TextAlign.start,
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                           fontSize: 14,
                                                           color: CustomTheme
                                                               .accentColor1,
@@ -687,14 +689,14 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                                         ),
                                                       ),
                                                     ),
-                                                    alignment:
-                                                        Alignment.centerLeft,
                                                   ),
                                                   Expanded(child: Container()),
-                                                  Align(
+                                                  const Align(
+                                                    alignment:
+                                                        Alignment.centerRight,
                                                     child: Padding(
                                                         padding:
-                                                            const EdgeInsets
+                                                            EdgeInsets
                                                                     .fromLTRB(
                                                                 0, 0, 10, 10),
                                                         child: Icon(
@@ -702,8 +704,6 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                                                 .calendar_today_outlined,
                                                             color: CustomTheme
                                                                 .primaryColorLight)),
-                                                    alignment:
-                                                        Alignment.centerRight,
                                                   ),
                                                 ],
                                               ),
@@ -719,7 +719,7 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                 child: Row(
                                   children: [
                                     VendorDashboardDateBox(
-                                      boxText: AppLocalizations.of(context)
+                                      boxText: AppLocalizations.of(context)!
                                           .vendor_dashboardScreen_offer,
                                       elementHeight: elementHeight,
                                       elementWidth: elementWidth,
@@ -755,20 +755,21 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                               border: Border.all(
                                                 color: Colors.white,
                                               ),
-                                              borderRadius: BorderRadius.all(
+                                              borderRadius: const BorderRadius.all(
                                                   Radius.circular(10))),
                                           child: Column(
                                             children: [
                                               Align(
+                                                alignment: Alignment.centerLeft,
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.fromLTRB(
                                                           10, 10, 0, 0),
                                                   child: Text(
-                                                    AppLocalizations.of(context)
+                                                    AppLocalizations.of(context)!
                                                         .vendor_dashboardScreen_booking_requests,
                                                     textAlign: TextAlign.start,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 16,
                                                         color: CustomTheme
                                                             .primaryColorLight,
@@ -778,9 +779,9 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                                             FontWeight.w600),
                                                   ),
                                                 ),
-                                                alignment: Alignment.centerLeft,
                                               ),
                                               Align(
+                                                alignment: Alignment.centerLeft,
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.fromLTRB(
@@ -788,15 +789,20 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                                   child: Text(
                                                     isLoading
                                                         ? ""
-                                                        : AppLocalizations.of(
-                                                                context)
-                                                            .vendor_dashboardScreen_requests(
-                                                                snapshotVendorResponse
-                                                                    .data
-                                                                    .data
-                                                                    .numberOfBookingRequests),
+                                                        : "${snapshotVendorResponse
+                                                        .data!
+                                                        .data!
+                                                        .numberOfBookingRequests}",
+
+                                                    // AppLocalizations.of(
+                                                    //             context)
+                                                    //         !.vendor_dashboardScreen_requests(
+                                                    //             snapshotVendorResponse
+                                                    //                 .data!
+                                                    //                 .data!
+                                                    //                 .numberOfBookingRequests)!,
                                                     textAlign: TextAlign.start,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       fontSize: 14,
                                                       color: CustomTheme
                                                           .accentColor1,
@@ -805,13 +811,14 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                                     ),
                                                   ),
                                                 ),
-                                                alignment: Alignment.centerLeft,
                                               ),
                                               Expanded(child: Container()),
-                                              Align(
+                                              const Align(
+                                                alignment:
+                                                    Alignment.centerRight,
                                                 child: Padding(
                                                   padding:
-                                                      const EdgeInsets.fromLTRB(
+                                                      EdgeInsets.fromLTRB(
                                                     0,
                                                     0,
                                                     10,
@@ -824,8 +831,6 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                                         .accentColor1,
                                                   ),
                                                 ),
-                                                alignment:
-                                                    Alignment.centerRight,
                                               ),
                                             ],
                                           ),

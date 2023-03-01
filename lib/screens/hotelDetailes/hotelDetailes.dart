@@ -43,10 +43,10 @@ import '../hotelDetailes/reviewsListScreen.dart';
 
 // ignore: must_be_immutable
 class HotelDetailes extends StatefulWidget {
-  ActivityModel hotelData;
-  final String activityId;
-  final bool isFavorite;
-  final Function(String activityId) onFavoriteChangedCallback;
+  ActivityModel? hotelData;
+  final String? activityId;
+  final bool? isFavorite;
+  final Function(String activityId)? onFavoriteChangedCallback;
 
   HotelDetailes({
     Key? key,
@@ -64,24 +64,24 @@ class _HotelDetailesState extends State<HotelDetailes>
     with TickerProviderStateMixin {
   ScrollController scrollController = ScrollController(initialScrollOffset: 0);
   bool isFav = false;
-  AnimationController animationController;
+  AnimationController? animationController;
   var imageHeight = 0.0;
-  AnimationController _animationController;
+  AnimationController? _animationController;
   var bookingBarHeight = 0.0;
 
   ///Better Player
-  BetterPlayerController _betterPlayerController;
+  BetterPlayerController? _betterPlayerController;
 
-  AnimationController _animationControllerVideo;
+  AnimationController? _animationControllerVideo;
 
   static const int _animationDuration = 500;
   double _startOpacity = 0.7;
   double _endOpactiy = 0.0;
 
-  UserLoginModel _user;
-  bool _isFavorite;
+  UserLoginModel? _user;
+  bool? _isFavorite;
   bool showPlayButton = true;
-  File thumbnailImage;
+  File? thumbnailImage;
   bool isVideoUrlValid = false;
   StreamController<bool> _placeholderStreamController =
       StreamController.broadcast();
@@ -89,11 +89,11 @@ class _HotelDetailesState extends State<HotelDetailes>
       StreamController.broadcast();
   bool _showPlaceholder = true;
 
-  Future<ActivitySingleResponse> singleActivityResponse;
+  Future<ActivitySingleResponse>? singleActivityResponse;
 
   @override
   void initState() {
-    singleActivityResponse = ActivityService.getActivity(widget.activityId);
+    singleActivityResponse = ActivityService.getActivity(widget.activityId!);
     shuffelActivitysList = false;
     _isFavorite = widget.isFavorite;
     _loadUser();
@@ -101,21 +101,21 @@ class _HotelDetailesState extends State<HotelDetailes>
         duration: Duration(milliseconds: 2000), vsync: this);
     _animationController =
         AnimationController(duration: Duration(milliseconds: 0), vsync: this);
-    animationController.forward();
+    animationController!.forward();
     scrollController.addListener(() {
       if (context != null) {
         if (scrollController.offset < 0) {
           // we static set the just below half scrolling values
-          _animationController.animateTo(0.0);
+          _animationController!.animateTo(0.0);
         } else if (scrollController.offset > 0.0 &&
             scrollController.offset < imageHeight) {
           // we need around half scrolling values
           if (scrollController.offset < ((imageHeight / 1.25))) {
-            _animationController
+            _animationController!
                 .animateTo((scrollController.offset / imageHeight));
           } else {
             // we static set the just above half scrolling values "around == 0.22"
-            _animationController.animateTo((imageHeight / 1.25) / imageHeight);
+            _animationController!.animateTo((imageHeight / 1.25) / imageHeight);
           }
         }
       }
@@ -164,10 +164,10 @@ class _HotelDetailesState extends State<HotelDetailes>
   void dispose() {
     _playButtonStreamController.close();
     _placeholderStreamController.close();
-    animationController.dispose();
-    _animationControllerVideo.dispose();
+    animationController!.dispose();
+    _animationControllerVideo!.dispose();
     if (_betterPlayerController != null) {
-      _betterPlayerController.dispose(forceDispose: true);
+      _betterPlayerController!.dispose(forceDispose: true);
       _betterPlayerController = null;
     }
     super.dispose();
@@ -194,7 +194,7 @@ class _HotelDetailesState extends State<HotelDetailes>
               if (snapshot.hasError) {
                 return Center(child: Text('${snapshot.error}'));
               } else {
-                widget.hotelData = snapshot.data.data;
+                widget.hotelData = snapshot.data!.data;
 
                 if (_betterPlayerController == null) {
                   initBetterPlayer();
@@ -255,7 +255,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                                   .size
                                                   .width,
                                               child: Text(
-                                                  "${widget.hotelData.location.zipcode} ${widget.hotelData.location.city}"),
+                                                  "${widget.hotelData!.location!.zipcode} ${widget.hotelData!.location!.city}"),
                                             ),
                                           ),
                                         ],
@@ -267,8 +267,8 @@ class _HotelDetailesState extends State<HotelDetailes>
                                         left: Dimensions.getScaledSize(24.0),
                                         right: Dimensions.getScaledSize(24.0)),
                                     child: DescriptionItems(
-                                      descriptionItems: widget.hotelData
-                                          .activityDetails.descriptionItems,
+                                      descriptionItems: widget.hotelData!
+                                          .activityDetails!.descriptionItems!,
                                       shortDescription: true,
                                     ),
                                   ),
@@ -329,7 +329,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                                   Dimensions.getScaledSize(5),
                                             ),
                                             child: Text(
-                                              AppLocalizations.of(context)
+                                              AppLocalizations.of(context)!
                                                   .hotelDetailesScreen_covidMeasures,
                                               style: TextStyle(
                                                 color: CustomTheme.accentColor1,
@@ -355,7 +355,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                 left: Dimensions.getScaledSize(24),
                                 right: Dimensions.getScaledSize(24),
                               ),
-                              child: Text(widget.hotelData.activityDetails
+                              child: Text(widget.hotelData!.activityDetails
                                       ?.shortDescription ??
                                   ''),
                             ),
@@ -385,7 +385,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                       child: Row(
                                         children: <Widget>[
                                           Text(
-                                            AppLocalizations.of(context)
+                                            AppLocalizations.of(context)!
                                                 .hotelDetailesScreen_description,
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
@@ -433,14 +433,14 @@ class _HotelDetailesState extends State<HotelDetailes>
                             Container(
                               color: CustomTheme.grey,
                               child: HotelRoomeList(
-                                activity: widget.hotelData,
+                                activity: widget.hotelData!,
                               ),
                             ),
                             SizedBox(
                               height: Dimensions.getScaledSize(20.0),
                             ),
-                            widget.hotelData.reviewCount != null &&
-                                    widget.hotelData.reviewCount > 0
+                            widget.hotelData!.reviewCount != null &&
+                                    widget.hotelData!.reviewCount! > 0
                                 ? Padding(
                                     padding: EdgeInsets.only(
                                       left: Dimensions.getScaledSize(24.0),
@@ -468,7 +468,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                           ),
                                         ),
                                         Text(
-                                          widget.hotelData.reviewAverageRating
+                                          widget.hotelData!.reviewAverageRating!
                                               .toString()
                                               .replaceAll('.', ','),
                                           textAlign: TextAlign.left,
@@ -483,10 +483,11 @@ class _HotelDetailesState extends State<HotelDetailes>
                                           width: Dimensions.getScaledSize(10),
                                         ),
                                         Text(
-                                          AppLocalizations.of(context)
-                                              .hotelDetailesScreen_reviewCountHandlePlural(
-                                                  widget.hotelData.reviewCount),
-                                          style: new TextStyle(
+          "${widget.hotelData!.reviewCount!}",
+                                          // AppLocalizations.of(context)!
+                                          //     .hotelDetailesScreen_reviewCountHandlePlural(
+                                          //         widget.hotelData.reviewCount!),
+                                          style: TextStyle(
                                             fontSize:
                                                 Dimensions.getScaledSize(14.0),
                                             color: CustomTheme.primaryColorDark,
@@ -497,8 +498,8 @@ class _HotelDetailesState extends State<HotelDetailes>
                                   )
                                 : Container(),
 
-                            widget.hotelData.reviewCount != null &&
-                                    widget.hotelData.reviewCount > 0
+                            widget.hotelData!.reviewCount != null &&
+                                    widget.hotelData!.reviewCount! > 0
                                 ? Container(
                                     height: Dimensions.getScaledSize(180.0),
                                     child: ListView.builder(
@@ -506,14 +507,14 @@ class _HotelDetailesState extends State<HotelDetailes>
                                       padding: EdgeInsets.only(
                                         right: Dimensions.getScaledSize(19.0),
                                       ),
-                                      itemCount: widget.hotelData
-                                                  .activityDetails.reviews !=
+                                      itemCount: widget.hotelData!
+                                                  .activityDetails!.reviews !=
                                               null
-                                          ? widget.hotelData.activityDetails
-                                                      .reviews.length <=
+                                          ? widget.hotelData!.activityDetails!
+                                                      .reviews!.length <=
                                                   5
-                                              ? widget.hotelData.activityDetails
-                                                  .reviews.length
+                                              ? widget.hotelData!.activityDetails!
+                                                  .reviews!.length
                                               : 5
                                           : 0,
                                       itemBuilder:
@@ -528,14 +529,14 @@ class _HotelDetailesState extends State<HotelDetailes>
                                                   40),
                                           child: ReviewsView(
                                             isComingFromHotelDetails: true,
-                                            review: widget.hotelData
-                                                .activityDetails.reviews[index],
-                                            animation: animationController,
+                                            review: widget.hotelData!
+                                                .activityDetails!.reviews![index],
+                                            animation: animationController!,
                                             animationController:
-                                                animationController,
+                                                animationController!,
                                             callback: () {
                                               openReviewsListScreen(
-                                                  widget.hotelData);
+                                                  widget.hotelData!);
                                             },
                                           ),
                                         );
@@ -591,7 +592,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                                 CrossAxisAlignment.center,
                                             children: [
                                               Text(
-                                                AppLocalizations.of(context)
+                                                AppLocalizations.of(context)!
                                                     .hotelDetailesScreen_noReviewsTitle,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
@@ -606,7 +607,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                                         10),
                                               ),
                                               Text(
-                                                AppLocalizations.of(context)
+                                                AppLocalizations.of(context)!
                                                     .hotelDetailesScreen_noReviewsDescription,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
@@ -621,14 +622,14 @@ class _HotelDetailesState extends State<HotelDetailes>
                                       ],
                                     ),
                                   ),
-                            widget.hotelData.reviewCount != null &&
-                                    widget.hotelData.reviewCount > 0
+                            widget.hotelData!.reviewCount != null &&
+                                    widget.hotelData!.reviewCount! > 0
                                 ? SizedBox(
                                     height: Dimensions.getScaledSize(20.0),
                                   )
                                 : Container(),
-                            widget.hotelData.reviewCount != null &&
-                                    widget.hotelData.reviewCount > 0
+                            widget.hotelData!.reviewCount != null &&
+                                    widget.hotelData!.reviewCount! > 0
                                 ? Row(
                                     children: [
                                       Expanded(
@@ -647,7 +648,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                                   builder: (context) =>
                                                       ReviewsListScreen(
                                                         activity:
-                                                            widget.hotelData,
+                                                            widget.hotelData!,
                                                       ),
                                                   fullscreenDialog: true),
                                             );
@@ -658,7 +659,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                             child: Row(
                                               children: <Widget>[
                                                 Text(
-                                                  AppLocalizations.of(context)
+                                                  AppLocalizations.of(context)!
                                                       .hotelDetailesScreen_showAllReviews,
                                                   textAlign: TextAlign.left,
                                                   style: TextStyle(
@@ -714,7 +715,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                               width: MediaQuery.of(context).size.width,
                               color: Colors.white,
                               child: isNotNullOrEmpty(
-                                      widget.hotelData.location.lat)
+                                      widget.hotelData!.location!.lat!)
                                   ? GoogleMap(
                                       mapType: MapType.normal,
                                       myLocationButtonEnabled: false,
@@ -732,18 +733,18 @@ class _HotelDetailesState extends State<HotelDetailes>
                                             builder: (context) =>
                                                 GoogleMapsFullscreen(
                                                     location: widget
-                                                        .hotelData.location,
+                                                        .hotelData!.location,
                                                     destinationTitle:
-                                                        widget.hotelData.title),
+                                                        widget.hotelData!.title),
                                           ),
                                         );
                                       },
                                       initialCameraPosition: CameraPosition(
                                         target: LatLng(
                                           double.parse(
-                                              widget.hotelData.location.lat),
+                                              widget.hotelData!.location!.lat!),
                                           double.parse(
-                                              widget.hotelData.location.lon),
+                                              widget.hotelData!.location!.lon!),
                                         ),
                                         zoom: 14,
                                       ),
@@ -752,15 +753,15 @@ class _HotelDetailesState extends State<HotelDetailes>
                                           markerId: MarkerId('0'),
                                           position: LatLng(
                                             double.parse(
-                                                widget.hotelData.location.lat),
+                                                widget.hotelData!.location!.lat!),
                                             double.parse(
-                                                widget.hotelData.location.lon),
+                                                widget.hotelData!.location!.lon!),
                                           ),
                                         ),
                                       ].toSet(),
                                     )
                                   : Center(
-                                      child: Text(AppLocalizations.of(context)
+                                      child: Text(AppLocalizations.of(context)!
                                           .hotelDetailesScreen_locationNotAvailable),
                                     ),
                             ),
@@ -839,7 +840,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                               height: Dimensions.getScaledSize(20.0),
                             ),
                             RecommendedActivities(
-                                activityId: widget.hotelData.sId),
+                                activityId: widget!.hotelData!.sId!),
                             SizedBox(
                               height: bookingBarHeight +
                                   Dimensions.getScaledSize(20),
@@ -847,7 +848,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                           ],
                         ),
                       ),
-                      _backgraoundImageUI(widget.hotelData),
+                      _backgraoundImageUI(widget.hotelData!),
                       _floatingBookingButton(),
                       Padding(
                         padding: EdgeInsets.only(
@@ -898,7 +899,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                               GestureDetector(
                                 onTap: () {
                                   ShareUtils.createFirebaseDynamicLink(
-                                      widget.hotelData.sId);
+                                      widget.hotelData!.sId!);
                                 },
                                 child: SizedBox(
                                   height: AppBar().preferredSize.height,
@@ -931,7 +932,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                               GestureDetector(
                                 onTap: () {
                                   _onFavoriteButtonPressed(
-                                      widget.hotelData.sId);
+                                      widget.hotelData!.sId!);
                                 },
                                 child: SizedBox(
                                   height: AppBar().preferredSize.height,
@@ -944,7 +945,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                       width: AppBar().preferredSize.height - 8,
                                       decoration: BoxDecoration(
                                           //color: Theme.of(context).disabledColor.withOpacity(0.4),
-                                          color: _isFavorite
+                                          color: _isFavorite!
                                               ? CustomTheme.accentColor1
                                               : Theme.of(context)
                                                   .disabledColor
@@ -956,7 +957,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                         child: Icon(
                                           Icons.favorite_border,
                                           // size: getProportionateScreenHeight(24),
-                                          color: _isFavorite
+                                          color: _isFavorite!
                                               ? Colors.white
                                               : Colors.white,
                                         ),
@@ -1004,23 +1005,23 @@ class _HotelDetailesState extends State<HotelDetailes>
       return;
     }
 
-    if (_isFavorite) {
+    if (_isFavorite!) {
       UserService.deleteUserFavoriteActivity(
         activityId: activityId,
-        userId: _user.sId,
+        userId: _user!.sId!,
       );
     } else {
       UserService.addUserFavoriteActivity(
         activityId: activityId,
-        userId: _user.sId,
+        userId: _user!.sId!,
       );
     }
 
     if (widget.onFavoriteChangedCallback != null)
-      widget.onFavoriteChangedCallback(activityId);
+      widget.onFavoriteChangedCallback!(activityId);
 
     setState(() {
-      _isFavorite = !_isFavorite;
+      _isFavorite = !_isFavorite!;
     });
   }
 
@@ -1030,17 +1031,17 @@ class _HotelDetailesState extends State<HotelDetailes>
       left: 0,
       right: 0,
       child: AnimatedBuilder(
-        animation: _animationController,
-        builder: (BuildContext context, Widget child) {
+        animation: _animationController!,
+        builder: (BuildContext, Widget ) {
           var opecity = 1.0 -
-              (_animationController.value >=
+              (_animationController!.value >=
                       (((imageHeight / 1.2) - bookingBarHeight) / imageHeight)
                   ? 1.0
-                  : _animationController.value);
+                  : _animationController!.value);
           return SizedBox(
-            height: imageHeight * (1.0 - _animationController.value),
+            height: imageHeight * (1.0 - _animationController!.value),
             child: Stack(
-              children: <Widget>[
+              children: [
                 IgnorePointer(
                   child: Container(
                     decoration: BoxDecoration(
@@ -1055,7 +1056,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                     ),
                     child: Stack(
                       alignment: Alignment.bottomCenter,
-                      children: <Widget>[
+                      children: [
                         Positioned(
                           bottom: Dimensions.getScaledSize(3),
                           left: 0,
@@ -1064,7 +1065,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                           child: Container(
                             width: MediaQuery.of(context).size.width,
                             child: loadCachedNetworkImage(
-                              hotelData.activityDetails.media.cover?.publicUrl,
+                              hotelData.activityDetails!.media!.cover!.publicUrl!,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -1112,10 +1113,10 @@ class _HotelDetailesState extends State<HotelDetailes>
                           bottom: 0,
                           child: Container(
                             height: (imageHeight *
-                                            (1.0 - _animationController.value) >
+                                            (1.0 - _animationController!.value) >
                                         Dimensions.getScaledSize(200.0)
                                     ? imageHeight *
-                                        (1.0 - _animationController.value)
+                                        (1.0 - _animationController!.value)
                                     : Dimensions.getScaledSize(200.0)) *
                                 0.60,
                             width: MediaQuery.of(context).size.width,
@@ -1154,7 +1155,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                   child: Opacity(
                     opacity: opecity,
                     child: Column(
-                      children: <Widget>[
+                      children:  [
                         IgnorePointer(
                           child: Container(
                             padding: EdgeInsets.only(
@@ -1167,7 +1168,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                 padding: EdgeInsets.all(
                                     Dimensions.getScaledSize(4.0)),
                                 child: Column(
-                                  children: <Widget>[
+                                  children: [
                                     SizedBox(
                                       height: Dimensions.getScaledSize(4.0),
                                     ),
@@ -1228,12 +1229,12 @@ class _HotelDetailesState extends State<HotelDetailes>
                                           MainAxisAlignment.center,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
-                                      children: <Widget>[
+                                      children: [
                                         Column(
                                           mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
+                                          children:  [
                                             Text(
-                                              AppLocalizations.of(context)
+                                              AppLocalizations.of(context)!
                                                   .hotelDetailesScreen_moreDetails,
                                               style: TextStyle(
                                                 fontSize:
@@ -1282,7 +1283,7 @@ class _HotelDetailesState extends State<HotelDetailes>
             children: <Widget>[
               isInList
                   ? Text(
-                      widget.hotelData.activityDetails.title,
+                      widget.hotelData!.activityDetails!.title!,
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -1294,7 +1295,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                     )
                   : Center(
                       child: Text(
-                        widget.hotelData.title,
+                        widget.hotelData!.title!,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
@@ -1317,9 +1318,9 @@ class _HotelDetailesState extends State<HotelDetailes>
                           SmoothStarRating(
                             allowHalfRating: true,
                             starCount: 5,
-                            rating: widget.hotelData.reviewAverageRating == 0
+                            rating: widget.hotelData!.reviewAverageRating == 0
                                 ? 5
-                                : widget.hotelData.reviewAverageRating,
+                                : widget.hotelData!.reviewAverageRating,
                             size: Dimensions.getScaledSize(20.0),
                             color: CustomTheme.accentColor3,
                             borderColor: CustomTheme.accentColor3,
@@ -1333,10 +1334,10 @@ class _HotelDetailesState extends State<HotelDetailes>
                               top: Dimensions.getScaledSize(3),
                             ),
                             child: Text(
-                              widget.hotelData.reviewCount == null ||
-                                      widget.hotelData.reviewCount == 0
+                              widget.hotelData!.reviewCount == null ||
+                                      widget.hotelData!.reviewCount == 0
                                   ? "(${AppLocalizations.of(context)!.commonWords_new})"
-                                  : "(${widget.hotelData.reviewCount})",
+                                  : "(${widget.hotelData!.reviewCount})",
                               style: TextStyle(
                                 fontSize: Dimensions.getScaledSize(14.0),
                                 color: isInList
@@ -1389,7 +1390,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                           ),
                         ),
                         Text(
-                          "${formatPriceDouble(widget.hotelData.priceFrom)}",
+                          "${formatPriceDouble(widget!.hotelData!.priceFrom!)}",
                           style: TextStyle(
                             fontSize: Dimensions.getScaledSize(21),
                             fontWeight: FontWeight.bold,
@@ -1457,13 +1458,13 @@ class _HotelDetailesState extends State<HotelDetailes>
   Widget _buildVideoPlayer() {
     return Container(
       child: VisibilityDetector(
-        key: Key('${widget.hotelData.sId}-video-player'),
+        key: Key('${widget.hotelData!.sId}-video-player'),
         onVisibilityChanged: (visibilityInfo) {
           if (!isVideoUrlValid) {
             if (_betterPlayerController != null) {
               if (visibilityInfo.visibleFraction <= 0.3 &&
-                  _betterPlayerController.isPlaying()) {
-                _betterPlayerController.pause();
+                  _betterPlayerController!.isPlaying()!) {
+                _betterPlayerController!.pause();
               }
             }
           }
@@ -1477,10 +1478,10 @@ class _HotelDetailesState extends State<HotelDetailes>
                   child: isValidPreviewVideo
                       ? isVideoUrlValid
                           ? BetterPlayer(
-                              controller: _betterPlayerController,
+                              controller: _betterPlayerController!,
                             )
-                          : CommonWidget.videoErrorView(false, widget.hotelData)
-                      : CommonWidget.videoErrorView(true, widget.hotelData)),
+                          : CommonWidget.videoErrorView(false, widget.hotelData!)
+                      : CommonWidget.videoErrorView(true, widget.hotelData!)),
             ),
             isValidPreviewVideo
                 ? _buildPlayButton(Center(
@@ -1499,7 +1500,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                             if (isValidPreviewVideo) {
                               if (_betterPlayerController != null) {
                                 _setCustomPlayButtonVisiblity(false);
-                                _betterPlayerController.play();
+                                _betterPlayerController!.play();
                               }
                             }
                           } catch (e) {
@@ -1518,7 +1519,7 @@ class _HotelDetailesState extends State<HotelDetailes>
 
   _onTapBook() {
     try {
-      if (_betterPlayerController?.isPlaying ?? false) {
+      if (_betterPlayerController!.isPlaying() ?? false) {
         _betterPlayerController?.pause();
       }
     } catch (e) {
@@ -1536,7 +1537,7 @@ class _HotelDetailesState extends State<HotelDetailes>
       context,
       MaterialPageRoute(
         builder: (context) => DetailedDescriptionScreenView(
-          activity: widget.hotelData,
+          activity: widget.hotelData!,
         ),
       ),
     );
@@ -1560,11 +1561,11 @@ class _HotelDetailesState extends State<HotelDetailes>
       return;
     }
 
-    if (widget.hotelData.activityDetails.media.previewVideo == null) {
+    if (widget.hotelData!.activityDetails!.media!.previewVideo == null) {
       isValidPreviewVideo = false;
       return;
     }
-    if (isURL(widget.hotelData.activityDetails.media.previewVideo?.publicUrl)) {
+    if (isURL(widget.hotelData!.activityDetails!.media!.previewVideo?.publicUrl)) {
       isVideoUrlValid = true;
 
       BetterPlayerControlsConfiguration controlsConfiguration =
@@ -1603,11 +1604,11 @@ class _HotelDetailesState extends State<HotelDetailes>
         },
         deviceOrientationsAfterFullScreen: [DeviceOrientation.portraitUp],
         placeholder:
-            widget.hotelData.activityDetails.media.previewVideoThumbnail != null
+            widget.hotelData!.activityDetails!.media!.previewVideoThumbnail != null
                 ? _buildVideoPlaceholder(
                     loadCachedNetworkImage(
-                      widget.hotelData.activityDetails.media
-                          .previewVideoThumbnail?.publicUrl,
+                      widget.hotelData!.activityDetails!.media
+                          !.previewVideoThumbnail!.publicUrl!,
                       fit: BoxFit.cover,
                     ),
                   )
@@ -1617,11 +1618,11 @@ class _HotelDetailesState extends State<HotelDetailes>
       _betterPlayerController = BetterPlayerController(
         betterPlayerConfiguration,
       );
-      _betterPlayerController.setupDataSource(BetterPlayerDataSource.network(
-        widget.hotelData.activityDetails.media.previewVideo?.publicUrl,
+      _betterPlayerController!.setupDataSource(BetterPlayerDataSource.network(
+        widget.hotelData!.activityDetails!.media!.previewVideo!.publicUrl!,
         cacheConfiguration: BetterPlayerCacheConfiguration(useCache: true),
       ));
-      _betterPlayerController.setVolume(1.0);
+      _betterPlayerController!.setVolume(1.0);
     } else {
       isVideoUrlValid = false;
       showPlayButton = false;

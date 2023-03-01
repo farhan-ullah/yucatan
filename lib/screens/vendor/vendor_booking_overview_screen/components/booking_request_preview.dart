@@ -32,14 +32,14 @@ class VendorBookingRequestPreview extends StatefulWidget {
 class _VendorBookingRequestPreviewState
     extends State<VendorBookingRequestPreview> {
   bool valid = true;
-  Future<BookingSingleResponseEntity> bookingModel;
+  Future<BookingSingleResponseEntity>? bookingModel;
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    bookingModel = BookingService.getBooking(widget.transactionModel.bookingId);
+    bookingModel = BookingService.getBooking(widget.transactionModel.bookingId!);
   }
 
   @override
@@ -56,18 +56,21 @@ class _VendorBookingRequestPreviewState
     return FutureBuilder(
         future: bookingModel,
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting)
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return VendorBookingLoadingIndicator();
-          if (snapshot.hasData && !snapshot.hasError)
+          }
+          if (snapshot.hasData && !snapshot.hasError) {
             return _getBookingPreviev(
-                displayWidth, displayHeight, snapshot.data.data);
-          if (snapshot.hasError)
+                displayWidth, displayHeight, snapshot.data);
+          }
+          if (snapshot.hasError) {
             return Container(
               child: VendorBookingPreviewFeedback(
                 text: AppLocalizations.of(context)!.commonWords_error,
                 textColor: CustomTheme.accentColor1,
               ),
             );
+          }
           return VendorBookingLoadingIndicator();
         });
   }
@@ -98,7 +101,7 @@ class _VendorBookingRequestPreviewState
                         AppLocalizations.of(context)!
                             .bookingListScreen_inValueOf,
                         style: _getTextStyle(displayHeight * 0.015)),
-                    Text(formatPriceDouble(widget.transactionModel.totalPrice),
+                    Text(formatPriceDouble(widget.transactionModel.totalPrice!),
                         style: _getTextStyleBold(0.04 * displayHeight))
                   ],
                 )
@@ -121,7 +124,7 @@ class _VendorBookingRequestPreviewState
                   errorBorder: _getBorderStyle(Colors.red),
                   labelStyle:
                       TextStyle(color: valid ? Colors.grey : Colors.red),
-                  labelText: AppLocalizations.of(context)
+                  labelText: AppLocalizations.of(context)!
                       .vendor_bookingOverview_reasonForDecline,
                 ),
                 minLines: 5,
@@ -130,7 +133,7 @@ class _VendorBookingRequestPreviewState
                 validator: (value) {
                   if (value == "") {
                     setValid(false);
-                    return AppLocalizations.of(context)
+                    return AppLocalizations.of(context)!
                         .vendor_bookingOverview_reasonForDeclineInvalid;
                   }
                   setValid(true);
@@ -146,7 +149,7 @@ class _VendorBookingRequestPreviewState
               children: [
                 VendorBookingPreviewButton(
                   color: CustomTheme.accentColor1,
-                  buttonText: AppLocalizations.of(context)
+                  buttonText: AppLocalizations.of(context)!
                       .vendor_bookingOverview_decline,
                   onPressed: denyRequest,
                   width: displayWidth * 0.3,
@@ -235,7 +238,7 @@ class _VendorBookingRequestPreviewState
 
   _getToastError() {
     Fluttertoast.showToast(
-        msg: AppLocalizations.of(context)
+        msg: AppLocalizations.of(context)!
             .vendor_bookingOverview_requestProcessingError,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
@@ -247,7 +250,7 @@ class _VendorBookingRequestPreviewState
 
   _getToastSuccess() {
     Fluttertoast.showToast(
-        msg: AppLocalizations.of(context)
+        msg: AppLocalizations.of(context)!
             .vendor_bookingOverview_requestConfirmSuccess,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
@@ -259,7 +262,7 @@ class _VendorBookingRequestPreviewState
 
   _getToastDeny() {
     Fluttertoast.showToast(
-        msg: AppLocalizations.of(context)
+        msg: AppLocalizations.of(context)!
             .vendor_bookingOverview_requestDeclineSuccess,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
@@ -300,7 +303,7 @@ class _VendorBookingRequestPreviewState
 
   void acceptRequest() {
     BookingService.acceptRequest(
-            widget.transactionModel.bookingId, _controller.value.text)
+            widget.transactionModel.bookingId!, _controller.value.text)!
         .then((value) {
       if (value != null && value.data != null) {
         _getToastSuccess();
@@ -313,11 +316,11 @@ class _VendorBookingRequestPreviewState
   }
 
   void denyRequest() {
-    if (!_formKey.currentState.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
     BookingService.denyRequest(
-            widget.transactionModel.bookingId, _controller.value.text)
+            widget.transactionModel.bookingId!, _controller.value.text)
         .then((value) {
       if (value != null && value.data != null) {
         _getToastDeny();
@@ -332,12 +335,12 @@ class _VendorBookingRequestPreviewState
   _getBookingInfoProducts(
       double displayWidth, double displayHeight, BookingModel bookingModel) {
     List<Widget> widgets = [];
-    widget.transactionModel.products.forEach((transactionProduct) {
-      String productId = transactionProduct.id;
-      BookingProduct product = bookingModel.products
+    widget.transactionModel.products!.forEach((transactionProduct) {
+      String productId = transactionProduct.id!;
+      BookingProduct product = bookingModel.products!
           .firstWhere((element) => element.id == productId);
       widgets.add(Text(
-        product.categoryTitle,
+        product.categoryTitle!,
         style: _getTextStyleBold(displayHeight * 0.015),
       ));
       widgets.add(SizedBox(height: Dimensions.getScaledSize(5)));
@@ -362,20 +365,20 @@ class _VendorBookingRequestPreviewState
               flex: 2,
               child: Text(
                 transactionProduct.bookingTimeString != null
-                    ? "${_getFormattedBookingTimeString(transactionProduct.bookingTimeString)} ${AppLocalizations.of(context)!.commonWords_clock}"
+                    ? "${_getFormattedBookingTimeString(transactionProduct.bookingTimeString!)} ${AppLocalizations.of(context)!.commonWords_clock}"
                     : AppLocalizations.of(context)!.bookingListScreen_wholeDay,
                 style: _getTextStyle(displayHeight * 0.015),
               )),
           Expanded(
             flex: 5,
             child: Text(
-              transactionProduct.title,
+              transactionProduct.title!,
               style: _getTextStyle(displayHeight * 0.015),
             ),
           ),
         ],
       ));
-      product.properties.forEach((productPropertyElemenet) {
+      product.properties!.forEach((productPropertyElemenet) {
         widgets.add(
           Row(
             children: [
@@ -394,7 +397,7 @@ class _VendorBookingRequestPreviewState
         );
       });
       widgets.add(SizedBox(height: Dimensions.getScaledSize(5)));
-      product.additionalServices.forEach((additionalService) {
+      product.additionalServices!.forEach((additionalService) {
         widgets.add(Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -408,7 +411,7 @@ class _VendorBookingRequestPreviewState
             Expanded(
               flex: 2,
               child: Text(
-                additionalService.title,
+                additionalService.title!,
                 style: _getTextStyle(displayHeight * 0.015),
               ),
             ),
@@ -416,7 +419,7 @@ class _VendorBookingRequestPreviewState
                 flex: 5,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: additionalService.properties
+                  children: additionalService.properties!
                       .map((property) => Text(
                             "${property.title} : ${property.value}",
                             style: _getTextStyle(displayHeight * 0.015),
@@ -444,10 +447,10 @@ class _VendorBookingRequestPreviewState
           2021,
           1,
           1,
-          int.tryParse(splittedValues[0]),
+          int.tryParse(splittedValues[0])!,
           int.tryParse(
             splittedValues[1],
-          ),
+          )!,
         ),
       );
     } catch (e) {

@@ -14,8 +14,8 @@ class VendorDashboardResponse {
     this.data,
   });
 
-  int status;
-  Data data;
+  int? status;
+  Data? data;
 
   factory VendorDashboardResponse.fromJson(Map<String, dynamic> json) => VendorDashboardResponse(
     status: json["status"],
@@ -24,7 +24,7 @@ class VendorDashboardResponse {
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": data.toJson(),
+    "data": data!.toJson(),
   };
 }
 
@@ -39,13 +39,13 @@ class Data {
     this.openBookingsForWeek,
   });
 
-  int numberOfActivities;
-  int numberOfBookingRequests;
-  int demandForToday;
-  double accountBalance;
-  int openBookingsForToday;
-  int openBookingsForTomorrow;
-  int openBookingsForWeek;
+  int? numberOfActivities;
+  int? numberOfBookingRequests;
+  int? demandForToday;
+  double? accountBalance;
+  int? openBookingsForToday;
+  int? openBookingsForTomorrow;
+  int? openBookingsForWeek;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     numberOfActivities: json["numberOfActivities"],

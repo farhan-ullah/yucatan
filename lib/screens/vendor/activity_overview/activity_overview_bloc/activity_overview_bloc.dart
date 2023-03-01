@@ -23,7 +23,7 @@ class ActivityOverviewBloc {
   ActivityOverviewBloc() {
     _eventStream.listen((event) async {
       if (event == ActivityOverviewAction.Fetch) {
-        VendorActivtyOverviewResponse activtyOverviewResponse =
+        VendorActivtyOverviewResponse? activtyOverviewResponse =
             await VendorActivityOverviewService.getVendorActivityOverview();
         if (activtyOverviewResponse != null) {
           _activtyOverviewSink.add(activtyOverviewResponse);

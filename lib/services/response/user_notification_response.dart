@@ -1,9 +1,9 @@
 import 'package:yucatan/models/notification_model.dart';
 
 class UserNotificationResponse {
-  int status;
-  bool success;
-  List<NotificationModel> notifications;
+  int? status;
+  bool? success;
+  List<NotificationModel>? notifications;
 
   UserNotificationResponse({
     this.status,

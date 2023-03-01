@@ -1,8 +1,8 @@
 class OrderOverviewTableModel {
-  DateTime dateTime;
-  int count;
-  String buyer;
-  double price;
+  DateTime? dateTime;
+  int? count;
+  String? buyer;
+  double? price;
 
 
   OrderOverviewTableModel({

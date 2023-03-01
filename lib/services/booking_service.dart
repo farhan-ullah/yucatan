@@ -55,26 +55,22 @@ class BookingService extends BaseService {
     }
   }
 
-  static Future<BookingDetailedSingleResponseEntity?> getBoookingDetailed(
+  static Future<BookingDetailedSingleResponseEntity>? getBoookingDetailed(
       String id) async {
     var httpData = (await BookingService._().get('/$id/detailed'))!.body;
-    if (httpData != null) {
+
       return BookingDetailedSingleResponseEntity.fromJson(
           json.decode(httpData));
-    } else {
-      return null;
-    }
+
   }
 
   /// Queries an Booking by the given [id]
   /// [id] internal (object-)ID of the booking (BookingModel.sId)
-  static Future<BookingSingleResponseEntity?> getBooking(String id) async {
+  static Future<BookingSingleResponseEntity>? getBooking(String id) async {
     var httpData = (await BookingService._().get(id))!.body;
-    if (httpData != null) {
+
       return BookingSingleResponseEntity().fromJson(json.decode(httpData));
-    } else {
-      return null;
-    }
+
   }
 
   /// Queries an Booking by the given qr code reference
@@ -124,7 +120,7 @@ class BookingService extends BaseService {
   }
 
   // Get transations for date range
-  static Future<TransactionMultiResponseEntity?> getTransactionsForDateRange(
+  static Future<TransactionMultiResponseEntity>? getTransactionsForDateRange(
       {DateTime? dateFrom, DateTime? dateTo}) async {
     Map<String, String> queryParams = Map();
 
@@ -138,14 +134,12 @@ class BookingService extends BaseService {
     String urlQuery = Uri(queryParameters: queryParams).query;
     var httpData =
         (await BookingService._().get('/transactions' + '?$urlQuery'))!.body;
-    if (httpData != null) {
+
       return TransactionMultiResponseEntity.fromJson(json.decode(httpData));
-    } else {
-      return null;
-    }
+
   }
 
-  static Future<BookingSingleResponseEntity?> acceptRequest(
+  static Future<BookingSingleResponseEntity>? acceptRequest(
       String id, String message) async {
     dynamic body;
     if (message != "") {
@@ -153,11 +147,9 @@ class BookingService extends BaseService {
     }
     var httpData =
         (await BookingService._().post('/$id/accept-request', body))!.body;
-    if (httpData != null) {
+
       return BookingSingleResponseEntity().fromJson(json.decode(httpData));
-    } else {
-      return null;
-    }
+
   }
 
   static Future<BookingSingleResponseEntity?> denyRequest(

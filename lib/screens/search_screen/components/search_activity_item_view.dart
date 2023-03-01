@@ -17,9 +17,9 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 class SearchActivityItemView extends StatefulWidget {
   ActivityModel activity;
   bool isfav;
-  Function(ActivityModel activity) onFavoriteChangedCallback;
-  UserLoginModel userData;
-  int index;
+  Function(ActivityModel activity) ?onFavoriteChangedCallback;
+  UserLoginModel? userData;
+  int? index;
 
   SearchActivityItemView({
     required this.activity,
@@ -58,7 +58,7 @@ class SearchActivityItemViewState extends State<SearchActivityItemView> {
             builder: (context) => HotelDetailes(
               isFavorite: isFav,
               //hotelData: widget.activity,
-              activityId: widget.activity.sId,
+              activityId: widget.activity.sId!,
             ),
           ),
         );
@@ -99,10 +99,10 @@ class SearchActivityItemViewState extends State<SearchActivityItemView> {
                       ),
                       child: loadCachedNetworkImage(
                         widget.activity == null ||
-                                widget.activity.thumbnail == null ||
-                                widget.activity.thumbnail.publicUrl == null
+                                widget.activity.thumbnail! == null ||
+                                widget.activity.thumbnail!.publicUrl! == null
                             ? ""
-                            : widget.activity.thumbnail.publicUrl,
+                            : widget.activity.thumbnail!.publicUrl!,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -130,7 +130,7 @@ class SearchActivityItemViewState extends State<SearchActivityItemView> {
                                   padding: EdgeInsets.only(
                                       left: Dimensions.getScaledSize(4.0)),
                                   child: Text(
-                                    widget.activity.title.trim(),
+                                    widget.activity.title!.trim(),
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
@@ -180,7 +180,7 @@ class SearchActivityItemViewState extends State<SearchActivityItemView> {
                                         top: Dimensions.getScaledSize(3),
                                       ),
                                       child: Text(
-                                        '${widget.activity.location.zipcode} ${widget.activity.location.city} ',
+                                        '${widget.activity.location!.zipcode} ${widget.activity.location!.city} ',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize:
@@ -209,7 +209,7 @@ class SearchActivityItemViewState extends State<SearchActivityItemView> {
                                         borderColor: CustomTheme.primaryColor,
                                       ),
                                       widget.activity.reviewCount != null &&
-                                              widget.activity.reviewCount > 0
+                                              widget.activity.reviewCount! > 0
                                           ? Text(
                                               " ${widget.activity.reviewAverageRating.toString().replaceAll('.', ',')}",
                                               style: TextStyle(
@@ -257,7 +257,7 @@ class SearchActivityItemViewState extends State<SearchActivityItemView> {
                                             width: Dimensions.getScaledSize(5),
                                           ),
                                           Text(
-                                            "${formatPriceDouble(widget.activity.priceFrom)}",
+                                            formatPriceDouble(widget.activity.priceFrom!),
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -297,7 +297,7 @@ class SearchActivityItemViewState extends State<SearchActivityItemView> {
             ),
             GestureDetector(
               onTap: () {
-                _onFavoriteButtonPressed(widget.activity.sId);
+                _onFavoriteButtonPressed(widget.activity.sId!);
               },
               child: Container(
                 height: Dimensions.getScaledSize(32.0),
@@ -356,8 +356,9 @@ class SearchActivityItemViewState extends State<SearchActivityItemView> {
       );
     }*/
 
-    if (widget.onFavoriteChangedCallback != null)
-      widget.onFavoriteChangedCallback(widget.activity);
+    if (widget.onFavoriteChangedCallback != null) {
+      widget.onFavoriteChangedCallback!(widget.activity);
+    }
   }
 
   void _navigateToLogin() async {

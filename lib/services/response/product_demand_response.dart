@@ -16,9 +16,9 @@ class ProductDemandResponse {
     this.data,
   });
 
-  int status;
-  List<ProductDemandData> data;
-  List<ProductDemand> productsList = [];
+  int? status;
+  List<ProductDemandData>? data;
+  List<ProductDemand>? productsList = [];
 
   factory ProductDemandResponse.fromJson(Map<String, dynamic> json) =>
       ProductDemandResponse(
@@ -36,7 +36,7 @@ class ProductDemandResponse {
         "status": status,
         "data": data != null
             ? List<dynamic>.from(
-                data.map(
+                data!.map(
                   (x) => x.toJson(),
                 ),
               )
@@ -51,9 +51,9 @@ class ProductDemandData {
     this.products,
   });
 
-  String id;
-  String activity;
-  List<ProductDemand> products;
+  String? id;
+  String? activity;
+  List<ProductDemand>? products;
 
   factory ProductDemandData.fromJson(Map<String, dynamic> json) =>
       ProductDemandData(
@@ -73,7 +73,7 @@ class ProductDemandData {
         "activity": activity,
         "products": products != null
             ? List<dynamic>.from(
-                products.map(
+                products!.map(
                   (x) => x.toJson(),
                 ),
               )
@@ -90,11 +90,11 @@ class ProductDemand {
     this.title,
   });
 
-  String id;
-  int quantity;
-  List<dynamic> properties;
-  List<dynamic> additionalServices;
-  String title;
+  String? id;
+  int? quantity;
+  List<dynamic>? properties;
+  List<dynamic>? additionalServices;
+  String? title;
 
   factory ProductDemand.fromJson(Map<String, dynamic> json) => ProductDemand(
         id: json["_id"],
@@ -117,12 +117,12 @@ class ProductDemand {
         "quantity": quantity,
         "properties": properties != null
             ? List<dynamic>.from(
-                properties.map((x) => x),
+                properties!.map((x) => x),
               )
             : null,
         "additionalServices": additionalServices != null
             ? List<dynamic>.from(
-                additionalServices.map((x) => x),
+                additionalServices!.map((x) => x),
               )
             : null,
         "title": title,

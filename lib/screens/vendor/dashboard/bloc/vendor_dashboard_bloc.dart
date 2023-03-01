@@ -25,9 +25,9 @@ class VendorDashboardBloc {
   VendorDashboardBloc() {
     _eventStream.listen((event) async {
       if (event == VendorDashboardAction.FetchDashboardData) {
-        VendorDashboardResponse vendorDashboardResponse =
+        VendorDashboardResponse ? vendorDashboardResponse =
             await VendorDashboardService.getVendorDashboardStats();
-        _vendorDashboardModelSink.add(vendorDashboardResponse);
+        _vendorDashboardModelSink.add(vendorDashboardResponse!);
       }
     });
   }

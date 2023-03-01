@@ -25,9 +25,9 @@ class VendorAccountBalanceBloc {
   VendorAccountBalanceBloc() {
     _eventStream.listen((event) async {
       if (event == VendorAccountBalanceAction.FetchVendorAccountBalance) {
-        VendorAccountBalanceResponse response =
+        VendorAccountBalanceResponse? response =
             await VendorPayouts.getAccountBalanceForVendor();
-        _vendorAccountBalanceSink.add(response);
+        _vendorAccountBalanceSink.add(response!);
       }
     });
   }

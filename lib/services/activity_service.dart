@@ -36,12 +36,11 @@ class ActivityService extends BaseService {
 
   /// Queries an Activity by the given [id]
   /// [id] internal (object-)ID of the activity (ActivityModel.sId)
-  static Future<ActivitySingleResponse?> getActivity(String id) async {
+  static Future<ActivitySingleResponse>? getActivity(String id) async {
     var httpData = (await new ActivityService._().get(id))?.body;
-    if (httpData != null) {
-      return new ActivitySingleResponse().fromJson(json.decode(httpData));
-    } else
-      return null;
+
+      return new ActivitySingleResponse().fromJson(json.decode(httpData!));
+
   }
 
   /// Queries all activities for a category
@@ -56,8 +55,8 @@ class ActivityService extends BaseService {
 
       if (shuffelActivitysList) {
         RandomActivityData randomActivityData =
-            getRandomNumbersWithoutRepetition(activityMultiResponse.data.length,
-                activityMultiResponse.data, category);
+            getRandomNumbersWithoutRepetition(activityMultiResponse.data!.length,
+                activityMultiResponse.data!, category);
         activityMultiResponse.data = randomActivityData.activityModelList!;
         RandomActivity.hashMap[category] = randomActivityData.randomNumbers;
       } else {
@@ -65,11 +64,11 @@ class ActivityService extends BaseService {
           List<int> savedRandomNumbersList = RandomActivity.hashMap[category];
           if (savedRandomNumbersList != null) {
             if (savedRandomNumbersList.length ==
-                activityMultiResponse.data.length) {
+                activityMultiResponse.data!.length) {
               List<ActivityCategoryDataModel> activityList = [];
-              for (int i = 0; i < activityMultiResponse.data.length; i++) {
+              for (int i = 0; i < activityMultiResponse.data!.length; i++) {
                 activityList
-                    .add(activityMultiResponse.data[savedRandomNumbersList[i]]);
+                    .add(activityMultiResponse.data![savedRandomNumbersList[i]]);
               }
               activityMultiResponse.data = activityList;
             }
@@ -103,32 +102,28 @@ class ActivityService extends BaseService {
   }
 
   /// Add review to an activity
-  static Future<ActivitySingleResponse?> addReview(
+  static Future<ActivitySingleResponse>? addReview(
       String activityId, ActivityModelActivityDetailsReview review) async {
     AnalyticsService.logAddReview(review.rating!.toDouble());
     var httpData = (await new ActivityService._()
             .post('/$activityId/reviews', json.encode(review.toJson())))
         ?.body;
-    if (httpData != null) {
-      return new ActivitySingleResponse().fromJson(json.decode(httpData));
-    } else
-      return null;
+      return new ActivitySingleResponse().fromJson(json.decode(httpData!));
+
   }
 
   /// Add review to an activity
-  static Future<ActivitySingleResponse?> editReview(
+  static Future<ActivitySingleResponse>? editReview(
       String activityId, ActivityModelActivityDetailsReview review) async {
     var httpData = (await new ActivityService._().put(
             '/$activityId/reviews/${review.sId}', json.encode(review.toJson())))
         ?.body;
-    if (httpData != null) {
-      return new ActivitySingleResponse().fromJson(json.decode(httpData));
-    } else
-      return null;
+      return new ActivitySingleResponse().fromJson(json.decode(httpData!));
+
   }
 
   /// Get activities by search term
-  static Future<ActivityMultiResponse?> getActivitiesBySearchTerm(
+  static Future<ActivityMultiResponse>? getActivitiesBySearchTerm(
       {String? searchTerm, String? date, String? categoryId}) async {
     Map<String, String> queryParams = Map();
 
@@ -156,14 +151,13 @@ class ActivityService extends BaseService {
     String query = Uri(queryParameters: queryParams).query;
 
     var httpData = (await new ActivityService._().get('/search?$query'))?.body;
-    if (httpData != null) {
-      return new ActivityMultiResponse().fromJson(json.decode(httpData));
-    } else
-      return null;
+
+      return new ActivityMultiResponse().fromJson(json.decode(httpData!));
+
   }
 
   /// Get autocomplete suggestions
-  static Future<List?> getSuggestions({String? query, int? items}) async {
+  static Future<List>? getSuggestions({String? query, int? items}) async {
     Map<String, String> queryParams = Map();
 
     if (isNotNullOrEmpty(query!)) {
@@ -177,9 +171,8 @@ class ActivityService extends BaseService {
 
     var httpData =
         (await new ActivityService._().get('/autocomplete?$urlQuery'))?.body;
-    if (httpData != null) {
-      return json.decode(httpData)['data'].toList();
-    } else
-      return null;
+
+      return json.decode(httpData!)['data'].toList();
+
   }
 }

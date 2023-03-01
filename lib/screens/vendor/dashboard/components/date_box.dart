@@ -22,56 +22,56 @@ class VendorDashboardDateBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onClick,
+      onTap: onClick(),
       child: Container(
         height: elementHeight,
         width: elementWidth,
         decoration: BoxDecoration(
             color: isLoading ? Colors.grey[300] : Colors.white,
             border:
-                Border.all(color: isLoading ? Colors.grey[300] : Colors.white),
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+                Border.all(color: isLoading ? Colors.grey[300]! : Colors.white),
+            borderRadius: const BorderRadius.all(Radius.circular(10))),
         child: isLoading
             ? ImageUtil.showShimmerPlaceholder(
                 width: elementWidth, height: elementHeight)
             : Column(
                 children: [
                   Align(
+                    alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
                       child: Text(
                         boxText,
                         textAlign: TextAlign.start,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16,
                             color: CustomTheme.primaryColorLight,
                             fontFamily: CustomTheme.fontFamily,
                             fontWeight: FontWeight.w600),
                       ),
                     ),
-                    alignment: Alignment.centerLeft,
                   ),
                   Expanded(child: Container()),
                   Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           isLoading ? "" : "$openBookingsForDay",
                           textAlign: TextAlign.start,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             color: CustomTheme.primaryColorLight,
                             fontFamily: CustomTheme.fontFamily,
                           ),
                         ),
-                        Align(
+                        const Align(
+                          alignment: Alignment.centerRight,
                           child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
+                              padding: EdgeInsets.fromLTRB(0, 0, 10, 10),
                               child: Icon(Icons.calendar_today_outlined,
                                   color: CustomTheme.primaryColorLight)),
-                          alignment: Alignment.centerRight,
                         ),
                       ],
                     ),

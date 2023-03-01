@@ -39,7 +39,9 @@ class DescriptionItems extends StatelessWidget {
 
   IconData _getIconByName(String name) {
     var icon = _iconMapping.entries
-        .firstWhere((element) => element.key == name, orElse: () => null)
+        .firstWhere((element) => element.key == name,
+        // orElse: () => null
+    )
         ?.value;
 
     return icon ?? Icons.info_outline;
@@ -71,7 +73,7 @@ class DescriptionItems extends StatelessWidget {
             height: Dimensions.getScaledSize(22.0),
             width: Dimensions.getScaledSize(22.0),
             child: Icon(
-              _getIconByName(descriptionItem.iconName),
+              _getIconByName(descriptionItem.iconName!),
               size: Dimensions.getScaledSize(22.0),
             ),
           ),
@@ -88,7 +90,7 @@ class DescriptionItems extends StatelessWidget {
                   ),
                   width: MediaQuery.of(context).size.width,
                   child: Text(
-                    descriptionItem.shortDescription,
+                    descriptionItem.shortDescription!,
                     style: TextStyle(
                       fontWeight: shortDescription
                           ? FontWeight.normal
@@ -104,7 +106,7 @@ class DescriptionItems extends StatelessWidget {
                 shortDescription
                     ? Container()
                     : Text(
-                        descriptionItem.longDescription,
+                        descriptionItem.longDescription!,
                       ),
               ],
             ),

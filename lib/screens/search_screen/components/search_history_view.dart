@@ -94,7 +94,7 @@ class _SearchHistoryViewState extends State<SearchHistoryView> {
 class HistoryView extends StatelessWidget {
   final VoidCallback callback;
   final bool isHistoryView;
-  final String data;
+  final String? data;
 
   HistoryView({this.isHistoryView = true, this.data, required this.callback})
       : super();
@@ -102,6 +102,7 @@ class HistoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: callback,
       child: Column(
         children: [
           Container(
@@ -133,12 +134,12 @@ class HistoryView extends StatelessWidget {
                           ),
                         ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 12.0,
                 ),
                 Expanded(
                     child: Text(
-                  data,
+                  data!,
                   maxLines: 1,
                   overflow: TextOverflow.visible,
                   textAlign: TextAlign.start,
@@ -148,25 +149,24 @@ class HistoryView extends StatelessWidget {
                   ),
                 )),
                 Visibility(
+                  visible: isHistoryView,
                   child: Icon(
                     Icons.arrow_forward_ios,
                     size: Dimensions.getScaledSize(16.0),
                     color: CustomTheme.primaryColorDark,
                   ),
-                  visible: isHistoryView,
                 ),
               ],
             ),
           ),
           Visibility(
+            visible: isHistoryView,
             child: BlackDivider(
               height: 0.5,
             ),
-            visible: isHistoryView,
           )
         ],
       ),
-      onTap: callback,
     );
   }
 }

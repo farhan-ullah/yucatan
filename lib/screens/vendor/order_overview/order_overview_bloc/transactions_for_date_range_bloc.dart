@@ -27,12 +27,12 @@ class TransactionsForDateRangeBloc {
   TransactionsForDateRangeBloc() {
     _eventStream.listen((event) async {
       if (event == TransactionsForDateRangeBlocAction.FetchVendorTransactions) {
-        TransactionMultiResponseEntity response =
+        TransactionMultiResponseEntity? response =
             await BookingService.getTransactionsForDateRange();
 
-        List<TransactionModel> transactionDataList = response.data;
-        for (int i = 0; i < vendorPayoutsResponseObj.data.length; i++) {
-          PayoutData payoutData = vendorPayoutsResponseObj.data[i];
+        List<TransactionModel> transactionDataList = response!.data!;
+        for (int i = 0; i < vendorPayoutsResponseObj.data!.length; i++) {
+          PayoutData payoutData = vendorPayoutsResponseObj.data![i];
           //payoutData.status = "PAID";
           if (payoutData.status == "PAID") {
             TransactionModel transactionModel = TransactionModel();
@@ -43,7 +43,7 @@ class TransactionsForDateRangeBloc {
           }
         }
         transactionDataList.sort((a, b) {
-          return b.dateTime.compareTo(a.dateTime);
+          return b.dateTime!.compareTo(a.dateTime!);
         });
         response.transactionDataList = transactionDataList;
         _vendorTransactionSink.add(response);

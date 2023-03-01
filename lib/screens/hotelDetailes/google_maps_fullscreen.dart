@@ -10,8 +10,8 @@ import 'package:map_launcher/map_launcher.dart' as maplauncher;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GoogleMapsFullscreen extends StatefulWidget {
-  final ActivityModelLocation location;
-  final String destinationTitle;
+  final ActivityModelLocation? location;
+  final String? destinationTitle;
 
   GoogleMapsFullscreen({this.location, this.destinationTitle});
 
@@ -20,7 +20,7 @@ class GoogleMapsFullscreen extends StatefulWidget {
 }
 
 class _GoogleMapsFullscreenState extends State<GoogleMapsFullscreen> {
-  GoogleMapController _controller;
+  GoogleMapController? _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +45,8 @@ class _GoogleMapsFullscreenState extends State<GoogleMapsFullscreen> {
           GoogleMap(
             initialCameraPosition: CameraPosition(
               target: LatLng(
-                double.parse(widget.location.lat),
-                double.parse(widget.location.lon),
+                double.parse(widget.location!.lat!),
+                double.parse(widget.location!.lon!),
               ),
               zoom: 14,
             ),
@@ -54,8 +54,8 @@ class _GoogleMapsFullscreenState extends State<GoogleMapsFullscreen> {
               Marker(
                 markerId: MarkerId('0'),
                 position: LatLng(
-                  double.parse(widget.location.lat),
-                  double.parse(widget.location.lon),
+                  double.parse(widget.location!.lat!),
+                  double.parse(widget.location!.lon!),
                 ),
               ),
             ].toSet(),
@@ -132,7 +132,7 @@ class _GoogleMapsFullscreenState extends State<GoogleMapsFullscreen> {
   void _launchMapForActivity() async {
     final availableMaps = await maplauncher.MapLauncher.installedMaps;
     final coords = maplauncher.Coords(
-        double.parse(widget.location.lat), double.parse(widget.location.lon));
+        double.parse(widget.location!.lat!), double.parse(widget.location!.lon!));
 
     availableMaps.first.showDirections(
       destination: coords,
@@ -142,7 +142,7 @@ class _GoogleMapsFullscreenState extends State<GoogleMapsFullscreen> {
 
   void _currentLocation() async {
     loc.Location _location = new loc.Location();
-    loc.LocationData location;
+    loc.LocationData? location;
 
     try {
       location = await _location.getLocation();
@@ -151,10 +151,10 @@ class _GoogleMapsFullscreenState extends State<GoogleMapsFullscreen> {
       location = null;
     }
 
-    this._controller.animateCamera(CameraUpdate.newCameraPosition(
+    this._controller!.animateCamera(CameraUpdate.newCameraPosition(
           CameraPosition(
             bearing: 0,
-            target: LatLng(location.latitude, location.longitude),
+            target: LatLng(location!.latitude!, location.longitude!),
             zoom: 17.0,
           ),
         ));

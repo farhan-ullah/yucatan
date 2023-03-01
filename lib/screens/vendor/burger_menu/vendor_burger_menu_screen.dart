@@ -33,10 +33,10 @@ class VendorBurgerMenuScreen extends StatefulWidget {
 }
 
 class _VendorBurgerMenuScreenState extends State<VendorBurgerMenuScreen> {
-  UserLoginModel user;
-  Future<UserNotificationResponse> notifications;
-  WebViewValues _currentWebViewValue;
-  InAppWebViewController webView;
+  UserLoginModel? user;
+  Future<UserNotificationResponse>? notifications;
+  WebViewValues? _currentWebViewValue;
+  InAppWebViewController? webView;
   VendorBurgerMenuBloc bloc = getIt.get<VendorBurgerMenuBloc>();
 
   List<String> webPages = [
@@ -56,15 +56,15 @@ class _VendorBurgerMenuScreenState extends State<VendorBurgerMenuScreen> {
 
     CommonService.getLegalDocWebPageUrl().then((value) {
       if (value?.data != null && value?.status == 200) {
-        webPages[0] = value.data.tos;
-        webPages[1] = value.data.privacy;
-        webPages[2] = value.data.imprint;
-        webPages[3] = value.data.rightOfWithdrawal;
+        webPages[0] = value!.data!.tos!;
+        webPages[1] = value.data!.privacy!;
+        webPages[2] = value.data!.imprint!;
+        webPages[3] = value.data!.rightOfWithdrawal!;
         if (webView != null) {
-          webView.loadUrl(
+          webView!.loadUrl(
             urlRequest: URLRequest(
               url: Uri.parse(
-                getViews(_currentWebViewValue),
+                getViews(_currentWebViewValue!),
               ),
             ),
           );
@@ -190,7 +190,7 @@ class _VendorBurgerMenuScreenState extends State<VendorBurgerMenuScreen> {
                                     child: InAppWebView(
                                       initialUrlRequest: URLRequest(
                                           url: Uri.parse(
-                                              getViews(_currentWebViewValue))),
+                                              getViews(_currentWebViewValue!))),
                                       initialOptions: InAppWebViewGroupOptions(
                                           crossPlatform: InAppWebViewOptions()),
                                       onWebViewCreated:
@@ -350,7 +350,7 @@ class _VendorBurgerMenuScreenState extends State<VendorBurgerMenuScreen> {
                                     Text(
                                       user == null
                                           ? ""
-                                          : "${user.firstname.trim()} ${user.lastname.trim()}",
+                                          : "${user!.firstname.trim()} ${user!.lastname.trim()}",
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                         fontSize:
@@ -366,7 +366,7 @@ class _VendorBurgerMenuScreenState extends State<VendorBurgerMenuScreen> {
                                     Text(
                                       user == null
                                           ? ""
-                                          : "${user.username.trim()}",
+                                          : user!.username!.trim(),
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                         fontSize:
@@ -424,7 +424,7 @@ class _VendorBurgerMenuScreenState extends State<VendorBurgerMenuScreen> {
                                           shuffleCounter == 0) {
                                         shuffelActivitysList = true;
                                       }
-                                      user.switchToUserRole();
+                                      user!.switchToUserRole();
                                       shuffleCounter = shuffleCounter + 1;
                                       await Navigator.of(context)
                                           .pushReplacementNamed(
@@ -508,9 +508,9 @@ class _VendorBurgerMenuScreenState extends State<VendorBurgerMenuScreen> {
     bool isSelected = _currentWebViewValue == value;
     return GestureDetector(
       onTap: () {
-        if (webView != null && webView.getUrl() != getViews(value)) {
+        if (webView != null && webView!.getUrl() != getViews(value)) {
           bloc.setwebviewTab = value;
-          webView.loadUrl(
+          webView!.loadUrl(
               urlRequest: URLRequest(url: Uri.parse(getViews(value))));
         }
       },
@@ -569,10 +569,11 @@ class _VendorBurgerMenuScreenState extends State<VendorBurgerMenuScreen> {
     return StreamBuilder(
         stream: appStateBloc.getVendorNotificationsCount,
         builder: (context, snapshotNotifications) {
-          int notificationsNumber = 0;
+          int? notificationsNumber = 0;
           if (snapshotNotifications.hasData &&
-              snapshotNotifications.data != null)
-            notificationsNumber = snapshotNotifications.data;
+              snapshotNotifications.data != null) {
+            notificationsNumber = snapshotNotifications.data.toString().length;
+          }
           bool hasNotifications = notificationsNumber == 0;
           return GestureDetector(
             onTap: () => navigateToNotifications(context),
@@ -625,7 +626,7 @@ class _VendorBurgerMenuScreenState extends State<VendorBurgerMenuScreen> {
       return "";
     } else {
       name =
-          "${user.firstname.trim().isEmpty ? '' : user.firstname.substring(0, 1).trim()}${user.lastname.trim().isEmpty ? '' : user.lastname.substring(0, 1).trim()}";
+          "${user!.firstname.trim().isEmpty ? '' : user!.firstname.substring(0, 1).trim()}${user!.lastname.trim().isEmpty ? '' : user!.lastname.substring(0, 1).trim()}";
     }
     return name;
   }

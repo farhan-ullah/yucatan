@@ -20,10 +20,10 @@ class VendorActivtyObject {
     this.data,
   });
 
-  int status;
-  VendorActivityOverviewData data;
-  ErrorResponse errorResponse;
-  int statusCode;
+  int ? status;
+  VendorActivityOverviewData? data;
+  ErrorResponse? errorResponse;
+  int? statusCode;
 
   factory VendorActivtyObject.fromJson(Map<String, dynamic> json) =>
       VendorActivtyObject(
@@ -33,6 +33,6 @@ class VendorActivtyObject {
 
   Map<String, dynamic> toJson() => {
         "status": status,
-        "data": data.toJson(),
+        "data": data!.toJson(),
       };
 }

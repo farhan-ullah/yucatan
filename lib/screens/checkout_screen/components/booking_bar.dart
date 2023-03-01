@@ -27,6 +27,7 @@ class BookingBar extends StatefulWidget {
 }
 
 class _BookingBarState extends State<BookingBar> {
+  late Product productToReturn;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -138,11 +139,11 @@ class _BookingBarState extends State<BookingBar> {
   }
 
   Product _findProduct(String productId) {
-    Product productToReturn;
 
-    widget.bookingDetails.productCategories.forEach(
+
+    widget.bookingDetails.productCategories!.forEach(
       (category) {
-        category.products.forEach(
+        category.products!.forEach(
           (product) {
             if (product.id == productId) {
               productToReturn = product;
@@ -150,9 +151,9 @@ class _BookingBarState extends State<BookingBar> {
           },
         );
 
-        category.productSubCategories.forEach(
+        category.productSubCategories!.forEach(
           (subCategory) {
-            subCategory.products.forEach(
+            subCategory.products!.forEach(
               (product) {
                 if (product.id == productId) {
                   productToReturn = product;
@@ -168,17 +169,17 @@ class _BookingBarState extends State<BookingBar> {
   }
 
   double _calculatePriceForOrderProduct(OrderProduct orderProduct) {
-    final product = _findProduct(orderProduct.id);
+    final product = _findProduct(orderProduct.id!);
 
-    double productTotal = product.price * orderProduct.amount;
+    double productTotal = product.price! * orderProduct.amount!;
     double additionalServicesTotal = 0.0;
 
-    orderProduct.additionalServices.forEach((element) {
-      final additionalService = product.additionalServices.firstWhere(
+    orderProduct.additionalServices!.forEach((element) {
+      final additionalService = product.additionalServices!.firstWhere(
           (additionalServiceElement) =>
               additionalServiceElement.id == element.id);
 
-      additionalServicesTotal += additionalService.price * element.amount;
+      additionalServicesTotal += additionalService.price! * element.amount!;
     });
 
     return productTotal + additionalServicesTotal;

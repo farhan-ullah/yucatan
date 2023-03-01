@@ -18,7 +18,7 @@ class VendorBookingPreviewRow extends StatelessWidget {
       required this.height,
       required this.fontSize});
 
-  _getCellStyle({Color textColor}) {
+  _getCellStyle({Color? textColor}) {
     return TextStyle(
       fontFamily: "AcuminProWide",
       color: textColor == null ? color : textColor,
@@ -27,11 +27,11 @@ class VendorBookingPreviewRow extends StatelessWidget {
     );
   }
 
-  _getCell({int flex, String text, TextAlign alignment, Color textColor}) {
+  _getCell({int? flex, String? text, TextAlign? alignment, Color? textColor}) {
     return Expanded(
-      flex: flex,
+      flex: flex!,
       child: Text(
-        text,
+        text!,
         textAlign: alignment,
         style: _getCellStyle(textColor: textColor),
       ),

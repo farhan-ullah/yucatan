@@ -30,9 +30,9 @@ class ContactScreen extends StatefulWidget {
 }
 
 class _ContactScreenState extends State<ContactScreen> {
-  UserLoginModel userLoginModel;
+  UserLoginModel? userLoginModel;
   var contactModel = ContactModel();
-  bool isDataProtectionChecked;
+  bool? isDataProtectionChecked;
   bool showSpinner = false;
   bool showBtn = true;
   bool isUserLoggedIn = false;
@@ -50,7 +50,7 @@ class _ContactScreenState extends State<ContactScreen> {
     contactModel.phone = "";
     contactModel.email = "";
     contactModel.message = "";
-    messageController.text = contactModel.message;
+    messageController.text = contactModel.message!;
   }
 
   @override
@@ -112,7 +112,7 @@ class _ContactScreenState extends State<ContactScreen> {
             children: [
               Text(
                 isUserLoggedIn
-                    ? "${AppLocalizations.of(context)!.contactUserName_hallo} ${userLoginModel.username}!"
+                    ? "${AppLocalizations.of(context)!.contactUserName_hallo} ${userLoginModel!.username}!"
                     : '${AppLocalizations.of(context)!.contactUserName_title}!',
                 style: TextStyle(
                   fontSize: Dimensions.getScaledSize(18.0),
@@ -146,7 +146,7 @@ class _ContactScreenState extends State<ContactScreen> {
                             onChanged: (value) {
                               contactModel.firstname = value;
                             },
-                            initialValue: contactModel.firstname,
+                            initialValue: contactModel.firstname!,
                             placeHolder:
                                 AppLocalizations.of(context)!.contact_firstname,
                             isComingFromContactScreen: true,
@@ -157,7 +157,7 @@ class _ContactScreenState extends State<ContactScreen> {
                           ),
                           ProfileField(
                             lengthLimit: 30,
-                            initialValue: contactModel.lastname,
+                            initialValue: contactModel.lastname!,
                             onChanged: (value) {
                               contactModel.lastname = value;
                             },
@@ -174,7 +174,7 @@ class _ContactScreenState extends State<ContactScreen> {
                             onChanged: (value) {
                               contactModel.phone = value;
                             },
-                            initialValue: contactModel.phone,
+                            initialValue: contactModel.phone!,
                             placeHolder:
                                 AppLocalizations.of(context)!.contact_phone,
                             isComingFromContactScreen: true,
@@ -188,7 +188,7 @@ class _ContactScreenState extends State<ContactScreen> {
                             onChanged: (value) {
                               contactModel.email = value;
                             },
-                            initialValue: contactModel.email,
+                            initialValue: contactModel.email!,
                             placeHolder:
                                 AppLocalizations.of(context)!.contact_email,
                             isComingFromContactScreen: true,
@@ -274,7 +274,7 @@ class _ContactScreenState extends State<ContactScreen> {
                     CheckoutCheckboxFormField(
                       isComingFromContactScreen: true,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      initialValue: isDataProtectionChecked,
+                      initialValue: isDataProtectionChecked!,
                       isSubmitPressed: this.isSubmitPressed,
                       callback: handlecheckboxDataChanged,
                       text: TextSpan(
@@ -357,7 +357,7 @@ class _ContactScreenState extends State<ContactScreen> {
 
   Widget showSubmitButton() {
     return ButtonTheme(
-      minWidth: SizeConfig.screenWidth,
+      minWidth: SizeConfig.screenWidth!,
       child: MaterialButton(
         elevation: 0.0,
         color: CustomTheme.backgroundColor,
@@ -406,13 +406,13 @@ class _ContactScreenState extends State<ContactScreen> {
 
   Future<void> _performContact(BuildContext context) async {
     bool isDataValidated = validateData();
-    if (isDataValidated && isDataProtectionChecked) {
-      messageController.text = contactModel.message;
+    if (isDataValidated && isDataProtectionChecked!) {
+      messageController.text = contactModel.message!;
       setState(() {
         this.showSpinner = true;
         this.showBtn = false;
       });
-      ContactResponse contactResponse =
+      ContactResponse? contactResponse =
           await ContactService.sendContactQuery(contactModel, isUserLoggedIn);
       if (contactResponse != null) {
         if (contactResponse.status == 200 &&
@@ -437,15 +437,15 @@ class _ContactScreenState extends State<ContactScreen> {
   /// if a user is logged in and one if a user is not logged in.
   bool validateData() {
     bool isDataValidated = false;
-    if (userLoginModel != null && contactModel.message.trim().isNotEmpty) {
+    if (userLoginModel != null && contactModel.message!.trim().isNotEmpty) {
       isDataValidated = true;
     } else if (userLoginModel == null) {
-      bool emailValid = RegexUtils.email.hasMatch(contactModel.email.trim());
+      bool emailValid = RegexUtils.email.hasMatch(contactModel.email!.trim());
       if (/*contactModel.firstname.trim().isNotEmpty &&*/
           /*contactModel.lastname.trim().isNotEmpty &&*/
-          contactModel.email.trim().isNotEmpty &&
+          contactModel.email!.trim().isNotEmpty &&
               /*contactModel.phone.trim().isNotEmpty &&*/
-              contactModel.message.trim().isNotEmpty &&
+              contactModel.message!.trim().isNotEmpty &&
               emailValid) {
         isDataValidated = true;
       } else {

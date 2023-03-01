@@ -1,6 +1,6 @@
 class PaypalPaymentPurchaseResponse {
-  int status;
-  String url;
+  int? status;
+  String? url;
 
   PaypalPaymentPurchaseResponse({
     this.status,

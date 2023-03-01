@@ -55,6 +55,7 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
   Future<bool>? onlineStatus;
   TabController? _tabController;
   bool offlineBookings = true;
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   void removeDeniedBooking(bookingId) async {
     // for now use delete booking
@@ -89,7 +90,7 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
   void initState() {
     //Log firebase event
     if (kReleaseMode) {
-      FirebaseAnalytics().logEvent(
+      analytics.logEvent(
         name: 'view_booking_list',
         parameters: <String, dynamic>{
           'time': DateTime.now().toIso8601String(),
@@ -200,7 +201,7 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
 
                       if (snapshotConnected.data! && offlineBookings) {
                         BookingService.getAllForUserDetailed(
-                                userSnapshot.data!.sId)
+                                userSnapshot.data!.sId!)
                             .then((value) {
                           if (value != null &&
                               value.status == 200 &&
@@ -221,7 +222,7 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
                               bookingsSnapshot.hasData &&
                               bookingsSnapshot.data!.data != null) {
                             HiveService.storeBooking(
-                                bookingsSnapshot.data!.data);
+                                bookingsSnapshot.data!.data!);
                           }
                           if (bookingsSnapshot.hasData &&
                               bookingsSnapshot.data!.data == null) {
@@ -238,9 +239,9 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
 
                           if (bookingsSnapshot.hasData &&
                               bookingsSnapshot.data!.data != null) {
-                            bookingsSnapshot.data!.data.sort((a, b) =>
+                            bookingsSnapshot.data!.data!.sort((a, b) =>
                                 a.bookingDate!.compareTo(b.bookingDate!));
-                            _separateBookings(bookingsSnapshot.data!.data);
+                            _separateBookings(bookingsSnapshot.data!.data!);
 
                             return Container(
                               // height: MediaQuery.of(context).size.height -
@@ -284,7 +285,7 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
                                     bookingListCardType:
                                         BookingListCardType.REQUESTED,
                                     noBookingsTitle: AppLocalizations.of(
-                                            context)
+                                            context)!
                                         .bookingListScreen_noRequestedBookings,
                                     bookings: requested,
                                     refresh: refresh,

@@ -18,7 +18,7 @@ class ActivityStatusUpdateBloc {
 
   ActivityStatusUpdateBloc() {
     _eventStream.listen((vendorActivityOverviewData) async {
-      VendorActivtyObject vendorActivtyObject =
+      VendorActivtyObject? vendorActivtyObject =
           await VendorActivityOverviewService.updateActivityStatus(
               vendorActivityOverviewData);
       if (vendorActivtyObject != null) {

@@ -28,7 +28,7 @@ class VendorDemandScreen extends DateStatefulWidget {
 
 class _ProviderRequirementState extends DateState<VendorDemandScreen> {
   final NetworkObserver network = getIt.get<NetworkObserver>();
-  SelectedDate _selectedDate;
+  SelectedDate? _selectedDate;
   double borderRadius = 10;
   double celldiff = 8;
   DateParameters dateParameters = new DateParameters();
@@ -195,7 +195,7 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
                     if (snapshot.hasError) {
                       return Text('${snapshot.error}');
                     } else {
-                      productsList = snapshot.data.productsList;
+                      productsList = snapshot.data!.productsList!;
                       if (productsList.isEmpty) {
                         return showEmptyView();
                       } else {
@@ -240,7 +240,7 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            AppLocalizations.of(context)
+                                            AppLocalizations.of(context)!
                                                 .commonWords_products,
                                             textAlign: TextAlign.start,
                                             style: TextStyle(
@@ -255,7 +255,7 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
                                             ),
                                           ),
                                           Text(
-                                            AppLocalizations.of(context)
+                                            AppLocalizations.of(context)!
                                                 .vendor_table_count,
                                             textAlign: TextAlign.start,
                                             style: TextStyle(
@@ -381,7 +381,7 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
     if (dateValue == SelectedDate.TODAY) {
       _selectedDate = SelectedDate.TODAY;
       dateParameters.getTodayParams();
-      dateOptionsBloc.updateSelectedDate(_selectedDate);
+      dateOptionsBloc.updateSelectedDate(_selectedDate!);
       dateOptionsBloc.eventSink.add(DateOptionsAction.SelectedDate);
       vendorDemandBloc.updateDateParams(dateParameters);
       vendorDemandBloc.eventSink
@@ -389,7 +389,7 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
     } else if (dateValue == SelectedDate.TOMORROW) {
       _selectedDate = SelectedDate.TOMORROW;
       dateParameters.getTomorrowParams();
-      dateOptionsBloc.updateSelectedDate(_selectedDate);
+      dateOptionsBloc.updateSelectedDate(_selectedDate!);
       dateOptionsBloc.eventSink.add(DateOptionsAction.SelectedDate);
       vendorDemandBloc.updateDateParams(dateParameters);
       vendorDemandBloc.eventSink
@@ -397,14 +397,14 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
     } else if (dateValue == SelectedDate.WEEK) {
       _selectedDate = SelectedDate.WEEK;
       dateParameters.getWeekParams();
-      dateOptionsBloc.updateSelectedDate(_selectedDate);
+      dateOptionsBloc.updateSelectedDate(_selectedDate!);
       dateOptionsBloc.eventSink.add(DateOptionsAction.SelectedDate);
       vendorDemandBloc.updateDateParams(dateParameters);
       vendorDemandBloc.eventSink
           .add(VendorDemandBlocAction.FetchVendorDemandData);
     } else if (dateValue == SelectedDate.CUSTOM) {
       _selectedDate = SelectedDate.CUSTOM;
-      dateOptionsBloc.updateSelectedDate(_selectedDate);
+      dateOptionsBloc.updateSelectedDate(_selectedDate!);
       dateOptionsBloc.eventSink.add(DateOptionsAction.SelectedDate);
       vendorDemandBloc.updateDateParams(dateParameters);
       vendorDemandBloc.eventSink
@@ -418,7 +418,7 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
     } else if (GlobalDate.isToday(dateTime)) {
       _selectedDate = SelectedDate.TODAY;
       dateParameters.getTodayParams();
-      dateOptionsBloc.updateSelectedDate(_selectedDate);
+      dateOptionsBloc.updateSelectedDate(_selectedDate!);
       dateOptionsBloc.eventSink.add(DateOptionsAction.SelectedDate);
       vendorDemandBloc.updateDateParams(dateParameters);
       vendorDemandBloc.eventSink
@@ -426,15 +426,7 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
     } else if (GlobalDate.isTomorrow(dateTime)) {
       _selectedDate = SelectedDate.TOMORROW;
       dateParameters.getTomorrowParams();
-      dateOptionsBloc.updateSelectedDate(_selectedDate);
-      dateOptionsBloc.eventSink.add(DateOptionsAction.SelectedDate);
-      vendorDemandBloc.updateDateParams(dateParameters);
-      vendorDemandBloc.eventSink
-          .add(VendorDemandBlocAction.FetchVendorDemandData);
-    } else {
-      _selectedDate = SelectedDate.CUSTOM;
-      dateParameters.getCustomParams(dateTime);
-      dateOptionsBloc.updateSelectedDate(_selectedDate);
+      dateOptionsBloc.updateSelectedDate(_selectedDate!);
       dateOptionsBloc.eventSink.add(DateOptionsAction.SelectedDate);
       vendorDemandBloc.updateDateParams(dateParameters);
       vendorDemandBloc.eventSink
@@ -451,9 +443,9 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
     _showDateSelectorDialog(context: context);
   }
 
-  void _showDateSelectorDialog({BuildContext context}) {
+  void _showDateSelectorDialog({BuildContext? context}) {
     showDialog(
-      context: context,
+      context: context!,
       builder: (BuildContext context) => CalendarPopupView(
         barrierDismissible: true,
         minimumDate: DateTime.now().subtract(Duration(days: 730)),
@@ -479,8 +471,8 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
 }
 
 class DateParameters {
-  DateTime _fromDate;
-  DateTime _toDate;
+  DateTime? _fromDate;
+  DateTime? _toDate;
 
   void getTodayParams() {
     final now = DateTime.now();
@@ -502,7 +494,7 @@ class DateParameters {
   void getWeekParams() {
     final now = DateTime.now();
     _fromDate = DateTime(now.year, now.month, now.day);
-    _toDate = DateTime(_fromDate.year, _fromDate.month, _fromDate.day + 7);
+    _toDate = DateTime(_fromDate!.year, _fromDate!.month, _fromDate!.day + 7);
   }
 
   void getCustomParams(DateTime customDateTime) {
@@ -512,7 +504,7 @@ class DateParameters {
   }
 
   get toDate {
-    return _toDate.toIso8601String();
+    return _toDate!.toIso8601String();
   }
 
   set toDate(value) {
@@ -520,7 +512,7 @@ class DateParameters {
   }
 
   get fromDate {
-    return _fromDate.toIso8601String();
+    return _fromDate!.toIso8601String();
   }
 
   set fromDate(value) {

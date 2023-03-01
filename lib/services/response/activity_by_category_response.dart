@@ -10,8 +10,8 @@ class ActivityByCategoryResponse {
     this.data,
   });
 
-  int status;
-  List<ActivityCategoryDataModel> data;
+  int? status;
+  List<ActivityCategoryDataModel>? data;
 
   factory ActivityByCategoryResponse.fromJson(Map<String, dynamic> json) =>
       ActivityByCategoryResponse(

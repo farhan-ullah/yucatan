@@ -25,9 +25,9 @@ class VendorNextPayoutBloc {
   VendorNextPayoutBloc() {
     _eventStream.listen((event) async {
       if (event == VendorNextPayoutAction.FetchVendorNextPayout) {
-        VendorNextPayoutResponse response =
+        VendorNextPayoutResponse? response =
             await VendorPayouts.getNextPayoutForVendor();
-        _vendorNextPayoutSink.add(response);
+        _vendorNextPayoutSink.add(response!);
       }
     });
   }

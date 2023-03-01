@@ -2,9 +2,9 @@ import 'package:yucatan/models/booking_detailed_model.dart';
 import 'package:yucatan/services/response/api_error.dart';
 
 class BookingDetailedSingleResponseEntity {
-  int status;
-  BookingDetailedModel data;
-  ApiError errors;
+  int? status;
+  BookingDetailedModel? data;
+  ApiError? errors;
 
   BookingDetailedSingleResponseEntity({this.status, this.data, this.errors});
 

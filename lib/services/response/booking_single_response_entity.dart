@@ -4,7 +4,7 @@ import 'package:yucatan/services/response/api_error.dart';
 
 class BookingSingleResponseEntity
     with JsonConvert<BookingSingleResponseEntity> {
-  int status;
-  BookingModel data;
-  ApiError error;
+  int? status;
+  BookingModel? data;
+  ApiError? error;
 }

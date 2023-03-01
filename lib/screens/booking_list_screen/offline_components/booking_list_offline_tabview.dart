@@ -93,7 +93,7 @@ class BookingListOfflineView extends StatelessWidget
 
     return bookings!.length == 0
         ? CustomErrorEmptyScreen(
-            title: AppLocalizations.of(context).commonWords_mistake,
+            title: AppLocalizations.of(context)!.commonWords_mistake,
             description: noBookingsTitle,
             rive: RiveAnimation(
               riveFileName: 'tickets_animiert_loop.riv',
@@ -155,42 +155,61 @@ class BookingListOfflineView extends StatelessWidget
                     notificationAction: notificationAction!,
                     notificationData: notificationData,
                   ),
-                  actionPane: SlidableBehindActionPane(),
-                  actionExtentRatio: 0.4,
-                  secondaryActions: [
-                    SlideAction(
-                      onTap: () {
+
+                  startActionPane: ActionPane(
+                    motion:  const ScrollMotion(),
+                    children: [
+                    SlidableAction(
+                      onPressed:
+                          (value) {
                         removeDeniedRequest!(bookings![index].id);
                       },
-                      decoration: BoxDecoration(
-                        color: CustomTheme.accentColor1,
-                        borderRadius: BorderRadius.circular(
-                            Dimensions.getScaledSize(16.0)),
-                      ),
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.delete_forever_outlined,
-                              size: Dimensions.getScaledSize(32.0),
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              height: Dimensions.getScaledSize(20.0),
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.commonWords_clear,
-                              style: TextStyle(
-                                fontSize: Dimensions.getScaledSize(16.0),
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      icon: Icons.delete_forever_outlined,
+                      label: AppLocalizations.of(context)!.commonWords_clear,
+
                     ),
+
+
                   ],
+
+                  ),
+
+                  // actionPane: SlidableBehindActionPane(),
+                  // actionExtentRatio: 0.4,
+                  // secondaryActions: [
+                  //   SlideAction(
+                  //     onTap: () {
+                  //       removeDeniedRequest!(bookings![index].id);
+                  //     },
+                  //     decoration: BoxDecoration(
+                  //       color: CustomTheme.accentColor1,
+                  //       borderRadius: BorderRadius.circular(
+                  //           Dimensions.getScaledSize(16.0)),
+                  //     ),
+                  //     child: Container(
+                  //       child: Column(
+                  //         mainAxisAlignment: MainAxisAlignment.center,
+                  //         children: [
+                  //           Icon(
+                  //             Icons.delete_forever_outlined,
+                  //             size: Dimensions.getScaledSize(32.0),
+                  //             color: Colors.white,
+                  //           ),
+                  //           SizedBox(
+                  //             height: Dimensions.getScaledSize(20.0),
+                  //           ),
+                  //           Text(
+                  //             AppLocalizations.of(context)!.commonWords_clear,
+                  //             style: TextStyle(
+                  //               fontSize: Dimensions.getScaledSize(16.0),
+                  //               color: Colors.white,
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ],
                 ),
                 SizedBox(height: Dimensions.getScaledSize(20))
               ],
@@ -200,7 +219,7 @@ class BookingListOfflineView extends StatelessWidget
             key: UniqueKey(),
             children: [
               BookingOfflineListViewItem(
-                booking: bookings[index],
+                booking: bookings![index],
                 bookingListCardType: bookingListCardType,
                 online: online,
                 notificationAction: notificationAction!,

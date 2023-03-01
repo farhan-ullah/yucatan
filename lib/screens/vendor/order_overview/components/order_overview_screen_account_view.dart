@@ -33,8 +33,8 @@ class _OrderOverviewScreenAccountViewState
     extends BaseState<OrderOverviewScreenAccountView> {
   //Future<TransactionMultiResponseEntity> _transactionsFuture;
   //bool isNetworkAvailable = true;
-  VendorPayoutsResponse vendorPayoutsResponse;
-  VendorAccountBalanceResponse vendorAccountBalanceResponse;
+  VendorPayoutsResponse? vendorPayoutsResponse;
+  VendorAccountBalanceResponse? vendorAccountBalanceResponse;
   final vendorPayoutsBloc = getIt.get<VendorPayoutsBloc>();
   final vendorAccountBalanceBloc = getIt.get<VendorAccountBalanceBloc>();
   final transactionsForDateRangeBloc =
@@ -62,7 +62,7 @@ class _OrderOverviewScreenAccountViewState
             return showPlaceholder();
           }
           if (snapshot.hasData) {
-            if (snapshot.data.data == null) {
+            if (snapshot.data!.data == null) {
               return Container(
                 margin: const EdgeInsets.only(
                   left: 15.0,
@@ -74,7 +74,7 @@ class _OrderOverviewScreenAccountViewState
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Center(
+                child: const Center(
                   child: Text('Kontoübersicht kann nicht angezeigt werden'),
                 ),
               );
@@ -87,16 +87,16 @@ class _OrderOverviewScreenAccountViewState
               builder: (context, snapshotAccountBalance) {
                 switch (snapshotAccountBalance.connectionState) {
                   case ConnectionState.waiting:
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   default:
                     if (snapshotAccountBalance.hasError) {
                       return Container(
                         height: MediaQuery.of(context).size.height * 0.85,
-                        margin: EdgeInsets.all(16.0),
+                        margin: const EdgeInsets.all(16.0),
                         color: CustomTheme.backgroundColor,
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             'Kontoübersicht nicht verfügbar',
                             style: TextStyle(
@@ -109,10 +109,10 @@ class _OrderOverviewScreenAccountViewState
                         ),
                       );
                     } else {
-                      this.vendorAccountBalanceResponse =
-                          snapshotAccountBalance.data;
+                      // this.vendorAccountBalanceResponse =
+                      //     snapshotAccountBalance.data;
                       transactionsForDateRangeBloc
-                          .sendVendorPayoutResponse(this.vendorPayoutsResponse);
+                          .sendVendorPayoutResponse(this.vendorPayoutsResponse!);
                       transactionsForDateRangeBloc.eventSink.add(
                           TransactionsForDateRangeBlocAction
                               .FetchVendorTransactions);
@@ -123,7 +123,7 @@ class _OrderOverviewScreenAccountViewState
                             .vendorTransactionStream,
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            if (snapshot.data.data == null) {
+                            if (snapshot.data!.data == null) {
                               return Container(
                                 margin: const EdgeInsets.only(
                                   left: 15.0,
@@ -135,7 +135,7 @@ class _OrderOverviewScreenAccountViewState
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(16),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text(
                                       'Kontoübersicht kann nicht angezeigt werden'),
                                 ),
@@ -143,7 +143,7 @@ class _OrderOverviewScreenAccountViewState
                             }
 
                             List<TransactionModel> transactionDataList =
-                                snapshot.data.transactionDataList;
+                                snapshot.data!.transactionDataList;
 
                             vendorNextPayoutBloc.eventSink.add(
                                 VendorNextPayoutAction.FetchVendorNextPayout);
@@ -152,7 +152,7 @@ class _OrderOverviewScreenAccountViewState
                               decoration: BoxDecoration(
                                 color: CustomTheme.backgroundColor,
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(16)),
+                                    const BorderRadius.all(Radius.circular(16)),
                               ),
                               height: double.infinity,
                               margin: const EdgeInsets.only(
@@ -163,11 +163,11 @@ class _OrderOverviewScreenAccountViewState
                               child: Column(
                                 children: [
                                   Container(
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       color: CustomTheme.accentColor3,
                                       borderRadius: BorderRadius.only(
-                                        topLeft: const Radius.circular(16),
-                                        topRight: const Radius.circular(16),
+                                        topLeft: Radius.circular(16),
+                                        topRight: Radius.circular(16),
                                       ),
                                     ),
                                     child: Row(
@@ -191,9 +191,9 @@ class _OrderOverviewScreenAccountViewState
                                               Align(
                                                 alignment: Alignment.centerLeft,
                                                 child: Container(
-                                                  padding: EdgeInsets.only(
+                                                  padding: const EdgeInsets.only(
                                                       top: 10.0),
-                                                  child: Text(
+                                                  child: const Text(
                                                     'Kontostand',
                                                     style: TextStyle(
                                                       fontWeight:
@@ -222,7 +222,7 @@ class _OrderOverviewScreenAccountViewState
                                                             .centerLeft,
                                                         child: Container(
                                                           padding:
-                                                              EdgeInsets.only(
+                                                              const EdgeInsets.only(
                                                                   bottom: 8.0),
                                                           child: Text(
                                                             //"Nächste Auszahlung ${DateFormat('dd.MM.y').format(DateTime.now())}",
@@ -236,7 +236,7 @@ class _OrderOverviewScreenAccountViewState
                                                     default:
                                                       if (snapshot.hasError) {
                                                         return Container(
-                                                          child: Text(''),
+                                                          child: const Text(''),
                                                         );
                                                       } else {
                                                         return Align(
@@ -244,12 +244,12 @@ class _OrderOverviewScreenAccountViewState
                                                               .centerLeft,
                                                           child: Container(
                                                             padding:
-                                                                EdgeInsets.only(
+                                                                const EdgeInsets.only(
                                                                     bottom:
                                                                         8.0),
                                                             child: Text(
                                                               //"Nächste Auszahlung ${DateFormat('dd.MM.y').format(DateTime.now())}",
-                                                              "Nächste Auszahlung ${DateFormat('dd.MM.y').format(snapshot.data.data.payoutDate)}",
+                                                              "Nächste Auszahlung ${DateFormat('dd.MM.y').format(snapshot.data!.data!.payoutDate!)}",
                                                               style: TextStyle(
                                                                   color: CustomTheme
                                                                       .lightGrey),
@@ -280,13 +280,13 @@ class _OrderOverviewScreenAccountViewState
                                                   return Expanded(
                                                     flex: 3,
                                                     child: Container(
-                                                      padding: EdgeInsets.only(
+                                                      padding: const EdgeInsets.only(
                                                         top: 25,
                                                         bottom: 25,
                                                       ),
                                                       child: Text(
                                                         '${formatPriceDouble(snapshot?.data?.data?.net ?? 0)}€',
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           color: CustomTheme
@@ -303,7 +303,7 @@ class _OrderOverviewScreenAccountViewState
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 4,
                                   ),
                                   Container(
@@ -313,12 +313,12 @@ class _OrderOverviewScreenAccountViewState
                                         Expanded(
                                           flex: 2,
                                           child: Container(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                               left: 10.0,
                                               top: 15.0,
                                               bottom: 4.0,
                                             ),
-                                            child: Text(
+                                            child: const Text(
                                               'Datum',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -331,11 +331,11 @@ class _OrderOverviewScreenAccountViewState
                                         Expanded(
                                           flex: 1,
                                           child: Container(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                               top: 15.0,
                                               bottom: 4.0,
                                             ),
-                                            child: Align(
+                                            child: const Align(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
                                                 'Anz.',
@@ -352,11 +352,11 @@ class _OrderOverviewScreenAccountViewState
                                         Expanded(
                                           flex: 3,
                                           child: Container(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                               top: 15.0,
                                               bottom: 4.0,
                                             ),
-                                            child: Text(
+                                            child: const Text(
                                               'Kunde',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -369,12 +369,12 @@ class _OrderOverviewScreenAccountViewState
                                         Expanded(
                                           flex: 2,
                                           child: Container(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                               right: 10.0,
                                               top: 15.0,
                                               bottom: 4.0,
                                             ),
-                                            child: Text(
+                                            child: const Text(
                                               'Betrag(€)',
                                               textAlign: TextAlign.end,
                                               style: TextStyle(
@@ -394,20 +394,20 @@ class _OrderOverviewScreenAccountViewState
                                       children: [
                                         Flexible(
                                           child: Container(
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               color: CustomTheme.accentColor2,
                                               borderRadius: BorderRadius.only(
                                                 bottomLeft:
-                                                    const Radius.circular(16),
+                                                    Radius.circular(16),
                                                 bottomRight:
-                                                    const Radius.circular(16),
+                                                    Radius.circular(16),
                                               ),
                                             ),
                                             /*ListView **/
                                             child: ListView.builder(
-                                              physics: ClampingScrollPhysics(),
+                                              physics: const ClampingScrollPhysics(),
                                               shrinkWrap: true,
-                                              padding: EdgeInsets.symmetric(
+                                              padding: const EdgeInsets.symmetric(
                                                   vertical: 0),
                                               itemCount:
                                                   transactionDataList.length,
@@ -427,7 +427,7 @@ class _OrderOverviewScreenAccountViewState
 
                                                 transactionModelObject.tickets =
                                                     transactionModelObject
-                                                        .tickets
+                                                        .tickets!
                                                         .where((element) =>
                                                             element.state ==
                                                             'USED')
@@ -437,7 +437,7 @@ class _OrderOverviewScreenAccountViewState
                                                             .tickets ==
                                                         null ||
                                                     transactionModelObject
-                                                            .tickets.length ==
+                                                            .tickets!.length ==
                                                         0) return Container();
 
                                                 TransactionModel prev;
@@ -478,7 +478,7 @@ class _OrderOverviewScreenAccountViewState
                                                                 flex: 4,
                                                                 child:
                                                                     Container(
-                                                                  padding: EdgeInsets
+                                                                  padding: const EdgeInsets
                                                                       .only(
                                                                           left:
                                                                               10.0),
@@ -487,7 +487,7 @@ class _OrderOverviewScreenAccountViewState
                                                                         transactionDataList,
                                                                         index),
                                                                     style:
-                                                                        TextStyle(
+                                                                        const TextStyle(
                                                                       color: Colors
                                                                           .white,
                                                                     ),
@@ -498,11 +498,11 @@ class _OrderOverviewScreenAccountViewState
                                                                 flex: 7,
                                                                 child:
                                                                     Container(
-                                                                  padding: EdgeInsets
+                                                                  padding: const EdgeInsets
                                                                       .only(
                                                                           left:
                                                                               10.0),
-                                                                  child: Text(
+                                                                  child: const Text(
                                                                     'Letzte Auszahlung',
                                                                     maxLines: 1,
                                                                     overflow:
@@ -520,13 +520,13 @@ class _OrderOverviewScreenAccountViewState
                                                                 flex: 5,
                                                                 child:
                                                                     Container(
-                                                                  padding: EdgeInsets.only(
+                                                                  padding: const EdgeInsets.only(
                                                                       left:
                                                                           10.0,
                                                                       right:
                                                                           10.0),
                                                                   child: Text(
-                                                                    '+ ${formatPriceDouble(transactionModelObject.payoutData.net == null ? 0 : transactionModelObject.payoutData.net)}',
+                                                                    '+ ${formatPriceDouble(transactionModelObject.payoutData!.net! ?? 0)}',
                                                                     textAlign:
                                                                         TextAlign
                                                                             .end,
@@ -535,7 +535,7 @@ class _OrderOverviewScreenAccountViewState
                                                                         TextOverflow
                                                                             .ellipsis,
                                                                     style:
-                                                                        TextStyle(
+                                                                        const TextStyle(
                                                                       color: Colors
                                                                           .white,
                                                                     ),
@@ -561,7 +561,7 @@ class _OrderOverviewScreenAccountViewState
                                                             ? BoxDecoration(
                                                                 color: CustomTheme
                                                                     .backgroundColor,
-                                                                borderRadius: BorderRadius.only(
+                                                                borderRadius: const BorderRadius.only(
                                                                     bottomRight:
                                                                         Radius.circular(
                                                                             15.0),
@@ -574,7 +574,7 @@ class _OrderOverviewScreenAccountViewState
                                                                     color: CustomTheme
                                                                         .backgroundColor,
                                                                     borderRadius:
-                                                                        BorderRadius
+                                                                        const BorderRadius
                                                                             .only(
                                                                       topRight:
                                                                           Radius.circular(
@@ -604,14 +604,14 @@ class _OrderOverviewScreenAccountViewState
                                                                 flex: 2,
                                                                 child:
                                                                     Container(
-                                                                  padding: EdgeInsets
+                                                                  padding: const EdgeInsets
                                                                       .only(
                                                                           left:
                                                                               10.0),
                                                                   child: Text(
                                                                     '${_getDateWithFormat(transactionDataList, index)}',
                                                                     style:
-                                                                        TextStyle(
+                                                                        const TextStyle(
                                                                       color: CustomTheme
                                                                           .primaryColor,
                                                                     ),
@@ -623,14 +623,14 @@ class _OrderOverviewScreenAccountViewState
                                                                 flex: 1,
                                                                 child:
                                                                     Container(
-                                                                  padding: EdgeInsets
+                                                                  padding: const EdgeInsets
                                                                       .only(
                                                                           left:
                                                                               10.0),
                                                                   child: Text(
                                                                     '${_getAmountTickets(transactionDataList, index)}',
                                                                     style:
-                                                                        TextStyle(
+                                                                        const TextStyle(
                                                                       color: CustomTheme
                                                                           .primaryColor,
                                                                     ),
@@ -648,7 +648,7 @@ class _OrderOverviewScreenAccountViewState
                                                                   child: Text(
                                                                     '${_getCustomer(transactionDataList, index)}',
                                                                     style:
-                                                                        TextStyle(
+                                                                        const TextStyle(
                                                                       color: CustomTheme
                                                                           .primaryColor,
                                                                     ),
@@ -661,7 +661,7 @@ class _OrderOverviewScreenAccountViewState
                                                                 child:
                                                                     Container(
                                                                   padding:
-                                                                      EdgeInsets
+                                                                      const EdgeInsets
                                                                           .only(
                                                                     right: 10.0,
                                                                   ),
@@ -671,7 +671,7 @@ class _OrderOverviewScreenAccountViewState
                                                                         TextAlign
                                                                             .end,
                                                                     style:
-                                                                        TextStyle(
+                                                                        const TextStyle(
                                                                       color: CustomTheme
                                                                           .primaryColor,
                                                                     ),
@@ -680,10 +680,10 @@ class _OrderOverviewScreenAccountViewState
                                                               ),
                                                             ],
                                                           ),
-                                                          SizedBox(
+                                                          const SizedBox(
                                                             height: 5,
                                                           ),
-                                                          Divider(
+                                                          const Divider(
                                                             height: 9.0,
                                                             thickness: 1.0,
                                                             indent: 12.0,
@@ -707,9 +707,9 @@ class _OrderOverviewScreenAccountViewState
                           } else if (snapshot.hasError) {
                             return Container(
                               height: MediaQuery.of(context).size.height * 0.85,
-                              margin: EdgeInsets.all(16.0),
+                              margin: const EdgeInsets.all(16.0),
                               color: CustomTheme.backgroundColor,
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   'Kontoübersicht nicht verfügbar',
                                   style: TextStyle(
@@ -723,7 +723,7 @@ class _OrderOverviewScreenAccountViewState
                             );
                           } else {
                             //LoadingSpinner
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(),
                             );
                           }
@@ -736,9 +736,9 @@ class _OrderOverviewScreenAccountViewState
           } else if (snapshot.hasError) {
             return Container(
               height: MediaQuery.of(context).size.height * 0.85,
-              margin: EdgeInsets.all(16.0),
+              margin: const EdgeInsets.all(16.0),
               color: CustomTheme.backgroundColor,
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Kontoübersicht nicht verfügbar',
                   style: TextStyle(
@@ -752,7 +752,7 @@ class _OrderOverviewScreenAccountViewState
             );
           } else {
             //LoadingSpinner
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -787,28 +787,28 @@ class _OrderOverviewScreenAccountViewState
   //   return DateFormat('d.M.y').format(date);
   // }
 
-  String _getDateWithFormat(List<TransactionModel> transactionList, num index) {
+  String _getDateWithFormat(List<TransactionModel> transactionList, int index) {
     var date = transactionList[index].dateTime;
     //formats Date: DD.MM.YYYY
-    return DateFormat('dd.MM.yyyy', "de-DE").format(date);
+    return DateFormat('dd.MM.yyyy', "de-DE").format(date!);
   }
 
   //DateFormat('MMMM yyyy', "de-DE").format(widget.booking.dateTime)
-  String _getAmountTickets(List<TransactionModel> transactionList, num index) {
+  String _getAmountTickets(List<TransactionModel> transactionList, int index) {
     if (transactionList[index].isPayoutObject) {
       return "isPayoutObject";
     } else {
-      var amountTickets = transactionList[index].tickets.length;
+      var amountTickets = transactionList[index].tickets!.length;
       return amountTickets.toString();
     }
   }
 
-  String _getCustomer(List<TransactionModel> transactionList, num index) {
+  String _getCustomer(List<TransactionModel> transactionList, int index) {
     if (transactionList[index].isPayoutObject) {
       return "isPayoutObject";
     } else {
       var customer = transactionList[index].buyer;
-      return customer;
+      return customer!;
     }
   }
 
@@ -818,13 +818,13 @@ class _OrderOverviewScreenAccountViewState
   // }
 
   double _getAmountMoneyDouble(
-      List<TransactionModel> transactionList, num index) {
+      List<TransactionModel> transactionList, int index) {
     var totalValue = 0.0;
 
-    transactionList[index].tickets.forEach((element) {
+    transactionList[index].tickets!.forEach((element) {
       if (element.state != 'USED') return;
 
-      totalValue += element.price;
+      totalValue += element.price!;
     });
 
     return totalValue;

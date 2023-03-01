@@ -366,17 +366,17 @@ class _SearchScreenState extends DateState<SearchScreen> {
                 )
               : activityMultiResponse != null &&
                       activityMultiResponse.data != null &&
-                      activityMultiResponse.data.length > 0
+                      activityMultiResponse.data!.length > 0
                   ? Expanded(
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: ListView.builder(
                           itemBuilder: (context, index) {
                             return ActivitySearchListViewItem(
-                              activity: activityMultiResponse.data[index],
+                              activity: activityMultiResponse.data![index],
                             );
                           },
-                          itemCount: activityMultiResponse.data.length,
+                          itemCount: activityMultiResponse.data!.length,
                           scrollDirection: Axis.vertical,
                         ),
                       ),

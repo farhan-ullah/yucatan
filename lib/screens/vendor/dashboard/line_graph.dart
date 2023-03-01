@@ -20,8 +20,8 @@ class VendorStatisticGraph extends StatefulWidget {
 class _VendorStatisticGraphState extends BaseState<VendorStatisticGraph> {
   /*DateTime _dateFrom;
   DateTime _dateTo;*/
-  List<DailyRevenueItem> fullItemsList;
-  VendorBookingStatisticSingleResponseEntity
+  List<DailyRevenueItem>? fullItemsList;
+  VendorBookingStatisticSingleResponseEntity?
       vendorBookingStatisticSingleResponseEntity;
   //int _numberOfDays = 8;
   //double _maxRevenue = 100;
@@ -73,7 +73,7 @@ class _VendorStatisticGraphState extends BaseState<VendorStatisticGraph> {
             );
           default:
             if (snapshot.hasError) {
-              return Center(child: Text(''));
+              return const Center(child: Text(''));
             } else {
               this.vendorBookingStatisticSingleResponseEntity = snapshot.data;
               return Column(
@@ -84,7 +84,7 @@ class _VendorStatisticGraphState extends BaseState<VendorStatisticGraph> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          AppLocalizations.of(context)
+                          AppLocalizations.of(context)!
                               .vendor_dashboardScreen_weeklyStatistics,
                           textAlign: TextAlign.start,
                           style: TextStyle(
@@ -96,7 +96,7 @@ class _VendorStatisticGraphState extends BaseState<VendorStatisticGraph> {
                       )),
                   Expanded(
                     child: Container(
-                      margin: EdgeInsets.only(right: 10, top: 10),
+                      margin: const EdgeInsets.only(right: 10, top: 10),
                       child: LineChart(
                         LineChartData(
                           lineTouchData: LineTouchData(
@@ -130,14 +130,13 @@ class _VendorStatisticGraphState extends BaseState<VendorStatisticGraph> {
                             ],
                           ),
                           lineBarsData: [
-                            getLineChartBarData(this
-                                .vendorBookingStatisticSingleResponseEntity
-                                .fullItemsList)
+                            getLineChartBarData(vendorBookingStatisticSingleResponseEntity
+                                !.fullItemsList!)
                           ],
                           gridData: FlGridData(show: false),
                           borderData: FlBorderData(
                             show: true,
-                            border: Border(
+                            border: const Border(
                               bottom: BorderSide(
                                 color: Color(0xff4e4965),
                                 width: 1,
@@ -155,19 +154,22 @@ class _VendorStatisticGraphState extends BaseState<VendorStatisticGraph> {
                             ),
                           ),
                           titlesData: FlTitlesData(
-                            leftTitles: SideTitles(
-                              interval:
-                                  (vendorBookingStatisticSingleResponseEntity
-                                              .maxRevenue /
-                                          5.0)
-                                      .round()
-                                      .toDouble(),
-                              getTitles: (value) {
-                                return "${value.round()} €";
-                              },
-                              showTitles: true,
-                              margin: 5,
-                              reservedSize: 40,
+
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                interval:
+                                (vendorBookingStatisticSingleResponseEntity
+                                    !.maxRevenue /
+                                    5.0)
+                                    .round()
+                                    .toDouble(),
+
+                                // getTitles: (value) {
+                                //   return "${value.round()} €";
+                                // },
+                                showTitles: true,
+                                reservedSize: 40,
+                              ),
                             ),
                           ),
                         ),
@@ -179,7 +181,7 @@ class _VendorStatisticGraphState extends BaseState<VendorStatisticGraph> {
                     children: [
                       Expanded(
                         child: Container(
-                          margin: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                          margin: const EdgeInsets.fromLTRB(10, 0, 0, 5),
                           child: Column(
                             children: [
                               Align(
@@ -198,7 +200,7 @@ class _VendorStatisticGraphState extends BaseState<VendorStatisticGraph> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "${formatPriceDoubleWithCurrency(vendorBookingStatisticSingleResponseEntity.data.revenue)}",
+                                  formatPriceDoubleWithCurrency(vendorBookingStatisticSingleResponseEntity!.data!.revenue!),
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                       fontSize: Dimensions.getScaledSize(16.0),
@@ -213,7 +215,7 @@ class _VendorStatisticGraphState extends BaseState<VendorStatisticGraph> {
                       ),
                       Expanded(
                         child: Container(
-                          margin: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                          margin: const EdgeInsets.fromLTRB(10, 0, 0, 5),
                           child: Column(
                             children: [
                               Align(
@@ -232,7 +234,7 @@ class _VendorStatisticGraphState extends BaseState<VendorStatisticGraph> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "${vendorBookingStatisticSingleResponseEntity.data.numberOfBookings} Stk.",
+                                  "${vendorBookingStatisticSingleResponseEntity!.data!.numberOfBookings} Stk.",
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                       fontSize: Dimensions.getScaledSize(16.0),
@@ -259,11 +261,12 @@ class _VendorStatisticGraphState extends BaseState<VendorStatisticGraph> {
     List<FlSpot> spotsList = [];
     for (int i = 0; i < items.length; i++) {
       DailyRevenueItem dailyRevenueItem = items[i];
-      spotsList.add(FlSpot(i.toDouble(), dailyRevenueItem.revenue));
+      spotsList.add(FlSpot(i.toDouble(), dailyRevenueItem.revenue!));
     }
     return LineChartBarData(
       spots: spotsList,
-      colors: [CustomTheme.accentColor2],
+      color: CustomTheme.accentColor2,
+      // [CustomTheme.accentColor2],
       isCurved: false,
       dotData: FlDotData(show: false),
     );

@@ -1,10 +1,10 @@
 import 'package:yucatan/models/booking_model.dart';
 
 class PaymentResponse {
-  int status;
-  bool success;
-  BookingModel booking;
-  PaymentThreeDSecure threeDSecurePayment;
+  int? status;
+  bool? success;
+  BookingModel? booking;
+  PaymentThreeDSecure? threeDSecurePayment;
 
   PaymentResponse({
     this.status,
@@ -28,8 +28,8 @@ class PaymentResponse {
 }
 
 class PaymentThreeDSecure {
-  String status;
-  String url;
+  String? status;
+  String? url;
 
   PaymentThreeDSecure({
     this.status,

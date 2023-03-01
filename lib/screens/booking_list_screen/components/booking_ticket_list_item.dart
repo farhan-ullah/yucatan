@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:screen/screen.dart';
+// import 'package:screen/screen.dart';
 
 class BookingTicketListItem extends StatefulWidget {
   final ActivityModel activity;
@@ -186,7 +186,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            AppLocalizations.of(context)
+                                            AppLocalizations.of(context)!
                                                 .bookingListScreen_singleTicket,
                                             style: TextStyle(
                                               fontSize:
@@ -243,7 +243,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                                               Dimensions.getScaledSize(5.0)),
                                           child: Center(
                                             child: Text(
-                                              AppLocalizations.of(context)
+                                              AppLocalizations.of(context)!
                                                   .bookingListScreen_entireBooking,
                                               style: TextStyle(
                                                 fontSize:
@@ -294,7 +294,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                                                 Dimensions.getScaledSize(5.0)),
                                             child: Center(
                                               child: Text(
-                                                AppLocalizations.of(context)
+                                                AppLocalizations.of(context)!
                                                     .commonWords_refund,
                                                 style: TextStyle(
                                                   fontSize:
@@ -614,7 +614,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                                                     : CustomTheme.darkGrey,
                                           ),
                                           Text(
-                                            AppLocalizations.of(context)
+                                            AppLocalizations.of(context)!
                                                 .commonWords_refund,
                                             style: TextStyle(
                                               fontSize:
@@ -977,9 +977,9 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
       _showProgress = false;
     });
 
-    if (result.error != null) {
+    if (result!.error != null) {
       Fluttertoast.showToast(
-          msg: result.error.message,
+          msg: result.error!.message,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           backgroundColor: Color(0xff656565).withOpacity(0.9),
@@ -1021,8 +1021,8 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
       _showProgress = false;
     });
 
-    if (result.status == 200) {
-      Screen.setBrightness(widget.initialBrightness);
+    if (result!.status == 200) {
+      // Screen.setBrightness(widget.initialBrightness);
       Fluttertoast.showToast(
           msg: AppLocalizations.of(context)!.bookingListScreen_refundSuccess,
           toastLength: Toast.LENGTH_LONG,
@@ -1044,9 +1044,9 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
           return;
         }
 
-        NotificationService.initialize(null).then((service) {
-          service.cancelScheduleNotification(value.notificationId);
-        });
+        // NotificationService.initialize(null).then((service) {
+        //   service.cancelScheduleNotification(value.notificationId);
+        // });
       });
       HiveService.deleteScheduledNotification(widget.booking.id!);
       HiveService.updateDatabase();

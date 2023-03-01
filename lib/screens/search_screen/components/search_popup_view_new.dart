@@ -22,7 +22,7 @@ class SearchPopupView extends StatefulWidget {
   final bool visible;
   final Function onBackTap;
   final List<String> favoriteList;
-  final UserLoginModel userData;
+  final UserLoginModel? userData;
 
   SearchPopupView({
     required this.height,
@@ -38,7 +38,7 @@ class SearchPopupView extends StatefulWidget {
 
 class _SearchPopupViewState extends State<SearchPopupView>
     with WidgetsBindingObserver {
-  Future<ActivityMultiResponse> activityMultiResponse;
+  Future<ActivityMultiResponse>? activityMultiResponse;
   List<String> _searchTerms = [];
   TextEditingController _searchTextController = TextEditingController();
   List _suggestionList = [];
@@ -47,8 +47,8 @@ class _SearchPopupViewState extends State<SearchPopupView>
   bool _isActivitySearching = false;
   static const MAX_LAST_SEARCH = 6;
   bool _isSearchingSuggestion = false;
-  Timer _debounce;
-  FocusNode _searchFocusNode;
+  Timer? _debounce;
+  FocusNode? _searchFocusNode;
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _SearchPopupViewState extends State<SearchPopupView>
     eventBus.on<OnSearchPopUpOpen>().listen((event) {
       if (event.isSearchPopWidgetVisible) {
         FocusScope.of(context).requestFocus(_searchFocusNode);
-        _searchFocusNode.addListener(() {
+        _searchFocusNode!.addListener(() {
           _suggestionList.clear();
           setState(() {
             _isSearching = true;
@@ -79,15 +79,15 @@ class _SearchPopupViewState extends State<SearchPopupView>
   @override
   void dispose() {
     if (_searchTextController != null) _searchTextController.dispose();
-    if (_searchFocusNode != null) _searchFocusNode.dispose();
+    if (_searchFocusNode != null) _searchFocusNode!.dispose();
     super.dispose();
   }
 
   void checkLocalHistory() {
     _getLocalSearchHistory().then((value) {
       setState(() {
-        value.sort((a, b) => -a.dateTime.compareTo(b.dateTime));
-        _localSearchHistory = value.map((e) => e.query).toSet().toList();
+        value.sort((a, b) => a.dateTime!.compareTo(b.dateTime!));
+        // _localSearchHistory = value.map((e) => e.query).toSet().toList();
       });
     });
   }
@@ -109,6 +109,7 @@ class _SearchPopupViewState extends State<SearchPopupView>
         color: Colors.white,
       ),
       child: Visibility(
+        visible: widget.visible,
         child: Column(
           children: [
             Row(
@@ -141,7 +142,7 @@ class _SearchPopupViewState extends State<SearchPopupView>
                     color: CustomTheme.primaryColorDark,
                   ),
                   onChanged: (value) {
-                    if (_debounce?.isActive ?? false) _debounce.cancel();
+                    if (_debounce?.isActive ?? false) _debounce!.cancel();
                     _debounce = Timer(Duration(milliseconds: 500), () {
                       /*if(!_isSearching && value.isNotEmpty){
                         setState(() {
@@ -171,7 +172,7 @@ class _SearchPopupViewState extends State<SearchPopupView>
                   },*/
                   controller: _searchTextController,
                   minLines: 1,
-                  decoration: new InputDecoration(
+                  decoration: InputDecoration(
                     errorText: null,
                     hintText:
                         AppLocalizations.of(context)!.searchPopupView_title,
@@ -193,7 +194,7 @@ class _SearchPopupViewState extends State<SearchPopupView>
                         onTap: () {
                           setState(() {
                             _searchTextController.text = '';
-                            if (!_searchFocusNode.hasFocus) {
+                            if (!_searchFocusNode!.hasFocus) {
                               _isSearching = false;
                             }
                             _isActivitySearching = false;
@@ -275,7 +276,7 @@ class _SearchPopupViewState extends State<SearchPopupView>
                         if (snapshot.hasData) {
                           ActivityMultiResponse model =
                               snapshot.data as ActivityMultiResponse;
-                          return model.data.isNotEmpty
+                          return model.data!.isNotEmpty
                               ? ListView.builder(
                                   itemBuilder: (context, index) {
                                     return Padding(
@@ -283,10 +284,10 @@ class _SearchPopupViewState extends State<SearchPopupView>
                                         bottom: Dimensions.getScaledSize(5),
                                       ),
                                       child: SearchActivityItemView(
-                                        userData: widget.userData,
-                                        activity: model.data[index],
+                                        userData: widget.userData!,
+                                        activity: model.data![index],
                                         isfav: widget.favoriteList
-                                            .contains(model.data[index].sId),
+                                            .contains(model.data![index].sId),
                                         onFavoriteChangedCallback: (activity) {
                                           if (mounted) {
                                             setState(() {
@@ -294,9 +295,10 @@ class _SearchPopupViewState extends State<SearchPopupView>
                                                   .contains(activity.sId))
                                                 widget.favoriteList
                                                     .remove(activity.sId);
-                                              else
+                                              else {
                                                 widget.favoriteList
-                                                    .add(activity.sId);
+                                                    .add(activity.sId!);
+                                              }
                                             });
                                           }
                                         },
@@ -308,7 +310,7 @@ class _SearchPopupViewState extends State<SearchPopupView>
                                         MediaQuery.of(context).padding.bottom +
                                             Dimensions.getScaledSize(60),
                                   ),
-                                  itemCount: model.data.length,
+                                  itemCount: model.data!.length,
                                 )
                               : _getNoResultWidget(true);
                         }
@@ -321,7 +323,6 @@ class _SearchPopupViewState extends State<SearchPopupView>
                 : Container(),
           ],
         ),
-        visible: widget.visible,
       ),
     );
   }
@@ -496,12 +497,12 @@ class _SearchPopupViewState extends State<SearchPopupView>
     ActivityService.getSuggestions(
       query: query,
       items: 10,
-    ).then((value) {
+    )!.then((value) {
       // try {
       //   FocusScope.of(context).requestFocus(FocusNode());
       // } catch (e) {}
       setState(() {
-        _suggestionList = value;
+        _suggestionList = value!;
         _isSearchingSuggestion = false;
       });
     });

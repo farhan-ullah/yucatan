@@ -44,7 +44,7 @@ class UserService extends BaseService {
     print('Result After Registration : $result');
     if (result!.status == 200) {
       //Log firebase event
-      AnalyticsService.logRegistration(result.data.sId!, result.data.email!);
+      AnalyticsService.logRegistration(result.data!.sId!, result.data!.email!);
     }
 
     return result;

@@ -135,7 +135,7 @@ class _DetailedDescriptionScreenViewState
                 right: Dimensions.getScaledSize(24.0),
               ),
               child: Text(
-                widget.activity.activityDetails.longDescription,
+                widget.activity.activityDetails!.longDescription!,
               ),
             ),
             SizedBox(
@@ -154,7 +154,7 @@ class _DetailedDescriptionScreenViewState
               ),
               child: DescriptionItems(
                 descriptionItems:
-                    widget.activity.activityDetails.descriptionItems,
+                    widget.activity.activityDetails!.descriptionItems!,
                 shortDescription: false,
               ),
             ),
@@ -219,10 +219,10 @@ class _DetailedDescriptionScreenViewState
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: widget
-                            .activity.openingHours.regularOpeningHours.length,
+                            .activity.openingHours!.regularOpeningHours!.length,
                         itemBuilder: (BuildContext context, int index) {
                           RegularOpeningHours regularOpeningHours = widget
-                              .activity.openingHours.regularOpeningHours[index];
+                              .activity.openingHours!.regularOpeningHours![index];
                           DateTime date = DateTime.now();
                           return Column(
                             children: [
@@ -256,7 +256,7 @@ class _DetailedDescriptionScreenViewState
                                         children: [
                                           Container(
                                             child: Text(
-                                              "${_getDayFromDayOfWeek(regularOpeningHours.dayOfWeek)}",
+                                              "${_getDayFromDayOfWeek(regularOpeningHours.dayOfWeek!)}",
                                               style: TextStyle(
                                                 fontWeight: date.weekday ==
                                                         regularOpeningHours
@@ -273,12 +273,12 @@ class _DetailedDescriptionScreenViewState
                                             width:
                                                 Dimensions.getScaledSize(30.0),
                                           ),
-                                          regularOpeningHours.open
+                                          regularOpeningHours.open!
                                               ? Expanded(
                                                   child: ListView.builder(
                                                       itemCount:
                                                           regularOpeningHours
-                                                              .openingHours
+                                                              .openingHours!
                                                               .length,
                                                       shrinkWrap: true,
                                                       physics:
@@ -289,7 +289,7 @@ class _DetailedDescriptionScreenViewState
                                                         OpeningHoursItem
                                                             openingHoursItem =
                                                             regularOpeningHours
-                                                                    .openingHours[
+                                                                    .openingHours![
                                                                 index];
                                                         return Container(
                                                           margin: EdgeInsets
@@ -352,14 +352,14 @@ class _DetailedDescriptionScreenViewState
   }
 
   bool _shouldDisplayOpeningHours() {
-    return widget.activity.openingHours.regularOpeningHours != null &&
-        widget.activity.openingHours.regularOpeningHours.length > 0 &&
-        widget.activity.openingHours.regularOpeningHours.any((element) =>
+    return widget.activity.openingHours!.regularOpeningHours != null &&
+        widget.activity.openingHours!.regularOpeningHours!.length > 0 &&
+        widget.activity.openingHours!.regularOpeningHours!.any((element) =>
             element.openingHours != null &&
-            element.openingHours.length > 0 &&
-            element.openingHours.any((openingHoursElement) {
-              return isNotNullOrEmpty(openingHoursElement.end) ||
-                  isNotNullOrEmpty(openingHoursElement.start);
+            element.openingHours!.length > 0 &&
+            element.openingHours!.any((openingHoursElement) {
+              return isNotNullOrEmpty(openingHoursElement.end!) ||
+                  isNotNullOrEmpty(openingHoursElement.start!);
             }));
   }
 
@@ -383,7 +383,7 @@ class _DetailedDescriptionScreenViewState
   }
 
   void _sortOpeningHours() {
-    widget.activity.openingHours.regularOpeningHours.sort((a, b) {
+    widget.activity.openingHours!.regularOpeningHours!.sort((a, b) {
       if (a.dayOfWeek == 0 && b.dayOfWeek == 0) {
         return 0;
       } else if (a.dayOfWeek == 0 && b.dayOfWeek != 0) {
@@ -392,9 +392,9 @@ class _DetailedDescriptionScreenViewState
         return -1;
       } else if (a.dayOfWeek == b.dayOfWeek) {
         return 0;
-      } else if (a.dayOfWeek > b.dayOfWeek) {
+      } else if (a.dayOfWeek! > b.dayOfWeek!) {
         return 1;
-      } else if (a.dayOfWeek < b.dayOfWeek) {
+      } else if (a.dayOfWeek! < b.dayOfWeek!) {
         return -1;
       }
 

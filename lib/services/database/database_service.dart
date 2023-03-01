@@ -63,7 +63,7 @@ class HiveService {
     try {
       UserLoginModel? user = await UserProvider.getUser();
       BookingService.getAllForUserDetailed(user!.sId!).then((value) {
-        if (value != null && value.data != null) storeBooking(value.data);
+        if (value != null && value.data != null) storeBooking(value.data!);
       });
     } catch (exception) {
       print("Storing in database failed");

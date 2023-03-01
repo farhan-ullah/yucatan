@@ -18,8 +18,8 @@ class VendorActivtyOverviewResponse {
     this.data,
   });
 
-  int status;
-  List<VendorActivityOverviewData> data;
+  int? status;
+  List<VendorActivityOverviewData>? data;
 
   factory VendorActivtyOverviewResponse.fromJson(Map<String, dynamic> json) =>
       VendorActivtyOverviewResponse(
@@ -30,7 +30,7 @@ class VendorActivtyOverviewResponse {
 
   Map<String, dynamic> toJson() => {
         "status": status,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
       };
 }
 
@@ -50,18 +50,18 @@ class VendorActivityOverviewData {
     this.code,
   });
 
-  String id;
-  String title;
-  String publishingStatus;
-  Thumbnail thumbnail;
-  String vendor;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int numberOfBookings;
-  double priceFrom;
-  int reviewAverageRating;
-  int reviewCount;
-  String code;
+  String? id;
+  String? title;
+  String? publishingStatus;
+  Thumbnail? thumbnail;
+  String? vendor;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? numberOfBookings;
+  double? priceFrom;
+  int? reviewAverageRating;
+  int? reviewCount;
+  String? code;
 
   factory VendorActivityOverviewData.fromJson(Map<String, dynamic> json) =>
       VendorActivityOverviewData(
@@ -85,10 +85,10 @@ class VendorActivityOverviewData {
         "_id": id,
         "title": title,
         "publishingStatus": publishingStatus,
-        "thumbnail": thumbnail.toJson(),
+        "thumbnail": thumbnail!.toJson(),
         "vendor": vendor,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        "createdAt": createdAt!.toIso8601String(),
+        "updatedAt": updatedAt!.toIso8601String(),
         "numberOfBookings": numberOfBookings,
         "priceFrom": priceFrom,
         "reviewAverageRating": reviewAverageRating,
@@ -108,13 +108,13 @@ class ActivityDetails {
     this.reviews,
   });
 
-  Media media;
-  String title;
-  String shortDescription;
-  String longDescription;
-  List<DescriptionItem> descriptionItems;
-  int cancellation;
-  List<dynamic> reviews;
+  Media? media;
+  String? title;
+  String? shortDescription;
+  String? longDescription;
+  List<DescriptionItem>? descriptionItems;
+  int? cancellation;
+  List<dynamic>? reviews;
 
   factory ActivityDetails.fromJson(Map<String, dynamic> json) =>
       ActivityDetails(
@@ -131,14 +131,14 @@ class ActivityDetails {
       );
 
   Map<String, dynamic> toJson() => {
-        "media": media.toJson(),
+        "media": media!.toJson(),
         "title": title,
         "shortDescription": shortDescription,
         "longDescription": longDescription,
         "descriptionItems":
-            List<dynamic>.from(descriptionItems.map((x) => x.toJson())),
+            List<dynamic>.from(descriptionItems!.map((x) => x.toJson())),
         "cancellation": cancellation,
-        "reviews": List<dynamic>.from(reviews.map((x) => x)),
+        "reviews": List<dynamic>.from(reviews!.map((x) => x)),
       };
 }
 
@@ -150,10 +150,10 @@ class DescriptionItem {
     this.longDescription,
   });
 
-  String id;
-  int iconId;
-  String shortDescription;
-  String longDescription;
+  String? id;
+  int? iconId;
+  String? shortDescription;
+  String? longDescription;
 
   factory DescriptionItem.fromJson(Map<String, dynamic> json) =>
       DescriptionItem(
@@ -180,10 +180,10 @@ class Media {
     this.previewVideo,
   });
 
-  List<Thumbnail> photos;
-  List<dynamic> videos;
+  List<Thumbnail>? photos;
+  List<dynamic>? videos;
   dynamic previewVideoThumbnail;
-  Thumbnail cover;
+  Thumbnail? cover;
   dynamic previewVideo;
 
   factory Media.fromJson(Map<String, dynamic> json) => Media(
@@ -202,10 +202,10 @@ class Media {
       );
 
   Map<String, dynamic> toJson() => {
-        "photos": List<dynamic>.from(photos.map((x) => x.toJson())),
-        "videos": List<dynamic>.from(videos.map((x) => x)),
+        "photos": List<dynamic>.from(photos!.map((x) => x.toJson())),
+        "videos": List<dynamic>.from(videos!.map((x) => x)),
         "previewVideoThumbnail": previewVideoThumbnail,
-        "cover": cover.toJson(),
+        "cover": cover!.toJson(),
         "previewVideo": previewVideo,
       };
 }
@@ -223,15 +223,15 @@ class Thumbnail {
     this.virtualPath,
   });
 
-  String id = "";
-  String name = "";
-  String path = "";
-  String originalName = "";
-  String publicUrl = "";
-  Extension extension;
-  double sizeInMb = 0.0;
-  int v = 0;
-  String virtualPath = "";
+  String? id = "";
+  String? name = "";
+  String? path = "";
+  String? originalName = "";
+  String? publicUrl = "";
+  Extension? extension;
+  double? sizeInMb = 0.0;
+  int? v = 0;
+  String? virtualPath = "";
 
   factory Thumbnail.fromJson(Map<String, dynamic> json) => Thumbnail(
         id: json["_id"] == null ? '' : json["_id"],
@@ -239,7 +239,7 @@ class Thumbnail {
         path: json["path"],
         originalName: json["originalName"],
         publicUrl: json["publicUrl"],
-        extension: extensionValues.map[json["extension"]],
+        // extension: extensionValues.map[json["extension"]],
         sizeInMb: json["sizeInMb"].toDouble(),
         v: json["__v"],
         virtualPath: json["virtualPath"] == null ? null : json["virtualPath"],
@@ -251,7 +251,7 @@ class Thumbnail {
         "path": path,
         "originalName": originalName,
         "publicUrl": publicUrl,
-        "extension": extensionValues.reverse[extension],
+        // "extension": extensionValues.reverse[extension],
         "sizeInMb": sizeInMb,
         "__v": v,
         "virtualPath": virtualPath == null ? null : virtualPath,
@@ -260,7 +260,7 @@ class Thumbnail {
 
 enum Extension { JPG }
 
-final extensionValues = EnumValues({".jpg": Extension.JPG});
+// final extensionValues = EnumValues({".jpg": Extension.JPG});
 
 class BookingDetails {
   BookingDetails({
@@ -268,8 +268,8 @@ class BookingDetails {
     this.productCategories,
   });
 
-  String currency;
-  List<ProductCategory> productCategories;
+  String? currency;
+  List<ProductCategory>? productCategories;
 
   factory BookingDetails.fromJson(Map<String, dynamic> json) => BookingDetails(
         currency: json["currency"],
@@ -280,7 +280,7 @@ class BookingDetails {
   Map<String, dynamic> toJson() => {
         "currency": currency,
         "productCategories":
-            List<dynamic>.from(productCategories.map((x) => x.toJson())),
+            List<dynamic>.from(productCategories!.map((x) => x.toJson())),
       };
 }
 
@@ -292,10 +292,10 @@ class ProductCategory {
     this.subProductCategories,
   });
 
-  String id;
-  String title;
-  List<Product> products;
-  List<dynamic> subProductCategories;
+  String? id;
+  String? title;
+  List<Product>? products;
+  List<dynamic>? subProductCategories;
 
   factory ProductCategory.fromJson(Map<String, dynamic> json) =>
       ProductCategory(
@@ -312,9 +312,9 @@ class ProductCategory {
   Map<String, dynamic> toJson() => {
         "_id": id,
         "title": title,
-        "products": List<dynamic>.from(products.map((x) => x.toJson())),
+        "products": List<dynamic>.from(products!.map((x) => x.toJson())),
         "subProductCategories":
-            List<dynamic>.from(subProductCategories.map((x) => x)),
+            List<dynamic>.from(subProductCategories!.map((x) => x)),
       };
 }
 
@@ -332,16 +332,16 @@ class Product {
     this.additionalServices,
   });
 
-  bool selectAsPriceFrom;
-  bool requestRequired;
-  String id;
-  String title;
-  Thumbnail image;
-  String description;
-  Price price;
-  List<dynamic> properties;
-  String additionalServicesDescription;
-  List<dynamic> additionalServices;
+  bool? selectAsPriceFrom;
+  bool? requestRequired;
+  String? id;
+  String? title;
+  Thumbnail? image;
+  String? description;
+  Price? price;
+  List<dynamic>? properties;
+  String? additionalServicesDescription;
+  List<dynamic>? additionalServices;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         selectAsPriceFrom: json["selectAsPriceFrom"],
@@ -367,13 +367,13 @@ class Product {
         "requestRequired": requestRequired,
         "_id": id,
         "title": title,
-        "image": image.toJson(),
+        "image": image!.toJson(),
         "description": description,
-        "price": price.toJson(),
-        "properties": List<dynamic>.from(properties.map((x) => x)),
+        "price": price!.toJson(),
+        "properties": List<dynamic>.from(properties!.map((x) => x)),
         "additionalServicesDescription": additionalServicesDescription,
         "additionalServices":
-            List<dynamic>.from(additionalServices.map((x) => x)),
+            List<dynamic>.from(additionalServices!.map((x) => x)),
       };
 }
 
@@ -382,7 +382,7 @@ class Price {
     this.numberDecimal,
   });
 
-  String numberDecimal;
+  String? numberDecimal;
 
   factory Price.fromJson(Map<String, dynamic> json) => Price(
         numberDecimal: json["\u0024numberDecimal"],
@@ -402,11 +402,11 @@ class Category {
     this.v,
   });
 
-  String id;
-  String name;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int v;
+  String? id;
+  String? name;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? v;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["_id"],
@@ -423,8 +423,8 @@ class Category {
   Map<String, dynamic> toJson() => {
         "_id": id,
         "name": name,
-        "createdAt": createdAt == null ? null : createdAt.toIso8601String(),
-        "updatedAt": updatedAt == null ? null : updatedAt.toIso8601String(),
+        "createdAt": createdAt == null ? null : createdAt!.toIso8601String(),
+        "updatedAt": updatedAt == null ? null : updatedAt!.toIso8601String(),
         "__v": v,
       };
 }
@@ -441,14 +441,14 @@ class Location {
     this.lon,
   });
 
-  String city;
-  String country;
-  String housenumber;
-  String state;
-  String street;
-  int zipcode;
-  String lat;
-  String lon;
+  String? city;
+  String? country;
+  String? housenumber;
+  String? state;
+  String? street;
+  int? zipcode;
+  String? lat;
+  String? lon;
 
   factory Location.fromJson(Map<String, dynamic> json) => Location(
         city: json["city"],
@@ -482,11 +482,11 @@ class OpeningHours {
     this.seasonalOpeningHours,
   });
 
-  int timezone;
-  List<RegularOpeningHour> regularOpeningHours;
-  List<dynamic> additionalOpeningHours;
-  List<dynamic> specialOpeningHours;
-  List<dynamic> seasonalOpeningHours;
+  int? timezone;
+  List<RegularOpeningHour>? regularOpeningHours;
+  List<dynamic>? additionalOpeningHours;
+  List<dynamic>? specialOpeningHours;
+  List<dynamic>? seasonalOpeningHours;
 
   factory OpeningHours.fromJson(Map<String, dynamic> json) => OpeningHours(
         timezone: json["timezone"],
@@ -504,13 +504,13 @@ class OpeningHours {
   Map<String, dynamic> toJson() => {
         "timezone": timezone,
         "regularOpeningHours":
-            List<dynamic>.from(regularOpeningHours.map((x) => x.toJson())),
+            List<dynamic>.from(regularOpeningHours!.map((x) => x.toJson())),
         "additionalOpeningHours":
-            List<dynamic>.from(additionalOpeningHours.map((x) => x)),
+            List<dynamic>.from(additionalOpeningHours!.map((x) => x)),
         "specialOpeningHours":
-            List<dynamic>.from(specialOpeningHours.map((x) => x)),
+            List<dynamic>.from(specialOpeningHours!.map((x) => x)),
         "seasonalOpeningHours":
-            List<dynamic>.from(seasonalOpeningHours.map((x) => x)),
+            List<dynamic>.from(seasonalOpeningHours!.map((x) => x)),
       };
 }
 
@@ -522,10 +522,10 @@ class RegularOpeningHour {
     this.open,
   });
 
-  String id;
-  int dayOfWeek;
-  List<OpeningHour> openingHours;
-  bool open;
+  String? id;
+  int? dayOfWeek;
+  List<OpeningHour>? openingHours;
+  bool? open;
 
   factory RegularOpeningHour.fromJson(Map<String, dynamic> json) =>
       RegularOpeningHour(
@@ -539,7 +539,7 @@ class RegularOpeningHour {
   Map<String, dynamic> toJson() => {
         "_id": id,
         "dayOfWeek": dayOfWeek,
-        "openingHours": List<dynamic>.from(openingHours.map((x) => x.toJson())),
+        "openingHours": List<dynamic>.from(openingHours!.map((x) => x.toJson())),
         "open": open,
       };
 }
@@ -551,9 +551,9 @@ class OpeningHour {
     this.end,
   });
 
-  String id;
-  String start;
-  String end;
+  String? id;
+  String? start;
+  String? end;
 
   factory OpeningHour.fromJson(Map<String, dynamic> json) => OpeningHour(
         id: json["_id"],
@@ -583,17 +583,17 @@ class Vendor {
     this.v,
   });
 
-  String id;
-  List<String> users;
-  String name;
-  String email;
-  String telephone;
-  Location location;
-  List<dynamic> contacts;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int internalCode;
-  int v;
+  String? id;
+  List<String>? users;
+  String? name;
+  String? email;
+  String? telephone;
+  Location? location;
+  List<dynamic>? contacts;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? internalCode;
+  int? v;
 
   factory Vendor.fromJson(Map<String, dynamic> json) => Vendor(
         id: json["_id"],
@@ -611,29 +611,29 @@ class Vendor {
 
   Map<String, dynamic> toJson() => {
         "_id": id,
-        "users": List<dynamic>.from(users.map((x) => x)),
+        "users": List<dynamic>.from(users!.map((x) => x)),
         "name": name,
         "email": email,
         "telephone": telephone,
-        "location": location.toJson(),
-        "contacts": List<dynamic>.from(contacts.map((x) => x)),
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        "location": location!.toJson(),
+        "contacts": List<dynamic>.from(contacts!.map((x) => x)),
+        "createdAt": createdAt!.toIso8601String(),
+        "updatedAt": updatedAt!.toIso8601String(),
         "internalCode": internalCode,
         "__v": v,
       };
 }
 
-class EnumValues<T> {
-  Map<String, T> map;
-  Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
-    return reverseMap;
-  }
-}
+// class EnumValues<T> {
+//   Map<String, T> map;
+//   Map<T, String> reverseMap;
+//
+//   EnumValues(this.map);
+//
+//   Map<T, String> get reverse {
+//     if (reverseMap == null) {
+//       reverseMap = map.map((k, v) => new MapEntry(v, k));
+//     }
+//     return reverseMap;
+//   }
+// }

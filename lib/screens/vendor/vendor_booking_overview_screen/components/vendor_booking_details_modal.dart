@@ -12,7 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VendorBookingDetailsModal extends StatefulWidget {
   final VendorBookingPreviewModel vendorBookingPreviewModel;
-  final Category category;
+  final Category? category;
   final Function refresh;
 
   VendorBookingDetailsModal({
@@ -27,8 +27,8 @@ class VendorBookingDetailsModal extends StatefulWidget {
 }
 
 class _VendorBookingDetailsModalState extends State<VendorBookingDetailsModal> {
-  Future<BookingDetailedSingleResponseEntity> booking;
-  CarouselController _carouselController;
+  Future<BookingDetailedSingleResponseEntity>? booking;
+  CarouselController? _carouselController;
   int currentPage = 0;
   bool showTicketList = false;
 
@@ -37,7 +37,7 @@ class _VendorBookingDetailsModalState extends State<VendorBookingDetailsModal> {
     super.initState();
 
     booking = BookingService.getBoookingDetailed(
-        widget.vendorBookingPreviewModel.transactionModel.bookingId);
+        widget.vendorBookingPreviewModel.transactionModel.bookingId!);
   }
 
   void goBack() {
@@ -69,23 +69,24 @@ class _VendorBookingDetailsModalState extends State<VendorBookingDetailsModal> {
           child: FutureBuilder(
               future: booking,
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting)
-                  return Center(
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
+                }
 
-                if (snapshot.hasData && snapshot.data.data != null) {
+                if (snapshot.hasData && snapshot.data != null) {
                   return !showTicketList
                       ? Center(
                           child: BookingDetailsPreview(
-                            booking: snapshot.data.data,
-                            category: widget.category,
+                            booking: snapshot.data,
+                            category: widget.category!,
                             openTicketList: openTicketList,
                             refresh: widget.refresh,
                           ),
                         )
                       : _ticketSlider(
-                          snapshot.data.data, _carouselController, currentPage);
+                          snapshot.data, _carouselController, currentPage);
                 }
 
                 if (snapshot.hasError) {
@@ -94,7 +95,7 @@ class _VendorBookingDetailsModalState extends State<VendorBookingDetailsModal> {
                         Text(AppLocalizations.of(context)!.commonWords_error),
                   );
                 }
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }),
@@ -132,8 +133,10 @@ class _VendorBookingDetailsModalState extends State<VendorBookingDetailsModal> {
 
   List<Widget> _buildTickets(BookingDetailedModel booking) {
     return widget.vendorBookingPreviewModel.ticketList.map((ticket) {
-      var bookingTicket = booking.tickets
-          .firstWhere((element) => element.id == ticket.id, orElse: () => null);
+      var bookingTicket = booking.tickets!
+          .firstWhere((element) => element.id == ticket.id,
+          // orElse: () => null
+      );
 
       return GestureDetector(
         onTap: () {
@@ -157,11 +160,11 @@ class _VendorBookingDetailsModalState extends State<VendorBookingDetailsModal> {
       Widget element = Container(
         width: 8.0,
         height: 8.0,
-        margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+        margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: currentPage == i
-              ? getCurrentColor(widget.category)
+              ? getCurrentColor(widget.category!)
               : Colors.white,
         ),
       );

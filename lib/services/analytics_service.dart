@@ -145,7 +145,7 @@ class AnalyticsService {
     if (activityResponse == null || activityResponse.data == null) return;
     double totalPrice = 0.0;
     orderModel.products!.forEach((product) {
-      var activityProduct = _findProduct(activityResponse.data, product.id!);
+      var activityProduct = _findProduct(activityResponse.data!, product.id!);
       totalPrice += product.amount!* activityProduct.price!;
     });
     facebookAppEvents.logInitiatedCheckout(

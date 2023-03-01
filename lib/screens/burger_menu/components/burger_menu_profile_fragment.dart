@@ -14,7 +14,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'burger_menu_list_item.dart';
 
 class BurgerMenuProfileFragment extends StatefulWidget {
-  final UserLoginModel user;
+  final UserLoginModel? user;
 
   const BurgerMenuProfileFragment({Key? key, this.user}) : super(key: key);
 
@@ -36,7 +36,7 @@ class _BurgerMenuProfileFragmentState extends State<BurgerMenuProfileFragment> {
 
   /// Widget to display if the user is not logged in currently
   Widget _notLoggedInFragment() {
-    double height = Scaffold.of(context).appBarMaxHeight;
+    double height = Scaffold.of(context).appBarMaxHeight!;
     return Container(
       margin: EdgeInsets.fromLTRB(0, height, 0, 0),
       decoration: BoxDecoration(
@@ -125,7 +125,7 @@ class _BurgerMenuProfileFragmentState extends State<BurgerMenuProfileFragment> {
 
   /// Widget to display if the user is currently logged in
   Widget _loggedInFragment() {
-    double height = Scaffold.of(context).appBarMaxHeight;
+    double height = Scaffold.of(context).appBarMaxHeight!;
     return Column(
       children: [
         Container(
@@ -152,10 +152,10 @@ class _BurgerMenuProfileFragmentState extends State<BurgerMenuProfileFragment> {
                         margin: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.015),
                         child: Text(
-                          widget.user.username != null
-                              ? widget.user.username.isEmpty
+                          widget.user!.username != null
+                              ? widget.user!.username!.isEmpty
                                   ? "U"
-                                  : widget.user.username[0]
+                                  : widget.user!.username![0]
                               : 'U',
                           textAlign: TextAlign.center,
                           style: TextStyle(

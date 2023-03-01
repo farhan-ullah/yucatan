@@ -28,7 +28,7 @@ class _BurgerMenuScreenState extends State<BurgerMenuScreen> {
   final InAppReview _inAppReview = InAppReview.instance;
   final UserLoginModelBloc bloc = UserLoginModelBloc();
   final BurgerMenuBloc burgerMenuBloc = BurgerMenuBloc();
-  UserLoginModel userModel;
+  UserLoginModel? userModel;
 
   @override
   void initState() {
@@ -69,7 +69,7 @@ class _BurgerMenuScreenState extends State<BurgerMenuScreen> {
                     left: Dimensions.getScaledSize(10.0),
                     bottom: Dimensions.getScaledSize(10.0),
                     right: Dimensions.getScaledSize(10.0)),
-                children: _fillUserEntries(userModel),
+                children: _fillUserEntries(userModel!),
               ),
             );
           }
@@ -156,7 +156,7 @@ class _BurgerMenuScreenState extends State<BurgerMenuScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                AppLocalizations.of(context)
+                AppLocalizations.of(context)!
                     .burger_menu_made_in_bavaria_with_text,
                 style: TextStyle(color: CustomTheme.hintText),
               ),
@@ -179,7 +179,7 @@ class _BurgerMenuScreenState extends State<BurgerMenuScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                AppLocalizations.of(context)
+                AppLocalizations.of(context)!
                     .burger_menu_made_in_bavaria_with_text,
                 style: TextStyle(color: CustomTheme.hintText),
               ),

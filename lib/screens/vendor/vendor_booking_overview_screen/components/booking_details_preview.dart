@@ -59,13 +59,13 @@ class _BookingDetailsPreviewState extends State<BookingDetailsPreview> {
     var vendorRefundBufferMinutes =
         120; //TODO: Export this to a config file or get from backend
 
-    var latestCancellation = widget.booking.bookingDate
+    var latestCancellation = widget.booking.bookingDate!
         .subtract(Duration(minutes: vendorRefundBufferMinutes));
 
     bool isBeforeLatestCancellation =
         DateTime.now().isBefore(latestCancellation);
 
-    return widget.booking.tickets.any((ticket) => ticket.status == "USABLE") &&
+    return widget.booking.tickets!.any((ticket) => ticket.status == "USABLE") &&
         isBeforeLatestCancellation;
   }
 
@@ -89,7 +89,7 @@ class _BookingDetailsPreviewState extends State<BookingDetailsPreview> {
               padding: EdgeInsets.all(Dimensions.getScaledSize(10.0)),
               child: _showRefundPage
                   ? _BookingRefundBody(
-                      bookingId: widget.booking.id,
+                      bookingId: widget.booking.id!,
                       hideRefund: _hideRefund,
                       refresh: widget.refresh,
                     )
@@ -97,7 +97,7 @@ class _BookingDetailsPreviewState extends State<BookingDetailsPreview> {
                       booking: widget.booking,
                       canBeRefunded: canBeRefunded(),
                       showRefund: _showRefund,
-                      userModel: widget.booking.user,
+                      userModel: widget.booking.user!,
                       openTicketList: widget.openTicketList,
                       category: widget.category,
                     )),
@@ -108,7 +108,7 @@ class _BookingDetailsPreviewState extends State<BookingDetailsPreview> {
 }
 
 class _DetailedBookingHeader extends StatelessWidget {
-  final Category category;
+  final Category? category;
 
   _DetailedBookingHeader({this.category});
 
@@ -124,7 +124,7 @@ class _DetailedBookingHeader extends StatelessWidget {
           topLeft: Radius.circular(Dimensions.getScaledSize(24.0)),
           topRight: Radius.circular(Dimensions.getScaledSize(24.0)),
         ),
-        color: getCurrentColor(category),
+        color: getCurrentColor(category!),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -146,7 +146,7 @@ class BookingDetailsBody extends StatelessWidget {
   final BookingDetailedModel booking;
   final bool canBeRefunded;
   final Function showRefund;
-  final Function openTicketList;
+  final Function? openTicketList;
   final Category category;
 
   final double sidePadding = Dimensions.getWidth(percentage: 2);
@@ -173,7 +173,7 @@ class BookingDetailsBody extends StatelessWidget {
         SizedBox(height: Dimensions.getScaledSize(10), child: Container()),
         _getUserInfoRow(
             icon: Icons.account_circle_outlined,
-            textWidget: Text(booking.invoiceAddress.name,
+            textWidget: Text(booking.invoiceAddress!.name!,
                 style: _getUserInfoStyle(FontWeight.bold)),
             backgroundColor: Colors.white,
             padding: Dimensions.getScaledSize(5)),
@@ -181,18 +181,18 @@ class BookingDetailsBody extends StatelessWidget {
         _getUserInfoRow(
             icon: Icons.location_on_outlined,
             textWidget: Text(
-                '${booking.invoiceAddress.street} ${booking.invoiceAddress.houseNumber}, ${booking.invoiceAddress.zip.toString()} ${booking.invoiceAddress.city}',
+                '${booking.invoiceAddress!.street} ${booking.invoiceAddress!.houseNumber}, ${booking.invoiceAddress!.zip.toString()} ${booking.invoiceAddress!.city}',
                 style: _getUserInfoStyle(FontWeight.normal)),
             backgroundColor: Colors.white,
             padding: Dimensions.getScaledSize(5)),
         SizedBox(height: Dimensions.getScaledSize(5)),
         GestureDetector(
           onTap: () {
-            launch('mailto:${booking.user.email}');
+            launch('mailto:${booking.user!.email}');
           },
           child: _getUserInfoRow(
               icon: Icons.mail_outline_sharp,
-              textWidget: Text(booking.user.email,
+              textWidget: Text(booking.user!.email!,
                   style: _getUserInfoStyle(FontWeight.normal)),
               backgroundColor: fieldColor,
               padding: Dimensions.getScaledSize(5)),
@@ -200,11 +200,11 @@ class BookingDetailsBody extends StatelessWidget {
         SizedBox(height: Dimensions.getScaledSize(5)),
         GestureDetector(
           onTap: () {
-            launch('tel:${booking.invoiceAddress.phone}');
+            launch('tel:${booking.invoiceAddress!.phone}');
           },
           child: _getUserInfoRow(
               icon: Icons.phone,
-              textWidget: Text(booking.invoiceAddress.phone,
+              textWidget: Text(booking.invoiceAddress!.phone!,
                   style: _getUserInfoStyle(FontWeight.normal)),
               backgroundColor: fieldColor,
               padding: Dimensions.getScaledSize(5)),
@@ -216,12 +216,12 @@ class BookingDetailsBody extends StatelessWidget {
         SizedBox(height: Dimensions.getScaledSize(10)),
         GestureDetector(
             onTap: () {
-              openTicketList();
+              openTicketList!();
             },
             child: _getUserInfoRow(
                 icon: Icons.visibility_outlined,
                 textWidget: Text(
-                    AppLocalizations.of(context)
+                    AppLocalizations.of(context)!
                         .vendor_bookingOverview_seeDetails,
                     style: _getUserInfoStyle(FontWeight.normal)),
                 backgroundColor: fieldColor,
@@ -238,7 +238,7 @@ class BookingDetailsBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  booking.activity.title,
+                  booking.activity!.title!,
                   style: _getUserInfoStyle(FontWeight.bold),
                 ),
                 SizedBox(height: Dimensions.getScaledSize(6)),
@@ -314,11 +314,12 @@ class BookingDetailsBody extends StatelessWidget {
 
   _getProductsList() {
     List<Widget> products = [];
-    booking.tickets.forEach((ticket) {
+    booking.tickets!.forEach((ticket) {
       if (_getCategoryForTicket(ticket.status) == category) {
-        BookingProduct product = booking.products.firstWhere(
+        BookingProduct product = booking.products!.firstWhere(
             (product) => product.id == ticket.productId,
-            orElse: () => null);
+            // orElse: () => null
+        );
         if (product != null) {
           products.add(Text("1x ${product.title}",
               style: _getUserInfoStyle(
@@ -361,7 +362,7 @@ class BookingDetailsBody extends StatelessWidget {
                   ),
                   _getTextRowPadding(),
                   Text(
-                      '${DateFormat('EE dd.MM.yyyy', 'de-DE').format(booking.bookingDate).replaceFirst('.', ',')}',
+                      '${DateFormat('EE dd.MM.yyyy', 'de-DE').format(booking.bookingDate!).replaceFirst('.', ',')}',
                       style: _getUserInfoStyle(FontWeight.normal)),
                 ],
               ),
@@ -372,7 +373,7 @@ class BookingDetailsBody extends StatelessWidget {
                       size: Dimensions.getScaledSize(18.0),
                       color: CustomTheme.primaryColorLight),
                   _getTextRowPadding(),
-                  Text('${formatPriceDouble(booking.totalPrice)}',
+                  Text('${formatPriceDouble(booking.totalPrice!)}',
                       style: _getUserInfoStyle(FontWeight.bold)),
                 ],
               )
@@ -409,7 +410,7 @@ class BookingDetailsBody extends StatelessWidget {
                   _getTextRowPadding(),
                   Text(
                       isPaymentProviderStripe(booking)
-                          ? AppLocalizations.of(context)
+                          ? AppLocalizations.of(context)!
                               .vendor_bookingOverview_creditCard
                           : isPaymentProviderPayPal(booking)
                               ? "PayPal"
@@ -459,7 +460,7 @@ class BookingDetailsBody extends StatelessWidget {
 class _BookingRefundBody extends StatefulWidget {
   final Function hideRefund;
   final String bookingId;
-  final Function refresh;
+  final Function? refresh;
 
   _BookingRefundBody({
     required this.bookingId,
@@ -496,14 +497,14 @@ class _BookingRefundBodyState extends State<_BookingRefundBody> {
     PaymentService.refundBookingAsVendor(widget.bookingId).then((value) {
       if (value != null && value.status == 200) {
         Fluttertoast.showToast(
-          msg: AppLocalizations.of(context)
+          msg: AppLocalizations.of(context)!
               .vendor_bookingOverview_bookingRefunded,
           backgroundColor: CustomTheme.accentColor2,
           gravity: ToastGravity.CENTER,
           textColor: Colors.white,
         );
         print(value.data);
-        widget.refresh();
+        widget.refresh!();
         Navigator.of(context).pop();
       } else
         _handleError();
@@ -545,7 +546,7 @@ class _BookingRefundBodyState extends State<_BookingRefundBody> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.55,
                   child: Text(
-                    AppLocalizations.of(context)
+                    AppLocalizations.of(context)!
                         .vendor_bookingOverview_refundBooking,
                     style: TextStyle(
                       color: CustomTheme.primaryColorLight,

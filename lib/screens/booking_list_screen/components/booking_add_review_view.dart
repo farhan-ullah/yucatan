@@ -322,7 +322,7 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
                     right: Dimensions.getScaledSize(20.0),
                   ),
                   child: Text(
-                    AppLocalizations.of(context)
+                    AppLocalizations.of(context)!
                         .bookingListScreen_addReview_error,
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -350,7 +350,7 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
                     right: Dimensions.getScaledSize(20.0),
                   ),
                   child: Text(
-                    AppLocalizations.of(context)
+                    AppLocalizations.of(context)!
                         .bookingListScreen_addReview_thankYou,
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -366,7 +366,7 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
                     right: Dimensions.getScaledSize(20.0),
                   ),
                   child: Text(
-                    AppLocalizations.of(context)
+                    AppLocalizations.of(context)!
                         .bookingListScreen_addReview_yourReviewHelpsUs,
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -417,7 +417,7 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
               ),
               child: Center(
                 child: Text(
-                  AppLocalizations.of(context)
+                  AppLocalizations.of(context)!
                       .bookingListScreen_addReview_backToOveview,
                   style: TextStyle(
                     fontSize: Dimensions.getScaledSize(16.0),
@@ -496,19 +496,19 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
 
   String _getRatingText() {
     if (rating == 1.0) {
-      return AppLocalizations.of(context)
+      return AppLocalizations.of(context)!
           .bookingListScreen_addReview_options_veryBad;
     } else if (rating == 2.0) {
-      return AppLocalizations.of(context)
+      return AppLocalizations.of(context)!
           .bookingListScreen_addReview_options_bad;
     } else if (rating == 3.0) {
-      return AppLocalizations.of(context)
+      return AppLocalizations.of(context)!
           .bookingListScreen_addReview_options_ok;
     } else if (rating == 4.0) {
-      return AppLocalizations.of(context)
+      return AppLocalizations.of(context)!
           .bookingListScreen_addReview_options_good;
     } else if (rating == 5.0) {
-      return AppLocalizations.of(context)
+      return AppLocalizations.of(context)!
           .bookingListScreen_addReview_options_veryGood;
     }
 

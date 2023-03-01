@@ -32,7 +32,7 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
   //Future<UserLoginModel> user;
   //Future<List<String>> favoriteActivitesFuture;
   List<String> favoriteActivities = [];
-  String userId;
+  String? userId;
   final userLoginModelBloc = getIt<UserLoginModelBloc>();
   final favoriteActivitiesForUserBloc = getIt<FavoriteActivitiesForUserBloc>();
   final getActivityBloc = getIt<GetActivityBloc>();
@@ -52,7 +52,7 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
       builder: (context, snapshot) {
         if (snapshot.data == null) {
           return CustomErrorEmptyScreen(
-            topPadding: Scaffold.of(context).appBarMaxHeight,
+            topPadding: Scaffold.of(context).appBarMaxHeight!,
             title: AppLocalizations.of(context)!.commonWords_mistake,
             description:
                 AppLocalizations.of(context)!.favoritesScreen_logInToSee,
@@ -67,8 +67,8 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
             callback: _navigateToLogin,
           );
         } else if (snapshot.hasData) {
-          userId = snapshot.data.sId;
-          favoriteActivitiesForUserBloc.setUserId(userId);
+          userId = snapshot.data!.sId;
+          favoriteActivitiesForUserBloc.setUserId(userId!);
           favoriteActivitiesForUserBloc.eventSink.add(
               FavoriteActivitiesForUserAction.FetchFavoriteActivitiesForUser);
           return StreamBuilder<List<String>>(
@@ -76,11 +76,11 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
                 favoriteActivitiesForUserBloc.favoriteActivitiesForUserStream,
             builder: (context, snapshotFavorites) {
               if (snapshotFavorites.data == null ||
-                  snapshotFavorites.data.length == 0) {
+                  snapshotFavorites.data!.length == 0) {
                 return CustomErrorEmptyScreen(
-                  topPadding: Scaffold.of(context).appBarMaxHeight,
+                  topPadding: Scaffold.of(context).appBarMaxHeight!,
                   title: AppLocalizations.of(context)!.commonWords_mistake,
-                  description: AppLocalizations.of(context)
+                  description: AppLocalizations.of(context)!
                       .noFavoritesScreen_noFavorites,
                   //image: "lib/assets/images/favorites_empty.png",
                   rive: RiveAnimation(
@@ -96,9 +96,9 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
                   },
                 );
               } else if (snapshotFavorites.hasData) {
-                favoriteActivities = snapshotFavorites.data;
+                favoriteActivities = snapshotFavorites.data!;
                 //print("favoriteActivities=${favoriteActivities.length}");
-                double height = Scaffold.of(context).appBarMaxHeight;
+                double height = Scaffold.of(context).appBarMaxHeight!;
                 getActivityBloc.sendFavoriteActivities(favoriteActivities);
                 getActivityBloc.eventSink.add(GetActivityAction.FetchActivity);
                 return StreamBuilder<List<ActivitySingleResponse>>(
@@ -109,9 +109,9 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
                         return Container();
                       } else {
                         if (snapshotActivity.data == null ||
-                            snapshotActivity.data.length == 0) {
+                            snapshotActivity.data!.length == 0) {
                           return CustomErrorEmptyScreen(
-                            topPadding: Scaffold.of(context).appBarMaxHeight,
+                            topPadding: Scaffold.of(context).appBarMaxHeight!,
                             title: AppLocalizations.of(context)!
                                 .commonWords_mistake,
                             description: AppLocalizations.of(context)!
@@ -142,14 +142,14 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
                                 bottom: Dimensions.getScaledSize(20.0),
                                 right: Dimensions.getScaledSize(20.0),
                               ),
-                              itemCount: snapshotActivity.data.length,
+                              itemCount: snapshotActivity.data!.length,
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: EdgeInsets.only(
                                     bottom: Dimensions.getScaledSize(5.0),
                                   ),
                                   child: SearchActivityItemView(
-                                    activity: snapshotActivity.data[index].data,
+                                    activity: snapshotActivity.data![index].data!,
                                     onFavoriteChangedCallback:
                                         _onFavoriteDeleted,
                                     isfav: true,

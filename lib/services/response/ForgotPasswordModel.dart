@@ -13,8 +13,8 @@ class ForgotPasswordModel {
     this.message,
   });
 
-  String message;
-  int statusCode;
+  String? message;
+  int? statusCode;
 
   factory ForgotPasswordModel.fromJson(Map<String, dynamic> json) => ForgotPasswordModel(
     message: json["message"],

@@ -51,21 +51,21 @@ class PayoutData {
     this.datumId,
   });
 
-  String id;
-  double gross;
-  double refunds;
-  double adjustments;
-  double fees;
-  double net;
+  String? id;
+  double? gross;
+  double? refunds;
+  double? adjustments;
+  double? fees;
+  double? net;
   //Vendor vendor;
-  String status;
-  DateTime payoutDate;
-  String currency;
-  String stripeDestination;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int v;
-  String datumId;
+  String? status;
+  DateTime? payoutDate;
+  String? currency;
+  String? stripeDestination;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? v;
+  String? datumId;
 
   factory PayoutData.fromJson(Map<String, dynamic> json) => PayoutData(
         id: json["_id"],
@@ -94,11 +94,11 @@ class PayoutData {
         "net": net,
         //"vendor": vendor.toJson(),
         "status": status,
-        "payoutDate": payoutDate.toIso8601String(),
+        "payoutDate": payoutDate!.toIso8601String(),
         "currency": currency,
         "stripeDestination": stripeDestination,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        "createdAt": createdAt!.toIso8601String(),
+        "updatedAt": updatedAt!.toIso8601String(),
         "__v": v,
         "id": datumId,
       };
@@ -120,18 +120,18 @@ class Vendor {
     this.vendorId,
   });
 
-  String id;
-  String name;
-  String email;
-  Location location;
-  List<dynamic> contacts;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int internalCode;
-  int v;
-  List<String> users;
-  String code;
-  String vendorId;
+  String? id;
+  String? name;
+  String? email;
+  Location? location;
+  List<dynamic>? contacts;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? internalCode;
+  int? v;
+  List<String>? users;
+  String? code;
+  String? vendorId;
 
   factory Vendor.fromJson(Map<String, dynamic> json) => Vendor(
         id: json["_id"],
@@ -152,13 +152,13 @@ class Vendor {
         "_id": id,
         "name": name,
         "email": email,
-        "location": location.toJson(),
-        "contacts": List<dynamic>.from(contacts.map((x) => x)),
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        "location": location!.toJson(),
+        "contacts": List<dynamic>.from(contacts!.map((x) => x)),
+        "createdAt": createdAt!.toIso8601String(),
+        "updatedAt": updatedAt!.toIso8601String(),
         "internalCode": internalCode,
         "__v": v,
-        "users": List<dynamic>.from(users.map((x) => x)),
+        "users": List<dynamic>.from(users!.map((x) => x)),
         "code": code,
         "id": vendorId,
       };
@@ -174,12 +174,12 @@ class Location {
     this.zipcode,
   });
 
-  String city;
-  String country;
-  String housenumber;
-  String state;
-  String street;
-  int zipcode;
+  String? city;
+  String? country;
+  String? housenumber;
+  String? state;
+  String? street;
+  int? zipcode;
 
   factory Location.fromJson(Map<String, dynamic> json) => Location(
         city: json["city"],

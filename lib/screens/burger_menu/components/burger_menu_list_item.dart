@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class BurgerMenuListItem extends StatelessWidget {
-  final String text;
-  final String subtitle;
-  final String tapRoute;
-  final Function tapActionPre;
-  final Function tapActionPost;
-  final Icon icon;
-  final bool showSvg;
-  final String svgPath;
+  final String? text;
+  final String? subtitle;
+  final String? tapRoute;
+  final Function? tapActionPre;
+  final Function? tapActionPost;
+  final Icon? icon;
+  final bool? showSvg;
+  final String? svgPath;
 
   BurgerMenuListItem(
       {Key? key,
@@ -30,7 +30,7 @@ class BurgerMenuListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget subtitleWidget = subtitle == null
         ? SizedBox.shrink()
-        : Text(subtitle,
+        : Text(subtitle!,
             style: TextStyle(
                 fontSize: Dimensions.getScaledSize(14.0),
                 fontWeight: FontWeight.w400,
@@ -50,11 +50,11 @@ class BurgerMenuListItem extends StatelessWidget {
           splashColor: CustomTheme.primaryColorDark,
           onTap: () async {
             await tapActionPre?.call();
-            if (isNotNullOrEmpty(tapRoute)) {
+            if (isNotNullOrEmpty(tapRoute!)) {
               if (tapActionPost != null)
-                await Navigator.of(context).pushNamed(tapRoute);
+                await Navigator.of(context).pushNamed(tapRoute!);
               else
-                Navigator.of(context).pushReplacementNamed(tapRoute);
+                Navigator.of(context).pushReplacementNamed(tapRoute!);
             }
             tapActionPost?.call();
           },
@@ -78,8 +78,8 @@ class BurgerMenuListItem extends StatelessWidget {
                               ? CustomTheme.primaryColorDark
                               : CustomTheme.primaryColorDark),
                     ),
-                    showSvg
-                        ? SvgPicture.asset(svgPath,
+                    showSvg!
+                        ? SvgPicture.asset(svgPath!,
                             color: CustomTheme.primaryColorDark,
                             height: Dimensions.pixels_30,
                             width: Dimensions.pixels_30)

@@ -29,7 +29,7 @@ class FavoritesItemView extends StatelessWidget {
             builder: (context) => HotelDetailes(
               isFavorite: isFavourite,
               //hotelData: activity,
-              activityId: activity.sId,
+              activityId: activity.sId!,
               onFavoriteChangedCallback: (activityId) {
                 deletedCallback(activity);
               },
@@ -39,40 +39,59 @@ class FavoritesItemView extends StatelessWidget {
       },
       child: Slidable(
         enabled: false,
-        actionPane: SlidableBehindActionPane(),
-        actionExtentRatio: 0.4,
-        secondaryActions: [
-          SlideAction(
-            onTap: () {
-              deletedCallback(activity);
-            },
-            decoration: BoxDecoration(
-              color: CustomTheme.accentColor1,
-              borderRadius:
-                  BorderRadius.circular(Dimensions.getScaledSize(16.0)),
+
+        startActionPane: ActionPane(
+          motion:  const ScrollMotion(),
+          children: [
+            SlidableAction(
+              onPressed:
+                  (value) {
+                    deletedCallback(activity);
+              },
+              icon: Icons.delete_forever_outlined,
+              label: AppLocalizations.of(context)!.commonWords_clear,
+
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.delete_forever_outlined,
-                  size: Dimensions.getScaledSize(32.0),
-                  color: Colors.white,
-                ),
-                SizedBox(
-                  height: Dimensions.getScaledSize(20.0),
-                ),
-                Text(
-                  AppLocalizations.of(context)!.commonWords_clear,
-                  style: TextStyle(
-                    fontSize: Dimensions.getScaledSize(16.0),
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+
+
+          ],
+
+        ),
+
+        // actionPane: SlidableBehindActionPane(),
+        // actionExtentRatio: 0.4,
+        // secondaryActions: [
+        //   SlideAction(
+        //     onTap: () {
+        //       deletedCallback(activity);
+        //     },
+        //     decoration: BoxDecoration(
+        //       color: CustomTheme.accentColor1,
+        //       borderRadius:
+        //           BorderRadius.circular(Dimensions.getScaledSize(16.0)),
+        //     ),
+        //     child: Column(
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       children: [
+        //         Icon(
+        //           Icons.delete_forever_outlined,
+        //           size: Dimensions.getScaledSize(32.0),
+        //           color: Colors.white,
+        //         ),
+        //         SizedBox(
+        //           height: Dimensions.getScaledSize(20.0),
+        //         ),
+        //         Text(
+        //           AppLocalizations.of(context)!.commonWords_clear,
+        //           style: TextStyle(
+        //             fontSize: Dimensions.getScaledSize(16.0),
+        //             color: Colors.white,
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ],
         child: Stack(
           children: [
             Container(
@@ -103,7 +122,7 @@ class FavoritesItemView extends StatelessWidget {
                             Radius.circular(Dimensions.getScaledSize(16.0)),
                       ),
                       child: loadCachedNetworkImage(
-                        activity.thumbnail.publicUrl,
+                        activity.thumbnail!.publicUrl!,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -133,7 +152,7 @@ class FavoritesItemView extends StatelessWidget {
                             height: Dimensions.getScaledSize(5.0),
                           ),
                           Text(
-                            activity.title.trim(),
+                            activity.title!.trim(),
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -145,7 +164,7 @@ class FavoritesItemView extends StatelessWidget {
                             padding: EdgeInsets.fromLTRB(
                                 0, Dimensions.getScaledSize(3.0), 0, 0),
                             child: Text(
-                              activity.vendor.name,
+                              activity.vendor!.name!,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
                               style: TextStyle(
@@ -175,7 +194,7 @@ class FavoritesItemView extends StatelessWidget {
                               ),
                               Expanded(
                                 child: Text(
-                                  '${activity.location.zipcode} ${activity.location.city} ',
+                                  '${activity.location!.zipcode} ${activity.location!.city} ',
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: Dimensions.getScaledSize(13.0),
@@ -235,7 +254,7 @@ class FavoritesItemView extends StatelessWidget {
                                         ),
                                 ),
                                 activity.reviewCount != null &&
-                                        activity.reviewCount > 0
+                                        activity.reviewCount! > 0
                                     ? Text(
                                         " ${activity.reviewAverageRating.toString().replaceAll('.', ',')} (${activity.reviewCount})",
                                         style: TextStyle(
@@ -261,7 +280,7 @@ class FavoritesItemView extends StatelessWidget {
                                   width: Dimensions.getScaledSize(5),
                                 ),
                                 Text(
-                                  "${formatPriceDouble(activity.priceFrom)}€",
+                                  "${formatPriceDouble(activity.priceFrom!)}€",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,

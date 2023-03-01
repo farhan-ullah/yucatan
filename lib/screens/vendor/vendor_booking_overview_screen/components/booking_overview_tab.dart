@@ -2,12 +2,12 @@ import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class VendorBookingOverviewTab extends StatelessWidget {
-  final String text;
-  final double height;
-  final Color color;
-  final bool selected;
-  final Function onTap;
-  final double fontSize;
+  final String? text;
+  final double? height;
+  final Color? color;
+  final bool? selected;
+  final Function? onTap;
+  final double? fontSize;
 
   VendorBookingOverviewTab(
       {this.text,
@@ -21,7 +21,7 @@ class VendorBookingOverviewTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GestureDetector(
-        onTap: onTap,
+        onTap: onTap!(),
         child: Container(
           height: height,
           decoration: BoxDecoration(
@@ -33,13 +33,13 @@ class VendorBookingOverviewTab extends StatelessWidget {
           ),
           padding: EdgeInsets.only(top: Dimensions.getScaledSize(5.0)),
           child: Container(
-            decoration: BoxDecoration(color: selected ? Colors.white : color),
+            decoration: BoxDecoration(color: selected! ? Colors.white : color),
             child: Center(
               child: Text(
-                text,
+                text!,
                 style: TextStyle(
                     fontFamily: "AcuminProWide",
-                    color: selected ? color : Colors.white,
+                    color: selected! ? color : Colors.white,
                     fontSize: fontSize,
                     fontWeight: FontWeight.w200),
               ),

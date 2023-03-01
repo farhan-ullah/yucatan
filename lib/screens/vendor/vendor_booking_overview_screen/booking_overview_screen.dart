@@ -41,7 +41,7 @@ enum SelectedDate {
 class VendorBookingOverviewScreen extends DateStatefulWidget {
   static const route = '/vendorbookingoverview';
 
-  final NotificationActions notificationAction;
+  final NotificationActions? notificationAction;
   final dynamic notificationData;
 
   VendorBookingOverviewScreen({
@@ -56,17 +56,17 @@ class VendorBookingOverviewScreen extends DateStatefulWidget {
 class _VendorBookingOverviewScreenState
     extends DateState<VendorBookingOverviewScreen>
     with NavigatableByNotifcation {
-  final Color anfrageColor = Color(0xFF0071B8);
+  final Color anfrageColor = const Color(0xFF0071B8);
   final Color offenColor = CustomTheme.accentColor2;
   final Color storniertColor = CustomTheme.accentColor1;
-  final Color eingelostColor = Color(0xFF8B8B8B);
+  final Color eingelostColor = const Color(0xFF8B8B8B);
 
-  SelectedDate _selectedDate;
-  Category _category;
-  TransactionModel _selectedModel;
+  SelectedDate? _selectedDate;
+  Category? _category;
+  TransactionModel? _selectedModel;
   bool _firstOpen = true;
 
-  Future<TransactionMultiResponseEntity> transactions;
+  Future<TransactionMultiResponseEntity>? transactions;
   bool isNetworkAvailable = true;
 
   @override
@@ -87,7 +87,7 @@ class _VendorBookingOverviewScreenState
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.notificationAction != null &&
           widget.notificationData != null) {
-        handleNavigation(widget.notificationAction, widget.notificationData);
+        handleNavigation(widget.notificationAction!, widget.notificationData);
       }
     });
 
@@ -99,7 +99,7 @@ class _VendorBookingOverviewScreenState
       NotificationActions notificationAction, dynamic notificationData) async {
     final sharedPreferences = await SharedPreferences.getInstance();
 
-    bool handleNotifications = sharedPreferences.getBool('handleNotification');
+    bool? handleNotifications = sharedPreferences.getBool('handleNotification');
     try {
       if (handleNotifications == false) return;
 
@@ -140,9 +140,9 @@ class _VendorBookingOverviewScreenState
 
     var transactionData = await transactions;
 
-    bool checkRedirection;
+    bool checkRedirection = true;
     var transactionObject;
-    var transactionModel = transactionData.data.firstWhere(
+    var transactionModel = transactionData!.data!.firstWhere(
       (transactionDataElement) {
         checkRedirection = transactionDataElement.bookingId ==
                     parsedNotificationData.bookingId &&
@@ -156,7 +156,7 @@ class _VendorBookingOverviewScreenState
                 parsedNotificationData.bookingId &&
             isSameStatus(transactionDataElement, notificationAction);
       },
-      orElse: () => null,
+      // orElse: () => null,
     );
 
     if (transactionModel == null) {
@@ -165,12 +165,12 @@ class _VendorBookingOverviewScreenState
       if (checkRedirection) {
         //if at least 1 is USABLE ticket state, direct to Offen AND if all are USED, redirect to Eingelöst
         TransactionModel transactionModelObj = transactionObject;
-        for (int i = 0; i < transactionModelObj.tickets.length; i++) {
-          if (transactionModelObj.tickets[i].state.trim() == "USABLE") {
+        for (int i = 0; i < transactionModelObj.tickets!.length; i++) {
+          if (transactionModelObj.tickets![i].state!.trim() == "USABLE") {
             isTicketStateUSABLE = true;
             break;
           }
-          if (transactionModelObj.tickets[i].state.trim() == "USED") {
+          if (transactionModelObj.tickets![i].state!.trim() == "USED") {
             isTicketStateUSED = true;
           } else {
             isTicketStateUSED = false;
@@ -190,7 +190,7 @@ class _VendorBookingOverviewScreenState
     }
 
     if (transactionModel == null) return;
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       if (_category == Category.REQUESTED) {
         _selectModel(transactionModel);
         return;
@@ -198,12 +198,12 @@ class _VendorBookingOverviewScreenState
 
       _showTicketList(
         VendorBookingPreviewModel(
-          buyer: transactionModel.buyer,
-          dateTime: transactionModel.dateTime,
-          tickets: transactionModel.tickets.length.toString(),
-          totalPrice: transactionModel.totalPrice,
+          buyer: transactionModel.buyer!,
+          dateTime: transactionModel.dateTime!,
+          tickets: transactionModel.tickets!.length.toString(),
+          totalPrice: transactionModel.totalPrice!,
           transactionModel: transactionModel,
-          ticketList: transactionModel.tickets,
+          ticketList: transactionModel.tickets!,
         ),
       );
     });
@@ -250,11 +250,11 @@ class _VendorBookingOverviewScreenState
 
     bool checkRedirection = false;
     var transactionObject;
-    var transactionModel = transactionData.data.firstWhere(
+    var transactionModel = transactionData!.data!.firstWhere(
       (transactionDataElement) {
-        if (transactionDataElement.bookingId.trim() ==
+        if (transactionDataElement.bookingId!.trim() ==
                 parsedNotificationData.bookingId.trim() &&
-            transactionDataElement.bookingState.trim() == "SUCCESS") {
+            transactionDataElement.bookingState!.trim() == "SUCCESS") {
           checkRedirection = true;
           transactionObject = transactionDataElement;
         }
@@ -262,15 +262,15 @@ class _VendorBookingOverviewScreenState
                 parsedNotificationData.bookingId &&
             isSameStatus(transactionDataElement, notificationAction);
       },
-      orElse: () => null,
+      // orElse: () => null,
     );
 
     if (transactionModel == null) {
       bool isTicketStateRefund = false;
       if (checkRedirection) {
         TransactionModel transactionModelObj = transactionObject;
-        for (int i = 0; i < transactionModelObj.tickets.length; i++) {
-          if (transactionModelObj.tickets[i].state.trim() == "REFUNDED") {
+        for (int i = 0; i < transactionModelObj.tickets!.length; i++) {
+          if (transactionModelObj.tickets![i].state!.trim() == "REFUNDED") {
             isTicketStateRefund = true;
             break;
           }
@@ -283,15 +283,15 @@ class _VendorBookingOverviewScreenState
 
     if (transactionModel == null) return;
 
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       _showTicketList(
         VendorBookingPreviewModel(
-          buyer: transactionModel.buyer,
-          dateTime: transactionModel.dateTime,
-          tickets: transactionModel.tickets.length.toString(),
-          totalPrice: transactionModel.totalPrice,
+          buyer: transactionModel.buyer!,
+          dateTime: transactionModel.dateTime!,
+          tickets: transactionModel.tickets!.length.toString(),
+          totalPrice: transactionModel.totalPrice!,
           transactionModel: transactionModel,
-          ticketList: transactionModel.tickets,
+          ticketList: transactionModel.tickets!,
         ),
       );
     });
@@ -367,7 +367,7 @@ class _VendorBookingOverviewScreenState
         case 3:
           _selectedDate = SelectedDate.CUSTOM;
           Future.delayed(
-            Duration(milliseconds: 150),
+            const Duration(milliseconds: 150),
             () {
               _selectCustomDate();
             },
@@ -379,7 +379,7 @@ class _VendorBookingOverviewScreenState
     }
 
     return Scaffold(
-      backgroundColor: isNetworkAvailable ? Color(0xFFBDD4E1) : Colors.white,
+      backgroundColor: isNetworkAvailable ? const Color(0xFFBDD4E1) : Colors.white,
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.vendor_bookingOverview_title),
         centerTitle: true,
@@ -537,8 +537,7 @@ class _VendorBookingOverviewScreenState
                             Expanded(
                               flex: 3,
                               child: Text(
-                                  AppLocalizations.of(context)!
-                                      .vendor_table_amount("€"),
+                                  "AppLocalizations.of(context)!.vendor_table_amount("")",
                                   style: _getListViewHeaderStyle(
                                       fontSize:
                                           Dimensions.getScaledSize(12.0))),
@@ -551,7 +550,7 @@ class _VendorBookingOverviewScreenState
                     child: Container(
                       // padding:
                       //     EdgeInsets.symmetric(horizontal: displayWidth * 0.04),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                       ),
                       child: _selectedModel == null
@@ -559,24 +558,26 @@ class _VendorBookingOverviewScreenState
                               future: transactions,
                               builder: (context, snapshotTransactions) {
                                 if (snapshotTransactions.connectionState ==
-                                    ConnectionState.waiting)
+                                    ConnectionState.waiting) {
                                   return VendorBookingLoadingIndicator();
+                                }
                                 if (snapshotTransactions.hasData) {
-                                  if (snapshotTransactions.data.data == null) {
+                                  if (snapshotTransactions.data!.data == null) {
                                     return Center(
                                       child: Text(AppLocalizations.of(context)
-                                          .vendor_table_noBookings),
+                                          !.vendor_table_noBookings),
                                     );
                                   }
                                   final transactionsToDisplay =
                                       _filterByCategory(
-                                          snapshotTransactions.data.data);
-                                  if (transactionsToDisplay.length == 0)
+                                          snapshotTransactions.data!.data!);
+                                  if (transactionsToDisplay.length == 0) {
                                     return _getNoBookingsMessage(
                                         displayWidth,
                                         displayHeight,
                                         AppLocalizations.of(context)!
                                             .vendor_table_noBookings);
+                                  }
 
                                   return RefreshIndicator(
                                     child: ListView.separated(
@@ -604,7 +605,7 @@ class _VendorBookingOverviewScreenState
                                           );
                                         },
                                         separatorBuilder: (context, index) {
-                                          return Divider(
+                                          return const Divider(
                                             thickness: 1,
                                           );
                                         },
@@ -612,22 +613,23 @@ class _VendorBookingOverviewScreenState
                                             transactionsToDisplay.length),
                                     onRefresh: () async {
                                       await Future.delayed(
-                                          Duration(seconds: 1));
+                                          const Duration(seconds: 1));
                                       _getTransactions(true);
                                     },
                                   );
                                 }
-                                if (snapshotTransactions.hasError)
+                                if (snapshotTransactions.hasError) {
                                   return _getNoBookingsMessage(
                                       displayWidth,
                                       displayHeight,
-                                      AppLocalizations.of(context)
+                                      AppLocalizations.of(context)!
                                           .commonWords_error);
+                                }
                                 return VendorBookingLoadingIndicator();
                               },
                             )
                           : VendorBookingRequestPreview(
-                              transactionModel: _selectedModel,
+                              transactionModel: _selectedModel!,
                               requestAccepted: requestAccepted,
                               requestDenied: requestDenied,
                               requestFailed: requestFailed,
@@ -658,9 +660,9 @@ class _VendorBookingOverviewScreenState
     switch (_selectedDate) {
       case SelectedDate.NONE:
         dateFrom = DateTime(now.year, now.month, now.day);
-        dateFrom = dateFrom.subtract(Duration(days: 730));
+        dateFrom = dateFrom.subtract(const Duration(days: 730));
         dateTo =
-            DateTime(now.year, now.month, now.day).add(Duration(days: 730));
+            DateTime(now.year, now.month, now.day).add(const Duration(days: 730));
         break;
       case SelectedDate.TODAY:
         dateFrom = DateTime(now.year, now.month, now.day);
@@ -668,7 +670,7 @@ class _VendorBookingOverviewScreenState
         break;
       case SelectedDate.TOMORROW:
         dateFrom =
-            DateTime(now.year, now.month, now.day).add(Duration(days: 1));
+            DateTime(now.year, now.month, now.day).add(const Duration(days: 1));
         dateTo = dateFrom;
         break;
       case SelectedDate.CUSTOM:
@@ -678,11 +680,11 @@ class _VendorBookingOverviewScreenState
         break;
       case SelectedDate.WEEK:
         dateFrom = DateTime(now.year, now.month, now.day);
-        dateTo = dateFrom.add(Duration(days: 7));
+        dateTo = dateFrom.add(const Duration(days: 7));
         break;
       default:
         dateFrom = DateTime(now.year, now.month, now.day);
-        dateTo = dateFrom.add(Duration(days: 365));
+        dateTo = dateFrom.add(const Duration(days: 365));
         break;
     }
     _setModelToNull();
@@ -721,7 +723,7 @@ class _VendorBookingOverviewScreenState
     );
   }
 
-  _getListViewHeaderStyle({double fontSize}) {
+  _getListViewHeaderStyle({double? fontSize}) {
     return TextStyle(
         fontFamily: "AcuminProWide",
         color: _getCurrentColor(),
@@ -784,7 +786,7 @@ class _VendorBookingOverviewScreenState
     });
 
     if (_selectedDate == SelectedDate.NONE) {
-      GlobalDate.set(null);
+      GlobalDate.set(DateTime.now());
     }
     if (_selectedDate == SelectedDate.TODAY) {
       GlobalDate.setToday();
@@ -801,12 +803,12 @@ class _VendorBookingOverviewScreenState
     _showDateSelectorDialog(context: context);
   }
 
-  void _showDateSelectorDialog({BuildContext context}) {
+  void _showDateSelectorDialog({BuildContext? context}) {
     showDialog(
-      context: context,
+      context: context!,
       builder: (BuildContext context) => CalendarPopupView(
         barrierDismissible: true,
-        minimumDate: DateTime.now().subtract(Duration(days: 730)),
+        minimumDate: DateTime.now().subtract(const Duration(days: 730)),
         initialDate: GlobalDate.current(),
         onApplyClick: (DateTime date) {
           setState(() {
@@ -828,19 +830,20 @@ class _VendorBookingOverviewScreenState
 
   _showTicketList(VendorBookingPreviewModel bookingPreviewModel) {
     if (bookingPreviewModel.transactionModel.bookingState != "REQUEST" &&
-        bookingPreviewModel.transactionModel.bookingState != "REQUEST_DENIED")
+        bookingPreviewModel.transactionModel.bookingState != "REQUEST_DENIED") {
       showDialog(
         context: context,
         builder: (context) {
           return VendorBookingDetailsModal(
             vendorBookingPreviewModel: bookingPreviewModel,
-            category: _category,
+            category: _category!,
             refresh: () {
               _getTransactions(true);
             },
           );
         },
       );
+    }
   }
 
   bool isBookingCategoryEqual(TransactionModel transaction) {
@@ -896,54 +899,55 @@ class _VendorBookingOverviewScreenState
       List<TransactionTicket> ticketsList = [];
       switch (_category) {
         case Category.REQUESTED:
-          numberOfTickets = transaction.tickets.length;
-          totalPrice = transaction.totalPrice;
-          ticketsList.addAll(transaction.tickets);
+          numberOfTickets = transaction.tickets!.length;
+          totalPrice = transaction.totalPrice!;
+          ticketsList.addAll(transaction.tickets!);
           break;
         case Category.USABLE:
-          transaction.tickets.forEach((ticket) {
+          transaction.tickets!.forEach((ticket) {
             if (ticket.state == "USABLE") {
               numberOfTickets += 1;
-              totalPrice += ticket.price;
+              totalPrice += ticket.price!;
               ticketsList.add(ticket);
             }
           });
           break;
         case Category.USED:
-          transaction.tickets.forEach((ticket) {
+          transaction.tickets!.forEach((ticket) {
             if (ticket.state == "USED") {
               numberOfTickets += 1;
-              totalPrice += ticket.price;
+              totalPrice += ticket.price!;
               ticketsList.add(ticket);
             }
           });
           break;
 
         case Category.REFUNDED:
-          if (transaction.bookingState == "SUCCESS")
-            transaction.tickets.forEach((ticket) {
+          if (transaction.bookingState == "SUCCESS") {
+            transaction.tickets!.forEach((ticket) {
               if (ticket.state == "REFUNDED") {
                 numberOfTickets += 1;
-                totalPrice += ticket.price;
+                totalPrice += ticket.price!;
                 ticketsList.add(ticket);
               }
             });
-          else if (transaction.bookingState == "REFUNDED") {
-            numberOfTickets = transaction.tickets.length;
-            totalPrice = transaction.totalPrice;
-            ticketsList.addAll(transaction.tickets);
+          } else if (transaction.bookingState == "REFUNDED") {
+            numberOfTickets = transaction.tickets!.length;
+            totalPrice = transaction.totalPrice!;
+            ticketsList.addAll(transaction.tickets!);
           }
           break;
       }
 
-      if (numberOfTickets > 0)
+      if (numberOfTickets > 0) {
         bookingPreviewModels.add(VendorBookingPreviewModel(
-            buyer: transaction.buyer,
-            dateTime: transaction.dateTime,
+            buyer: transaction.buyer!,
+            dateTime: transaction.dateTime!,
             tickets: numberOfTickets.toString(),
             totalPrice: totalPrice,
             transactionModel: transaction,
             ticketList: ticketsList));
+      }
     });
 
     return bookingPreviewModels;

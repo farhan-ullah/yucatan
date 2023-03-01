@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 
 class CheckoutCheckboxFormField extends FormField<bool> {
   CheckoutCheckboxFormField(
-      {TextSpan text,
+      {TextSpan? text,
       bool initialValue = false,
       bool isComingFromContactScreen = false,
       bool isSubmitPressed = false,
-      AutovalidateMode autovalidateMode,
-      Function callback})
+      AutovalidateMode? autovalidateMode,
+      Function? callback})
       : super(
           autovalidateMode: autovalidateMode,
           initialValue: initialValue,
           validator: (value) {
-            if (!value) return "error";
+            if (!value!) return "error";
             return null;
           },
           builder: (FormFieldState<bool> state) {
@@ -32,7 +32,7 @@ class CheckoutCheckboxFormField extends FormField<bool> {
                                 ? CustomTheme.accentColor1
                                 : CustomTheme.disabledColor.withOpacity(0.3)),
                         child: Container(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                             top: 12,
                             right: 12,
                             bottom: 12,
@@ -44,7 +44,7 @@ class CheckoutCheckboxFormField extends FormField<bool> {
                               value: state.value,
                               activeColor: CustomTheme.primaryColorLight,
                               onChanged: (value) {
-                                callback(value);
+                                callback!(value);
                                 state.didChange(value);
                               },
                             ),
@@ -52,7 +52,7 @@ class CheckoutCheckboxFormField extends FormField<bool> {
                         ),
                       )
                     : Container(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           top: 12,
                           right: 12,
                           bottom: 12,
@@ -64,7 +64,7 @@ class CheckoutCheckboxFormField extends FormField<bool> {
                             activeColor: CustomTheme.primaryColorLight,
                             value: state.value,
                             onChanged: (value) {
-                              callback(value);
+                              callback!(value);
                               state.didChange(value);
                             },
                           ),
@@ -75,6 +75,8 @@ class CheckoutCheckboxFormField extends FormField<bool> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
+                        margin: EdgeInsets.only(
+                            top: isComingFromContactScreen ? 10 : 0),
                         child: RichText(
                           overflow: TextOverflow.clip,
                           text: TextSpan(
@@ -84,10 +86,8 @@ class CheckoutCheckboxFormField extends FormField<bool> {
                                           .withOpacity(0.8)
                                       : Colors.black,
                                   fontFamily: CustomTheme.fontFamily),
-                              children: [text]),
+                              children: [text!]),
                         ),
-                        margin: EdgeInsets.only(
-                            top: isComingFromContactScreen ? 10 : 0),
                       ),
                     ],
                   ),

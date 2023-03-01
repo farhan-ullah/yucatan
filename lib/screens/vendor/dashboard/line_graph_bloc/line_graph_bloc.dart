@@ -33,16 +33,16 @@ class LineGraphBloc {
       if (event == LineGraphAction.FetchGraphData) {
         _dateTo = getCurrentDate();
         _dateFrom = _dateTo.subtract(Duration(days: 7));
-        VendorBookingStatisticSingleResponseEntity response =
+        VendorBookingStatisticSingleResponseEntity? response =
             await StatisticService.getVendorDetailedStatistic(
                 getDateString(_dateFrom), getDateString(_dateTo));
-        if (response.status == 200) {
+        if (response!.status == 200) {
           fullItemsList = [];
           _maxRevenue = 0;
           _maxBookingAmount = 0;
-          fullItemsList = getItemsForAllDates(response.data.dailyRevenueItems);
+          fullItemsList = getItemsForAllDates(response.data!.dailyRevenueItems!);
           if (_maxRevenue == 0) _maxRevenue = 100;
-          fullItemsList = getItemsForAllDates(response.data.dailyRevenueItems);
+          fullItemsList = getItemsForAllDates(response.data!.dailyRevenueItems!);
           response.fullItemsList = fullItemsList;
           response.maxRevenue = _maxRevenue;
         }
@@ -65,18 +65,18 @@ class LineGraphBloc {
     DateTime dateToAdd = _dateFrom;
 
     items.forEach((dailyRevenueItem) {
-      if (dailyRevenueItem.revenue > _maxRevenue)
-        _maxRevenue = dailyRevenueItem.revenue;
+      if (dailyRevenueItem.revenue! > _maxRevenue)
+        _maxRevenue = dailyRevenueItem.revenue!;
 
-      if (dailyRevenueItem.bookingAmount > _maxBookingAmount)
-        _maxBookingAmount = dailyRevenueItem.bookingAmount;
-      while (!dateToAdd.isAtSameMomentAs(dailyRevenueItem.date) &&
+      if (dailyRevenueItem.bookingAmount! > _maxBookingAmount)
+        _maxBookingAmount = dailyRevenueItem.bookingAmount!;
+      while (!dateToAdd.isAtSameMomentAs(dailyRevenueItem.date!) &&
           fullList.length < _numberOfDays) {
         fullList.add(
             DailyRevenueItem(bookingAmount: 0, revenue: 0.0, date: dateToAdd));
         dateToAdd = dateToAdd.add(Duration(days: 1));
       }
-      dateToAdd = dailyRevenueItem.date.add(Duration(days: 1));
+      dateToAdd = dailyRevenueItem.date!.add(Duration(days: 1));
       fullList.add(dailyRevenueItem);
     });
     while (!dateToAdd.isAtSameMomentAs(_dateTo.add(Duration(days: 1))) &&

@@ -11,10 +11,10 @@ import 'booking_categories.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VendorBookingTicketListItem extends StatelessWidget {
-  final BookingTicket ticket;
-  final ActivityModel activity;
-  final BookingModel.BookingModel booking;
-  final Category category;
+  final BookingTicket? ticket;
+  final ActivityModel? activity;
+  final BookingModel.BookingModel? booking;
+  final Category? category;
   VendorBookingTicketListItem(
       {this.activity, this.booking, this.ticket, this.category});
   @override
@@ -30,8 +30,8 @@ class VendorBookingTicketListItem extends StatelessWidget {
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         TicketPreviewHeader(
-          ticketNumber: ticket.ticket,
-          headerColor: getCurrentColor(category),
+          ticketNumber: ticket!.ticket!,
+          headerColor: getCurrentColor(category!),
         ),
         Container(
           padding: EdgeInsets.all(Dimensions.getScaledSize(10.0)),
@@ -42,18 +42,18 @@ class VendorBookingTicketListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TicketPreviewInfo(
-                  activity: activity,
+                  activity: activity!,
                   ticketRefunded: _isRefundedTicket(),
-                  booking: booking,
+                  booking: booking!,
                   imageAvailable: activity?.thumbnail?.publicUrl != null,
-                  ticket: ticket,
+                  ticket: ticket!,
                 ),
                 SizedBox(height: Dimensions.getScaledSize(10.0)),
                 _getCategoryAndSubcategory(),
                 SizedBox(height: Dimensions.getScaledSize(5.0)),
-                _getProductTextForTicket(ticket),
-                ..._getProductPropertiesForTicket(ticket),
-                ..._getAdditionalServicesForTicket(ticket),
+                _getProductTextForTicket(ticket!),
+                ..._getProductPropertiesForTicket(ticket!),
+                ..._getAdditionalServicesForTicket(ticket!),
               ],
             ),
           ),
@@ -96,7 +96,7 @@ class VendorBookingTicketListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.baseline,
               children: [
                 Text(
-                  '${formatPriceDouble(ticket.price)}',
+                  '${formatPriceDouble(ticket!.price!)}',
                   style: TextStyle(
                     fontSize: Dimensions.getScaledSize(20.0),
                     fontWeight: FontWeight.bold,
@@ -124,7 +124,7 @@ class VendorBookingTicketListItem extends StatelessWidget {
   }
 
   _getCategoryAndSubcategory() {
-    BookingModel.BookingProduct product = _getProductById(ticket.productId);
+    BookingModel.BookingProduct product = _getProductById(ticket!.productId!);
     return Text(
       '${product.categoryTitle}, ${product.subCategoryTitle}',
       style: TextStyle(
@@ -138,24 +138,24 @@ class VendorBookingTicketListItem extends StatelessWidget {
   }
 
   BookingModel.BookingProduct _getProductById(String productId) {
-    return booking.products.firstWhere(
+    return booking!.products!.firstWhere(
       (element) => element.id == productId,
-      orElse: () => null,
+      // orElse: () => null,
     );
   }
 
   BookingModel.ProductAdditionalService _getAdditionalServiceByTicketAndId(
       BookingModel.BookingTicket ticket, String additionalServiceId) {
-    var bookingProduct = _getProductById(ticket.productId);
+    var bookingProduct = _getProductById(ticket.productId!);
 
-    return bookingProduct.additionalServices.firstWhere(
+    return bookingProduct.additionalServices!.firstWhere(
       (element) => element.id == additionalServiceId,
-      orElse: () => null,
+      // orElse: () => null,
     );
   }
 
   Widget _getProductTextForTicket(BookingModel.BookingTicket ticket) {
-    var bookingProduct = _getProductById(ticket.productId);
+    var bookingProduct = _getProductById(ticket.productId!);
 
     return Text(
       '1x ${bookingProduct.title}',
@@ -172,11 +172,11 @@ class VendorBookingTicketListItem extends StatelessWidget {
       BookingModel.BookingTicket ticket) {
     List<Widget> widgets = [];
 
-    var bookingProduct = _getProductById(ticket.productId);
+    var bookingProduct = _getProductById(ticket.productId!);
 
-    if (bookingProduct.quantity > 1) return [];
+    if (bookingProduct.quantity! > 1) return [];
 
-    bookingProduct.properties.forEach((productPropertyElemenet) {
+    bookingProduct.properties!.forEach((productPropertyElemenet) {
       widgets.add(
         Text(
           '${productPropertyElemenet.value}',
@@ -196,7 +196,7 @@ class VendorBookingTicketListItem extends StatelessWidget {
       BookingModel.BookingTicket ticket) {
     List<Widget> widgets = [];
 
-    ticket.additionalServiceInfo.forEach((additionalServiceInfoElement) {
+    ticket.additionalServiceInfo!.forEach((additionalServiceInfoElement) {
       widgets.add(
         SizedBox(
           height: Dimensions.getScaledSize(10.0),
@@ -205,7 +205,7 @@ class VendorBookingTicketListItem extends StatelessWidget {
 
       var additionalService = _getAdditionalServiceByTicketAndId(
         ticket,
-        additionalServiceInfoElement.additionalServiceId,
+        additionalServiceInfoElement.additionalServiceId!,
       );
 
       widgets.add(
@@ -233,9 +233,9 @@ class VendorBookingTicketListItem extends StatelessWidget {
       BookingModel.ProductAdditionalService additionalService) {
     List<Widget> widgets = [];
 
-    if (additionalService.quantity > 1) return [];
+    if (additionalService.quantity! > 1) return [];
 
-    additionalService.properties.forEach((additionalServicePropertyElemenet) {
+    additionalService.properties!.forEach((additionalServicePropertyElemenet) {
       widgets.add(
         Text(
           '${additionalServicePropertyElemenet.value}',

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class VendorActivityOverviewListViewShimmer extends StatelessWidget {
-  final double width;
+  final double? width;
   final bool isComingFromFullMapScreen;
 
   const VendorActivityOverviewListViewShimmer(
@@ -66,7 +66,7 @@ class VendorActivityOverviewListViewShimmer extends StatelessWidget {
                                       color: Colors.white,
                                       borderRadius:
                                           BorderRadius.circular(16.0)),
-                                  width: width * 0.33,
+                                  width: width! * 0.33,
                                   height: Dimensions.getScaledSize(13.0),
                                 ),
                               ),
@@ -115,7 +115,7 @@ class VendorActivityOverviewListViewShimmer extends StatelessWidget {
                                                                 BorderRadius
                                                                     .circular(
                                                                         5.0)),
-                                                        width: width * 0.33,
+                                                        width: width! * 0.33,
                                                         height: Dimensions
                                                             .getScaledSize(
                                                                 13.0),
@@ -149,7 +149,7 @@ class VendorActivityOverviewListViewShimmer extends StatelessWidget {
                                                                 BorderRadius
                                                                     .circular(
                                                                         5.0)),
-                                                        width: width * 0.33,
+                                                        width: width! * 0.33,
                                                         height: Dimensions
                                                             .getScaledSize(
                                                                 50.0),
@@ -170,7 +170,7 @@ class VendorActivityOverviewListViewShimmer extends StatelessWidget {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           8.0)),
-                                              width: width * 0.1,
+                                              width: width! * 0.1,
                                               height: Dimensions.getScaledSize(
                                                   21.0),
                                             ),

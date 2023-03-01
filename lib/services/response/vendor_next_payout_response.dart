@@ -18,8 +18,8 @@ class VendorNextPayoutResponse {
     this.data,
   });
 
-  int status;
-  PayoutData data;
+  int? status;
+  PayoutData? data;
 
   factory VendorNextPayoutResponse.fromJson(Map<String, dynamic> json) =>
       VendorNextPayoutResponse(
@@ -29,6 +29,6 @@ class VendorNextPayoutResponse {
 
   Map<String, dynamic> toJson() => {
         "status": status,
-        "data": data.toJson(),
+        "data": data!.toJson(),
       };
 }

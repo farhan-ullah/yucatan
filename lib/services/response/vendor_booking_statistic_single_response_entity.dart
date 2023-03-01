@@ -2,10 +2,10 @@ import 'package:yucatan/models/vendor_booking_statistic_model.dart';
 import 'package:yucatan/services/response/api_error.dart';
 
 class VendorBookingStatisticSingleResponseEntity {
-  int status;
-  VendorBookingStatisticModel data;
-  ApiError errors;
-  List<DailyRevenueItem> fullItemsList = [];
+  int? status;
+  VendorBookingStatisticModel? data;
+  ApiError? errors;
+  List<DailyRevenueItem>? fullItemsList = [];
   double maxRevenue = 100;
 
   VendorBookingStatisticSingleResponseEntity({

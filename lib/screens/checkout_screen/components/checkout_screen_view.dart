@@ -25,6 +25,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'checkout_checkbox_formfield.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flag/flag.dart';
 
 class CheckoutScreenView extends StatefulWidget {
   final ActivityModel activity;
@@ -43,36 +44,37 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
   String currentText = "";
   String defaultPhoneValue = "+49";
   String defaultFlagValue = "DE";
-  Future<UserLoginModel> user;
-  UserLoginModel _loadedUser;
+  Future<UserLoginModel>? user;
+  UserLoginModel? _loadedUser;
   bool initialValuesSet = false;
   bool isWeiterBtnPressed = false;
 
-  String name;
-  String lastName;
-  String street;
-  String houseNumber;
-  String zipCode;
-  String city;
+  String? name;
+  String? lastName;
+  String? street;
+  String? houseNumber;
+  String? zipCode;
+  String? city;
   //String country;
-  String email;
-  String areaCode;
-  String phoneNumber;
-  String countryISO2Code;
-  String countryISO2Name;
-  String countryISO3166;
-  bool checkboxAGB;
-  bool checkboxData;
-  ValidationType nameValidationType;
-  ValidationType lastNameValidationType;
-  ValidationType streetValidationType;
-  ValidationType houseNumberValidationType;
-  ValidationType zipCodeValidationType;
-  ValidationType cityValidationType;
-  ValidationType countryValidationType;
-  ValidationType emailValidationType;
-  ValidationType phoneValidationType;
+  String? email;
+  String? areaCode;
+  String? phoneNumber;
+  String? countryISO2Code;
+  String? countryISO2Name;
+  String? countryISO3166;
+  bool? checkboxAGB;
+  bool? checkboxData;
+  ValidationType? nameValidationType;
+  ValidationType? lastNameValidationType;
+  ValidationType? streetValidationType;
+  ValidationType? houseNumberValidationType;
+  ValidationType? zipCodeValidationType;
+  ValidationType? cityValidationType;
+  ValidationType? countryValidationType;
+  ValidationType? emailValidationType;
+  ValidationType? phoneValidationType;
   TextEditingController countryTextEditingController = TextEditingController();
+  late Product product;
 
   @override
   void initState() {
@@ -83,21 +85,21 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
     this.countryISO2Name = "Deutschland";
     this.areaCode = defaultPhoneValue;
     phoneNumber = "";
-    countryTextEditingController.text = countryISO2Name;
+    countryTextEditingController.text = countryISO2Name!;
 
     CountryData findCountry(String countryName) => CountryUtils.getInstance()
-        .countryObject
+        .countryObject!
         .countryList
         .firstWhere((country) => country.country == countryISO2Code);
 
-    String flagValue = findCountry(countryISO2Code).country;
+    String flagValue = findCountry(countryISO2Code!).country;
     countryISO3166 = flagValue;
     super.initState();
   }
 
   BoxDecoration myBoxDecoration() {
     Color undelineColor;
-    if (isWeiterBtnPressed && phoneNumber.isEmpty) {
+    if (isWeiterBtnPressed && phoneNumber!.isEmpty) {
       undelineColor = CustomTheme.accentColor1;
     } else {
       undelineColor = CustomTheme.darkGrey.withOpacity(0.5);
@@ -133,7 +135,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                         left: Dimensions.getScaledSize(24.0),
                         right: Dimensions.getScaledSize(24.0)),
                     child: Text(
-                      widget.activity.activityDetails.title,
+                      widget.activity.activityDetails!.title!,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: Dimensions.getScaledSize(18.0),
@@ -185,52 +187,52 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                               if (initialValuesSet == false) {
                                 initialValuesSet = true;
 
-                                defaultPhoneValue = snapshot.data.areaCode;
+                                defaultPhoneValue = snapshot.data!.areaCode;
                                 var flagValue = CountryUtils.getInstance()
-                                    .countryObject
+                                    .countryObject!
                                     .jsonPhoneMap
                                     .keys
                                     .firstWhere(
                                         (k) =>
                                             CountryUtils.getInstance()
-                                                .countryObject
+                                                .countryObject!
                                                 .jsonPhoneMap[k] ==
                                             defaultPhoneValue,
                                         orElse: () => "DE");
                                 defaultFlagValue = flagValue;
 
-                                name = snapshot.data.firstname;
-                                lastName = snapshot.data.lastname;
-                                street = snapshot.data.street;
-                                houseNumber = snapshot.data.housenumber;
-                                zipCode = snapshot.data.zipcode;
-                                city = snapshot.data.city;
-                                email = snapshot.data.email;
-                                phoneNumber = snapshot.data.phone;
-                                countryISO2Code = snapshot.data.countryISO2;
+                                name = snapshot.data!.firstname;
+                                lastName = snapshot.data!.lastname;
+                                street = snapshot.data!.street;
+                                houseNumber = snapshot.data!.housenumber;
+                                zipCode = snapshot.data!.zipcode;
+                                city = snapshot.data!.city;
+                                email = snapshot.data!.email;
+                                phoneNumber = snapshot.data!.phone;
+                                countryISO2Code = snapshot.data!.countryISO2;
                                 countryISO2Name = CountryUtils.getInstance()
-                                    .countryObject
+                                    .countryObject!
                                     .countryList
                                     .firstWhere(
                                         (element) =>
                                             element.country.toLowerCase() ==
-                                            countryISO2Code.toLowerCase(),
+                                            countryISO2Code!.toLowerCase(),
                                         orElse: () => CountryData('', ''))
                                     .countryName;
                               }
 
                               return snapshot.hasData
                                   ? _getInputFieldsForm(
-                                      initialFirstname: name,
-                                      initialLastname: lastName,
-                                      initialStreet: street,
-                                      initialHousenumber: houseNumber,
-                                      initialZipcode: zipCode,
-                                      initialCity: city,
-                                      initialEmail: email,
-                                      initialPhone: phoneNumber,
-                                      countryIso2Code: countryISO2Code,
-                                      countryIso2Name: countryISO2Name,
+                                      initialFirstname: name!,
+                                      initialLastname: lastName!,
+                                      initialStreet: street!,
+                                      initialHousenumber: houseNumber!,
+                                      initialZipcode: zipCode!,
+                                      initialCity: city!,
+                                      initialEmail: email!,
+                                      initialPhone: phoneNumber!,
+                                      countryIso2Code: countryISO2Code!,
+                                      countryIso2Name: countryISO2Name!,
                                     )
                                   : _getInputFieldsForm();
                             } else if (snapshot.hasError) {
@@ -244,7 +246,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                               );
                             }
 
-                            return Center(child: CircularProgressIndicator());
+                            return const Center(child: CircularProgressIndicator());
                           })),
                   SizedBox(
                     height: Dimensions.getScaledSize(90.0) +
@@ -262,8 +264,8 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                 : Positioned(
                     bottom: 0,
                     child: BookingBar(
-                      bookingDetails: widget.activity.bookingDetails,
-                      orderProducts: widget.order.products,
+                      bookingDetails: widget.activity.bookingDetails!,
+                      orderProducts: widget.order.products!,
                       onTap: () {
                         setState(() {
                           this.isWeiterBtnPressed = true;
@@ -334,7 +336,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
               child: InputField(
                 context: context,
                 isWeiterBtnPressed: this.isWeiterBtnPressed,
-                hint: AppLocalizations.of(context)
+                hint: AppLocalizations.of(context)!
                     .commonWords_number_abbreviation,
                 keyboardType: TextInputType.text,
                 callback: handleHouseNumberChanged,
@@ -401,7 +403,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
             ),
             //controller: TextEditingController(text: this.countryISO2Name/*countryIso2Name*/),
             controller: countryTextEditingController,
-            suggestions: CountryUtils.getInstance().countryObject.countryList2,
+            suggestions: CountryUtils.getInstance().countryObject!.countryList2,
             textChanged: (text) => currentText = text,
             clearOnSubmit: false,
             submitOnSuggestionTap: true,
@@ -410,7 +412,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
               this.countryISO2Name = text;
               CountryData findCountry(String countryName) =>
                   CountryUtils.getInstance()
-                      .countryObject
+                      .countryObject!
                       .countryList
                       .firstWhere((country) => country.countryName == text);
               String flagValue = findCountry(text).country;
@@ -419,7 +421,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
               setState(() {
                 handlePhoneChanged(flagValue);
                 this.defaultPhoneValue = CountryUtils.getInstance()
-                    .countryObject
+                    .countryObject!
                     .jsonPhoneMap[flagValue];
                 this.defaultFlagValue = flagValue;
                 print(
@@ -469,14 +471,14 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                         : "+49",
                     selectedItemBuilder: (BuildContext context) {
                       return CountryUtils.getInstance()
-                          .countryObject
+                          .countryObject!
                           .countryPhoneList
                           .map<Widget>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Row(
                             children: [
-                              Flag(
+                              Flag.fromString(
                                 '$defaultFlagValue',
                                 width: Dimensions.getScaledSize(32),
                                 height: Dimensions.getScaledSize(22),
@@ -502,7 +504,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                       }).toList();
                     },
                     items: CountryUtils.getInstance()
-                        .countryObject
+                        .countryObject!
                         .countryPhoneList
                         .map((String value) {
                       return DropdownMenuItem<String>(
@@ -517,30 +519,31 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                         ),
                       );
                     }).toList(),
-                    onChanged: (String val) {
+                    onChanged: (String? val) {
                       //print("onChanged=${val}");
                       var result = CountryUtils.getInstance()
-                          .countryObject
+                          .countryObject!
                           .jsonPhoneMap
                           .keys
                           .firstWhere(
                               (k) =>
                                   CountryUtils.getInstance()
-                                      .countryObject
+                                      .countryObject!
                                       .jsonPhoneMap[k] ==
                                   val,
-                              orElse: () => null);
+                              // orElse: () => null
+                      );
                       //print("CountryUtils.getInstance()=${result} and countryISO3166=${countryISO3166}");
                       //print("CountryName=${CountryUtils.getInstance().countryObject.jsonMap[result]}");
                       countryIso2Name = CountryUtils.getInstance()
-                          .countryObject
+                          .countryObject!
                           .jsonMap[result];
                       countryISO3166 = result;
                       this.countryISO2Name = countryIso2Name;
                       this.defaultFlagValue = result;
                       countryTextEditingController.text = countryIso2Name;
                       setState(() {
-                        handlePhoneChanged(val);
+                        handlePhoneChanged(val!);
                         this.defaultPhoneValue = val;
                       });
                     },
@@ -565,7 +568,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                               AppLocalizations.of(context)!.commonWords_phone,
                           showUnderline: false,
                           textInputType: TextInputType.number,
-                          validationErrorMsg: AppLocalizations.of(context)
+                          validationErrorMsg: AppLocalizations.of(context)!
                               .commonWords_phoneInvalid,
                           autocorrect: false,
                           onTextChanged: (String text) {
@@ -594,7 +597,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                 text: AppLocalizations.of(context)!.commonWords_AGBpolicy1),
             TextSpan(
               text: AppLocalizations.of(context)!.commonWords_AGBpolicy2,
-              style: TextStyle(
+              style: const TextStyle(
                   color: CustomTheme.primaryColor,
                   fontFamily: CustomTheme.fontFamily),
               recognizer: TapGestureRecognizer()
@@ -621,7 +624,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
             TextSpan(text: AppLocalizations.of(context)!.commonWords_DSpolicy1),
             TextSpan(
               text: AppLocalizations.of(context)!.commonWords_DSpolicy2,
-              style: TextStyle(
+              style: const TextStyle(
                   color: CustomTheme.primaryColor,
                   fontFamily: CustomTheme.fontFamily),
               recognizer: TapGestureRecognizer()
@@ -663,7 +666,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
   handlecheckboxDataChanged(bool value) {
     setState(() {
       this.checkboxData = value;
-      final FormState form = _formKey.currentState;
+      final FormState form = _formKey.currentState!;
       form.validate();
     });
   }
@@ -671,7 +674,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
   handlecheckboxAGBChanged(bool value) {
     setState(() {
       this.checkboxAGB = value;
-      final FormState form = _formKey.currentState;
+      final FormState form = _formKey.currentState!;
       form.validate();
     });
   }
@@ -679,7 +682,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
   handleNameChanged(String value) {
     setState(() {
       this.name = value;
-      final FormState form = _formKey.currentState;
+      final FormState form = _formKey.currentState!;
 
       form.validate();
     });
@@ -688,7 +691,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
   handleLastNameChanged(String value) {
     setState(() {
       this.lastName = value;
-      final FormState form = _formKey.currentState;
+      final FormState form = _formKey.currentState!;
       form.validate();
     });
   }
@@ -696,7 +699,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
   handleStreetChanged(String value) {
     setState(() {
       this.street = value;
-      final FormState form = _formKey.currentState;
+      final FormState form = _formKey.currentState!;
       form.validate();
     });
   }
@@ -704,7 +707,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
   handleHouseNumberChanged(String value) {
     setState(() {
       this.houseNumber = value;
-      final FormState form = _formKey.currentState;
+      final FormState form = _formKey.currentState!;
       form.validate();
     });
   }
@@ -712,7 +715,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
   handleZipCodeChanged(String value) {
     setState(() {
       this.zipCode = value;
-      final FormState form = _formKey.currentState;
+      final FormState form = _formKey.currentState!;
       form.validate();
     });
   }
@@ -720,7 +723,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
   handleCityChanged(String value) {
     setState(() {
       this.city = value;
-      final FormState form = _formKey.currentState;
+      final FormState form = _formKey.currentState!;
       form.validate();
     });
   }
@@ -736,7 +739,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
   handleEmailChanged(String value) {
     setState(() {
       this.email = value;
-      final FormState form = _formKey.currentState;
+      final FormState form = _formKey.currentState!;
       form.validate();
     });
   }
@@ -744,7 +747,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
   handlePhoneChanged(String value) {
     //setState(() {
     this.areaCode = value;
-    final FormState form = _formKey.currentState;
+    final FormState form = _formKey.currentState!;
     form.validate();
     //});
   }
@@ -756,7 +759,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
   }
 
   _proceedToPayment() {
-    final FormState form = _formKey.currentState;
+    final FormState form = _formKey.currentState!;
     if (form.validate()) {
       FocusScope.of(context).unfocus();
       if (name != null &&
@@ -781,14 +784,14 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
           countryISO2Code != '') {
         widget.order.address = AddressModel(
             name: '$name $lastName',
-            email: email,
-            street: street,
-            houseNumber: houseNumber,
-            zipCode: zipCode,
-            city: city,
+            email: email!,
+            street: street!,
+            houseNumber: houseNumber!,
+            zipCode: zipCode!,
+            city: city!,
             phone: phoneNumber,
-            areaCode: areaCode,
-            countryISO2: countryISO3166);
+            areaCode: areaCode!,
+            countryISO2: countryISO3166!);
 
         if (_selectedRoute == '') {
           Fluttertoast.showToast(
@@ -847,33 +850,33 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
 
   /// Each field gets checked individually. If it is null/empty then saving the value for that field in shared prefs
   void _updateUserAddress() async {
-    UserLoginModel userModel = _loadedUser;
+    UserLoginModel userModel = _loadedUser!;
     if (!checkIfNullOrEmpty(userModel.lastname)) {
-      userModel.lastname = lastName;
+      userModel.lastname = lastName!;
     }
     if (!checkIfNullOrEmpty(userModel.firstname)) {
-      userModel.firstname = name;
+      userModel.firstname = name!;
     }
     if (!checkIfNullOrEmpty(userModel.street)) {
-      userModel.street = street;
+      userModel.street = street!;
     }
     if (!checkIfNullOrEmpty(userModel.housenumber)) {
-      userModel.housenumber = houseNumber;
+      userModel.housenumber = houseNumber!;
     }
     if (!checkIfNullOrEmpty(userModel.zipcode)) {
-      userModel.zipcode = zipCode;
+      userModel.zipcode = zipCode!;
     }
     if (!checkIfNullOrEmpty(userModel.city)) {
-      userModel.city = city;
+      userModel.city = city!;
     }
     if (!checkIfNullOrEmpty(userModel.phone)) {
-      userModel.phone = phoneNumber;
+      userModel.phone = phoneNumber!;
     }
     if (!checkIfNullOrEmpty(userModel.areaCode)) {
-      userModel.areaCode = areaCode;
+      userModel.areaCode = areaCode!;
     }
     if (!checkIfNullOrEmpty(userModel.countryISO2)) {
-      userModel.countryISO2 = countryISO2Code;
+      userModel.countryISO2 = countryISO2Code!;
     }
     await UserProvider.update(userModel);
   }
@@ -881,9 +884,9 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
   bool _requestRequestForBooking() {
     bool requestRequired = false;
 
-    widget.order.products.forEach((productElement) {
-      Product product = _findProduct(productElement.id);
-      if (product.requestRequired) {
+    widget.order.products!.forEach((productElement) {
+      Product product = _findProduct(productElement.id!);
+      if (product.requestRequired!) {
         requestRequired = true;
       }
     });
@@ -892,20 +895,20 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
   }
 
   Product _findProduct(String productId) {
-    Product product;
+    // Product product;
 
-    widget.activity.bookingDetails.productCategories.forEach(
+    widget.activity.bookingDetails!.productCategories!.forEach(
       (productCategoryElement) {
-        productCategoryElement.products.forEach(
+        productCategoryElement.products!.forEach(
           (productElement) {
             if (productElement.id == productId) {
               product = productElement;
             }
           },
         );
-        productCategoryElement.productSubCategories.forEach(
+        productCategoryElement.productSubCategories!.forEach(
           (productSubCategoryElement) {
-            productSubCategoryElement.products.forEach(
+            productSubCategoryElement.products!.forEach(
               (productElement) {
                 if (productElement.id == productId) {
                   product = productElement;
@@ -928,15 +931,15 @@ enum ValidationType {
 }
 
 class InputField extends StatefulWidget {
-  final BuildContext context;
-  final String hint;
-  final ValueChanged<String> callback;
-  final TextInputType keyboardType;
-  final Function(String) validationFunc;
-  final RegExp validation;
-  final String validationErrorMsg;
-  final String initialValue;
-  final bool isWeiterBtnPressed;
+  final BuildContext? context;
+  final String? hint;
+  final ValueChanged<String>? callback;
+  final TextInputType? keyboardType;
+  final Function(String)? validationFunc;
+  final RegExp? validation;
+  final String? validationErrorMsg;
+  final String? initialValue;
+  final bool? isWeiterBtnPressed;
 
   InputField(
       {this.context,
@@ -954,7 +957,7 @@ class InputField extends StatefulWidget {
 }
 
 class _InputFieldState extends State<InputField> {
-  ValidationType validationType;
+  ValidationType? validationType;
   TextEditingController textEditingController = TextEditingController();
 
   @override
@@ -988,7 +991,7 @@ class _InputFieldState extends State<InputField> {
         return null;
       } else {
         var validationResult =
-            widget.validation.hasMatch(arg) ? null : widget.validationErrorMsg;
+            widget.validation!.hasMatch(arg) ? null : widget.validationErrorMsg;
         setState(() {
           if (validationResult == null || validationResult == '') {
             validationType = ValidationType.Valid;
@@ -1000,7 +1003,7 @@ class _InputFieldState extends State<InputField> {
       }
     });
 
-    textEditingController.text = widget.initialValue;
+    textEditingController.text = widget.initialValue!;
     super.initState();
   }
 
@@ -1013,7 +1016,7 @@ class _InputFieldState extends State<InputField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         top: 15,
       ),
       child: Container(
@@ -1029,7 +1032,7 @@ class _InputFieldState extends State<InputField> {
           color: Colors.white,
         ),*/
         child: Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             right: 8,
             left: 8,
           ),
@@ -1039,10 +1042,10 @@ class _InputFieldState extends State<InputField> {
                 maxLines: 1,
                 controller: textEditingController,
                 onChanged: (String value) {
-                  widget.callback(value);
+                  widget.callback!(value);
                 },
                 keyboardType: widget.keyboardType,
-                validator: (String arg) {
+                validator: (String? arg) {
                   //This has to be checked
                   if (arg == null || arg == '') {
                     return null;
@@ -1055,7 +1058,7 @@ class _InputFieldState extends State<InputField> {
                     return null;
                   } else {
                     var validationResult =
-                        widget.validation.hasMatch(arg) ? null : '';
+                        widget.validation!.hasMatch(arg) ? null : '';
                     return validationResult;
                   }
                 },
@@ -1064,12 +1067,12 @@ class _InputFieldState extends State<InputField> {
                   letterSpacing: CustomTheme.letterSpacing,
                 ),
                 cursorColor: Theme.of(context).primaryColor,
-                decoration: new InputDecoration(
+                decoration: InputDecoration(
                   /*focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: textEditingController.text.isEmpty ? Colors.cyan : Colors.deepOrange),
                   ),*/
                   enabledBorder: UnderlineInputBorder(
-                      borderSide: widget.isWeiterBtnPressed
+                      borderSide: widget.isWeiterBtnPressed!
                           ? BorderSide(
                               color: textEditingController.text.isEmpty
                                   ? CustomTheme.accentColor1
@@ -1082,12 +1085,12 @@ class _InputFieldState extends State<InputField> {
                   hintText: widget.hint,
                   hintStyle: TextStyle(color: CustomTheme.hintText),
                   suffixIcon: validationType == ValidationType.Valid
-                      ? Icon(
+                      ? const Icon(
                           Icons.check,
                           color: CustomTheme.accentColor2,
                         )
                       : validationType == ValidationType.Invalid
-                          ? Icon(
+                          ? const Icon(
                               Icons.clear,
                               color: Colors.red,
                             )

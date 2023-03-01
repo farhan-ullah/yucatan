@@ -30,10 +30,10 @@ class VendorDemandBloc {
   VendorDemandBloc() {
     _eventStream.listen((event) async {
       if (event == VendorDemandBlocAction.FetchVendorDemandData) {
-        _vendorDemandSink.add(null); // just to show loader
+        // _vendorDemandSink.add(); // just to show loader
 
         productsResponse =
-            await BookingService.getDemandForDateRange(dateParameters);
+            (await BookingService.getDemandForDateRange(dateParameters))!;
 
         List<ProductDemand> productsList =
             await groupingElementsbyTitle(productsResponse);
@@ -47,8 +47,8 @@ class VendorDemandBloc {
   Future<List<ProductDemand>> groupingElementsbyTitle(
       ProductDemandResponse productsResponse) async {
     List<ProductDemand> productsList = [];
-    productsResponse.data.forEach((productDemandDataElement) async {
-      productDemandDataElement.products.forEach((productDemandElement) async {
+    productsResponse.data!.forEach((productDemandDataElement) async {
+      productDemandDataElement.products!.forEach((productDemandElement) async {
         ///TODO this needs to be changed
         ///Right now it is grouping the elements based on the title because the acutal product id is missing in the API response
         ///The API needs to be changed so that it returns the product id and then the app should group the quantity by that
@@ -56,13 +56,13 @@ class VendorDemandBloc {
           (productsListElement) {
             return productsListElement.title == productDemandElement.title;
           },
-          orElse: () => null,
+          // orElse: () => null,
         );
 
         if (existingProductDemand == null)
           productsList.add(productDemandElement);
         else {
-          existingProductDemand.quantity += productDemandElement.quantity;
+          existingProductDemand.quantity! + productDemandElement.quantity!;
         }
       });
     });

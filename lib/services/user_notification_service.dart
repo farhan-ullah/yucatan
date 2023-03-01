@@ -13,12 +13,11 @@ class UserNotificationService extends BaseService {
   UserNotificationService._()
       : super(BaseService.defaultURL + '/notifications');
 
-  static Future<UserNotificationResponse?> getNotificationsForUser() async {
+  static Future<UserNotificationResponse>? getNotificationsForUser() async {
     var httpData = (await new UserNotificationService._().get('/user/'))!.body;
-    if (httpData != null) {
+
       return new UserNotificationResponse.fromJson(json.decode(httpData));
-    } else
-      return null;
+
   }
 
   /// Set a notification to read after confirming user matches

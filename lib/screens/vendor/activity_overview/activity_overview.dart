@@ -27,12 +27,12 @@ class VendorActivityOverview extends StatefulWidget {
 class _VendorActivityOverviewState extends State<VendorActivityOverview> {
   bool isLoading = false;
   bool isNetworkAvailable = true;
-  VendorActivtyOverviewResponse vendorActivityOverviewResponse;
+  VendorActivtyOverviewResponse? vendorActivityOverviewResponse;
   bool showOfferDeactivated = false;
   final activityOverviewBloc = ActivityOverviewBloc();
   final activityStatusUpdateBloc = ActivityStatusUpdateBloc();
-  int index;
-  Future<bool> future;
+  int? index;
+  Future<bool>? future;
 
   @override
   void initState() {
@@ -45,12 +45,12 @@ class _VendorActivityOverviewState extends State<VendorActivityOverview> {
       Navigator.pop(context); //hide loader
       if (vendorActivityObject.errorResponse != null) {
         CommonWidget.showToast(
-            vendorActivityObject.errorResponse.errors.message);
+            vendorActivityObject.errorResponse!.errors!.message!);
       } else {
-        vendorActivityOverviewResponse.data[this.index] =
-            vendorActivityObject.data;
+        vendorActivityOverviewResponse!.data![index!] =
+            vendorActivityObject.data!;
         activityOverviewBloc
-            .getUpdatedActivityOverviewList(vendorActivityOverviewResponse);
+            .getUpdatedActivityOverviewList(vendorActivityOverviewResponse!);
         activityOverviewBloc.eventSink
             .add(ActivityOverviewAction.UpdateActivityList);
       }
@@ -77,7 +77,7 @@ class _VendorActivityOverviewState extends State<VendorActivityOverview> {
           ],
         ),
         body: StreamBuilder<bool>(
-          stream: future.asStream(),
+          stream: future!.asStream(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
@@ -86,7 +86,7 @@ class _VendorActivityOverviewState extends State<VendorActivityOverview> {
                 if (snapshot.hasError) {
                   return CommonWidget.showSpinner();
                 } else {
-                  this.isNetworkAvailable = snapshot.data;
+                  this.isNetworkAvailable = snapshot.data!;
                   return this.isNetworkAvailable
                       ? Container(
                           height: double.infinity,
@@ -166,7 +166,7 @@ class _VendorActivityOverviewState extends State<VendorActivityOverview> {
                                                       ),
                                                       Text(
                                                         AppLocalizations.of(
-                                                                context)
+                                                                context)!
                                                             .activity_overview_offer_deactivated_text,
                                                         style: TextStyle(
                                                           fontSize: Dimensions
@@ -194,7 +194,7 @@ class _VendorActivityOverviewState extends State<VendorActivityOverview> {
                                                     ),
                                                     child: Text(
                                                       AppLocalizations.of(
-                                                              context)
+                                                              context)!
                                                           .activity_overview_offer_deactivated_message,
                                                       style: TextStyle(
                                                         fontSize: Dimensions
@@ -231,10 +231,10 @@ class _VendorActivityOverviewState extends State<VendorActivityOverview> {
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: vendorActivityOverviewResponse.data.length,
+        itemCount: vendorActivityOverviewResponse!.data!.length,
         itemBuilder: (context, index) {
           VendorActivityOverviewData vendorActivityOverviewData =
-              vendorActivityOverviewResponse.data[index];
+              vendorActivityOverviewResponse!.data![index];
           //print("publishingStatus=${vendorActivityOverviewData.publishingStatus}");
           return Container(
             margin: EdgeInsets.only(
@@ -270,7 +270,7 @@ class _VendorActivityOverviewState extends State<VendorActivityOverview> {
                     child: vendorActivityOverviewData.thumbnail == null
                         ? Container()
                         : loadCachedNetworkImage(
-                            vendorActivityOverviewData.thumbnail.publicUrl,
+                            vendorActivityOverviewData.thumbnail!.publicUrl!,
                             fit: BoxFit.cover,
                           ),
                   ),
@@ -334,7 +334,7 @@ class _VendorActivityOverviewState extends State<VendorActivityOverview> {
       if (isNetworkAvailable) {
         setState(() {
           future = checkInternetConnection();
-          future.whenComplete(() {
+          future!.whenComplete(() {
             activityOverviewBloc.eventSink.add(ActivityOverviewAction.Fetch);
           });
         });

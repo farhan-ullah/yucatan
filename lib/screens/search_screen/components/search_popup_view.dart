@@ -35,13 +35,13 @@ class SearchPopupView extends DateStatefulWidget {
 }
 
 class _SearchPopupViewState extends DateState<SearchPopupView> {
-  ActivityMultiResponse activityMultiResponse;
+  ActivityMultiResponse? activityMultiResponse;
   bool submitted = false;
   bool searched = false;
-  SelectedDate _selectedDate;
+  SelectedDate? _selectedDate;
   List<String> _searchTerms = [];
   TextEditingController _searchTextController = TextEditingController();
-  String _searchTerm;
+  String? _searchTerm;
 
   @override
   void initState() {
@@ -82,6 +82,7 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
         color: Colors.white,
       ),
       child: Visibility(
+        visible: widget.visible,
         child: Column(
           children: [
             Row(
@@ -119,7 +120,7 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
                         color: CustomTheme.primaryColorDark,
                       ),
                       cursorColor: CustomTheme.primaryColorDark,
-                      decoration: new InputDecoration(
+                      decoration: InputDecoration(
                         errorText: null,
                         hintText:
                             AppLocalizations.of(context)!.searchScreen_text,
@@ -127,7 +128,7 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
                           fontSize: Dimensions.getScaledSize(18),
                           color: CustomTheme.hintText,
                         ),
-                        contentPadding: isNotNullOrEmpty(_searchTerm)
+                        contentPadding: isNotNullOrEmpty(_searchTerm!)
                             ? EdgeInsets.only(
                                 top: Dimensions.getScaledSize(2.0))
                             : EdgeInsets.only(
@@ -157,10 +158,10 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
                       );
                     },
                     suggestionsCallback: (pattern) async {
-                      return await ActivityService.getSuggestions(
+                      return ( await ActivityService.getSuggestions(
                         query: pattern,
                         items: 10,
-                      );
+                      )!);
                     },
                     itemBuilder: (context, suggestion) {
                       return Padding(
@@ -169,7 +170,7 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
                           vertical: Dimensions.getScaledSize(5.0),
                         ),
                         child: Text(
-                          suggestion,
+                          suggestion.toString(),
                           style: TextStyle(
                             fontSize: Dimensions.getScaledSize(16),
                             color: CustomTheme.primaryColorDark,
@@ -177,14 +178,14 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
                         ),
                       );
                     },
-                    onSuggestionSelected: (suggestion) {
-                      _searchTerm = suggestion;
-                      _searchTextController.text = suggestion;
+                    onSuggestionSelected: ( suggestion) {
+                      _searchTerm = suggestion.toString();
+                      _searchTextController.text = suggestion.toString();
                       _searchActivities();
                     },
                   ),
                 ),
-                isNotNullOrEmpty(_searchTerm)
+                isNotNullOrEmpty(_searchTerm!)
                     ? GestureDetector(
                         onTap: () {
                           setState(() {
@@ -398,18 +399,18 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
                     ),
                   )
                 : activityMultiResponse != null &&
-                        activityMultiResponse.data != null &&
-                        activityMultiResponse.data.length > 0
+                        activityMultiResponse!.data != null &&
+                        activityMultiResponse!.data!.length > 0
                     ? Expanded(
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           child: ListView.builder(
                             itemBuilder: (context, index) {
                               return ActivitySearchListViewItem(
-                                activity: activityMultiResponse.data[index],
+                                activity: activityMultiResponse!.data![index],
                               );
                             },
-                            itemCount: activityMultiResponse.data.length,
+                            itemCount: activityMultiResponse!.data!.length,
                             scrollDirection: Axis.vertical,
                           ),
                         ),
@@ -422,7 +423,6 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
                       ),
           ],
         ),
-        visible: widget.visible,
       ),
     );
   }
@@ -471,7 +471,7 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
     });
 
     if (_selectedDate == SelectedDate.NONE) {
-      GlobalDate.set(null);
+      GlobalDate.set(DateTime.now());
     }
     if (_selectedDate == SelectedDate.TODAY) {
       GlobalDate.setToday();
@@ -485,9 +485,9 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
     _showDateSelectorDialog(context: context);
   }
 
-  void _showDateSelectorDialog({BuildContext context}) {
+  void _showDateSelectorDialog({BuildContext? context}) {
     showDialog(
-      context: context,
+      context: context!,
       builder: (BuildContext context) => CalendarPopupView(
         barrierDismissible: true,
         minimumDate: DateTime.now(),
@@ -508,7 +508,7 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
 }
 
 class ActivitySearchListViewItem extends StatelessWidget {
-  final ActivityModel activity;
+  final ActivityModel? activity;
 
   ActivitySearchListViewItem({this.activity});
 
@@ -548,7 +548,7 @@ class ActivitySearchListViewItem extends StatelessWidget {
                         //TODO
                         isFavorite: false,
                         //hotelData: activity,
-                        activityId: activity.sId,
+                        activityId: activity!.sId!,
                       ),
                     ),
                   );
@@ -564,7 +564,7 @@ class ActivitySearchListViewItem extends StatelessWidget {
                               Container(
                                 height: Dimensions.getHeight(percentage: 18.0),
                                 child: loadCachedNetworkImage(
-                                  activity.thumbnail?.publicUrl,
+                                  activity!.thumbnail!.publicUrl!,
                                   height:
                                       Dimensions.getHeight(percentage: 20.0),
                                   fit: BoxFit.cover,
@@ -610,7 +610,7 @@ class ActivitySearchListViewItem extends StatelessWidget {
                                           child: Align(
                                             alignment: Alignment.bottomLeft,
                                             child: Text(
-                                              "${activity.title.trim()}",
+                                              "${activity!.title!.trim()}",
                                               overflow: TextOverflow.clip,
                                               textAlign: TextAlign.left,
                                               maxLines: 2,
@@ -707,7 +707,7 @@ class ActivitySearchListViewItem extends StatelessWidget {
                                                     ),
                                                     Expanded(
                                                       child: Text(
-                                                        '${activity.location.zipcode} ${activity.location.city} ',
+                                                        '${activity!.location!.zipcode} ${activity!.location!.city} ',
                                                         overflow: TextOverflow
                                                             .ellipsis,
                                                         style: TextStyle(
@@ -742,9 +742,9 @@ class ActivitySearchListViewItem extends StatelessWidget {
                                                         borderColor: CustomTheme
                                                             .primaryColor,
                                                       ),
-                                                      activity.reviewCount > 0
+                                                      activity!.reviewCount! > 0
                                                           ? Text(
-                                                              " ${activity.reviewAverageRating.toString().replaceAll('.', ',')}",
+                                                              " ${activity!.reviewAverageRating.toString().replaceAll('.', ',')}",
                                                               style: TextStyle(
                                                                   fontSize: 14,
                                                                   color: Colors
@@ -796,7 +796,7 @@ class ActivitySearchListViewItem extends StatelessWidget {
                                                             .withOpacity(0.8)),
                                                   ),
                                                   Text(
-                                                    "${formatPriceDouble(activity.priceFrom)}€",
+                                                    "${formatPriceDouble(activity!.priceFrom!)}€",
                                                     textAlign: TextAlign.left,
                                                     style: TextStyle(
                                                       fontWeight:

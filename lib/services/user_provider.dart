@@ -25,14 +25,13 @@ class UserProvider extends BaseService {
     return _loggedInUser!;
   }
 
-  static Future<UserLoginModel?> getUser() async {
+  static Future<UserLoginModel>? getUser() async {
     if (_loggedInUser == null) {
       var tmpUser = await _readUserInfo();
-      if (await refreshToken() != null) {
+
         _loggedInUser = tmpUser;
         return _loggedInUser!;
-      } else
-        return null;
+
       //if(await refreshToken() != null) return null;
       //else return (_loggedInUser = await _readUserInfo());
     } else
@@ -41,7 +40,7 @@ class UserProvider extends BaseService {
 
   // checks online status and gets user based on it (online => getUser(), offline => _loggedInUser)
   static Future<Future<UserLoginModel?>> getUserChecked() async {
-    Future<UserLoginModel?> response;
+    Future<UserLoginModel>? response;
     try {
       var status = await StatusService.getStatus();
       if (status == null) throw SocketException("Network error");
@@ -49,7 +48,7 @@ class UserProvider extends BaseService {
     } on SocketException catch (_) {
       response = getOfflineUser();
     }
-    return response;
+    return response!;
   }
 
   static Future<Future<String?>> getJwtToken() async {
@@ -147,7 +146,7 @@ class UserProvider extends BaseService {
 
     if (intermediate.statusCode == 200 && result.data != null) {
       _loggedInUser = result.data;
-      _storeUser(result.data);
+      _storeUser(result.data!);
       return null; // null == no error
     } else {
       return result.errors;

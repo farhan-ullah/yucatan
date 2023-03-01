@@ -79,7 +79,17 @@ dependencies:
   flutter_native_timezone: ^1.0.10
   autocomplete_textfield: ^1.7.3
   flutter_typeahead: ^3.1.1
-  flag:  
+  url_launcher: ^6.1.10
+  fl_chart: ^0.61.0
+  flutter_inappwebview: ^5.7.2+3
+  in_app_review: ^2.0.6
+  flutter_slidable: ^2.0.0
+  scrollable_positioned_list: ^0.3.5
+  map_launcher: ^2.5.0+1
+  qr_flutter: ^4.0.0
+  flag: ^6.0.0
+  better_player: ^0.0.83
+  visibility_detector: ^0.3.3
 
 flutter_icons:
   android: true

@@ -14,8 +14,8 @@ class LegalDocWebPageResponse {
     this.data,
   });
 
-  int status;
-  Data data;
+  int? status;
+  Data? data;
 
   factory LegalDocWebPageResponse.fromJson(Map<String, dynamic> json) => LegalDocWebPageResponse(
     status: json["status"],
@@ -24,7 +24,7 @@ class LegalDocWebPageResponse {
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": data.toJson(),
+    "data": data!.toJson(),
   };
 }
 
@@ -36,10 +36,10 @@ class Data {
     this.rightOfWithdrawal,
   });
 
-  String tos;
-  String privacy;
-  String imprint;
-  String rightOfWithdrawal;
+  String? tos;
+  String? privacy;
+  String? imprint;
+  String? rightOfWithdrawal;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     tos: json["tos"],

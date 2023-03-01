@@ -17,7 +17,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:map_launcher/map_launcher.dart';
-import 'package:screen/screen.dart';
+// import 'package:screen/screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BookingOfflineListViewItem extends StatefulWidget {
@@ -50,7 +50,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
     initializeDateFormatting('de', null);
 
     // activity = widget.booking.activity;
-    Screen.brightness.then((value) => initialBrightness = value);
+    // Screen.brightness.then((value) => initialBrightness = value);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.notificationAction != null &&
@@ -90,7 +90,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
               context: context,
               builder: (context) => BookingRequestDeniedInfo(
                 text: widget.booking.requestNote!,
-                titleText: AppLocalizations.of(context)
+                titleText: AppLocalizations.of(context)!
                     .bookingListScreen_requestDenied,
               ),
             );
@@ -239,13 +239,13 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                                       ),
                                       Text(
                                         _isRefundedBooking()
-                                            ? AppLocalizations.of(context)
+                                            ? AppLocalizations.of(context)!
                                                 .commonWords_refunded
                                             : widget.booking.status ==
                                                     'REQUEST_DENIED'
-                                                ? AppLocalizations.of(context)
+                                                ? AppLocalizations.of(context)!
                                                     .bookingListScreen_denied
-                                                : AppLocalizations.of(context)
+                                                : AppLocalizations.of(context)!
                                                     .bookingListScreen_requestInProgress,
                                         style: TextStyle(
                                           fontSize:
@@ -265,7 +265,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                                                   Dimensions.getScaledSize(
                                                       10.0)),
                                           child: Text(
-                                            AppLocalizations.of(context)
+                                            AppLocalizations.of(context)!
                                                 .bookingListScreen_refundWillBePaid,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
@@ -328,7 +328,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                                       requestedOrRefunded:
                                           _isRequestedOrRefunded(),
                                       iconData: Icons.info_outlined,
-                                      text: AppLocalizations.of(context)
+                                      text: AppLocalizations.of(context)!
                                           .bookingListScreen_details,
                                     ),
                                     _isAnyTicketUsed()
@@ -342,7 +342,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                                                 CustomTheme.accentColor3,
                                             iconColor: CustomTheme.accentColor3,
                                             iconData: Icons.star_border,
-                                            text: AppLocalizations.of(context)
+                                            text: AppLocalizations.of(context)!
                                                 .bookingListScreen_addReviewButton,
                                             requestedOrRefunded:
                                                 _isRequestedOrRefunded(),
@@ -353,7 +353,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                                                 _launchMapForActivity(
                                                     widget.booking.activity!);
                                             },
-                                            text: AppLocalizations.of(context)
+                                            text: AppLocalizations.of(context)!
                                                 .bookingListScreen_navigationButton,
                                             backgroundColor:
                                                 CustomTheme.primaryColorLight,
@@ -370,7 +370,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                                             _showTickets(
                                                 widget.booking.activity!);
                                           },
-                                          text: AppLocalizations.of(context)
+                                          text: AppLocalizations.of(context)!
                                               .commonWords_ticket,
                                           backgroundColor:
                                               CustomTheme.primaryColorLight,
@@ -480,7 +480,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                   context: context,
                   builder: (context) => BookingRequestDeniedInfo(
                     text: widget.booking.requestNote!,
-                    titleText: AppLocalizations.of(context)
+                    titleText: AppLocalizations.of(context)!
                         .bookingListScreen_requestDenied,
                   ),
                 );
@@ -488,9 +488,9 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                 showDialog(
                   context: context,
                   builder: (context) => BookingRequestDeniedInfo(
-                    text: AppLocalizations.of(context)
+                    text: AppLocalizations.of(context)!
                         .bookingListScreen_vendorWillRespondeSoon,
-                    titleText: AppLocalizations.of(context)
+                    titleText: AppLocalizations.of(context)!
                         .bookingListScreen_requestInProgress,
                   ),
                 );
@@ -503,7 +503,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
   }
 
   bool _isAnyTicketUsed() {
-    return widget.booking.tickets.any((element) => element.status == "USED");
+    return widget.booking.tickets!.any((element) => element.status == "USED");
   }
 
   bool _isRequestedOrRefunded() {
@@ -525,7 +525,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
 
   void _showTickets(ActivityModel activity) {
     FocusScope.of(context).requestFocus(FocusNode());
-    Screen.setBrightness(1);
+    // Screen.setBrightness(1);
     showDialog(
       context: context,
       builder: (BuildContext context) => BookingTicketList(
@@ -533,7 +533,8 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
           booking: widget.booking.toBookingModel(),
           activity: activity,
           initialBrightness: initialBrightness),
-    ).then((value) => Screen.setBrightness(initialBrightness));
+    );
+        // .then((value) => Screen.setBrightness(initialBrightness));
   }
 
   _getTicketsLabel() {
@@ -594,8 +595,8 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
 
   void _launchMapForActivity(ActivityModel activity) async {
     final availableMaps = await MapLauncher.installedMaps;
-    final coords = Coords(double.parse(activity.location.lat!),
-        double.parse(activity.location.lon!));
+    final coords = Coords(double.parse(activity.location!.lat!),
+        double.parse(activity.location!.lon!));
 
     availableMaps.first.showDirections(
       destination: coords,

@@ -28,30 +28,30 @@ enum StatisticPreviewMode { AMOUNT, REVENUE }
 
 class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
   //DateTime _selectedDate;
-  DateTime _dateFrom;
-  DateTime _dateTo;
-  SelectedPeriod _selectedPeriod;
-  final buttonColor = Color(0xFF0071B8);
-  Future<VendorBookingStatisticSingleResponseEntity> bookingStatistic;
-  int _numberOfDays;
-  int totalBookingAmount = 0;
+  DateTime? _dateFrom;
+  DateTime? _dateTo;
+  SelectedPeriod? _selectedPeriod;
+  final buttonColor = const Color(0xFF0071B8);
+  Future<VendorBookingStatisticSingleResponseEntity>? bookingStatistic;
+  int? _numberOfDays;
+  int? totalBookingAmount = 0;
   double totalRevenue = 0;
-  double currentValue;
+  double? currentValue;
   List<DailyRevenueItem> revenueItems = [];
   double maxRevenue = 0;
   double minRevenue = double.infinity;
   int maxBookingAmount = 0;
-  StatisticPreviewMode _statisticPreviewMode;
-  VendorBookingStatisticModel statistic;
+  StatisticPreviewMode? _statisticPreviewMode;
+  VendorBookingStatisticModel? statistic;
 
   getStatistics() {
     bookingStatistic = StatisticService.getVendorDetailedStatistic(
-            getDateString(_dateFrom), getDateString(_dateTo))
+            getDateString(_dateFrom!), getDateString(_dateTo!))
         .then((response) {
-      if (response.status == 200) {
+      if (response!.status == 200) {
         statistic = response.data;
-        totalBookingAmount = statistic.numberOfBookings;
-        totalRevenue = statistic.revenue;
+        totalBookingAmount = statistic!.numberOfBookings;
+        totalRevenue = statistic!.revenue!;
         revenueItems = [];
         maxBookingAmount = 0;
         maxRevenue = 0.0;
@@ -59,32 +59,35 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
 
         currentValue = _statisticPreviewMode == StatisticPreviewMode.REVENUE
             ? totalRevenue
-            : totalBookingAmount.toDouble();
+            : totalBookingAmount!.toDouble();
 
-        DateTime dateToAdd = _dateFrom;
+        DateTime dateToAdd = _dateFrom!;
 
-        statistic.dailyRevenueItems.forEach((dailyRevenueItem) {
-          if (dailyRevenueItem.bookingAmount > maxBookingAmount)
-            maxBookingAmount = dailyRevenueItem.bookingAmount;
-          if (dailyRevenueItem.revenue > maxRevenue)
-            maxRevenue = dailyRevenueItem.revenue;
-          if (dailyRevenueItem.revenue < minRevenue)
-            minRevenue = dailyRevenueItem.revenue;
-          while (!dateToAdd.isAtSameMomentAs(dailyRevenueItem.date) &&
-              revenueItems.length < _numberOfDays) {
+        statistic!.dailyRevenueItems!.forEach((dailyRevenueItem) {
+          if (dailyRevenueItem.bookingAmount! > maxBookingAmount) {
+            maxBookingAmount = dailyRevenueItem.bookingAmount!;
+          }
+          if (dailyRevenueItem.revenue !> maxRevenue) {
+            maxRevenue = dailyRevenueItem!.revenue!;
+          }
+          if (dailyRevenueItem.revenue! < minRevenue) {
+            minRevenue = dailyRevenueItem.revenue!;
+          }
+          while (!dateToAdd.isAtSameMomentAs(dailyRevenueItem.date!) &&
+              revenueItems.length < _numberOfDays!) {
             revenueItems.add(DailyRevenueItem(
                 bookingAmount: 0, revenue: 0.0, date: dateToAdd));
-            dateToAdd = dateToAdd.add(Duration(days: 1));
+            dateToAdd = dateToAdd.add(const Duration(days: 1));
           }
-          dateToAdd = dailyRevenueItem.date.add(Duration(days: 1));
+          dateToAdd = dailyRevenueItem.date!.add(const Duration(days: 1));
 
           revenueItems.add(dailyRevenueItem);
         });
-        while (!dateToAdd.isAtSameMomentAs(_dateTo.add(Duration(days: 1))) &&
-            revenueItems.length < _numberOfDays) {
+        while (!dateToAdd.isAtSameMomentAs(_dateTo!.add(const Duration(days: 1))) &&
+            revenueItems.length < _numberOfDays!) {
           revenueItems.add(DailyRevenueItem(
               bookingAmount: 0, revenue: 0.0, date: dateToAdd));
-          dateToAdd = dateToAdd.add(Duration(days: 1));
+          dateToAdd = dateToAdd.add(const Duration(days: 1));
         }
       }
       return response;
@@ -106,7 +109,7 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
     _selectedPeriod = SelectedPeriod.WEEK;
     _dateTo = getCurrentDate();
     currentValue = 0.0;
-    _dateFrom = _dateTo.subtract(Duration(days: 7));
+    _dateFrom = _dateTo!.subtract(const Duration(days: 7));
     _numberOfDays = 7;
     getStatistics();
     super.initState();
@@ -118,29 +121,30 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
     }
     if (_selectedPeriod == selectedPeriod) {
       _selectedPeriod = SelectedPeriod.NONE;
-    } else
+    } else {
       _selectedPeriod = selectedPeriod;
+    }
 
     _dateTo = getCurrentDate();
     switch (_selectedPeriod) {
       case SelectedPeriod.WEEK:
-        _dateFrom = _dateTo.subtract(Duration(days: 7));
+        _dateFrom = _dateTo!.subtract(const Duration(days: 7));
         _numberOfDays = 8;
         break;
       case SelectedPeriod.MONTH:
-        _dateFrom = _dateTo.subtract(Duration(days: 31));
+        _dateFrom = _dateTo!.subtract(const Duration(days: 31));
         _numberOfDays = 32;
         break;
       case SelectedPeriod.YEAR:
-        _dateFrom = _dateTo.subtract(Duration(days: 365));
+        _dateFrom = _dateTo!.subtract(const Duration(days: 365));
         _numberOfDays = 366;
         break;
       case SelectedPeriod.ALL:
-        _dateFrom = _dateTo.subtract(Duration(days: 365));
+        _dateFrom = _dateTo!.subtract(const Duration(days: 365));
         _numberOfDays = 366;
         break;
       case SelectedPeriod.NONE:
-        _dateFrom = _dateTo.subtract(Duration(days: 11));
+        _dateFrom = _dateTo!.subtract(const Duration(days: 11));
         _numberOfDays = 11;
         break;
     }
@@ -153,7 +157,7 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFBDD4E1),
+        backgroundColor: const Color(0xFFBDD4E1),
         //ADD app Locallization
         appBar: AppBar(
           centerTitle: true,
@@ -278,8 +282,8 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
                                                         StatisticPreviewMode
                                                             .REVENUE
                                                     ? formatPriceDoubleWithCurrency(
-                                                        currentValue)
-                                                    : "${formatInteger(currentValue)} ${AppLocalizations.of(context)!.vendorStatisticScreen_piece}",
+                                                        currentValue!)
+                                                    : "${formatInteger(currentValue!)} ${AppLocalizations.of(context)!.vendorStatisticScreen_piece}",
                                                 style: TextStyle(
                                                     color: buttonColor,
                                                     fontSize: Dimensions
@@ -297,7 +301,7 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
                                                       StatisticPreviewMode
                                                           .AMOUNT;
                                                   currentValue =
-                                                      totalBookingAmount
+                                                      totalBookingAmount!
                                                           .toDouble();
                                                 } else {
                                                   _statisticPreviewMode =
@@ -307,20 +311,6 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
                                                 }
                                                 setState(() {});
                                               },
-                                              child: Text(
-                                                _statisticPreviewMode ==
-                                                        StatisticPreviewMode
-                                                            .REVENUE
-                                                    ? AppLocalizations.of(
-                                                            context)
-                                                        .vendorStatisticScreen_revenue
-                                                    : AppLocalizations.of(
-                                                            context)
-                                                        .vendorStatisticScreen_sales,
-                                                style: TextStyle(
-                                                    color: CustomTheme
-                                                        .primaryColorLight),
-                                              ),
                                               style: ButtonStyle(
                                                   shape:
                                                       MaterialStateProperty.all(
@@ -349,6 +339,20 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
                                                               Dimensions
                                                                   .getScaledSize(
                                                                       45)))),
+                                              child: Text(
+                                                _statisticPreviewMode ==
+                                                        StatisticPreviewMode
+                                                            .REVENUE
+                                                    ? AppLocalizations.of(
+                                                            context)!
+                                                        .vendorStatisticScreen_revenue
+                                                    : AppLocalizations.of(
+                                                            context)!
+                                                        .vendorStatisticScreen_sales,
+                                                style: const TextStyle(
+                                                    color: CustomTheme
+                                                        .primaryColorLight),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -378,7 +382,7 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
                                                                   getToolTipText(spot
                                                                       .x
                                                                       .toInt()),
-                                                                  TextStyle(
+                                                                  const TextStyle(
                                                                       color: Colors
                                                                           .black),
                                                                 ),
@@ -397,7 +401,23 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
                                                       : (1.1 *
                                                           maxBookingAmount);
                                                 },
-                                                touchCallback: handleTouch,
+                                                  touchCallback:
+                                                      (FlTouchEvent event, LineTouchResponse? touchResponse) {
+                                                        final desiredTouch = touchResponse is! PointerExitEvent &&
+                                                            touchResponse is! PointerUpEvent;
+
+                                                        if (desiredTouch && touchResponse != null) {
+                                                          final value = touchResponse.lineBarSpots![0].y;
+                                                          setState(() {
+                                                            currentValue = value;
+                                                          });
+                                                        } else {
+                                                          currentValue = _statisticPreviewMode == StatisticPreviewMode.REVENUE
+                                                              ? totalRevenue
+                                                              : totalBookingAmount!.toDouble();
+                                                          setState(() {});
+                                                        }
+                                                  },
                                               ),
                                               lineBarsData: [
                                                 getLineChartBarData(
@@ -406,8 +426,8 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
                                               gridData: FlGridData(show: false),
                                               borderData:
                                                   FlBorderData(show: false),
-                                              axisTitleData:
-                                                  FlAxisTitleData(show: false),
+                                              // axisTitleData:
+                                              //     FlAxisTitleData(show: false),
                                               titlesData:
                                                   FlTitlesData(show: false),
                                               extraLinesData: ExtraLinesData(
@@ -420,15 +440,15 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
                                         SizedBox(
                                             height:
                                                 Dimensions.getScaledSize(20.0)),
-                                        ...(statistic?.activityBookingDataList
+                                        ...?(statistic?.activityBookingDataList
                                             ?.map(
                                               (e) => _VendorStatisticActivity(
                                                 activity: e,
                                                 statisticPreviewMode:
-                                                    _statisticPreviewMode,
+                                                    _statisticPreviewMode!,
                                               ),
                                             )
-                                            ?.toList())
+                                            .toList())
                                       ],
                                     ),
                                   ),
@@ -441,17 +461,18 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
                               ]);
                         }
 
-                        if (snapshodStatistics.hasError)
+                        if (snapshodStatistics.hasError) {
                           return Container(
                             width: double.infinity,
                             padding: EdgeInsets.only(
                                 top: Dimensions.getHeight(percentage: 50.0) -
-                                    Scaffold.of(context).appBarMaxHeight),
+                                    Scaffold.of(context).appBarMaxHeight!),
                             child: Center(
                               child: Text(AppLocalizations.of(context)!
                                   .commonWords_error),
                             ),
                           );
+                        }
 
                         return getShimmer(context);
                       },
@@ -477,7 +498,7 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
   getToolTipText(int xIndex) {
     return DateFormat('E dd.MM.yyyy', "de-DE")
         .format(
-          _dateFrom.add(
+          _dateFrom!.add(
             Duration(days: xIndex),
           ),
         )
@@ -487,8 +508,8 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
   getHorizontalLine() {
     return HorizontalLine(
         y: _statisticPreviewMode == StatisticPreviewMode.REVENUE
-            ? totalRevenue / _numberOfDays
-            : totalBookingAmount.toDouble() / _numberOfDays,
+            ? totalRevenue / _numberOfDays!
+            : totalBookingAmount!.toDouble() / _numberOfDays!,
         color: CustomTheme.mediumGrey,
         dashArray: [
           Dimensions.getScaledSize(7).toInt(),
@@ -497,22 +518,22 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
         strokeWidth: Dimensions.getScaledSize(3));
   }
 
-  handleTouch(LineTouchResponse lineTouch) {
-    final desiredTouch = lineTouch.touchInput is! PointerExitEvent &&
-        lineTouch.touchInput is! PointerUpEvent;
-
-    if (desiredTouch && lineTouch.lineBarSpots != null) {
-      final value = lineTouch.lineBarSpots[0].y;
-      setState(() {
-        currentValue = value;
-      });
-    } else {
-      currentValue = _statisticPreviewMode == StatisticPreviewMode.REVENUE
-          ? totalRevenue
-          : totalBookingAmount.toDouble();
-      setState(() {});
-    }
-  }
+  // handleTouch(LineTouchResponse lineTouch) {
+  //   final desiredTouch = lineTouch.touchInput is! PointerExitEvent &&
+  //       lineTouch.touchInput is! PointerUpEvent;
+  //
+  //   if (desiredTouch && lineTouch.lineBarSpots != null) {
+  //     final value = lineTouch.lineBarSpots[0].y;
+  //     setState(() {
+  //       currentValue = value;
+  //     });
+  //   } else {
+  //     currentValue = _statisticPreviewMode == StatisticPreviewMode.REVENUE
+  //         ? totalRevenue
+  //         : totalBookingAmount!.toDouble();
+  //     setState(() {});
+  //   }
+  // }
 
   List<TouchedSpotIndicatorData> getTouchedSpotIndcator(
       LineChartBarData barData, List<int> spotIndexes) {
@@ -530,14 +551,15 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
           ? List<FlSpot>.generate(
               items.length,
               (index) => FlSpot(index.toDouble(),
-                  items.elementAt(index).bookingAmount.toDouble()))
+                  items.elementAt(index).bookingAmount!.toDouble()))
           : List<FlSpot>.generate(
               items.length,
               (index) =>
-                  FlSpot(index.toDouble(), items.elementAt(index).revenue)),
-      colors: _statisticPreviewMode == StatisticPreviewMode.REVENUE
-          ? [CustomTheme.accentColor2]
-          : [CustomTheme.accentColor1],
+                  FlSpot(index.toDouble(), items.elementAt(index).revenue!)),
+      // color:
+      // _statisticPreviewMode == StatisticPreviewMode.REVENUE
+      //     ? [CustomTheme.accentColor2]
+      //     : [CustomTheme.accentColor1],
       isCurved: false,
       dotData: FlDotData(show: false),
     );
@@ -565,14 +587,14 @@ class _VendorStatisticActivity extends StatelessWidget {
         ),
         SizedBox(height: Dimensions.getScaledSize(10.0)),
         Text(
-          activity.activityTitle,
+          activity.activityTitle!,
           style: TextStyle(
               color: CustomTheme.primaryColorLight,
               fontWeight: FontWeight.bold,
               fontSize: Dimensions.getScaledSize(16),
               letterSpacing: CustomTheme.letterSpacing),
         ),
-        ...(activity.productDataList
+        ...(activity.productDataList!
             .map(
               (e) => _VendorStatisticProductRow(
                 productDataItem: e,
@@ -611,7 +633,7 @@ class _VendorStatisticProductRow extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    formatInteger(productDataItem.bookingAmount),
+                    formatInteger(productDataItem.bookingAmount!),
                     style: rowTableTextStyle(),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
@@ -621,7 +643,7 @@ class _VendorStatisticProductRow extends StatelessWidget {
                 Expanded(
                   flex: 6,
                   child: Text(
-                    productDataItem.productTitle,
+                    productDataItem.productTitle!,
                     style: rowTableTextStyle(),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
@@ -630,7 +652,7 @@ class _VendorStatisticProductRow extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: Text(
-                    formatPriceDoubleWithCurrency(productDataItem.revenue),
+                    formatPriceDoubleWithCurrency(productDataItem.revenue!),
                     style: rowTableTextStyle(),
                     maxLines: 2,
                     textAlign: TextAlign.right,
@@ -645,7 +667,7 @@ class _VendorStatisticProductRow extends StatelessWidget {
                 Expanded(
                   flex: 7,
                   child: Text(
-                    productDataItem.productTitle,
+                    productDataItem.productTitle!,
                     style: rowTableTextStyle(),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
@@ -654,7 +676,7 @@ class _VendorStatisticProductRow extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: Text(
-                    "${formatInteger(productDataItem.bookingAmount)} ${AppLocalizations.of(context)!.vendorStatisticScreen_piece}",
+                    "${formatInteger(productDataItem.bookingAmount!)} ${AppLocalizations.of(context)!.vendorStatisticScreen_piece}",
                     style: rowTableTextStyle(),
                     maxLines: 2,
                     textAlign: TextAlign.right,

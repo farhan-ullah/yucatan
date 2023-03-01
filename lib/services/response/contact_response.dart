@@ -13,8 +13,8 @@ class ContactResponse {
     this.status,
   });
 
-  int status;
-  int statusCodeApiRequest;
+  int? status;
+  int? statusCodeApiRequest;
 
   factory ContactResponse.fromJson(Map<String, dynamic> json) => ContactResponse(
     status: json["status"],
