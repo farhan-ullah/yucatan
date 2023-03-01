@@ -8,7 +8,7 @@ class VendorActivityOverviewService extends BaseService {
   VendorActivityOverviewService._()
       : super(BaseService.defaultURL + '/activities');
 
-  static Future<VendorActivtyOverviewResponse>
+  static Future<VendorActivtyOverviewResponse?>
       getVendorActivityOverview() async {
     var httpData =
         (await new VendorActivityOverviewService._().get('/vendoroverview'))
@@ -19,7 +19,7 @@ class VendorActivityOverviewService extends BaseService {
       return null;
   }
 
-  static Future<VendorActivtyObject> updateActivityStatus(
+  static Future<VendorActivtyObject?> updateActivityStatus(
       VendorActivityOverviewData activityOverviewData) async {
     String publishingStatus;
     if (activityOverviewData.publishingStatus == "Active") {
@@ -61,14 +61,14 @@ class ErrorResponse {
     this.errors,
   });
 
-  Errors errors;
+  Errors? errors;
 
   factory ErrorResponse.fromJson(Map<String, dynamic> json) => ErrorResponse(
         errors: Errors.fromJson(json["errors"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "errors": errors.toJson(),
+        "errors": errors!.toJson(),
       };
 }
 
@@ -77,7 +77,7 @@ class Errors {
     this.message,
   });
 
-  String message;
+  String? message;
 
   factory Errors.fromJson(Map<String, dynamic> json) => Errors(
         message: json["message"],

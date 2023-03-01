@@ -10,7 +10,7 @@ class VendorPayouts extends BaseService {
   VendorPayouts._() : super(BaseService.defaultURL + '/');
 
   //payouts/vendor
-  static Future<VendorPayoutsResponse> getPayoutsForVendor() async {
+  static Future<VendorPayoutsResponse?> getPayoutsForVendor() async {
     var httpData = (await new VendorPayouts._().get('/payouts/vendor/'));
 
     if (httpData != null) {
@@ -20,7 +20,7 @@ class VendorPayouts extends BaseService {
   }
 
   ///GET for accoutBalance vendor in realtime
-  static Future<VendorAccountBalanceResponse>
+  static Future<VendorAccountBalanceResponse?>
       getAccountBalanceForVendor() async {
     var httpData = (await new VendorPayouts._().get('vendors/accountbalance'));
 
@@ -32,7 +32,7 @@ class VendorPayouts extends BaseService {
   }
 
   ///Get the next payout (future) for vendor
-  static Future<VendorNextPayoutResponse> getNextPayoutForVendor() async {
+  static Future<VendorNextPayoutResponse?> getNextPayoutForVendor() async {
     var httpData =
         (await new VendorPayouts._().get('/payouts/vendor/nextpayout'));
     if (httpData != null) {

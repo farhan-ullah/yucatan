@@ -344,11 +344,11 @@ class ProductTimeSlots {
 
 class ProductTimeSlotsRegular {
   String? id;
-  ProductTImeSlotsRegularIntervalType intervalType;
-  int intervalRepeat;
-  List<ProductTimeSlotsRegularDay> days;
-  DateTime startDate;
-  DateTime endDate;
+  ProductTImeSlotsRegularIntervalType? intervalType;
+  int? intervalRepeat;
+  List<ProductTimeSlotsRegularDay>? days;
+  DateTime? startDate;
+  DateTime? endDate;
 
   ProductTimeSlotsRegular({
     this.id,
@@ -366,7 +366,7 @@ class ProductTimeSlotsRegular {
         (e) =>
             e.toString().split(".")[1].toLowerCase() ==
             json['intervalType'].toString().toLowerCase(),
-        orElse: () => null,
+        // orElse: () => null,
       ),
       intervalRepeat: json['intervalRepeat'],
       days: json['days'] != null
@@ -389,9 +389,9 @@ enum ProductTImeSlotsRegularIntervalType {
 
 class ProductTimeSlotsRegularDay {
   String? id;
-  int day;
-  int quota;
-  List<ProductTimeSlotsDayHour> hours;
+  int? day;
+  int? quota;
+  List<ProductTimeSlotsDayHour>? hours;
 
   ProductTimeSlotsRegularDay({
     this.id,
@@ -419,7 +419,7 @@ class ProductTimeSlotsRegularDay {
 class ProductTimeSlotsDayHour {
   String? id;
   String? time;
-  int quota;
+  int? quota;
 
   ProductTimeSlotsDayHour({
     this.id,
@@ -438,9 +438,9 @@ class ProductTimeSlotsDayHour {
 
 class ProductTimeSlotsSpecial {
   String? id;
-  DateTime date;
-  int quota;
-  List<ProductTimeSlotsDayHour> hours;
+  DateTime? date;
+  int? quota;
+  List<ProductTimeSlotsDayHour>? hours;
 
   ProductTimeSlotsSpecial({
     this.id,
@@ -467,8 +467,8 @@ class ProductTimeSlotsSpecial {
 
 class ProductTimeSlotsQuotaAvailability {
   String? id;
-  DateTime date;
-  int available;
+  DateTime? date;
+  int? available;
 
   ProductTimeSlotsQuotaAvailability({
     this.id,
@@ -487,9 +487,9 @@ class ProductTimeSlotsQuotaAvailability {
 }
 
 class ActivityBookingConcurrent with JsonConvert<ActivityBookingConcurrent> {
-  int concurrent;
-  int hourly;
-  int daily;
+  int? concurrent;
+  int? hourly;
+  int? daily;
 }
 
 @HiveType(typeId: 20)
@@ -499,7 +499,7 @@ class ActivityModelLocation with JsonConvert<ActivityModelLocation> {
   @HiveField(1)
   String? housenumber;
   @HiveField(2)
-  int zipcode;
+  int? zipcode;
   @HiveField(3)
   String? city;
   @HiveField(4)
@@ -513,11 +513,11 @@ class ActivityModelLocation with JsonConvert<ActivityModelLocation> {
 }
 
 class ActivityModelOpeningHours {
-  int timezone;
-  List<RegularOpeningHours> regularOpeningHours;
-  List<AdditionalOpeningHours> additionalOpeningHours;
-  List<SeasonalOpeningHours> seasonalOpeningHours;
-  List<SpecialOpeningHours> specialOpeningHours;
+  int? timezone;
+  List<RegularOpeningHours>? regularOpeningHours;
+  List<AdditionalOpeningHours>? additionalOpeningHours;
+  List<SeasonalOpeningHours>? seasonalOpeningHours;
+  List<SpecialOpeningHours>? specialOpeningHours;
 
   ActivityModelOpeningHours({
     this.timezone,
@@ -564,9 +564,9 @@ class ActivityModelOpeningHours {
 
 class RegularOpeningHours {
   String? id;
-  int dayOfWeek;
-  bool open;
-  List<OpeningHoursItem> openingHours;
+  int? dayOfWeek;
+  bool? open;
+  List<OpeningHoursItem>? openingHours;
 
   RegularOpeningHours({
     this.id,
@@ -594,7 +594,7 @@ class RegularOpeningHours {
 class AdditionalOpeningHours {
   String? id;
   String? title;
-  List<OpeningHoursDay> openingHourDays;
+  List<OpeningHoursDay>? openingHourDays;
 
   AdditionalOpeningHours({this.id, this.title, this.openingHourDays});
 
@@ -616,8 +616,8 @@ class AdditionalOpeningHours {
 class SeasonalOpeningHours {
   String? id;
   String? title;
-  List<SeasonalOpeningHoursPeriod> periods;
-  List<OpeningHoursDay> openingHourDays;
+  List<SeasonalOpeningHoursPeriod>? periods;
+  List<OpeningHoursDay>? openingHourDays;
 
   SeasonalOpeningHours({
     this.id,
@@ -650,8 +650,8 @@ class SeasonalOpeningHours {
 
 class SeasonalOpeningHoursPeriod {
   String? id;
-  DateTime startDate;
-  DateTime endDate;
+  DateTime? startDate;
+  DateTime? endDate;
 
   SeasonalOpeningHoursPeriod({
     this.id,
@@ -671,9 +671,9 @@ class SeasonalOpeningHoursPeriod {
 class SpecialOpeningHours {
   String? id;
   String? title;
-  DateTime date;
-  bool open;
-  List<OpeningHoursItem> openingHours;
+  DateTime? date;
+  bool? open;
+  List<OpeningHoursItem>? openingHours;
 
   SpecialOpeningHours({
     this.id,
@@ -702,9 +702,9 @@ class SpecialOpeningHours {
 
 class OpeningHoursDay {
   String? id;
-  int dayOfWeek;
-  bool open;
-  List<OpeningHoursItem> openingHours;
+  int? dayOfWeek;
+  bool? open;
+  List<OpeningHoursItem>? openingHours;
 
   OpeningHoursDay({
     this.id,
@@ -752,7 +752,7 @@ class OpeningHoursItem {
 @HiveType(typeId: 21)
 class ActivityModelActivityDetails
     with JsonConvert<ActivityModelActivityDetails> {
-  ActivityModelActivityDetailsMedia media;
+  ActivityModelActivityDetailsMedia? media;
   @HiveField(0)
   String? title;
   @HiveField(1)
@@ -764,17 +764,17 @@ class ActivityModelActivityDetails
   @HiveField(4)
   String? packageNotIncluded;
   @HiveField(5)
-  int cancellation;
+  int? cancellation;
 
-  ActivityDetailsCustomFields customFields;
-  List<ActivityModelActivityDetailsReview> reviews;
-  List<ActivityDetailDescriptionItemModel> descriptionItems;
+  ActivityDetailsCustomFields? customFields;
+  List<ActivityModelActivityDetailsReview>? reviews;
+  List<ActivityDetailDescriptionItemModel>? descriptionItems;
 }
 
 class ActivityDetailsCustomFields
     with JsonConvert<ActivityDetailsCustomFields> {
-  List<ActivityDetailsCustomFieldStandard> standard;
-  List<ActivityDetailsCustomFieldSelect> select;
+  List<ActivityDetailsCustomFieldStandard>? standard;
+  List<ActivityDetailsCustomFieldSelect>? select;
 }
 
 class ActivityDetailsCustomFieldStandard
@@ -782,25 +782,25 @@ class ActivityDetailsCustomFieldStandard
   String? name;
   String? info;
   String? type;
-  bool required;
+  bool? required;
 }
 
 class ActivityDetailsCustomFieldSelect
     with JsonConvert<ActivityDetailsCustomFieldSelect> {
   String? name;
   String? info;
-  bool required;
-  bool multiselect;
-  List<String> options;
+  bool? required;
+  bool? multiselect;
+  List<String>? options;
 }
 
 class ActivityModelActivityDetailsMedia
     with JsonConvert<ActivityModelActivityDetailsMedia> {
-  List<FileModel> photos;
-  List<FileModel> videos;
-  FileModel cover;
-  FileModel previewVideo;
-  FileModel previewVideoThumbnail;
+  List<FileModel>? photos;
+  List<FileModel>? videos;
+  FileModel? cover;
+  FileModel? previewVideo;
+  FileModel? previewVideoThumbnail;
 }
 
 class ActivityModelActivityDetailsReview
@@ -808,8 +808,8 @@ class ActivityModelActivityDetailsReview
   @JSONField(name: "_id")
   String? sId;
   String? user;
-  UserLoginModel userModel;
-  int rating;
+  UserLoginModel? userModel;
+  int? rating;
   String? description;
   String? createdAt;
   String? updatedAt;
@@ -817,7 +817,7 @@ class ActivityModelActivityDetailsReview
 
 class ActivityDetailDescriptionItemModel
     with JsonConvert<ActivityDetailDescriptionItemModel> {
-  int iconId;
+  int? iconId;
   String? iconName;
   String? shortDescription;
   String? longDescription;
@@ -837,7 +837,7 @@ class Location {
 
   String? street;
   String? housenumber;
-  int zipcode;
+  int? zipcode;
   String? city;
   String? state;
   String? country;

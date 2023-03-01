@@ -2,11 +2,11 @@ import 'package:yucatan/screens/booking/components/booking_screen_time_slot_item
 import 'package:flutter/material.dart';
 
 class OrderModel {
-  String activityId;
-  String userId;
-  DateTime bookingDate;
-  List<OrderProduct> products;
-  AddressModel address;
+  String? activityId;
+  String? userId;
+  DateTime? bookingDate;
+  List<OrderProduct>? products;
+  AddressModel? address;
 
   OrderModel({
     this.activityId,
@@ -20,26 +20,26 @@ class OrderModel {
     return {
       "activityId": orderModel.activityId,
       "userId": orderModel.userId,
-      "bookingDate": orderModel.bookingDate.toIso8601String(),
-      "products": orderModel.products != null && orderModel.products.length > 0
-          ? orderModel.products
+      "bookingDate": orderModel.bookingDate!.toIso8601String(),
+      "products": orderModel.products != null && orderModel.products!.length > 0
+          ? orderModel.products!
               .map(
                 (product) => OrderProduct.toJson(product),
               )
               .toList()
           : [],
-      "invoiceAddress": AddressModel.toJson(orderModel.address),
+      "invoiceAddress": AddressModel.toJson(orderModel.address!),
     };
   }
 }
 
 class OrderProduct {
-  String id;
-  int amount;
-  List<OrderProductProperty> properties;
-  List<OrderProductAdditionalService> additionalServices;
-  String bookingTimeString;
-  BookingScreenTimeSlotItemModel
+  String? id;
+  int? amount;
+  List<OrderProductProperty>? properties;
+  List<OrderProductAdditionalService>? additionalServices;
+  String? bookingTimeString;
+  BookingScreenTimeSlotItemModel?
       bookingScreenTimeSlotItemModel; //Does not need to be parsed to json
 
   OrderProduct({
@@ -56,16 +56,16 @@ class OrderProduct {
       "id": orderProduct.id,
       "quantity": orderProduct.amount,
       "properties":
-          orderProduct.properties != null && orderProduct.properties.length > 0
-              ? orderProduct.properties
+          orderProduct.properties != null && orderProduct.properties!.length > 0
+              ? orderProduct.properties!
                   .map(
                     (property) => OrderProductProperty.toJson(property),
                   )
                   .toList()
               : [],
       "additionalServices": orderProduct.additionalServices != null &&
-              orderProduct.additionalServices.length > 0
-          ? orderProduct.additionalServices
+              orderProduct.additionalServices!.length > 0
+          ? orderProduct.additionalServices!
               .map(
                 (additionalService) =>
                     OrderProductAdditionalService.toJson(additionalService),
@@ -78,8 +78,8 @@ class OrderProduct {
 }
 
 class OrderProductProperty {
-  String id;
-  String value;
+  String? id;
+  String? value;
 
   OrderProductProperty({
     this.id,
@@ -96,9 +96,9 @@ class OrderProductProperty {
 }
 
 class OrderProductAdditionalService {
-  String id;
-  int amount;
-  List<OrderProductProperty> properties;
+  String? id;
+  int? amount;
+  List<OrderProductProperty>? properties;
 
   OrderProductAdditionalService({
     this.id,
@@ -112,8 +112,8 @@ class OrderProductAdditionalService {
       "id": orderProductAdditionalService.id,
       "quantity": orderProductAdditionalService.amount,
       "properties": orderProductAdditionalService.properties != null &&
-              orderProductAdditionalService.properties.length > 0
-          ? orderProductAdditionalService.properties
+              orderProductAdditionalService.properties!.length > 0
+          ? orderProductAdditionalService.properties!
               .map(
                 (property) => OrderProductProperty.toJson(property),
               )
@@ -130,7 +130,7 @@ class AddressModel {
   String houseNumber;
   String zipCode;
   String city;
-  String phone;
+  String? phone;
   String countryISO2;
   String areaCode;
 
@@ -159,7 +159,7 @@ class AddressModel {
     };
 
     if (addressModel.phone != null && addressModel.phone != "") {
-      parsedData["phone"] = addressModel.phone;
+      parsedData["phone"] = addressModel.phone!;
     }
 
     return parsedData;

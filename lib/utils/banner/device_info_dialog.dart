@@ -44,7 +44,7 @@ class DeviceInfoDialog extends StatelessWidget {
         builder: (context, AsyncSnapshot<IosDeviceInfo> snapshot) {
           if (!snapshot.hasData) return Container();
 
-          IosDeviceInfo device = snapshot.data;
+          IosDeviceInfo device = snapshot.data!;
           return SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -68,7 +68,7 @@ class DeviceInfoDialog extends StatelessWidget {
         builder: (context, AsyncSnapshot<AndroidDeviceInfo> snapshot) {
           if (!snapshot.hasData) return Container();
 
-          AndroidDeviceInfo device = snapshot.data;
+          AndroidDeviceInfo device = snapshot.data!;
           return SingleChildScrollView(
             child: Column(
               children: <Widget>[

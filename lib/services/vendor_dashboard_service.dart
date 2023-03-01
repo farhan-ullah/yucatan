@@ -8,7 +8,7 @@ class VendorDashboardService extends BaseService {
       : super(BaseService.defaultURL + '/statistics/vendor/dashboard');
 
   /// get statistic data for vendor dashboard bookings
-  static Future<VendorDashboardResponse> getVendorDashboardStats() async {
+  static Future<VendorDashboardResponse?> getVendorDashboardStats() async {
     var httpData = (await new VendorDashboardService._().get(''))?.body;
     if (httpData != null) {
       return new VendorDashboardResponse.fromJson(json.decode(httpData));

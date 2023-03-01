@@ -1,15 +1,15 @@
 import 'dart:convert';
 
 class NotificationModel {
-  String id;
-  String title;
-  String description;
-  String descriptionSubject;
-  NotificationType type;
-  NotificationTarget target;
-  NotificationPublishWay publishWays;
-  String data;
-  DateTime publishDateTime;
+  String? id;
+  String? title;
+  String? description;
+  String? descriptionSubject;
+  NotificationType? type;
+  NotificationTarget? target;
+  NotificationPublishWay? publishWays;
+  String? data;
+  DateTime? publishDateTime;
   bool opened = false;
 
   NotificationModel({
@@ -43,8 +43,8 @@ class NotificationModel {
 }
 
 class NotificationPublishWay {
-  bool inApp;
-  bool push;
+  bool? inApp;
+  bool? push;
 
   NotificationPublishWay({
     this.inApp,
@@ -60,8 +60,8 @@ class NotificationPublishWay {
 }
 
 class NotificationData {
-  String action;
-  dynamic data;
+  String? action;
+  dynamic? data;
 
   NotificationData({
     this.action,
@@ -77,9 +77,9 @@ class NotificationData {
 }
 
 class NotificationTarget {
-  String id;
-  NotificationTopic topic;
-  List<NotificationUserId> userIds;
+  String? id;
+  NotificationTopic? topic;
+  List<NotificationUserId>? userIds;
 
   NotificationTarget({
     this.id,
@@ -106,9 +106,9 @@ class NotificationTarget {
 }
 
 class NotificationUserId {
-  String id;
-  String userId;
-  bool read;
+  String? id;
+  String? userId;
+  bool? read;
 
   NotificationUserId({
     this.id,
@@ -126,9 +126,9 @@ class NotificationUserId {
 }
 
 class SavedNotificationData {
-  String notificationId;
-  String userId;
-  bool read;
+  String? notificationId;
+  String? userId;
+  bool? read;
 
   SavedNotificationData({
     this.notificationId,

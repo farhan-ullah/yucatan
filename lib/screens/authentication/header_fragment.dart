@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AuthenticationHeader extends StatefulWidget {
-  final String title;
+  final String? title;
   const AuthenticationHeader({Key? key, this.title}) : super(key: key);
 
   @override
@@ -43,7 +43,7 @@ class _AuthenticationHeaderState extends State<AuthenticationHeader> {
                   height: Dimensions.getScaledSize(10.0),
                 ),
                 Text(
-                  widget.title,
+                  widget.title!,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: Dimensions.getScaledSize(25.0),

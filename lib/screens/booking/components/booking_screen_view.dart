@@ -29,7 +29,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'discard_dialog.dart';
 
 class BookingScreenView extends StatefulWidget {
-  final ActivityModel activity;
+  final ActivityModel? activity;
 
   BookingScreenView({
     this.activity,
@@ -40,21 +40,24 @@ class BookingScreenView extends StatefulWidget {
 }
 
 class _BookingScreenViewState extends State<BookingScreenView> {
-  DateTime _selectedDate;
-  BookingStep _bookingStep;
-  ProductCategory _selectedProductCategory;
-  ProductSubCategory _selectedProductSubCategory;
-  Product _selectedProduct;
-  BookingScreenTimeSlotItemModel _selectedBookingScreenTimeSlotItemModel;
+  DateTime? _selectedDate;
+  BookingStep? _bookingStep;
+  ProductCategory? _selectedProductCategory;
+  ProductSubCategory? _selectedProductSubCategory;
+  Product? _selectedProduct;
+  BookingScreenTimeSlotItemModel? _selectedBookingScreenTimeSlotItemModel;
   List<OrderProduct> orderProducts = [];
   List<BookingScreenTimeSlotItemModel> _availableTimeSlots = [];
 
-  ItemScrollController _categoriesSliderController;
+  ItemScrollController? _categoriesSliderController;
+  late Product productToReturn;
+  late ProductCategory productCategory;
+  late ProductSubCategory productSubCategory;
 
   @override
   void initState() {
     _selectedProductCategory =
-        widget.activity.bookingDetails.productCategories[0];
+        widget.activity!.bookingDetails!.productCategories![0];
 
     _bookingStep = BookingStep.SelectSubCategory;
     super.initState();
@@ -87,7 +90,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                               right: Dimensions.getScaledSize(24.0),
                             ),
                             child: Text(
-                              widget.activity.title,
+                              widget.activity!.title!,
                               style: TextStyle(
                                 fontSize: Dimensions.getScaledSize(18.0),
                                 fontWeight: FontWeight.bold,
@@ -121,10 +124,10 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                         : Container(),
                     _bookingStep == BookingStep.SelectTime
                         ? BookingScreenTimeSelection(
-                            product: _selectedProduct,
+                            product: _selectedProduct!,
                             onTimeSlotSelected: _onTimeSlotSelected,
-                            category: _selectedProductCategory,
-                            subCategory: _selectedProductSubCategory,
+                            category: _selectedProductCategory!,
+                            subCategory: _selectedProductSubCategory!,
                             specificDate: _selectedDate,
                             onAvailableTimeSlotsChanged:
                                 _handleOnAvailableTimeSlotsChanged,
@@ -143,12 +146,12 @@ class _BookingScreenViewState extends State<BookingScreenView> {
           Positioned(
             bottom: 0,
             child: BookingBar(
-              bookingDetails: widget.activity.bookingDetails,
+              bookingDetails: widget.activity!.bookingDetails!,
               orderProducts: orderProducts,
               onTap: () {
                 _handleContinueButton();
               },
-              buttonText: orderProducts.length > 0
+              buttonText: orderProducts.isNotEmpty
                   ? AppLocalizations.of(context)!.bookingScreen_pay
                   : AppLocalizations.of(context)!.bookingScreen_further,
               showDivider: true,
@@ -167,14 +170,14 @@ class _BookingScreenViewState extends State<BookingScreenView> {
       onWillPop: () {
         return Future.sync(() {
           if (_bookingStep == BookingStep.SelectSubCategory &&
-              orderProducts.length == 0) {
+              orderProducts.isEmpty) {
             return true;
           } else if (_bookingStep == BookingStep.SelectSubCategory ||
               _bookingStep == BookingStep.SelectProduct ||
               _bookingStep == BookingStep.SelectTime) {
             _previousBookingStep();
             return false;
-          } else if (orderProducts.length > 0) {
+          } else if (orderProducts.isNotEmpty) {
             showDialog(
                 context: context,
                 builder: (context) => DiscardDialog(
@@ -195,7 +198,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
     );
   }
 
-  void _nextBookingStep({BookingStep nextBookingStep}) {
+  void _nextBookingStep({BookingStep? nextBookingStep}) {
     print('Data Showed Farhan : $nextBookingStep');
     setState(() {
       if (nextBookingStep != null) {
@@ -204,8 +207,8 @@ class _BookingScreenViewState extends State<BookingScreenView> {
           Navigator.of(context).push(_navigateToSelectPropertiesView());
         }
       } else if (_bookingStep == BookingStep.ShowItems) {
-        if (_selectedProductCategory.productSubCategories == null ||
-            _selectedProductCategory.productSubCategories.length == 0)
+        if (_selectedProductCategory!.productSubCategories == null ||
+            _selectedProductCategory!.productSubCategories!.isEmpty)
           _bookingStep = BookingStep.SelectProduct;
         else
           _bookingStep = BookingStep.SelectSubCategory;
@@ -231,7 +234,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
         if (_bookingStep == BookingStep.SelectSubCategory) {
           _bookingStep = BookingStep.ShowItems;
           _selectedProductCategory =
-              widget.activity.bookingDetails.productCategories[0];
+              widget.activity!.bookingDetails!.productCategories![0];
         } else if (_bookingStep == BookingStep.SelectProduct) {
           if (_selectedProductSubCategory != null) {
             _selectedProductSubCategory = null;
@@ -283,7 +286,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
             left: Dimensions.getScaledSize(24.0),
             right: Dimensions.getScaledSize(24.0),
           ),
-          child: orderProducts.length > 0
+          child: orderProducts.isNotEmpty
               ? Container(
                   height: MediaQuery.of(context).size.height * 0.61 -
                       MediaQuery.of(context).padding.bottom,
@@ -307,7 +310,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                   ),
                 ),
         ),
-        orderProducts.length > 0
+        orderProducts.isNotEmpty
             ? Container()
             : SizedBox(
                 height: MediaQuery.of(context).size.height * 0.4,
@@ -321,7 +324,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
   List<Widget> _getOrderProductItems() {
     return orderProducts.map(
       (orderProduct) {
-        final product = _findProduct(orderProduct.id);
+        final product = _findProduct(orderProduct.id!);
 
         return Container(
           width: MediaQuery.of(context).size.width,
@@ -378,7 +381,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                             children: [
                               Flexible(
                                 child: Text(
-                                  '${_getCategoryForProduct(product) != null ? _getCategoryForProduct(product).title + ',' : ''} ${_getProductSubCategoryForProduct(product) != null ? _getProductSubCategoryForProduct(product).title + ', ' : ''}${product.title}',
+                                  '${_getCategoryForProduct(product) != null ? '${_getCategoryForProduct(product).title!},' : ''} ${_getProductSubCategoryForProduct(product) != null ? '${_getProductSubCategoryForProduct(product).title!}, ' : ''}${product.title}',
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
                                   style: TextStyle(
@@ -394,18 +397,18 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                             ],
                           ),
                         ),
-                        orderProduct.bookingScreenTimeSlotItemModel
+                        orderProduct.bookingScreenTimeSlotItemModel!
                                     .timeString !=
                                 null
                             ? SizedBox(
                                 height: Dimensions.getScaledSize(5.0),
                               )
                             : Container(),
-                        orderProduct.bookingScreenTimeSlotItemModel
+                        orderProduct.bookingScreenTimeSlotItemModel!
                                     .timeString !=
                                 null
                             ? Text(
-                                "${orderProduct.bookingScreenTimeSlotItemModel.timeString} Uhr",
+                                "${orderProduct.bookingScreenTimeSlotItemModel!.timeString} Uhr",
                                 style: TextStyle(
                                   fontSize: Dimensions.getScaledSize(14),
                                   color: CustomTheme.primaryColorDark,
@@ -415,13 +418,13 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                         SizedBox(
                           height: Dimensions.getScaledSize(5.0),
                         ),
-                        ...orderProduct.properties.map((orderProperty) {
+                        ...orderProduct.properties!.map((orderProperty) {
                           if (orderProperty.value == null ||
                               orderProperty.value == "") {
                             return Container();
                           }
 
-                          final property = product.properties.firstWhere(
+                          final property = product.properties!.firstWhere(
                             (element) => element.id == orderProperty.id,
                           );
 
@@ -444,12 +447,12 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                                 ),
                                 Text(
                                   property.type == ProductPropertyType.DROPDOWN
-                                      ? property.dropdownValues
+                                      ? property.dropdownValues!
                                           .firstWhere((element) =>
                                               element.value ==
                                               orderProperty.value)
-                                          .text
-                                      : orderProperty.value,
+                                          .text!
+                                      : orderProperty.value!,
                                   style: TextStyle(
                                     fontSize: Dimensions.getScaledSize(14.0),
                                     color: CustomTheme.primaryColorDark,
@@ -460,10 +463,11 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                           );
                         }).toList(),
                         orderProduct.additionalServices != null &&
-                                orderProduct.additionalServices.isNotEmpty
-                            ? orderProduct.additionalServices.firstWhere(
-                                        (element) => element.amount > 0,
-                                        orElse: () => null) !=
+                                orderProduct.additionalServices!.isNotEmpty
+                            ? orderProduct.additionalServices!.firstWhere(
+                                        (element) => element.amount! > 0,
+                                        // orElse: () => null
+                        ) !=
                                     null
                                 ? Text(
                                     AppLocalizations.of(context)
@@ -475,23 +479,25 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                                   )
                                 : Container()
                             : Container(),
-                        ...orderProduct.additionalServices
+                        ...orderProduct.additionalServices!
                             .map((additionalService) {
-                          if (additionalService.amount <= 0) {
+                          if (additionalService.amount! <= 0) {
                             return Container();
                           }
 
                           final additionalServiceProperty =
-                              product.additionalServices.firstWhere(
+                              product.additionalServices!.firstWhere(
                                   (element) =>
                                       element.id == additionalService.id,
-                                  orElse: () => null);
+                                  // orElse: () => null
+                              );
 
                           if (additionalServiceProperty == null) {
                             return Container();
                           }
 
                           return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 "${additionalService.amount}x ${additionalServiceProperty.title}",
@@ -500,12 +506,13 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                                   color: CustomTheme.primaryColorDark,
                                 ),
                               ),
-                              ...additionalServiceProperty.properties
+                              ...additionalServiceProperty.properties!
                                   .map((property) {
                                 final selectedAdditionalServiceProperty =
-                                    additionalService.properties.firstWhere(
+                                    additionalService.properties!.firstWhere(
                                         (element) => element.id == property.id,
-                                        orElse: () => null);
+                                        // orElse: () => null
+                                    );
 
                                 if (selectedAdditionalServiceProperty == null) {
                                   return Container();
@@ -527,14 +534,14 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                                     Text(
                                       property.type ==
                                               ProductPropertyType.DROPDOWN
-                                          ? property.dropdownValues
+                                          ? property.dropdownValues!
                                               .firstWhere((element) =>
                                                   element.value ==
                                                   selectedAdditionalServiceProperty
                                                       .value)
-                                              .text
+                                              .text!
                                           : selectedAdditionalServiceProperty
-                                              .value,
+                                              .value!,
                                       style: TextStyle(
                                         fontSize:
                                             Dimensions.getScaledSize(14.0),
@@ -548,7 +555,6 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                                 height: Dimensions.getScaledSize(5.0),
                               ),
                             ],
-                            crossAxisAlignment: CrossAxisAlignment.start,
                           );
                         }).toList(),
                         SizedBox(
@@ -572,8 +578,8 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                                       child: GestureDetector(
                                         onTap: () {
                                           setState(() {
-                                            if (orderProduct.amount > 1) {
-                                              orderProduct.amount -= 1;
+                                            if (orderProduct.amount! > 1) {
+                                              orderProduct.amount! - 1;
                                             }
                                           });
                                         },
@@ -596,9 +602,8 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                                             child: Icon(
                                               Icons.remove,
                                               color: product
-                                                          .properties.length ==
-                                                      0
-                                                  ? orderProduct.amount > 1
+                                                          .properties!.isEmpty
+                                                  ? orderProduct.amount! > 1
                                                       ? CustomTheme.darkGrey
                                                       : CustomTheme.mediumGrey
                                                   : CustomTheme.mediumGrey,
@@ -640,14 +645,14 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                                       flex: 1,
                                       child: GestureDetector(
                                         onTap: () {
-                                          if (product.properties.length == 0) {
+                                          if (product.properties!.isEmpty) {
                                             setState(() {
                                               if (orderProduct
-                                                          .bookingScreenTimeSlotItemModel
+                                                          .bookingScreenTimeSlotItemModel!
                                                           .remainingQuota -
-                                                      orderProduct.amount >
+                                                      orderProduct.amount! >
                                                   0) {
-                                                orderProduct.amount += 1;
+                                                orderProduct.amount! + 1;
                                               }
                                             });
                                           }
@@ -671,12 +676,11 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                                             child: Icon(
                                               Icons.add,
                                               color: product
-                                                          .properties.length ==
-                                                      0
-                                                  ? orderProduct.bookingScreenTimeSlotItemModel
+                                                          .properties!.isEmpty
+                                                  ? orderProduct.bookingScreenTimeSlotItemModel!
                                                                   .remainingQuota -
                                                               orderProduct
-                                                                  .amount >
+                                                                  .amount! >
                                                           0
                                                       ? CustomTheme.darkGrey
                                                       : CustomTheme.mediumGrey
@@ -783,9 +787,9 @@ class _BookingScreenViewState extends State<BookingScreenView> {
             child: ListView(
               children: [
                 ..._getProductSubCategories(),
-                if (_selectedProductCategory.products != null &&
-                    _selectedProductCategory.products.length > 0)
-                  ..._selectedProductCategory.products
+                if (_selectedProductCategory!.products != null &&
+                    _selectedProductCategory!.products!.isNotEmpty)
+                  ..._selectedProductCategory!.products!
                       .map(
                         (product) => Container(
                           key: UniqueKey(),
@@ -868,13 +872,13 @@ class _BookingScreenViewState extends State<BookingScreenView> {
   List<Widget> _getCategoriesSliderItems() {
     List<Widget> widgets = [];
 
-    widget.activity.bookingDetails.productCategories.forEach(
+    widget.activity!.bookingDetails!.productCategories!.forEach(
       (category) {
         widgets.add(
           GestureDetector(
             onTap: () {
               _categoriesSliderController.scrollTo(
-                index: widget.activity.bookingDetails.productCategories
+                index: widget.activity!.bookingDetails!.productCategories!
                     .indexOf(category),
                 duration: Duration(milliseconds: 800),
                 curve: Curves.fastLinearToSlowEaseIn,
@@ -893,9 +897,9 @@ class _BookingScreenViewState extends State<BookingScreenView> {
               margin: EdgeInsets.only(
                 left: Dimensions.getScaledSize(24),
                 right:
-                    (widget.activity.bookingDetails.productCategories.length -
+                    (widget.activity!.bookingDetails!.productCategories!.length -
                                 1) ==
-                            widget.activity.bookingDetails.productCategories
+                            widget.activity!.bookingDetails!.productCategories!
                                 .indexOf(category)
                         ? Dimensions.getScaledSize(24)
                         : 0,
@@ -911,18 +915,18 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                 borderRadius: BorderRadius.circular(
                   Dimensions.getScaledSize(8),
                 ),
-                color: _selectedProductCategory.id == category.id
+                color: _selectedProductCategory!.id == category.id
                     ? CustomTheme.primaryColorDark
                     : Colors.white,
               ),
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Text(
-                  category.title,
+                  category.title!,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: Dimensions.getScaledSize(16.0),
-                    color: _selectedProductCategory.id == category.id
+                    color: _selectedProductCategory!.id! == category.id
                         ? Colors.white
                         : CustomTheme.primaryColorDark,
                   ),
@@ -938,9 +942,9 @@ class _BookingScreenViewState extends State<BookingScreenView> {
   }
 
   List<Widget> _getProductSubCategories() {
-    if (_selectedProductCategory.productSubCategories != null &&
-        _selectedProductCategory.productSubCategories.length > 0) {
-      return _selectedProductCategory.productSubCategories
+    if (_selectedProductCategory!.productSubCategories != null &&
+        _selectedProductCategory!.productSubCategories!.isNotEmpty) {
+      return _selectedProductCategory!.productSubCategories!
           .map(
             (productSubCategory) => BookingScreenCard(
               title: productSubCategory.title,
@@ -1012,7 +1016,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
           color: CustomTheme.primaryColorDark,
         ),
         child: Text(
-          _selectedProductSubCategory.title,
+          _selectedProductSubCategory!.title!,
           style: TextStyle(
             fontSize: Dimensions.getScaledSize(16.0),
             color: Colors.white,
@@ -1024,9 +1028,9 @@ class _BookingScreenViewState extends State<BookingScreenView> {
 
   List<Widget> _getProductsDetailed() {
     if (_selectedProductSubCategory != null &&
-        _selectedProductSubCategory.products != null &&
-        _selectedProductSubCategory.products.length > 0) {
-      return _selectedProductSubCategory.products
+        _selectedProductSubCategory!.products != null &&
+        _selectedProductSubCategory!.products!.isNotEmpty) {
+      return _selectedProductSubCategory!.products!
           .map(
             (product) => BookingScreenCard(
               title: product.title,
@@ -1048,8 +1052,8 @@ class _BookingScreenViewState extends State<BookingScreenView> {
           )
           .toList();
     } else {
-      return _selectedProductCategory.products
-          .map(
+      return _selectedProductCategory!.products
+          !.map(
             (product) => BookingScreenCard(
               title: product.title,
               description: product.subtitle,
@@ -1080,7 +1084,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
         bookingScreenTimeSlotItemModel: _selectedBookingScreenTimeSlotItemModel,
         onAddOrderProduct: _addOrderProduct,
         onPreviousBookingStep: _previousBookingStep,
-        bookingDetails: widget.activity.bookingDetails,
+        bookingDetails: widget.activity!.bookingDetails,
       ),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(0.0, 1.0);
@@ -1108,7 +1112,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
             orderProduct.bookingScreenTimeSlotItemModel,
         onAddOrderProduct: _addOrderProduct,
         onPreviousBookingStep: _editOrderProductPreviousBookingStep,
-        bookingDetails: widget.activity.bookingDetails,
+        bookingDetails: widget.activity!.bookingDetails,
         existingOrderProduct: orderProduct,
         index: index,
       ),
@@ -1138,7 +1142,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
   void _addOrderProduct(OrderProduct orderProduct, int index) {
     //Log firebase event
 
-    AnalyticsService.logAddtoCart(orderProduct, _findProduct(orderProduct.id));
+    AnalyticsService.logAddtoCart(orderProduct, _findProduct(orderProduct.id!));
 
     setState(() {
       if (index == null) {
@@ -1147,7 +1151,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
         if (orderProducts.length > 1) return;
 
         var orderProductDate =
-            orderProduct.bookingScreenTimeSlotItemModel.dateTime;
+            orderProduct.bookingScreenTimeSlotItemModel!.dateTime;
 
         _selectedDate = DateTime.utc(
           orderProductDate.year,
@@ -1170,8 +1174,8 @@ class _BookingScreenViewState extends State<BookingScreenView> {
         name: 'remove_from_cart',
         parameters: <String, dynamic>{
           'item': orderProduct.id,
-          'item_name': _findProduct(orderProduct.id).title,
-          'value': _findProduct(orderProduct.id).price * orderProduct.amount,
+          'item_name': _findProduct(orderProduct.id!).title,
+          'value': _findProduct(orderProduct.id!).price! * orderProduct.amount!,
           'time': DateTime.now().toIso8601String(),
         },
       );
@@ -1181,7 +1185,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
       orderProducts.remove(orderProduct);
     });
 
-    if (orderProducts.length > 0) return;
+    if (orderProducts.isNotEmpty) return;
 
     //Reset data
     setState(() {
@@ -1191,7 +1195,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
       _selectedProduct = null;
       _selectedBookingScreenTimeSlotItemModel = null;
       _selectedProductCategory =
-          widget.activity.bookingDetails.productCategories[0];
+          widget.activity!.bookingDetails!.productCategories![0];
 
       //Reset the booking step, so the user needs to select a sub category or product again
       _bookingStep = BookingStep.SelectSubCategory;
@@ -1199,11 +1203,11 @@ class _BookingScreenViewState extends State<BookingScreenView> {
   }
 
   Product _findProduct(String productId) {
-    Product productToReturn;
+    // Product productToReturn;
 
-    widget.activity.bookingDetails.productCategories.forEach(
+    widget.activity!.bookingDetails!.productCategories!.forEach(
       (category) {
-        category.products.forEach(
+        category.products!.forEach(
           (product) {
             if (product.id == productId) {
               productToReturn = product;
@@ -1211,9 +1215,9 @@ class _BookingScreenViewState extends State<BookingScreenView> {
           },
         );
 
-        category.productSubCategories.forEach(
+        category.productSubCategories!.forEach(
           (subCategory) {
-            subCategory.products.forEach(
+            subCategory.products!.forEach(
               (product) {
                 if (product.id == productId) {
                   productToReturn = product;
@@ -1232,7 +1236,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
     _bookingStep = BookingStep.SelectProperties;
     Navigator.of(context).push(
       _navigateToSelectPropertiesViewEdit(
-          _findProduct(orderProduct.id), orderProduct, index),
+          _findProduct(orderProduct.id!), orderProduct, index),
     );
   }
 
@@ -1243,24 +1247,24 @@ class _BookingScreenViewState extends State<BookingScreenView> {
   }
 
   double _calculatePriceForOrderProduct(OrderProduct orderProduct) {
-    final product = _findProduct(orderProduct.id);
+    final product = _findProduct(orderProduct.id!);
 
-    double productTotal = product.price * orderProduct.amount;
+    double productTotal = product.price! * orderProduct.amount!;
     double additionalServicesTotal = 0.0;
 
-    orderProduct.additionalServices.forEach((element) {
-      final additionalService = product.additionalServices.firstWhere(
+    orderProduct.additionalServices!.forEach((element) {
+      final additionalService = product.additionalServices!.firstWhere(
           (additionalServiceElement) =>
               additionalServiceElement.id == element.id);
 
-      additionalServicesTotal += additionalService.price * element.amount;
+      additionalServicesTotal += additionalService.price! * element.amount!;
     });
 
     return productTotal + additionalServicesTotal;
   }
 
   void _proceedToCheckoutIfOrderNotEmpty() async {
-    if (orderProducts.length == 0) {
+    if (orderProducts.isEmpty) {
       Fluttertoast.showToast(
         msg: AppLocalizations.of(context)!.bookingScreen_nothingSelected,
         toastLength: Toast.LENGTH_SHORT,
@@ -1277,9 +1281,9 @@ class _BookingScreenViewState extends State<BookingScreenView> {
         Navigator.of(context).pushNamed(
           CheckoutScreen.route,
           arguments: CheckoutScreenParameter(
-            activity: widget.activity,
+            activity: widget.activity!,
             order: OrderModel(
-              activityId: widget.activity.sId,
+              activityId: widget.activity!.sId,
               userId: user.sId,
               bookingDate: _selectedDate,
               products: orderProducts,
@@ -1291,16 +1295,16 @@ class _BookingScreenViewState extends State<BookingScreenView> {
   }
 
   ProductCategory _getCategoryForProduct(Product product) {
-    ProductCategory productCategory;
+    // ProductCategory productCategory;
 
-    widget.activity.bookingDetails.productCategories.forEach((element) {
-      element.products.forEach((productElement) {
+    widget.activity!.bookingDetails!.productCategories!.forEach((element) {
+      element.products!.forEach((productElement) {
         if (productElement.id == product.id) {
           productCategory = element;
         }
       });
-      element.productSubCategories.forEach((subCategoryElement) {
-        subCategoryElement.products.forEach((productElement) {
+      element.productSubCategories!.forEach((subCategoryElement) {
+        subCategoryElement.products!.forEach((productElement) {
           if (productElement.id == product.id) {
             productCategory = element;
           }
@@ -1312,11 +1316,11 @@ class _BookingScreenViewState extends State<BookingScreenView> {
   }
 
   ProductSubCategory _getProductSubCategoryForProduct(Product product) {
-    ProductSubCategory productSubCategory;
+    // ProductSubCategory productSubCategory;
 
-    widget.activity.bookingDetails.productCategories.forEach((element) {
-      element.productSubCategories.forEach((subCategoryElement) {
-        subCategoryElement.products.forEach((productElement) {
+    widget.activity!.bookingDetails!.productCategories!.forEach((element) {
+      element.productSubCategories!.forEach((subCategoryElement) {
+        subCategoryElement.products!.forEach((productElement) {
           if (productElement.id == product.id) {
             productSubCategory = subCategoryElement;
           }
@@ -1333,11 +1337,11 @@ class _BookingScreenViewState extends State<BookingScreenView> {
       FirebaseAnalytics().logEvent(
         name: 'select_item',
         parameters: <String, dynamic>{
-          'product_id': _selectedProduct.id,
-          'product_name': _selectedProduct.title,
-          'value': _selectedProduct.price,
-          'activity_id': widget.activity.sId,
-          'category_id': _selectedProductCategory.id,
+          'product_id': _selectedProduct!.id,
+          'product_name': _selectedProduct!.title,
+          'value': _selectedProduct!.price,
+          'activity_id': widget.activity!.sId,
+          'category_id': _selectedProductCategory!.id,
           'sub_category_id': _selectedProductSubCategory?.id,
           'time': DateTime.now().toIso8601String(),
         },

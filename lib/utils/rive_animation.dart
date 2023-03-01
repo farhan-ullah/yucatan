@@ -23,8 +23,8 @@ class RiveAnimation extends StatefulWidget {
 }
 
 class _RiveAnimationState extends State<RiveAnimation> {
-  Artboard _riveArtboard;
-  RiveAnimationController _controller;
+  late Artboard _riveArtboard;
+  late RiveAnimationController _controller;
 
   @override
   void initState() {
@@ -33,8 +33,8 @@ class _RiveAnimationState extends State<RiveAnimation> {
     rootBundle.load('assets/rive/${widget.riveFileName}').then(
       (data) async {
         // Load the RiveFile from the binary data.
-        var rive = RiveFile();
-        rive.import(data);
+        // var rive = RiveFile();
+        final rive = RiveFile.import(data);
         // The artboard is the root of the animation and gets drawn in the
         // Rive widget.
         final artboard = rive.mainArtboard;

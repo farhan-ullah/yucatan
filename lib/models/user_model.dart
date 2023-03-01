@@ -8,17 +8,17 @@ part 'user_model.g.dart';
 class UserModel with JsonConvert<UserModel> {
   @JSONField(name: "_id")
   @HiveField(0)
-  String sId;
-  String password;
+  String? sId;
+  String? password;
   @HiveField(1)
-  String email;
+  String? email;
   @HiveField(2)
-  String username;
+  String? username;
   @HiveField(3)
-  String image;
-  String createdAt;
-  String updatedAt;
+  String? image;
+  String? createdAt;
+  String? updatedAt;
   @JSONField(name: "__v")
   @HiveField(4)
-  int iV;
+  int? iV;
 }

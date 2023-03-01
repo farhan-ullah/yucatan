@@ -20,10 +20,10 @@ class BookingAddReviewView extends StatefulWidget {
 }
 
 class _BookingAddReviewViewState extends State<BookingAddReviewView> {
-  Future<UserLoginModel> user;
-  Future<ActivitySingleResponse> addReviewFuture;
-  UserLoginModel userModel;
-  ActivityModelActivityDetailsReview existingReview;
+  Future<UserLoginModel>? user;
+  Future<ActivitySingleResponse>? addReviewFuture;
+  UserLoginModel? userModel;
+  ActivityModelActivityDetailsReview? existingReview;
   int step = 1;
   double rating = 5;
   String reviewText = "";
@@ -80,7 +80,7 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
                                       Dimensions.getScaledSize(24.0)),
                                 ),
                                 child: loadCachedNetworkImage(
-                                  widget.activity.thumbnail?.publicUrl,
+                                  widget.activity.thumbnail!.publicUrl!,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -95,7 +95,7 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
                                   right: Dimensions.getScaledSize(20.0),
                                 ),
                                 child: Text(
-                                  widget.activity.title,
+                                  widget.activity.title!,
                                   style: TextStyle(
                                     fontSize: Dimensions.getScaledSize(18.0),
                                     fontWeight: FontWeight.bold,
@@ -313,7 +313,7 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
       future: addReviewFuture,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data.errors != null) {
+          if (snapshot.data!.errors != null) {
             return Column(
               children: [
                 Padding(
@@ -379,7 +379,7 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
                 Expanded(
                   child: Container(),
                 ),
-                _getButtons(activitySingleResponse: snapshot.data),
+                _getButtons(activitySingleResponse: snapshot.data!),
                 SizedBox(
                   height: Dimensions.getScaledSize(27.0),
                 ),
@@ -395,7 +395,7 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
     );
   }
 
-  Widget _getButtons({ActivitySingleResponse activitySingleResponse}) {
+  Widget _getButtons({ActivitySingleResponse? activitySingleResponse}) {
     return Padding(
       padding: EdgeInsets.only(
         left: Dimensions.getScaledSize(18.0),
@@ -517,30 +517,32 @@ class _BookingAddReviewViewState extends State<BookingAddReviewView> {
 
   void _loadReview() {
     // Throws error in case reviews are null
-    var review = widget.activity.activityDetails.reviews
-        ?.firstWhere((element) => element.user == userModel.sId, orElse: () {
-      return null;
-    });
+    var review = widget.activity.activityDetails!.reviews
+        ?.firstWhere((element) => element.user == userModel!.sId,
+    //     orElse: () {
+    //   return null;
+    // }
+    );
 
     if (review != null && existingReview == null) {
       existingReview = review;
-      rating = review.rating.toDouble();
-      reviewText = review.description;
+      rating = review.rating!.toDouble();
+      reviewText = review.description!;
     }
   }
 
   void _addReview() {
     ActivityModelActivityDetailsReview review =
         ActivityModelActivityDetailsReview();
-    review.user = userModel.sId;
+    review.user = userModel!.sId;
     review.rating = rating.toInt();
     review.description = reviewText;
 
     if (existingReview != null) {
-      review.sId = existingReview.sId;
-      addReviewFuture = ActivityService.editReview(widget.activity.sId, review);
+      review.sId = existingReview!.sId;
+      addReviewFuture = ActivityService.editReview(widget.activity.sId!, review);
     } else {
-      addReviewFuture = ActivityService.addReview(widget.activity.sId, review);
+      addReviewFuture = ActivityService.addReview(widget.activity.sId!, review);
     }
   }
 }

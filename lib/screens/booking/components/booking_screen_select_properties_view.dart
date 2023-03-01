@@ -16,13 +16,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class BookingScreenSelectPropertiesView extends StatefulWidget {
-  final Product product;
-  final BookingScreenTimeSlotItemModel bookingScreenTimeSlotItemModel;
-  final Function onAddOrderProduct;
-  final Function onPreviousBookingStep;
-  final ActivityBookingDetails bookingDetails;
-  final OrderProduct existingOrderProduct;
-  final int index;
+  final Product? product;
+  final BookingScreenTimeSlotItemModel? bookingScreenTimeSlotItemModel;
+  final Function? onAddOrderProduct;
+  final Function? onPreviousBookingStep;
+  final ActivityBookingDetails? bookingDetails;
+  final OrderProduct? existingOrderProduct;
+  final int? index;
 
   BookingScreenSelectPropertiesView({
     required this.product,
@@ -41,34 +41,34 @@ class BookingScreenSelectPropertiesView extends StatefulWidget {
 
 class _BookingScreenSelectPropertiesViewState
     extends State<BookingScreenSelectPropertiesView> {
-  OrderProduct orderProduct;
+  OrderProduct? orderProduct;
   Map<String, TextEditingController> _propertyTextEditingControllers = Map();
 
   @override
   void initState() {
-    widget.product.properties.forEach((element) {
+    widget.product!.properties!.forEach((element) {
       if (element.type == ProductPropertyType.NUMBER ||
           element.type == ProductPropertyType.TEXT) {
         _propertyTextEditingControllers.putIfAbsent(
-            element.id, () => TextEditingController());
+            element.id!, () => TextEditingController());
       }
     });
 
     if (widget.existingOrderProduct != null) {
       orderProduct = widget.existingOrderProduct;
 
-      orderProduct.properties.forEach((element) {
+      orderProduct!.properties!.forEach((element) {
         if (_propertyTextEditingControllers.containsKey(element.id)) {
-          _propertyTextEditingControllers[element.id].text = element.value;
+          _propertyTextEditingControllers[element.id]!.text = element.value!;
         }
       });
     } else {
-      var hour = 0;
-      var minute = 0;
+      int? hour = 0;
+      int? minute = 0;
 
-      if (widget.bookingScreenTimeSlotItemModel.timeString != null) {
+      if (widget.bookingScreenTimeSlotItemModel!.timeString != null) {
         var splittedTime =
-            widget.bookingScreenTimeSlotItemModel.timeString.split(":");
+            widget.bookingScreenTimeSlotItemModel!.timeString.split(":");
 
         hour = int.tryParse(splittedTime[0]);
         hour = hour != null ? hour : 0;
@@ -78,13 +78,13 @@ class _BookingScreenSelectPropertiesViewState
       }
 
       orderProduct = OrderProduct(
-        id: widget.product.id,
+        id: widget.product!.id,
         amount: 1,
         properties: [],
         additionalServices: [],
         bookingScreenTimeSlotItemModel: widget.bookingScreenTimeSlotItemModel,
         bookingTimeString:
-            widget.bookingScreenTimeSlotItemModel.timeString != null
+            widget.bookingScreenTimeSlotItemModel!.timeString != null
                 ? "${hour.toString()}:${minute.toString()}"
                 : null,
       );
@@ -102,11 +102,12 @@ class _BookingScreenSelectPropertiesViewState
 
   bool _checkproperties() {
     bool propertiesValid = true;
-    widget.product.properties.forEach((property) {
-      if (property.isRequired) {
-        final orderdProperty = orderProduct.properties.firstWhere(
+    widget.product!.properties!.forEach((property) {
+      if (property.isRequired!) {
+        final orderdProperty = orderProduct!.properties!.firstWhere(
             (element) => element.id == property.id,
-            orElse: () => null);
+            // orElse: () => null
+        );
         if (orderdProperty == null || orderdProperty.value == null) {
           propertiesValid = false;
         }
@@ -137,8 +138,8 @@ class _BookingScreenSelectPropertiesViewState
                         child: Stack(
                           children: [
                             loadCachedNetworkImage(
-                              isNotNullOrEmpty(widget.product.image?.publicUrl)
-                                  ? widget.product.image?.publicUrl
+                              isNotNullOrEmpty(widget.product!.image!.publicUrl!)
+                                  ? widget.product!.image!.publicUrl!
                                   : "",
                               fit: BoxFit.cover,
                               height: Dimensions.getHeight(percentage: 30.0),
@@ -175,7 +176,7 @@ class _BookingScreenSelectPropertiesViewState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.product.title,
+                              widget.product!.title!,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -192,7 +193,7 @@ class _BookingScreenSelectPropertiesViewState
                               textBaseline: TextBaseline.alphabetic,
                               children: [
                                 Text(
-                                  '${formatPriceDouble(widget.product.price)}',
+                                  '${formatPriceDouble(widget.product!.price!)}',
                                   style: TextStyle(
                                     fontSize: Dimensions.getScaledSize(18.0),
                                     fontWeight: FontWeight.bold,
@@ -220,7 +221,7 @@ class _BookingScreenSelectPropertiesViewState
                               height: Dimensions.getScaledSize(20.0),
                             ),
                             Text(
-                              widget.product.description,
+                              widget.product!.description!,
                               style: TextStyle(
                                 fontSize: Dimensions.getScaledSize(12.0),
                                 color: CustomTheme.darkGrey,
@@ -239,7 +240,7 @@ class _BookingScreenSelectPropertiesViewState
                                 SizedBox(
                                   width: Dimensions.getScaledSize(8.0),
                                 ),
-                                widget.bookingScreenTimeSlotItemModel
+                                widget.bookingScreenTimeSlotItemModel!
                                             .timeString !=
                                         null
                                     ? Padding(
@@ -248,7 +249,7 @@ class _BookingScreenSelectPropertiesViewState
                                           right: Dimensions.getScaledSize(8.0),
                                         ),
                                         child: Text(
-                                          "${widget.bookingScreenTimeSlotItemModel.timeString} ${AppLocalizations.of(context)!.commonWords_clock}",
+                                          "${widget.bookingScreenTimeSlotItemModel!.timeString} ${AppLocalizations.of(context)!.commonWords_clock}",
                                           style: TextStyle(
                                             fontSize:
                                                 Dimensions.getScaledSize(13),
@@ -262,7 +263,7 @@ class _BookingScreenSelectPropertiesViewState
                                     top: Dimensions.getScaledSize(2.0),
                                   ),
                                   child: Text(
-                                    "${DateFormat("EEEE, dd. LLL yyyy", "de-DE").format(widget.bookingScreenTimeSlotItemModel.dateTime)}",
+                                    "${DateFormat("EEEE, dd. LLL yyyy", "de-DE").format(widget.bookingScreenTimeSlotItemModel!.dateTime)}",
                                     style: TextStyle(
                                       fontSize: Dimensions.getScaledSize(13),
                                       color: CustomTheme.primaryColorDark,
@@ -275,8 +276,8 @@ class _BookingScreenSelectPropertiesViewState
                               height: Dimensions.getScaledSize(15.0),
                             ),
                             ..._getProductProperties(),
-                            widget.product.properties == null ||
-                                    widget.product.properties.length == 0
+                            widget.product!.properties == null ||
+                                    widget.product!.properties!.length == 0
                                 ? Row(
                                     children: [
                                       Icon(
@@ -316,9 +317,9 @@ class _BookingScreenSelectPropertiesViewState
                                               child: GestureDetector(
                                                 onTap: () {
                                                   setState(() {
-                                                    if (orderProduct.amount >
+                                                    if (orderProduct!.amount! >
                                                         1) {
-                                                      orderProduct.amount -= 1;
+                                                      orderProduct!.amount! - 1;
                                                     }
                                                   });
                                                 },
@@ -346,8 +347,8 @@ class _BookingScreenSelectPropertiesViewState
                                                   child: Center(
                                                     child: Icon(
                                                       Icons.remove,
-                                                      color: orderProduct
-                                                                  .amount >
+                                                      color: orderProduct!
+                                                                  .amount! >
                                                               1
                                                           ? CustomTheme.darkGrey
                                                           : CustomTheme
@@ -374,7 +375,7 @@ class _BookingScreenSelectPropertiesViewState
                                                           .getScaledSize(2),
                                                     ),
                                                     child: Text(
-                                                      orderProduct.amount
+                                                      orderProduct!.amount!
                                                           .toString(),
                                                       style: TextStyle(
                                                         fontSize: Dimensions
@@ -395,12 +396,12 @@ class _BookingScreenSelectPropertiesViewState
                                               child: GestureDetector(
                                                 onTap: () {
                                                   setState(() {
-                                                    if (widget.bookingScreenTimeSlotItemModel
+                                                    if (widget.bookingScreenTimeSlotItemModel!
                                                                 .remainingQuota -
-                                                            orderProduct
-                                                                .amount >
+                                                            orderProduct!
+                                                                .amount! >
                                                         0) {
-                                                      orderProduct.amount += 1;
+                                                      orderProduct!.amount! + 1;
                                                     }
                                                   });
                                                 },
@@ -428,10 +429,10 @@ class _BookingScreenSelectPropertiesViewState
                                                   child: Center(
                                                     child: Icon(
                                                       Icons.add,
-                                                      color: widget.bookingScreenTimeSlotItemModel
+                                                      color: widget.bookingScreenTimeSlotItemModel!
                                                                       .remainingQuota -
-                                                                  orderProduct
-                                                                      .amount >
+                                                                  orderProduct!
+                                                                      .amount! >
                                                               0
                                                           ? CustomTheme.darkGrey
                                                           : CustomTheme
@@ -447,14 +448,14 @@ class _BookingScreenSelectPropertiesViewState
                                     ],
                                   )
                                 : Container(),
-                            widget.product.properties == null ||
-                                    widget.product.properties.length == 0
+                            widget.product!.properties == null ||
+                                    widget.product!.properties!.length == 0
                                 ? SizedBox(
                                     height: Dimensions.getScaledSize(20),
                                   )
                                 : Container(),
-                            widget.product.properties == null ||
-                                    widget.product.properties.length == 0
+                            widget.product!.properties == null ||
+                                    widget.product!.properties!.length == 0
                                 ? Row(
                                     children: [
                                       Text(
@@ -466,18 +467,18 @@ class _BookingScreenSelectPropertiesViewState
                                         ),
                                       ),
                                       Text(
-                                        widget.bookingScreenTimeSlotItemModel
+                                        widget.bookingScreenTimeSlotItemModel!
                                                         .remainingQuota -
-                                                    orderProduct.amount >
+                                                    orderProduct!.amount! >
                                                 10
                                             ? 10.toString()
-                                            : widget.bookingScreenTimeSlotItemModel
+                                            : widget.bookingScreenTimeSlotItemModel!
                                                             .remainingQuota -
-                                                        orderProduct.amount >=
+                                                        orderProduct!.amount! >=
                                                     0
-                                                ? (widget.bookingScreenTimeSlotItemModel
+                                                ? (widget.bookingScreenTimeSlotItemModel!
                                                             .remainingQuota -
-                                                        orderProduct.amount)
+                                                        orderProduct!.amount!)
                                                     .toString()
                                                 : 0.toString(),
                                         style: TextStyle(
@@ -498,8 +499,8 @@ class _BookingScreenSelectPropertiesViewState
                                     ],
                                   )
                                 : Container(),
-                            widget.product.properties == null ||
-                                    widget.product.properties.length == 0
+                            widget.product!.properties == null ||
+                                    widget.product!.properties!.length == 0
                                 ? SizedBox(
                                     height: Dimensions.getScaledSize(30.0),
                                   )
@@ -551,7 +552,7 @@ class _BookingScreenSelectPropertiesViewState
                                   ),
                                   onTap: () {
                                     Navigator.of(context).pop();
-                                    widget.onPreviousBookingStep();
+                                    widget.onPreviousBookingStep!();
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.all(
@@ -573,8 +574,8 @@ class _BookingScreenSelectPropertiesViewState
                 Positioned(
                   bottom: 0 - MediaQuery.of(context).viewInsets.bottom,
                   child: BookingBar(
-                    bookingDetails: widget.bookingDetails,
-                    orderProducts: [orderProduct],
+                    bookingDetails: widget.bookingDetails!,
+                    orderProducts: [orderProduct!],
                     onTap: () {
                       if (!_checkproperties()) {
                         Fluttertoast.showToast(
@@ -586,7 +587,7 @@ class _BookingScreenSelectPropertiesViewState
                         return;
                       }
                       Navigator.of(context).pop();
-                      widget.onAddOrderProduct(orderProduct, widget.index);
+                      widget.onAddOrderProduct!(orderProduct, widget.index);
                     },
                     buttonText:
                         AppLocalizations.of(context)!.bookingScreen_finish,
@@ -601,7 +602,7 @@ class _BookingScreenSelectPropertiesViewState
         return Future.sync(
           () {
             Navigator.of(context).pop();
-            widget.onPreviousBookingStep();
+            widget.onPreviousBookingStep!();
             return true;
           },
         );
@@ -618,19 +619,20 @@ class _BookingScreenSelectPropertiesViewState
       ),
     );
 
-    widget.product.properties.forEach((productProperty) {
-      if (productProperty.type == ProductPropertyType.DROPDOWN)
+    widget.product!.properties!.forEach((productProperty) {
+      if (productProperty.type == ProductPropertyType.DROPDOWN) {
         widgets.add(
           _getDropDownPropertyWidget(productProperty),
         );
-      else if (productProperty.type == ProductPropertyType.NUMBER)
+      } else if (productProperty.type == ProductPropertyType.NUMBER) {
         widgets.add(
           _getNumberPropertyWidget(productProperty),
         );
-      else if (productProperty.type == ProductPropertyType.TEXT)
+      } else if (productProperty.type == ProductPropertyType.TEXT) {
         widgets.add(
           _getTextPropertyWidget(productProperty),
         );
+      }
 
       widgets.add(
         SizedBox(
@@ -642,9 +644,9 @@ class _BookingScreenSelectPropertiesViewState
     return widgets;
   }
 
-  String _getProductPropertyTitle(ProductProperty productProperty) {
-    return productProperty.isRequired
-        ? '* ' + productProperty.title
+  String? _getProductPropertyTitle(ProductProperty productProperty) {
+    return productProperty.isRequired!
+        ? '* ' + productProperty.title!
         : productProperty.title;
   }
 
@@ -653,7 +655,7 @@ class _BookingScreenSelectPropertiesViewState
       children: [
         Flexible(
           child: Text(
-            _getProductPropertyTitle(productProperty),
+            _getProductPropertyTitle(productProperty)!,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
             style: TextStyle(
@@ -683,7 +685,7 @@ class _BookingScreenSelectPropertiesViewState
           ),
           child: DropdownButton(
             onTap: () {
-              FocusScope.of(context).requestFocus(new FocusNode());
+              FocusScope.of(context).requestFocus(FocusNode());
             },
             underline: Container(),
             hint: Text(
@@ -693,11 +695,11 @@ class _BookingScreenSelectPropertiesViewState
                 color: CustomTheme.primaryColorDark,
               ),
             ),
-            items: productProperty.dropdownValues
+            items: productProperty.dropdownValues!
                 .map(
                   (dropdownValue) => DropdownMenuItem(
                     child: Text(
-                      dropdownValue.text,
+                      dropdownValue.text!,
                       style: TextStyle(
                         fontSize: Dimensions.getScaledSize(16.0),
                         color: CustomTheme.primaryColorDark,
@@ -707,10 +709,10 @@ class _BookingScreenSelectPropertiesViewState
                   ),
                 )
                 .toList(),
-            value: _getCurrentValueForProductProperty(productProperty.id),
-            onChanged: (value) {
+            value: _getCurrentValueForProductProperty(productProperty.id!),
+            onChanged: (String? value) {
               setState(() {
-                _updateProductProperty(productProperty.id, value);
+                _updateProductProperty(productProperty.id!, value!);
               });
             },
           ),
@@ -724,7 +726,7 @@ class _BookingScreenSelectPropertiesViewState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          _getProductPropertyTitle(productProperty),
+          _getProductPropertyTitle(productProperty)!,
           overflow: TextOverflow.ellipsis,
           maxLines: 2,
           style: TextStyle(
@@ -768,7 +770,7 @@ class _BookingScreenSelectPropertiesViewState
             cursorColor: Theme.of(context).primaryColor,
             onChanged: (value) {
               setState(() {
-                _updateProductProperty(productProperty.id, value);
+                _updateProductProperty(productProperty.id!, value);
               });
             },
           ),
@@ -782,7 +784,7 @@ class _BookingScreenSelectPropertiesViewState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          _getProductPropertyTitle(productProperty),
+          _getProductPropertyTitle(productProperty)!,
           overflow: TextOverflow.ellipsis,
           maxLines: 2,
           style: TextStyle(
@@ -805,7 +807,7 @@ class _BookingScreenSelectPropertiesViewState
               color: CustomTheme.primaryColorDark,
             ),
             cursorColor: Theme.of(context).primaryColor,
-            decoration: new InputDecoration(
+            decoration: InputDecoration(
               hintText: AppLocalizations.of(context)!.bookingScreen_enterData,
               hintStyle: TextStyle(
                 fontSize: Dimensions.getScaledSize(12),
@@ -819,7 +821,7 @@ class _BookingScreenSelectPropertiesViewState
               ),
             ),
             onChanged: (value) {
-              _updateProductProperty(productProperty.id, value);
+              _updateProductProperty(productProperty.id!, value);
             },
           ),
         ),
@@ -827,10 +829,10 @@ class _BookingScreenSelectPropertiesViewState
     );
   }
 
-  String _getCurrentValueForProductProperty(String id) {
-    final productProperty = orderProduct.properties.firstWhere(
+  String? _getCurrentValueForProductProperty(String id) {
+    final productProperty = orderProduct!.properties!.firstWhere(
       (element) => element.id == id,
-      orElse: () => null,
+      // orElse: () => null,
     );
 
     if (productProperty == null) return null;
@@ -839,14 +841,14 @@ class _BookingScreenSelectPropertiesViewState
   }
 
   void _updateProductProperty(String id, String value) {
-    final productProperty = orderProduct.properties.firstWhere(
+    final productProperty = orderProduct!.properties!.firstWhere(
       (element) => element.id == id,
-      orElse: () => null,
+      // orElse: () => null,
     );
 
     setState(() {
       if (productProperty == null) {
-        orderProduct.properties.add(
+        orderProduct!.properties!.add(
           OrderProductProperty(
             id: id,
             value: value,
@@ -860,8 +862,8 @@ class _BookingScreenSelectPropertiesViewState
   }
 
   Widget _getAdditionalServicesWidget() {
-    return widget.product.additionalServices != null &&
-            widget.product.additionalServices.length > 0
+    return widget.product!.additionalServices != null &&
+            widget.product!.additionalServices!.length > 0
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -954,8 +956,8 @@ class _BookingScreenSelectPropertiesViewState
   }
 
   List<Widget> _getAdditionalServiceItems() {
-    return widget.product.additionalServices
-        .map(
+    return widget.product!.additionalServices
+        !.map(
           (additionalService) => Container(
             padding: EdgeInsets.all(Dimensions.getScaledSize(10.0)),
             width: Dimensions.getScaledSize(150.0),
@@ -989,12 +991,12 @@ class _BookingScreenSelectPropertiesViewState
                           borderRadius: BorderRadius.circular(
                               Dimensions.getScaledSize(16.0)),
                           child: loadCachedNetworkImage(
-                            additionalService.image?.publicUrl,
+                            additionalService.image!.publicUrl!,
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      orderProduct.additionalServices.any(
+                      orderProduct!.additionalServices!.any(
                               (element) => element.id == additionalService.id)
                           ? Container(
                               height: Dimensions.getScaledSize(120.0),
@@ -1002,7 +1004,7 @@ class _BookingScreenSelectPropertiesViewState
                               color: Colors.white.withOpacity(0.5),
                             )
                           : Container(),
-                      orderProduct.additionalServices.any(
+                      orderProduct!.additionalServices!.any(
                               (element) => element.id == additionalService.id)
                           ? Positioned(
                               top: Dimensions.getScaledSize(6.0),
@@ -1010,7 +1012,7 @@ class _BookingScreenSelectPropertiesViewState
                               child: GestureDetector(
                                 onTap: () {
                                   _removeAdditionalService(
-                                      additionalService.id);
+                                      additionalService.id!);
                                 },
                                 child: Container(
                                   height: Dimensions.getScaledSize(32.0),
@@ -1035,7 +1037,7 @@ class _BookingScreenSelectPropertiesViewState
                     height: Dimensions.getScaledSize(15.0),
                   ),
                   Text(
-                    additionalService.title,
+                    additionalService.title!,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     textAlign: TextAlign.center,
@@ -1059,8 +1061,8 @@ class _BookingScreenSelectPropertiesViewState
           BookingScreenSelectAdditionalServicesView(
         additionalService: productAdditionalService,
         onAddAdditionalService: _addAdditionalService,
-        bookingDetails: widget.bookingDetails,
-        orderProduct: orderProduct,
+        bookingDetails: widget.bookingDetails!,
+        orderProduct: orderProduct!,
       ),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(0.0, 1.0);
@@ -1079,44 +1081,46 @@ class _BookingScreenSelectPropertiesViewState
   }
 
   void _addAdditionalService(OrderProductAdditionalService additionalService) {
-    final index = orderProduct.additionalServices.indexWhere(
+    final index = orderProduct!.additionalServices!.indexWhere(
       (element) => element.id == additionalService.id,
     );
     setState(() {
       if (index == -1) {
-        orderProduct.additionalServices.add(additionalService);
+        orderProduct!.additionalServices!.add(additionalService);
       } else {
-        orderProduct.additionalServices[index] = additionalService;
+        orderProduct!.additionalServices![index] = additionalService;
       }
     });
   }
 
   void _removeAdditionalService(String additionalServiceId) {
     setState(() {
-      orderProduct.additionalServices
-          .removeWhere((element) => element.id == additionalServiceId);
+      orderProduct!.additionalServices
+          !.removeWhere((element) => element.id == additionalServiceId);
     });
   }
 
   String _getFirstQuotaText() {
-    if (widget.bookingScreenTimeSlotItemModel.remainingQuota -
-            orderProduct.amount >
-        10)
+    if (widget.bookingScreenTimeSlotItemModel!.remainingQuota -
+            orderProduct!.amount! >
+        10) {
       return AppLocalizations.of(context)!.bookingScreen_moreThan;
-    else
+    } else {
       return AppLocalizations.of(context)!.bookingScreen_more;
+    }
   }
 
   String _getSecondQuotaText() {
-    if (widget.bookingScreenTimeSlotItemModel.remainingQuota -
-            orderProduct.amount >
-        10)
+    if (widget.bookingScreenTimeSlotItemModel!.remainingQuota -
+            orderProduct!.amount! >
+        10) {
       return AppLocalizations.of(context)!.bookingScreen_available;
-    else if (widget.bookingScreenTimeSlotItemModel.remainingQuota -
-            orderProduct.amount ==
-        1)
+    } else if (widget.bookingScreenTimeSlotItemModel!.remainingQuota -
+            orderProduct!.amount! ==
+        1) {
       return AppLocalizations.of(context)!.bookingScreen_ticketAvailable;
-    else
+    } else {
       return AppLocalizations.of(context)!.bookingScreen_ticketsAvailablePlural;
+    }
   }
 }

@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 
 class CountryUtils{
 
-  CountryObject countryObject;
+  CountryObject? countryObject;
 
   /// static variable CountryUtils of type Singleton
-  static CountryUtils _instance;
+  static CountryUtils? _instance;
 
   CountryUtils({
     this.countryObject,
@@ -17,9 +17,9 @@ class CountryUtils{
   static CountryUtils getInstance({countryObjects}) {
     if(_instance == null) {
       _instance = CountryUtils(countryObject: countryObjects);
-      return _instance;
+      return _instance!;
     }
-    return _instance;
+    return _instance!;
   }
 
   ///this methods loads the country and country codes data from the assets json files.

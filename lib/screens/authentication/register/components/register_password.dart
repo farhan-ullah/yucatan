@@ -10,8 +10,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../auth_regex.dart';
 
 class RegisterPassword extends StatefulWidget {
-  final ValueChanged<RegisterPasswordModel> onChange;
-  final RegisterValidationBloc registerValidationBloc;
+  final ValueChanged<RegisterPasswordModel>? onChange;
+  final RegisterValidationBloc? registerValidationBloc;
   const RegisterPassword({Key? key, this.onChange, this.registerValidationBloc})
       : super(key: key);
 
@@ -32,11 +32,11 @@ class _RegisterPasswordState extends State<RegisterPassword> {
   @override
   void initState() {
     if (widget.registerValidationBloc != null) {
-      widget.registerValidationBloc.registerValidationStream
+      widget.registerValidationBloc!.registerValidationStream
           .listen((bool event) {
         if (event == true) {
           this.isRegisterSubmitButtonPressed = event;
-          _formKey.currentState.validate();
+          _formKey.currentState!.validate();
         }
       });
     }
@@ -91,7 +91,7 @@ class _RegisterPasswordState extends State<RegisterPassword> {
           Form(
             key: _formKey,
             onChanged: () {
-              _formKey.currentState.save();
+              _formKey.currentState!.save();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -105,12 +105,12 @@ class _RegisterPasswordState extends State<RegisterPassword> {
                       return TextFormField(
                         obscureText: _obscureText,
                         keyboardType: TextInputType.visiblePassword,
-                        validator: (String arg) {
+                        validator: (String? arg) {
                           if (isRegisterSubmitButtonPressed == false) {
                             return null;
                           }
                           bool isPasswordCompliant =
-                              AuthRegex.isPasswordCompliant(arg);
+                              AuthRegex.isPasswordCompliant(arg!);
                           return isPasswordCompliant
                               ? null
                               : AppLocalizations.of(context)
@@ -120,8 +120,8 @@ class _RegisterPasswordState extends State<RegisterPassword> {
                           _model.password = text;
 
                           if (isRegisterSubmitButtonPressed)
-                            _model.isValid = _formKey.currentState.validate();
-                          widget.onChange.call(_model);
+                            _model.isValid = _formKey.currentState!.validate();
+                          widget.onChange!.call(_model);
                         },
                         controller: _passwordController,
                         textAlignVertical: TextAlignVertical.center,
@@ -147,11 +147,11 @@ class _RegisterPasswordState extends State<RegisterPassword> {
                       return TextFormField(
                         obscureText: _obscurePasswordRepeatText,
                         keyboardType: TextInputType.visiblePassword,
-                        validator: (String arg) {
+                        validator: (String? arg) {
                           if (isRegisterSubmitButtonPressed == false) {
                             return null;
                           }
-                          if (isRegisterSubmitButtonPressed && arg.isEmpty) {
+                          if (isRegisterSubmitButtonPressed && arg!.isEmpty) {
                             return AppLocalizations.of(context)
                                 .authenticationSceen_confirmPasswordInvalid;
                           } else {
@@ -164,8 +164,8 @@ class _RegisterPasswordState extends State<RegisterPassword> {
                         onChanged: (String text) {
                           _model.passwordRepeat = text;
                           if (isRegisterSubmitButtonPressed)
-                            _model.isValid = _formKey.currentState.validate();
-                          widget.onChange.call(_model);
+                            _model.isValid = _formKey.currentState!.validate();
+                          widget.onChange!.call(_model);
                         },
                         controller: _passwordRepeatController,
                         textAlignVertical: TextAlignVertical.center,

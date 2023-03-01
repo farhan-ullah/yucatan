@@ -1,15 +1,15 @@
 import 'package:yucatan/services/response/vendor_payouts_response.dart';
 
 class TransactionModel {
-  String bookingId;
-  String bookingState;
-  DateTime dateTime;
-  String buyer;
-  double totalPrice;
-  List<TransactionTicket> tickets;
+  String? bookingId;
+  String? bookingState;
+  DateTime? dateTime;
+  String? buyer;
+  double? totalPrice;
+  List<TransactionTicket>? tickets;
   bool isPayoutObject = false;
-  PayoutData payoutData;
-  List<TransactionProduct> products;
+  PayoutData? payoutData;
+  List<TransactionProduct>? products;
 
   TransactionModel({
     this.bookingId,
@@ -45,9 +45,9 @@ class TransactionModel {
 }
 
 class TransactionTicket {
-  String id;
-  String state;
-  double price;
+  String? id;
+  String? state;
+  double? price;
 
   TransactionTicket({this.id, this.state, this.price});
 
@@ -60,10 +60,10 @@ class TransactionTicket {
 }
 
 class TransactionProduct {
-  String id;
-  String title;
-  int quantity;
-  String bookingTimeString;
+  String? id;
+  String? title;
+  int? quantity;
+  String? bookingTimeString;
 
   TransactionProduct({
     this.id,

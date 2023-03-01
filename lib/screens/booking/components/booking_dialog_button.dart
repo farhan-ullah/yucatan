@@ -11,7 +11,12 @@ class BookingDialogButton extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.31,
       child: OutlinedButton(
-        onPressed: onPressed,
+        onPressed: onPressed(),
+        style: OutlinedButton.styleFrom(
+          side: BorderSide(
+            color: color,
+          ),
+        ),
         child: Text(
           buttonText,
           style: TextStyle(
@@ -19,11 +24,6 @@ class BookingDialogButton extends StatelessWidget {
               fontFamily: "AcuminProWide",
               fontWeight: FontWeight.bold,
               fontSize: MediaQuery.of(context).size.height * 0.015),
-        ),
-        style: OutlinedButton.styleFrom(
-          side: BorderSide(
-            color: color,
-          ),
         ),
       ),
     );

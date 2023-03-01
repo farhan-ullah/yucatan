@@ -7,35 +7,35 @@ part 'booking_model.g.dart';
 @HiveType(typeId: 16)
 class BookingModel {
   @HiveField(0)
-  String id;
+  String? id;
   @HiveField(1)
-  String vendor;
+  String? vendor;
   @HiveField(2)
-  String user;
+  String? user;
   @HiveField(3)
-  String activity;
+  String? activity;
   @HiveField(4)
-  String status;
+  String? status;
   @HiveField(5)
-  String paymentProvider;
+  String? paymentProvider;
   @HiveField(6)
-  String currency;
+  String? currency;
   @HiveField(7)
-  String paypalPaymentId;
+  String? paypalPaymentId;
   @HiveField(8)
-  double totalPrice;
+  double? totalPrice;
   @HiveField(9)
-  DateTime bookingDate;
+  DateTime? bookingDate;
   @HiveField(10)
-  String reference;
+  String? reference;
   @HiveField(11)
-  List<BookingTicket> tickets;
+  List<BookingTicket>? tickets;
   @HiveField(12)
-  List<BookingProduct> products;
+  List<BookingProduct>? products;
   @HiveField(13)
-  String requestNote;
+  String? requestNote;
   @HiveField(14)
-  InvoiceAddressModel invoiceAddress;
+  InvoiceAddressModel? invoiceAddress;
 
   BookingModel(
       {this.id,
@@ -90,21 +90,21 @@ class BookingModel {
 @HiveType(typeId: 15)
 class BookingTicket {
   @HiveField(0)
-  String id;
+  String? id;
   @HiveField(1)
-  String productId;
+  String? productId;
   @HiveField(2)
-  String ticket;
+  String? ticket;
   @HiveField(3)
-  String qr;
+  String? qr;
   @HiveField(4)
-  String status;
+  String? status;
   @HiveField(5)
-  double price;
+  double? price;
   @HiveField(6)
-  List<AdditionalServiceInfoTicket> additionalServiceInfo;
+  List<AdditionalServiceInfoTicket>? additionalServiceInfo;
   @HiveField(7)
-  String bookingTimeString;
+  String? bookingTimeString;
 
   BookingTicket({
     this.id,
@@ -140,9 +140,9 @@ class BookingTicket {
 @HiveType(typeId: 14)
 class AdditionalServiceInfoTicket {
   @HiveField(0)
-  String additionalServiceId;
+  String? additionalServiceId;
   @HiveField(1)
-  int quantity;
+  int? quantity;
 
   AdditionalServiceInfoTicket({
     this.additionalServiceId,
@@ -160,27 +160,27 @@ class AdditionalServiceInfoTicket {
 @HiveType(typeId: 13)
 class BookingProduct {
   @HiveField(0)
-  String id;
+  String? id;
   @HiveField(1)
-  String title;
+  String? title;
   //@HiveField(0)
-  FileModel image;
+  FileModel? image;
   @HiveField(2)
-  String description;
+  String? description;
   @HiveField(3)
-  double price;
+  double? price;
   @HiveField(4)
-  int quantity;
+  int? quantity;
   @HiveField(5)
-  String categoryTitle;
+  String? categoryTitle;
   @HiveField(6)
-  String subCategoryTitle;
+  String? subCategoryTitle;
   @HiveField(7)
-  List<BookingProductProperty> properties;
+  List<BookingProductProperty>? properties;
   @HiveField(8)
-  String additionalServicesDescription;
+  String? additionalServicesDescription;
   @HiveField(9)
-  List<ProductAdditionalService> additionalServices;
+  List<ProductAdditionalService>? additionalServices;
 
   BookingProduct({
     this.id,
@@ -228,19 +228,19 @@ class BookingProduct {
 @HiveType(typeId: 12)
 class ProductAdditionalService {
   @HiveField(0)
-  String id;
+  String? id;
   @HiveField(1)
-  String title;
+  String? title;
   // @HiveField(2)
-  FileModel image;
+  FileModel? image;
   @HiveField(3)
-  String description;
+  String? description;
   @HiveField(4)
-  double price;
+  double? price;
   @HiveField(5)
-  int quantity;
+  int? quantity;
   @HiveField(6)
-  List<BookingProductProperty> properties;
+  List<BookingProductProperty>? properties;
 
   ProductAdditionalService({
     this.id,
@@ -274,17 +274,17 @@ class ProductAdditionalService {
 @HiveType(typeId: 11)
 class BookingProductProperty {
   @HiveField(0)
-  String id;
+  String? id;
   @HiveField(1)
-  bool isRequired;
+  bool? isRequired;
   @HiveField(2)
-  String title;
+  String? title;
   @HiveField(3)
-  String info;
+  String? info;
   @HiveField(4)
-  BookingProductPropertyType type;
+  BookingProductPropertyType? type;
   @HiveField(5)
-  String value;
+  String? value;
 
   BookingProductProperty({
     this.id,

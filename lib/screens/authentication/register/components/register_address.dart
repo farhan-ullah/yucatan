@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterAddress extends StatefulWidget {
-  final ValueChanged<RegisterAddressModel> onChange;
+  final ValueChanged<RegisterAddressModel>? onChange;
 
   const RegisterAddress({Key? key, this.onChange}) : super(key: key);
 
@@ -25,7 +25,7 @@ class _RegisterAddressState extends State<RegisterAddress> {
             setState(() {
               //_model.firstname = text;
               _updateModelValid();
-              widget.onChange.call(_model);
+              widget.onChange!.call(_model);
             });
           },
         ),
@@ -35,7 +35,7 @@ class _RegisterAddressState extends State<RegisterAddress> {
             setState(() {
               //_model.nachName = text;
               _updateModelValid();
-              widget.onChange.call(_model);
+              widget.onChange!.call(_model);
             });
           },
         ),
@@ -61,7 +61,7 @@ class _RegisterAddressState extends State<RegisterAddress> {
                   setState(() {
                     //_model.street = text;
                     _updateModelValid();
-                    widget.onChange.call(_model);
+                    widget.onChange!.call(_model);
                   });
                 },
               ),
@@ -76,7 +76,7 @@ class _RegisterAddressState extends State<RegisterAddress> {
                     setState(() {
                       // _model.houseNo = text;
                       _updateModelValid();
-                      widget.onChange.call(_model);
+                      widget.onChange!.call(_model);
                     });
                   },
                 ))
@@ -94,7 +94,7 @@ class _RegisterAddressState extends State<RegisterAddress> {
                   setState(() {
                     //_model.zipCode = text;
                     _updateModelValid();
-                    widget.onChange.call(_model);
+                    widget.onChange!.call(_model);
                   });
                 },
               ),
@@ -103,12 +103,12 @@ class _RegisterAddressState extends State<RegisterAddress> {
                 width: MediaQuery.of(context).size.width * 0.50,
                 child: InputTextField(
                   hintText:
-                      AppLocalizations.of(context)!.commonWords_city + '*',
+                      '${AppLocalizations.of(context).commonWords_city}*',
                   onTextChanged: (String text) {
                     setState(() {
                       //_model.city = text;
                       _updateModelValid();
-                      widget.onChange.call(_model);
+                      widget.onChange!.call(_model);
                     });
                   },
                 )),

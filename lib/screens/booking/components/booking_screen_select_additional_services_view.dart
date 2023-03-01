@@ -32,31 +32,31 @@ class BookingScreenSelectAdditionalServicesView extends StatefulWidget {
 
 class _BookingScreenSelectAdditionalServicesViewState
     extends State<BookingScreenSelectAdditionalServicesView> {
-  OrderProductAdditionalService orderProductAdditionalService;
-  Map<String, TextEditingController> _propertyTextEditingControllers = Map();
+  OrderProductAdditionalService? orderProductAdditionalService;
+  Map<String, TextEditingController>? _propertyTextEditingControllers = Map();
   bool _showDiscardContainer = false;
 
   @override
   void initState() {
-    widget.additionalService.properties.forEach((element) {
+    widget.additionalService.properties!.forEach((element) {
       if (element.type == ProductPropertyType.NUMBER ||
           element.type == ProductPropertyType.TEXT) {
-        _propertyTextEditingControllers.putIfAbsent(
-            element.id, () => TextEditingController());
+        _propertyTextEditingControllers!.putIfAbsent(
+            element.id!, () => TextEditingController());
       }
     });
 
-    if (widget.orderProduct.additionalServices.any(
+    if (widget.orderProduct.additionalServices!.any(
       (element) => element.id == widget.additionalService.id,
     )) {
       orderProductAdditionalService =
-          widget.orderProduct.additionalServices.firstWhere(
+          widget.orderProduct.additionalServices!.firstWhere(
         (element) => element.id == widget.additionalService.id,
       );
 
-      orderProductAdditionalService.properties.forEach((element) {
-        if (_propertyTextEditingControllers.containsKey(element.id)) {
-          _propertyTextEditingControllers[element.id].text = element.value;
+      orderProductAdditionalService!.properties!.forEach((element) {
+        if (_propertyTextEditingControllers!.containsKey(element.id)) {
+          _propertyTextEditingControllers![element.id]!.text = element.value!;
         }
       });
     } else {
@@ -72,7 +72,7 @@ class _BookingScreenSelectAdditionalServicesViewState
 
   @override
   void dispose() {
-    _propertyTextEditingControllers.forEach((key, value) {
+    _propertyTextEditingControllers!.forEach((key, value) {
       value.dispose();
     });
     super.dispose();
@@ -101,8 +101,8 @@ class _BookingScreenSelectAdditionalServicesViewState
                           children: [
                             loadCachedNetworkImage(
                               isNotNullOrEmpty(
-                                      widget.additionalService.image?.publicUrl)
-                                  ? widget.additionalService.image?.publicUrl
+                                      widget.additionalService.image!.publicUrl!)
+                                  ? widget.additionalService.image!.publicUrl!
                                   : "",
                               fit: BoxFit.cover,
                               height: Dimensions.getHeight(percentage: 30.0),
@@ -144,7 +144,7 @@ class _BookingScreenSelectAdditionalServicesViewState
                               children: [
                                 Expanded(
                                   child: Text(
-                                    widget.additionalService.title,
+                                    widget.additionalService.title!,
                                     style: TextStyle(
                                       fontSize: Dimensions.getScaledSize(20.0),
                                       fontWeight: FontWeight.bold,
@@ -153,7 +153,7 @@ class _BookingScreenSelectAdditionalServicesViewState
                                   ),
                                 ),
                                 Text(
-                                  '${formatPriceDouble(widget.additionalService.price)} €',
+                                  '${formatPriceDouble(widget.additionalService.price!)} €',
                                   style: TextStyle(
                                     fontSize: Dimensions.getScaledSize(20.0),
                                     fontWeight: FontWeight.bold,
@@ -166,7 +166,7 @@ class _BookingScreenSelectAdditionalServicesViewState
                               height: Dimensions.getScaledSize(30.0),
                             ),
                             Text(
-                              widget.additionalService.description,
+                              widget.additionalService.description!,
                               style: TextStyle(
                                 fontSize: Dimensions.getScaledSize(14.0),
                                 color: CustomTheme.disabledColor,
@@ -177,7 +177,7 @@ class _BookingScreenSelectAdditionalServicesViewState
                             ),
                             ..._getProductProperties(),
                             widget.additionalService.properties == null ||
-                                    widget.additionalService.properties
+                                    widget.additionalService.properties!
                                             .length ==
                                         0
                                 ? Row(
@@ -206,11 +206,11 @@ class _BookingScreenSelectAdditionalServicesViewState
                                               child: GestureDetector(
                                                 onTap: () {
                                                   setState(() {
-                                                    if (orderProductAdditionalService
-                                                            .amount >
+                                                    if (orderProductAdditionalService!
+                                                            .amount! >
                                                         1) {
-                                                      orderProductAdditionalService
-                                                          .amount -= 1;
+                                                      orderProductAdditionalService!
+                                                          .amount == 1;
                                                     }
                                                   });
                                                 },
@@ -239,11 +239,11 @@ class _BookingScreenSelectAdditionalServicesViewState
                                                       Icons.remove,
                                                       color: widget
                                                                   .additionalService
-                                                                  .properties
+                                                                  .properties!
                                                                   .length ==
                                                               0
                                                           ? orderProductAdditionalService
-                                                                      .amount >
+                                                                      !.amount! >
                                                                   1
                                                               ? CustomTheme
                                                                   .darkGrey
@@ -268,7 +268,7 @@ class _BookingScreenSelectAdditionalServicesViewState
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                    orderProductAdditionalService
+                                                    orderProductAdditionalService!
                                                         .amount
                                                         .toString(),
                                                     style: TextStyle(
@@ -288,8 +288,8 @@ class _BookingScreenSelectAdditionalServicesViewState
                                               child: GestureDetector(
                                                 onTap: () {
                                                   setState(() {
-                                                    orderProductAdditionalService
-                                                        .amount += 1;
+                                                    orderProductAdditionalService!
+                                                        .amount! + 1;
                                                   });
                                                 },
                                                 child: Container(
@@ -317,7 +317,7 @@ class _BookingScreenSelectAdditionalServicesViewState
                                                       Icons.add,
                                                       color: widget
                                                                   .additionalService
-                                                                  .properties
+                                                                  .properties!
                                                                   .length ==
                                                               0
                                                           ? Colors.black
@@ -386,18 +386,18 @@ class _BookingScreenSelectAdditionalServicesViewState
                                         for (int i = 0;
                                             i <
                                                 widget.additionalService
-                                                    .properties.length;
+                                                    .properties!.length;
                                             i++) {
                                           ProductProperty productProperty =
                                               widget.additionalService
-                                                  .properties[i];
+                                                  .properties![i];
                                           if (productProperty.type !=
                                               ProductPropertyType.DROPDOWN) {
-                                            TextEditingController
+                                            TextEditingController?
                                                 textEditingController =
-                                                _propertyTextEditingControllers[
+                                                _propertyTextEditingControllers![
                                                     productProperty.id];
-                                            if (textEditingController.text
+                                            if (textEditingController!.text
                                                 .trim()
                                                 .isNotEmpty) {
                                               isFieldsEmpty = false;
@@ -636,13 +636,13 @@ class _BookingScreenSelectAdditionalServicesViewState
           if (widget.additionalService != null) {
             if (widget.additionalService.properties != null) {
               for (int i = 0;
-                  i < widget.additionalService.properties.length;
+                  i < widget.additionalService.properties!.length;
                   i++) {
                 ProductProperty productProperty =
-                    widget.additionalService.properties[i];
+                    widget.additionalService.properties![i];
                 if (productProperty.type != ProductPropertyType.DROPDOWN) {
                   TextEditingController textEditingController =
-                      _propertyTextEditingControllers[productProperty.id];
+                      _propertyTextEditingControllers![productProperty.id]!;
                   if (textEditingController.text.trim().isNotEmpty) {
                     isFieldsEmpty = false;
                   }
@@ -674,7 +674,7 @@ class _BookingScreenSelectAdditionalServicesViewState
   List<Widget> _getProductProperties() {
     List<Widget> widgets = [];
 
-    widget.additionalService.properties.forEach((productProperty) {
+    widget.additionalService.properties!.forEach((productProperty) {
       if (productProperty.type == ProductPropertyType.DROPDOWN)
         widgets.add(
           _getDropDownPropertyWidget(productProperty),
@@ -703,7 +703,7 @@ class _BookingScreenSelectAdditionalServicesViewState
       children: [
         Flexible(
           child: Text(
-            productProperty.title,
+            productProperty.title!,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
             style: TextStyle(
@@ -735,18 +735,18 @@ class _BookingScreenSelectAdditionalServicesViewState
                 color: CustomTheme.primaryColorDark,
               ),
             ),
-            items: productProperty.dropdownValues
+            items: productProperty.dropdownValues!
                 .map(
                   (dropdownValue) => DropdownMenuItem(
-                    child: Text(dropdownValue.text),
+                    child: Text(dropdownValue.text!),
                     value: dropdownValue.value,
                   ),
                 )
                 .toList(),
-            value: _getCurrentValueForProductProperty(productProperty.id),
-            onChanged: (value) {
+            value: _getCurrentValueForProductProperty(productProperty.id!),
+            onChanged: (String? value) {
               setState(() {
-                _updateProductProperty(productProperty.id, value);
+                _updateProductProperty(productProperty.id!, value!);
               });
             },
           ),
@@ -759,7 +759,7 @@ class _BookingScreenSelectAdditionalServicesViewState
     return Column(
       children: [
         Text(
-          additionalServiceProperty.title,
+          additionalServiceProperty.title!,
           overflow: TextOverflow.ellipsis,
           maxLines: 2,
           style: TextStyle(
@@ -785,7 +785,7 @@ class _BookingScreenSelectAdditionalServicesViewState
           child: TextField(
             maxLines: 1,
             controller:
-                _propertyTextEditingControllers[additionalServiceProperty.id],
+                _propertyTextEditingControllers![additionalServiceProperty.id],
             style: TextStyle(
               fontSize: Dimensions.getScaledSize(16.0),
             ),
@@ -795,7 +795,7 @@ class _BookingScreenSelectAdditionalServicesViewState
             ),
             onChanged: (value) {
               setState(() {
-                _updateProductProperty(additionalServiceProperty.id, value);
+                _updateProductProperty(additionalServiceProperty.id!, value);
               });
             },
           ),
@@ -809,7 +809,7 @@ class _BookingScreenSelectAdditionalServicesViewState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          additionalServiceProperty.title,
+          additionalServiceProperty.title!,
           overflow: TextOverflow.ellipsis,
           maxLines: 2,
           style: TextStyle(
@@ -835,7 +835,7 @@ class _BookingScreenSelectAdditionalServicesViewState
           child: TextField(
             maxLines: 1,
             controller:
-                _propertyTextEditingControllers[additionalServiceProperty.id],
+                _propertyTextEditingControllers![additionalServiceProperty.id],
             style: TextStyle(
               fontSize: Dimensions.getScaledSize(16.0),
             ),
@@ -845,7 +845,7 @@ class _BookingScreenSelectAdditionalServicesViewState
             ),
             onChanged: (value) {
               setState(() {
-                _updateProductProperty(additionalServiceProperty.id, value);
+                _updateProductProperty(additionalServiceProperty.id!, value);
               });
             },
           ),
@@ -855,24 +855,22 @@ class _BookingScreenSelectAdditionalServicesViewState
   }
 
   String _getCurrentValueForProductProperty(String id) {
-    final productProperty = orderProductAdditionalService.properties.firstWhere(
+    final productProperty = orderProductAdditionalService!.properties!.firstWhere(
       (element) => element.id == id,
-      orElse: () => null,
     );
 
-    if (productProperty == null) return null;
 
-    return productProperty.value;
+    return productProperty.value!;
   }
 
   void _updateProductProperty(String id, String value) {
-    final productProperty = orderProductAdditionalService.properties.firstWhere(
+    final productProperty = orderProductAdditionalService!.properties!.firstWhere(
       (element) => element.id == id,
-      orElse: () => null,
+      // orElse: () => null,
     );
 
     if (productProperty == null) {
-      orderProductAdditionalService.properties.add(
+      orderProductAdditionalService!.properties!.add(
         OrderProductProperty(
           id: id,
           value: value,

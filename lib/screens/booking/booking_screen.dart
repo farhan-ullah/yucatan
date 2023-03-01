@@ -15,7 +15,7 @@ class BookingScreen extends StatefulWidget {
 class _BookingScreenState extends State<BookingScreen> {
   @override
   Widget build(BuildContext context) {
-    final ActivityModel activity = ModalRoute.of(context).settings.arguments;
+    final ActivityModel? activity = ModalRoute.of(context)!.settings.arguments as ActivityModel?;
 
     return Scaffold(
       body: Container(

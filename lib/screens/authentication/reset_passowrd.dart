@@ -10,8 +10,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ResetPassword extends StatefulWidget {
   static const String route = '/resetPassword';
-  final String link;
-  final Function() updateFragment;
+  final String? link;
+  final Function()? updateFragment;
   ResetPassword({this.link, this.updateFragment});
 
   @override
@@ -26,14 +26,14 @@ class _ResetPasswordState extends State<ResetPassword> {
   final repeatPasswordController = TextEditingController();
   bool _isHidden = true;
   bool _isPasswordHidden = true;
-  String _password, repeatPassword;
+  String? _password, repeatPassword;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        widget.updateFragment();
+        widget.updateFragment!();
         //we need to return a future,Backbutton pressed (device or appbar button),
         return Future.value(false);
       },
@@ -48,7 +48,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 color: Colors.white,
               ),
               onPressed: () {
-                widget.updateFragment();
+                widget.updateFragment!();
                 //Navigator.of(context, rootNavigator: true).pop(context);
               },
             ),
@@ -136,7 +136,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                               color: Colors.grey),
                                         )),
                                     controller: passwordController,
-                                    validator: (val) => val.length < 6
+                                    validator: (val) => val!.length < 6
                                         ? AppLocalizations.of(context)
                                             .authenticationSceen_passwordInvalid
                                         : null,
@@ -161,7 +161,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                               color: Colors.grey),
                                         )),
                                     controller: repeatPasswordController,
-                                    validator: (val) => val.length < 6
+                                    validator: (val) => val!.length < 6
                                         ? AppLocalizations.of(context)
                                             .authenticationSceen_confirmPasswordInvalid
                                         : null,
@@ -254,7 +254,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   }
 
   Future<void> validateAndSave() async {
-    final FormState form = _formKey.currentState;
+    final FormState form = _formKey.currentState!;
     form.save();
     if (form.validate()) {
       if (_password != repeatPassword) {
@@ -267,9 +267,9 @@ class _ResetPasswordState extends State<ResetPassword> {
             textColor: Colors.white);
       } else {
         showLoader(context);
-        String token = widget.link.split("=").last;
+        String token = widget.link!.split("=").last;
         token = token.substring(0, token.length);
-        var result = await ResetPasswordService.resetPassword(token, _password);
+        var result = await ResetPasswordService.resetPassword(token, _password!);
         Navigator.pop(context);
         hideKeyboard(context);
         if (result.statusCode != 200) {
@@ -284,7 +284,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               showCancelButton: false,
               showOKButton: true);
           if (dialogResult != null) {
-            if (dialogResult == true) widget.updateFragment();
+            if (dialogResult == true) widget.updateFragment!();
           }
         }
       }

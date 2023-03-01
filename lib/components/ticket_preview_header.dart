@@ -3,6 +3,7 @@ import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class TicketPreviewHeader extends StatelessWidget {
   final String ticketNumber;
@@ -49,7 +50,7 @@ class TicketPreviewHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.bookingListScreen_ticketNumber,
+                  AppLocalizations.of(context).helloWorld,
                   style: TextStyle(
                     fontSize: Dimensions.getScaledSize(11.0),
                     color: Colors.white,

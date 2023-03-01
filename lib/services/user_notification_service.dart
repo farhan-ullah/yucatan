@@ -13,8 +13,8 @@ class UserNotificationService extends BaseService {
   UserNotificationService._()
       : super(BaseService.defaultURL + '/notifications');
 
-  static Future<UserNotificationResponse> getNotificationsForUser() async {
-    var httpData = (await new UserNotificationService._().get('/user/'))?.body;
+  static Future<UserNotificationResponse?> getNotificationsForUser() async {
+    var httpData = (await new UserNotificationService._().get('/user/'))!.body;
     if (httpData != null) {
       return new UserNotificationResponse.fromJson(json.decode(httpData));
     } else
@@ -22,7 +22,7 @@ class UserNotificationService extends BaseService {
   }
 
   /// Set a notification to read after confirming user matches
-  static Future<NotificationsToReadResponse> setNotificationsToRead(
+  static Future<NotificationsToReadResponse?> setNotificationsToRead(
       String notificationId) async {
     var httpData = (await new UserNotificationService._()
         .post('/$notificationId/setToRead', null));
@@ -37,10 +37,10 @@ class UserNotificationService extends BaseService {
 
   static const _storageKeynotification = 'notificationData';
 
-  static Future<HashMap<String, SavedNotificationData>>
+  static Future<HashMap>
       getSavedNotificationReadFlagData() async {
     HashMap hashMap = new HashMap<String, SavedNotificationData>();
-    String value =
+    String? value =
         await new FlutterSecureStorage().read(key: _storageKeynotification);
     List<SavedNotificationData> notificationList = [];
     if (value == null) {

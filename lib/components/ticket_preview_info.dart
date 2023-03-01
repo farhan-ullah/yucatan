@@ -242,7 +242,7 @@ class TicketPreviewInfo extends StatelessWidget {
             flex: 4,
             child: TicketPreviewImage(
                 ticketRefunded: ticketRefunded,
-                imageUrl: activity.thumbnail!.publicUrl,
+                imageUrl: activity.thumbnail!.publicUrl!,
                 imageAvailable: imageAvailable),
           ),
           SizedBox(
@@ -291,7 +291,7 @@ class TicketPreviewInfo extends StatelessWidget {
                 // Calendar and Date Information
                 TicketPreviewDateInfo(
                     ticketRefunded: ticketRefunded,
-                    dateTime: booking.bookingDate),
+                    dateTime: booking.bookingDate!),
                 TicketPreviewBookingTime(
                   bookingTimeString: ticket.bookingTimeString,
                   ticketRefunded: ticketRefunded,

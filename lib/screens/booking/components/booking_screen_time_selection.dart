@@ -16,7 +16,7 @@ class BookingScreenTimeSelection extends StatefulWidget {
       onTimeSlotSelected;
   final ProductCategory category;
   final ProductSubCategory subCategory;
-  final DateTime specificDate;
+  final DateTime? specificDate;
   final Function(
           List<BookingScreenTimeSlotItemModel> bookingScreenTimeSlotItemModels)
       onAvailableTimeSlotsChanged;
@@ -37,7 +37,7 @@ class BookingScreenTimeSelection extends StatefulWidget {
 
 class _BookingScreenTimeSelectionState
     extends State<BookingScreenTimeSelection> {
-  DateTime _selectedDate;
+  DateTime? _selectedDate;
   List<DateTime> _closedDates = [];
   List<DateTime> _notAvailableDates = [];
   List<BookingScreenTimeSlotItemModel> _allTimeSlots = [];
@@ -75,7 +75,7 @@ class _BookingScreenTimeSelectionState
     }
 
     if (_selectedDate != null) {
-      _onDateSelected(_selectedDate, false);
+      _onDateSelected(_selectedDate!, false);
     }
     super.initState();
   }
@@ -108,7 +108,7 @@ class _BookingScreenTimeSelectionState
               height: Dimensions.getScaledSize(2),
             ),
             CustomCalendarView(
-              initialDate: _selectedDate,
+              initialDate: _selectedDate!,
               minimumDate: DateTime.now(),
               maximumDate: maxDate,
               startEndDateChange: (DateTime dateData) {
@@ -130,15 +130,15 @@ class _BookingScreenTimeSelectionState
                 _selectedDate == null
                     ? AppLocalizations.of(context)!.bookingScreen_chooseDate
                     : widget.product.timeSlots != null &&
-                            widget.product.timeSlots.hasTimeSlots
+                            widget.product.timeSlots!.hasTimeSlots!
                         ? _timeSlotsForDate.length > 0 &&
                                 _timeSlotsForDate[0].timeString == null
                             ? DateFormat('EEEE, dd. LLLL yyyy', 'de-DE')
-                                .format(_selectedDate)
+                                .format(_selectedDate!)
                             : AppLocalizations.of(context)
                                 .bookingScreen_chooseTime
                         : DateFormat('EEEE, dd. LLLL yyyy', 'de-DE')
-                            .format(_selectedDate),
+                            .format(_selectedDate!),
                 style: TextStyle(
                   fontSize: Dimensions.getScaledSize(14),
                   color: CustomTheme.primaryColorDark,
@@ -146,7 +146,7 @@ class _BookingScreenTimeSelectionState
               ),
             ),
             widget.product.timeSlots != null &&
-                    widget.product.timeSlots.hasTimeSlots &&
+                    widget.product.timeSlots!.hasTimeSlots! &&
                     _timeSlotsForDate.length > 0
                 ? Expanded(
                     child: ListView.builder(
@@ -185,16 +185,16 @@ class _BookingScreenTimeSelectionState
                     child: _selectedDate != null
                         ? BookingScreenTimeSlotItem(
                             timeSlotItemModel: BookingScreenTimeSlotItemModel(
-                              dateTime: _selectedDate,
-                              timeString: null,
+                              dateTime: _selectedDate!,
+                              timeString: "",
                               remainingQuota:
                                   BookingTimeQuotaUtil.getDailyAvailableQuota(
                                 widget.product,
-                                _selectedDate,
-                                null,
+                                _selectedDate!,
+                                "",
                                 widget.category,
                                 widget.subCategory,
-                              ),
+                              )!,
                             ),
                             hasTime: false,
                             onSelected: (
@@ -214,7 +214,7 @@ class _BookingScreenTimeSelectionState
   ///Inititalize time selection screen
   void _initTimeSelection() {
     if (widget.product.timeSlots != null &&
-        widget.product.timeSlots.hasTimeSlots)
+        widget.product.timeSlots!.hasTimeSlots!)
       return _initTimeSelectionWithTimeSlots();
 
     if (widget.specificDate != null) _fillClosedDates();
@@ -225,18 +225,18 @@ class _BookingScreenTimeSelectionState
     _fillClosedDates();
 
     //Loop through specific time slots
-    widget.product.timeSlots.special?.forEach(
+    widget.product.timeSlots!.special?.forEach(
       (specificTimeSlotElement) {
         //Update fields
         _updateDateAndTimeSlotArrays(
-          specificTimeSlotElement.date,
-          specificTimeSlotElement.hours,
+          specificTimeSlotElement.date!,
+          specificTimeSlotElement.hours!,
         );
       },
     );
 
     //Loop through regular time slots
-    widget.product.timeSlots.regular?.forEach(
+    widget.product.timeSlots!.regular?.forEach(
       (regularTimeSlotElement) {
         //Process regular time slots
         _processRegularTimeSlot(regularTimeSlotElement);
@@ -256,7 +256,7 @@ class _BookingScreenTimeSelectionState
       );
 
       if (widget.specificDate != null) {
-        if (GlobalDate.isSameDay(nextDate, widget.specificDate)) return null;
+        if (GlobalDate.isSameDay(nextDate, widget.specificDate!)) {}
       }
 
       //If date is after now + 2 years, set to null
@@ -267,7 +267,7 @@ class _BookingScreenTimeSelectionState
           ),
         ),
       ))
-        return null;
+        return DateTime.now();
       else
         return nextDate;
     }).toList();
@@ -291,7 +291,7 @@ class _BookingScreenTimeSelectionState
   void _addNotAvailableTimeSlotIfQuotaUsedUp(DateTime dateTime,
       List<ProductTimeSlotsDayHour> productTimeSlotsDayHours) {
     var remainingDailyQuota = BookingTimeQuotaUtil.getDailyAvailableQuota(
-        widget.product, dateTime, null, widget.category, widget.subCategory);
+        widget.product, dateTime, "", widget.category, widget.subCategory);
 
     if (remainingDailyQuota != null) {
       if (remainingDailyQuota == 0) {
@@ -304,7 +304,7 @@ class _BookingScreenTimeSelectionState
       var maxQuota = BookingTimeQuotaUtil.getMaxQuota(
         widget.product,
         dateTime,
-        null,
+        "",
         widget.category,
         widget.subCategory,
       );
@@ -312,7 +312,7 @@ class _BookingScreenTimeSelectionState
       if (maxQuota != null && maxQuota < 0) return;
 
       var remainingQuota = BookingTimeQuotaUtil.getRemainingQuota(
-          widget.product, maxQuota, dateTime, null);
+          widget.product, maxQuota!, dateTime, "");
 
       if (remainingQuota == 0) {
         _notAvailableDates.add(dateTime);
@@ -325,18 +325,18 @@ class _BookingScreenTimeSelectionState
     bool isQuotaUsedUp =
         productTimeSlotsDayHours.every((productTimeSlotsDayHoursElement) {
       if (productTimeSlotsDayHoursElement.quota != null &&
-          productTimeSlotsDayHoursElement.quota < 0) return false;
+          productTimeSlotsDayHoursElement.quota! < 0) return false;
 
       var maxQuota = BookingTimeQuotaUtil.getMaxQuota(
         widget.product,
         dateTime,
-        productTimeSlotsDayHoursElement.time,
+        productTimeSlotsDayHoursElement.time!,
         widget.category,
         widget.subCategory,
       );
 
-      return BookingTimeQuotaUtil.getRemainingQuota(widget.product, maxQuota,
-                  dateTime, productTimeSlotsDayHoursElement.time) ==
+      return BookingTimeQuotaUtil.getRemainingQuota(widget.product, maxQuota!,
+                  dateTime, productTimeSlotsDayHoursElement.time!) ==
               0
           ? true
           : false;
@@ -354,7 +354,7 @@ class _BookingScreenTimeSelectionState
     var remainingQuota = BookingTimeQuotaUtil.getDailyAvailableQuota(
       widget.product,
       dateTime,
-      null,
+      "",
       widget.category,
       widget.subCategory,
     );
@@ -367,18 +367,18 @@ class _BookingScreenTimeSelectionState
           BookingTimeQuotaUtil.getMaxQuota(
             widget.product,
             dateTime,
-            null,
+            "",
             widget.category,
             widget.subCategory,
-          ),
+          )!,
           dateTime,
-          null,
+          "",
         );
 
         //Generate local timeSlot
         var timeSlot = BookingScreenTimeSlotItemModel(
           dateTime: dateTime,
-          timeString: null,
+          timeString: "",
           remainingQuota: remainingQuota,
         );
 
@@ -401,18 +401,18 @@ class _BookingScreenTimeSelectionState
           BookingTimeQuotaUtil.getMaxQuota(
             widget.product,
             dateTime,
-            productTimeSlotsDayHoursElement.time,
+            productTimeSlotsDayHoursElement.time!,
             widget.category,
             widget.subCategory,
-          ),
+          )!,
           dateTime,
-          productTimeSlotsDayHoursElement.time,
+          productTimeSlotsDayHoursElement.time!,
         );
 
       //Generate local timeSlot
       var timeSlot = BookingScreenTimeSlotItemModel(
         dateTime: dateTime,
-        timeString: productTimeSlotsDayHoursElement.time,
+        timeString: productTimeSlotsDayHoursElement.time!,
         remainingQuota:
             remainingQuota == null ? remainingQuotaForTime : remainingQuota,
       );
@@ -427,7 +427,7 @@ class _BookingScreenTimeSelectionState
       List<ProductTimeSlotsDayHour> productTimeSlotsDayHours) {
     //If date is already selected, skip for dates that are not the same
     if (widget.specificDate != null &&
-        GlobalDate.isSameDay(widget.specificDate, dateTime) == false) return;
+        GlobalDate.isSameDay(widget.specificDate!, dateTime) == false) return;
 
     //Remove from _closedDates
     _removeFromClosedDates(dateTime);
@@ -459,17 +459,17 @@ class _BookingScreenTimeSelectionState
       //Loop trough regular time slot depending on intervalRepeat (if intervalRepeat == 2, skip every other entry)
       for (var i = 0;
           i < weeks.length;
-          i += productTimeSlotsRegular.intervalRepeat) {
+          i += productTimeSlotsRegular.intervalRepeat!) {
         var weekDays = weeks[i];
 
         //Loop through days of regular time slot
-        productTimeSlotsRegular.days.forEach(
+        productTimeSlotsRegular.days!.forEach(
           (productTimeSlotsRegularDay) {
             //Get date by weekday
             var date = weekDays.firstWhere(
               (weekDaysElement) =>
                   weekDaysElement.weekday == productTimeSlotsRegularDay.day,
-              orElse: () => null,
+              // orElse: () => null,
             );
 
             //Check if date can be skipped
@@ -478,7 +478,7 @@ class _BookingScreenTimeSelectionState
             //Update fields
             _updateDateAndTimeSlotArrays(
               date,
-              productTimeSlotsRegularDay.hours,
+              productTimeSlotsRegularDay.hours!,
             );
           },
         );
@@ -492,22 +492,22 @@ class _BookingScreenTimeSelectionState
       //Loop trough regular time slot depending on intervalRepeat (if intervalRepeat == 2, skip every other entry)
       for (var i = 0;
           i < months.length;
-          i += productTimeSlotsRegular.intervalRepeat) {
+          i += productTimeSlotsRegular.intervalRepeat!) {
         var daysInMonth = months[i];
 
         //Loop through days of regular time slot
-        productTimeSlotsRegular.days.forEach(
+        productTimeSlotsRegular.days!.forEach(
           (productTimeSlotsRegularDay) {
             //Get week in month for which to apply time slot
             //0 = first week of month
             var weekInMonth =
-                ((productTimeSlotsRegularDay.day - 1) / 7).floor();
+                ((productTimeSlotsRegularDay.day! - 1) / 7).floor();
 
             //Get weekday for week in month
             //E.g. productTimeSlotsRegularDay.day == 1 = first monday of month, productTimeSlotsRegularDay.day == 8 = second monday of month
             //Both return 1 as weekday
             var weekdayInWeekInMonth =
-                productTimeSlotsRegularDay.day - (weekInMonth * 7);
+                productTimeSlotsRegularDay.day! - (weekInMonth * 7);
 
             //Get date by weekday
             var date = daysInMonth.firstWhere(
@@ -522,7 +522,7 @@ class _BookingScreenTimeSelectionState
                 return daysInMonthElement.weekday == weekdayInWeekInMonth &&
                     isSameWeekInMonth;
               },
-              orElse: () => null,
+              // orElse: () => null,
             );
 
             //Check if date can be skipped
@@ -531,7 +531,7 @@ class _BookingScreenTimeSelectionState
             //Update fields
             _updateDateAndTimeSlotArrays(
               date,
-              productTimeSlotsRegularDay.hours,
+              productTimeSlotsRegularDay.hours!,
             );
           },
         );
@@ -549,9 +549,9 @@ class _BookingScreenTimeSelectionState
     if (dateTime == null) return true;
 
     //Skip if date is out of range
-    if (dateTime.isBefore(productTimeSlotsRegular.startDate) ||
-        (dateTime.isAfter(productTimeSlotsRegular.endDate) &&
-            GlobalDate.isSameDay(dateTime, productTimeSlotsRegular.endDate) ==
+    if (dateTime.isBefore(productTimeSlotsRegular.startDate!) ||
+        (dateTime.isAfter(productTimeSlotsRegular.endDate!) &&
+            GlobalDate.isSameDay(dateTime, productTimeSlotsRegular.endDate!) ==
                 false)) return true;
 
     //Skip if date already exists in _allTimeSlots
@@ -584,20 +584,20 @@ class _BookingScreenTimeSelectionState
     }
 
     var availableTimeSlots = widget.product.timeSlots != null &&
-            widget.product.timeSlots.hasTimeSlots &&
+            widget.product.timeSlots!.hasTimeSlots! &&
             _timeSlotsForDate.length > 0
         ? _timeSlotsForDate
         : [
             BookingScreenTimeSlotItemModel(
-              dateTime: _selectedDate,
-              timeString: null,
+              dateTime: _selectedDate!,
+              timeString: "",
               remainingQuota: BookingTimeQuotaUtil.getDailyAvailableQuota(
                 widget.product,
-                _selectedDate,
-                null,
+                _selectedDate!,
+                "",
                 widget.category,
                 widget.subCategory,
-              ),
+              )!,
             ),
           ];
 
@@ -620,13 +620,13 @@ class _BookingScreenTimeSelectionState
       DateFormat dateFormat = new DateFormat('yyyy-MM-dd');
       var datetime = DateTime.parse('${dateFormat.format(date)} $time');
 
-      if (widget.product.requestRequired &&
+      if (widget.product.requestRequired! &&
           datetime.difference(DateTime.now()).compareTo(Duration(hours: 2)) <
               0) {
         return true;
       }
 
-      if (!widget.product.requestRequired &&
+      if (!widget.product.requestRequired! &&
           !datetime.isAfter(DateTime.now())) {
         return true;
       }
@@ -642,13 +642,13 @@ class _BookingScreenTimeSelectionState
       DateFormat dateFormat = new DateFormat('yyyy-MM-dd');
       var datetime = DateTime.parse('${dateFormat.format(date)} $time');
 
-      if (widget.product.requestRequired &&
+      if (widget.product.requestRequired! &&
           datetime.difference(DateTime.now()).compareTo(Duration(hours: 2)) <
               0) {
         return true;
       }
 
-      if (!widget.product.requestRequired &&
+      if (!widget.product.requestRequired! &&
           !datetime.isAfter(DateTime.now())) {
         return true;
       }

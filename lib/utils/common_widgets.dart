@@ -31,13 +31,13 @@ class CommonWidget {
         width: double.infinity,
         height: double.infinity,
         child:
-            activityModel.activityDetails.media.previewVideoThumbnail != null ||
-                    activityModel.activityDetails.media.previewVideoThumbnail
+            activityModel.activityDetails!.media!.previewVideoThumbnail != null ||
+                    activityModel.activityDetails!.media!.previewVideoThumbnail
                             ?.publicUrl !=
                         null
                 ? loadCachedNetworkImage(
                     activityModel
-                        .activityDetails.media.previewVideoThumbnail?.publicUrl,
+                        .activityDetails!.media!.previewVideoThumbnail!.publicUrl!,
                     fit: BoxFit.cover,
                   )
                 : Container(

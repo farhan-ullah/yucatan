@@ -1,4 +1,4 @@
-String trimLeading(String pattern, String from) {
+String? trimLeading(String pattern, String from) {
   if(from == null) return null;
   else if(pattern == null) return from;
   else {

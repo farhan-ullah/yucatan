@@ -9,7 +9,7 @@ class ContactService extends BaseService {
   ContactService._() : super(BaseService.defaultURL + '/contact');
 
   ///send Messages to the Appventure support. - for user which are not logged in
-  static Future<ContactResponse> sendContactQuery(
+  static Future<ContactResponse?> sendContactQuery(
       ContactModel contactModel, bool isUserLoggedIn) async {
     dynamic body = json.encode({
       'firstname': contactModel.firstname,

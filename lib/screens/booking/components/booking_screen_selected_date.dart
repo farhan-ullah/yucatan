@@ -6,7 +6,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 class BookingScreenSelectedDate extends StatefulWidget {
-  final DateTime date;
+  final DateTime? date;
 
   const BookingScreenSelectedDate({
     this.date,
@@ -57,7 +57,7 @@ class _BookingScreenSelectedDateState extends State<BookingScreenSelectedDate> {
               top: Dimensions.getScaledSize(2.0),
             ),
             child: Text(
-              "${DateFormat("EEEE, dd. LLL yyyy", "de-DE").format(widget.date)}",
+              "${DateFormat("EEEE, dd. LLL yyyy", "de-DE").format(widget.date!)}",
               style: TextStyle(
                 fontSize: Dimensions.getScaledSize(15),
                 color: CustomTheme.primaryColorDark,

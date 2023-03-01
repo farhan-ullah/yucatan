@@ -17,14 +17,14 @@ import 'booking_offline_listview_item.dart';
 
 class BookingListOfflineView extends StatelessWidget
     with NavigatableByNotifcation {
-  final List<BookingDetailedModel> bookings;
-  final Function refresh;
+  final List<BookingDetailedModel>? bookings;
+  final Function? refresh;
   final String noBookingsTitle;
   final BookingListCardType bookingListCardType;
   final bool online;
-  final NotificationActions notificationAction;
+  final NotificationActions? notificationAction;
   final dynamic notificationData;
-  final Function removeDeniedRequest;
+  final Function? removeDeniedRequest;
 
   final ItemScrollController _itemScrollController = ItemScrollController();
 
@@ -46,13 +46,13 @@ class BookingListOfflineView extends StatelessWidget
     try {
       final sharedPreferences = await SharedPreferences.getInstance();
 
-      bool handleNotifications =
+      bool? handleNotifications =
           sharedPreferences.getBool('handleNotification');
 
       if (handleNotifications == false) return;
 
       if (bookings
-              .any((element) => element.id == notificationData.toString()) ==
+              !.any((element) => element.id == notificationData.toString()) ==
           false) return;
 
       switch (notificationAction) {
@@ -88,12 +88,12 @@ class BookingListOfflineView extends StatelessWidget
   Widget build(BuildContext context) {
     Future.delayed(
       Duration.zero,
-      () => handleNavigation(notificationAction, notificationData),
+      () => handleNavigation(notificationAction!, notificationData),
     );
 
-    return bookings.length == 0
+    return bookings!.length == 0
         ? CustomErrorEmptyScreen(
-            title: AppLocalizations.of(context)!.commonWords_mistake,
+            title: AppLocalizations.of(context).commonWords_mistake,
             description: noBookingsTitle,
             rive: RiveAnimation(
               riveFileName: 'tickets_animiert_loop.riv',
@@ -141,18 +141,18 @@ class BookingListOfflineView extends StatelessWidget
             left: Dimensions.getScaledSize(10.0),
             right: Dimensions.getScaledSize(10.0),
             bottom: Dimensions.getScaledSize(10.0)),
-        itemCount: bookings.length,
+        itemCount: bookings!.length,
         itemBuilder: (context, index) {
-          if (bookings[index].status == "REQUEST_DENIED" && online)
+          if (bookings![index].status == "REQUEST_DENIED" && online) {
             return Column(
               key: UniqueKey(),
               children: [
                 Slidable(
                   child: BookingOfflineListViewItem(
-                    booking: bookings[index],
+                    booking: bookings![index],
                     bookingListCardType: bookingListCardType,
                     online: online,
-                    notificationAction: notificationAction,
+                    notificationAction: notificationAction!,
                     notificationData: notificationData,
                   ),
                   actionPane: SlidableBehindActionPane(),
@@ -160,7 +160,7 @@ class BookingListOfflineView extends StatelessWidget
                   secondaryActions: [
                     SlideAction(
                       onTap: () {
-                        removeDeniedRequest(bookings[index].id);
+                        removeDeniedRequest!(bookings![index].id);
                       },
                       decoration: BoxDecoration(
                         color: CustomTheme.accentColor1,
@@ -195,6 +195,7 @@ class BookingListOfflineView extends StatelessWidget
                 SizedBox(height: Dimensions.getScaledSize(20))
               ],
             );
+          }
           return Column(
             key: UniqueKey(),
             children: [
@@ -202,7 +203,7 @@ class BookingListOfflineView extends StatelessWidget
                 booking: bookings[index],
                 bookingListCardType: bookingListCardType,
                 online: online,
-                notificationAction: notificationAction,
+                notificationAction: notificationAction!,
                 notificationData: notificationData,
               ),
               SizedBox(height: Dimensions.getScaledSize(20))
@@ -212,7 +213,7 @@ class BookingListOfflineView extends StatelessWidget
       ),
       onRefresh: () async {
         await Future.delayed(Duration(seconds: 1));
-        refresh();
+        refresh!();
       },
     );
   }
@@ -222,7 +223,7 @@ class BookingListOfflineView extends StatelessWidget
     //Scroll to the list view element which represents the booking sent via the notification
     _itemScrollController.scrollTo(
       index: bookings
-          .indexWhere((element) => element.id == notificationData.toString()),
+          !.indexWhere((element) => element.id == notificationData.toString()),
       duration: Duration(milliseconds: 800),
       curve: Curves.fastLinearToSlowEaseIn,
     );

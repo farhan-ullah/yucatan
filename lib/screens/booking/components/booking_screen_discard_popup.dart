@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookingScreenDiscardPopup extends StatelessWidget {
-  final bool showDiscardContainer;
-  final Function onCancel;
+  final bool? showDiscardContainer;
+  final Function? onCancel;
 
   BookingScreenDiscardPopup({
     this.showDiscardContainer,
@@ -22,7 +22,7 @@ class BookingScreenDiscardPopup extends StatelessWidget {
           milliseconds: 500,
         ),
         curve: Curves.fastLinearToSlowEaseIn,
-        height: showDiscardContainer
+        height: showDiscardContainer!
             ? MediaQuery.of(context).size.height -
                 Dimensions.getScaledSize(60.0) -
                 MediaQuery.of(context).padding.bottom -
@@ -81,7 +81,7 @@ class BookingScreenDiscardPopup extends StatelessWidget {
                       width: Dimensions.getScaledSize(200.0),
                       child: OutlinedButton(
                         onPressed: () {
-                          onCancel();
+                          onCancel!();
                         },
                         style: ButtonStyle(
                             side: MaterialStateProperty.all(BorderSide(
@@ -145,7 +145,7 @@ class BookingScreenDiscardPopup extends StatelessWidget {
               left: Dimensions.getScaledSize(18.0),
               child: GestureDetector(
                 onTap: () {
-                  onCancel();
+                  onCancel!();
                 },
                 child: Container(
                   height: Dimensions.getScaledSize(32.0),

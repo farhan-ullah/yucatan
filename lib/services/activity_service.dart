@@ -22,8 +22,11 @@ class ActivityService extends BaseService {
           BaseService.defaultURL + '/activities',
         );
 
+
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
   /// Queries all activities
-  static Future<ActivityMultiResponse> getAll() async {
+  static Future<ActivityMultiResponse?> getAll() async {
     var httpData = (await new ActivityService._().get('/active'))?.body;
     if (httpData != null) {
       return new ActivityMultiResponse().fromJson(json.decode(httpData));
@@ -33,7 +36,7 @@ class ActivityService extends BaseService {
 
   /// Queries an Activity by the given [id]
   /// [id] internal (object-)ID of the activity (ActivityModel.sId)
-  static Future<ActivitySingleResponse> getActivity(String id) async {
+  static Future<ActivitySingleResponse?> getActivity(String id) async {
     var httpData = (await new ActivityService._().get(id))?.body;
     if (httpData != null) {
       return new ActivitySingleResponse().fromJson(json.decode(httpData));
@@ -42,7 +45,7 @@ class ActivityService extends BaseService {
   }
 
   /// Queries all activities for a category
-  static Future<ActivityByCategoryResponse> getAllForCategory(
+  static Future<ActivityByCategoryResponse?> getAllForCategory(
       String categoryId, String category) async {
     var httpData =
         (await new ActivityService._().get('/category/$categoryId/active'))
@@ -55,7 +58,7 @@ class ActivityService extends BaseService {
         RandomActivityData randomActivityData =
             getRandomNumbersWithoutRepetition(activityMultiResponse.data.length,
                 activityMultiResponse.data, category);
-        activityMultiResponse.data = randomActivityData.activityModelList;
+        activityMultiResponse.data = randomActivityData.activityModelList!;
         RandomActivity.hashMap[category] = randomActivityData.randomNumbers;
       } else {
         if (RandomActivity.hashMap.isNotEmpty) {
@@ -100,9 +103,9 @@ class ActivityService extends BaseService {
   }
 
   /// Add review to an activity
-  static Future<ActivitySingleResponse> addReview(
+  static Future<ActivitySingleResponse?> addReview(
       String activityId, ActivityModelActivityDetailsReview review) async {
-    AnalyticsService.logAddReview(review.rating.toDouble());
+    AnalyticsService.logAddReview(review.rating!.toDouble());
     var httpData = (await new ActivityService._()
             .post('/$activityId/reviews', json.encode(review.toJson())))
         ?.body;
@@ -113,7 +116,7 @@ class ActivityService extends BaseService {
   }
 
   /// Add review to an activity
-  static Future<ActivitySingleResponse> editReview(
+  static Future<ActivitySingleResponse?> editReview(
       String activityId, ActivityModelActivityDetailsReview review) async {
     var httpData = (await new ActivityService._().put(
             '/$activityId/reviews/${review.sId}', json.encode(review.toJson())))
@@ -125,13 +128,13 @@ class ActivityService extends BaseService {
   }
 
   /// Get activities by search term
-  static Future<ActivityMultiResponse> getActivitiesBySearchTerm(
-      {String searchTerm, String date, String categoryId}) async {
+  static Future<ActivityMultiResponse?> getActivitiesBySearchTerm(
+      {String? searchTerm, String? date, String? categoryId}) async {
     Map<String, String> queryParams = Map();
 
     //Log firebase event
     if (kReleaseMode) {
-      FirebaseAnalytics().logEvent(
+      analytics.logEvent(
         name: 'search',
         parameters: <String, dynamic>{
           'search_term': searchTerm,
@@ -140,13 +143,13 @@ class ActivityService extends BaseService {
       );
     }
 
-    if (isNotNullOrEmpty(date)) {
+    if (isNotNullOrEmpty(date!)) {
       queryParams.putIfAbsent('selectedDate', () => date);
     }
-    if (isNotNullOrEmpty(categoryId)) {
+    if (isNotNullOrEmpty(categoryId!)) {
       queryParams.putIfAbsent('category', () => categoryId);
     }
-    if (isNotNullOrEmpty(searchTerm)) {
+    if (isNotNullOrEmpty(searchTerm!)) {
       queryParams.putIfAbsent('searchTerm', () => searchTerm);
     }
 
@@ -160,10 +163,10 @@ class ActivityService extends BaseService {
   }
 
   /// Get autocomplete suggestions
-  static Future<List> getSuggestions({String query, int items}) async {
+  static Future<List?> getSuggestions({String? query, int? items}) async {
     Map<String, String> queryParams = Map();
 
-    if (isNotNullOrEmpty(query)) {
+    if (isNotNullOrEmpty(query!)) {
       queryParams.putIfAbsent('query', () => query);
     }
     if (items != null) {

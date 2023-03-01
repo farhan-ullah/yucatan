@@ -24,7 +24,7 @@ activityModelFromJson(ActivityModel data, Map<String, dynamic> json) {
   if (json['categories'] != null) {
     data.categories = <ActivityCategory>[];
     (json['categories'] as List).forEach((v) {
-      data.categories.add(new ActivityCategory().fromJson(v));
+      data.categories!.add(new ActivityCategory().fromJson(v));
     });
   }
   if (json['_id'] != null) {
@@ -73,17 +73,17 @@ activityModelFromJson(ActivityModel data, Map<String, dynamic> json) {
 Map<String, dynamic> activityModelToJson(ActivityModel entity) {
   final Map<String, dynamic> data = new Map<String, dynamic>();
   if (entity.location != null) {
-    data['location'] = entity.location.toJson();
+    data['location'] = entity.location!.toJson();
   }
   if (entity.activityDetails != null) {
-    data['activityDetails'] = entity.activityDetails.toJson();
+    data['activityDetails'] = entity.activityDetails!.toJson();
   }
   if (entity.bookingDetails != null) {
-    data['bookingDetails'] = entity.bookingDetails.toJson();
+    data['bookingDetails'] = entity.bookingDetails!.toJson();
   }
   data['tags'] = entity.tags;
   if (entity.categories != null) {
-    data['categories'] = entity.categories.map((v) => v.toJson()).toList();
+    data['categories'] = entity.categories!.map((v) => v.toJson()).toList();
   }
   data['_id'] = entity.sId;
   data['title'] = entity.title;
@@ -95,7 +95,7 @@ Map<String, dynamic> activityModelToJson(ActivityModel entity) {
   data['__v'] = entity.iV;
   data['reviewCount'] = entity.reviewCount;
   data['reviewAverageRating'] = entity.reviewAverageRating;
-  data['vendor'] = entity.vendor.toJson();
+  data['vendor'] = entity.vendor!.toJson();
   data['privacy'] = entity.privacy;
   return data;
 }
@@ -112,7 +112,7 @@ activityBookingDetailsFromJson(
   if (json['productCategories'] != null) {
     data.productCategories = <ProductCategory>[];
     (json['productCategories'] as List).forEach((v) {
-      data.productCategories.add(new ProductCategory.fromJson(v));
+      data.productCategories!.add(new ProductCategory.fromJson(v));
     });
   }
   return data;
@@ -123,7 +123,7 @@ Map<String, dynamic> activityBookingDetailsToJson(
   final Map<String, dynamic> data = new Map<String, dynamic>();
   data['currency'] = entity.currency;
   if (entity.concurrentBookings != null) {
-    data['concurrentBookings'] = entity.concurrentBookings.toJson();
+    data['concurrentBookings'] = entity.concurrentBookings!.toJson();
   }
 
   //Adjust to new Product model
@@ -227,13 +227,13 @@ activityModelActivityDetailsFromJson(
   if (json['reviews'] != null) {
     data.reviews = <ActivityModelActivityDetailsReview>[];
     (json['reviews'] as List).forEach((v) {
-      data.reviews.add(new ActivityModelActivityDetailsReview().fromJson(v));
+      data.reviews!.add(new ActivityModelActivityDetailsReview().fromJson(v));
     });
   }
   if (json['descriptionItems'] != null) {
     data.descriptionItems = <ActivityDetailDescriptionItemModel>[];
     (json['descriptionItems'] as List).forEach((v) {
-      data.descriptionItems
+      data.descriptionItems!
           .add(new ActivityDetailDescriptionItemModel().fromJson(v));
     });
   }
@@ -244,7 +244,7 @@ Map<String, dynamic> activityModelActivityDetailsToJson(
     ActivityModelActivityDetails entity) {
   final Map<String, dynamic> data = new Map<String, dynamic>();
   if (entity.media != null) {
-    data['media'] = entity.media.toJson();
+    data['media'] = entity.media!.toJson();
   }
   data['title'] = entity.title;
   data['shortDescription'] = entity.shortDescription;
@@ -253,14 +253,14 @@ Map<String, dynamic> activityModelActivityDetailsToJson(
   data['packageNotIncluded'] = entity.packageNotIncluded;
   data['cancellation'] = entity.cancellation;
   if (entity.customFields != null) {
-    data['customFields'] = entity.customFields.toJson();
+    data['customFields'] = entity.customFields!.toJson();
   }
   if (entity.reviews != null) {
-    data['reviews'] = entity.reviews.map((v) => v.toJson()).toList();
+    data['reviews'] = entity.reviews!.map((v) => v.toJson()).toList();
   }
   if (entity.descriptionItems != null) {
     data['descriptionItems'] =
-        entity.descriptionItems.map((v) => v.toJson()).toList();
+        entity.descriptionItems!.map((v) => v.toJson()).toList();
   }
   return data;
 }
@@ -270,13 +270,13 @@ activityDetailsCustomFieldsFromJson(
   if (json['standard'] != null) {
     data.standard = <ActivityDetailsCustomFieldStandard>[];
     (json['standard'] as List).forEach((v) {
-      data.standard.add(new ActivityDetailsCustomFieldStandard().fromJson(v));
+      data.standard!.add(new ActivityDetailsCustomFieldStandard().fromJson(v));
     });
   }
   if (json['select'] != null) {
     data.select = <ActivityDetailsCustomFieldSelect>[];
     (json['select'] as List).forEach((v) {
-      data.select.add(new ActivityDetailsCustomFieldSelect().fromJson(v));
+      data.select!.add(new ActivityDetailsCustomFieldSelect().fromJson(v));
     });
   }
   return data;
@@ -286,10 +286,10 @@ Map<String, dynamic> activityDetailsCustomFieldsToJson(
     ActivityDetailsCustomFields entity) {
   final Map<String, dynamic> data = new Map<String, dynamic>();
   if (entity.standard != null) {
-    data['standard'] = entity.standard.map((v) => v.toJson()).toList();
+    data['standard'] = entity.standard!.map((v) => v.toJson()).toList();
   }
   if (entity.select != null) {
-    data['select'] = entity.select.map((v) => v.toJson()).toList();
+    data['select'] = entity.select!.map((v) => v.toJson()).toList();
   }
   return data;
 }
@@ -401,7 +401,7 @@ activityModelActivityDetailsReviewFromJson(
   if (json['user'] != null) {
     try {
       data.userModel = new UserLoginModel().fromJson(json['user']);
-      data.user = data.userModel.sId;
+      data.user = data.userModel!.sId;
     } catch (e) {
       data.user = json['user'].toString();
     }
@@ -508,6 +508,6 @@ Map<String, dynamic> activityVendorToJson(ActivityVendor entity) {
   data['email'] = entity.email;
   data['createdAt'] = entity.createdAt;
   data['updatedAt'] = entity.updatedAt;
-  data['location'] = entity.location.toJson();
+  data['location'] = entity.location!.toJson();
   return data;
 }

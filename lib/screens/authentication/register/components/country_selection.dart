@@ -14,12 +14,12 @@ import 'package:yucatan/screens/authentication/register/components/register_vali
 import '../../auth_regex.dart';
 
 class CountrySelection extends StatefulWidget {
-  final ValueChanged<CountryPhoneModel> onChange;
-  final UserLoginModel userLoginModel;
-  final CountryObject countryObject;
-  final String phone;
-  final bool isComingFromProfile;
-  final RegisterValidationBloc registerValidationBloc;
+  final ValueChanged<CountryPhoneModel>? onChange;
+  final UserLoginModel? userLoginModel;
+  final CountryObject? countryObject;
+  final String? phone;
+  final bool? isComingFromProfile;
+  final RegisterValidationBloc? registerValidationBloc;
 
   CountrySelection({
     Key? key,
@@ -38,7 +38,7 @@ class CountrySelection extends StatefulWidget {
 class _CountrySelectionState extends State<CountrySelection> {
   List<String> added = [];
   String currentText = "";
-  GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
+  GlobalKey<AutoCompleteTextFieldState<String>>? key = GlobalKey();
   bool showWhichErrorText = false;
   String defaultPhoneValue = "+49";
   String defaultFlagValue = "DE";
@@ -48,10 +48,10 @@ class _CountrySelectionState extends State<CountrySelection> {
   void initState() {
     super.initState();
     if (widget.userLoginModel != null) {
-      defaultPhoneValue = widget.userLoginModel.areaCode;
-      _model.areaCode = widget.userLoginModel.areaCode;
-      _model.countryISO2Code = widget.userLoginModel.countryISO2;
-      _model.countryISO2Name = widget.countryObject.countryList
+      defaultPhoneValue = widget.userLoginModel!.areaCode;
+      _model.areaCode = widget.userLoginModel!.areaCode;
+      _model.countryISO2Code = widget.userLoginModel!.countryISO2;
+      _model.countryISO2Name = widget.countryObject!.countryList
           .firstWhere(
               (element) =>
                   element.country.toLowerCase() ==
@@ -59,10 +59,10 @@ class _CountrySelectionState extends State<CountrySelection> {
               orElse: () => CountryData('', ''))
           .countryName;
 
-      _model.phone = widget.phone == null ? "" : widget.phone;
+      _model.phone = (widget.phone == null ? "" : widget.phone)!;
 
-      var flagValue = widget.countryObject.jsonPhoneMap.keys.firstWhere(
-          (k) => widget.countryObject.jsonPhoneMap[k] == defaultPhoneValue,
+      var flagValue = widget.countryObject!.jsonPhoneMap.keys.firstWhere(
+          (k) => widget.countryObject!.jsonPhoneMap[k] == defaultPhoneValue,
           orElse: () => "DE");
 
       defaultFlagValue = flagValue;
@@ -72,7 +72,7 @@ class _CountrySelectionState extends State<CountrySelection> {
       _model.countryISO2Name = "Deutschland";
       _model.phone = "";
     }
-    widget.onChange.call(_model);
+    widget.onChange!.call(_model);
   }
 
   @override
@@ -85,7 +85,7 @@ class _CountrySelectionState extends State<CountrySelection> {
           border: Border.all(
             color: Colors.grey,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(10))),
+          borderRadius: const BorderRadius.all(Radius.circular(10))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -93,23 +93,23 @@ class _CountrySelectionState extends State<CountrySelection> {
             margin: EdgeInsets.fromLTRB(Dimensions.pixels_5, 0, 0, 0),
             child: SimpleAutoCompleteTextField(
               key: key,
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                   hintText:
                       AppLocalizations.of(context)!.commonWords_land_required,
-                  suffixIcon: new Icon(
+                  suffixIcon: const Icon(
                     Icons.keyboard_arrow_down_rounded,
                     size: 30,
                   )),
               controller:
-                  TextEditingController(text: "${_model.countryISO2Name}"),
-              suggestions: widget.countryObject.countryList2,
+                  TextEditingController(text: _model.countryISO2Name),
+              suggestions: widget.countryObject!.countryList2,
               textChanged: (text) => currentText = text,
               clearOnSubmit: false,
               submitOnSuggestionTap: true,
               textSubmitted: (text) {
                 _model.countryISO2Name = text;
                 CountryData findCountry(String countryName) {
-                  return widget.countryObject.countryList
+                  return widget.countryObject!.countryList
                       .firstWhere((country) => country.countryName == text);
                 }
 
@@ -117,12 +117,12 @@ class _CountrySelectionState extends State<CountrySelection> {
                   String country = findCountry(text).country;
 
                   this.defaultPhoneValue =
-                      widget.countryObject.jsonPhoneMap[country];
+                      widget.countryObject!.jsonPhoneMap[country];
                   this.defaultFlagValue = country;
-                  _model.areaCode = widget.countryObject.jsonPhoneMap[country];
+                  _model.areaCode = widget.countryObject!.jsonPhoneMap[country];
                   _model.countryISO2Code = country;
 
-                  widget.onChange.call(_model);
+                  widget.onChange!.call(_model);
                 });
               },
             ),
@@ -149,25 +149,25 @@ class _CountrySelectionState extends State<CountrySelection> {
                         ? defaultPhoneValue
                         : "+49",
                     selectedItemBuilder: (BuildContext context) {
-                      return widget.countryObject.countryPhoneList
+                      return widget.countryObject!.countryPhoneList
                           .map<Widget>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Row(
                             children: [
                               Flag(
-                                '$defaultFlagValue',
+                                defaultFlagValue,
                                 width: Dimensions.getScaledSize(32),
                                 height: Dimensions.getScaledSize(22),
                                 fit: BoxFit.fill,
                               ),
                               Expanded(
                                 child: Text(
-                                  '${value.contains("+") ? value : "+$value"}',
+                                  value.contains("+") ? value : "+$value",
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.center,
                                   maxLines: 2,
-                                  style: widget.isComingFromProfile
+                                  style: widget.isComingFromProfile!
                                       ? TextStyle(
                                           fontSize:
                                               Dimensions.getScaledSize(15),
@@ -180,15 +180,15 @@ class _CountrySelectionState extends State<CountrySelection> {
                         );
                       }).toList();
                     },
-                    items: widget.countryObject.countryPhoneList
+                    items: widget.countryObject!.countryPhoneList
                         .map((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(
-                          '${value.contains("+") ? value : "+$value"}',
+                          value.contains("+") ? value : "+$value",
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
-                          style: widget.isComingFromProfile
+                          style: widget.isComingFromProfile!
                               ? TextStyle(
                                   fontSize: Dimensions.getScaledSize(15),
                                 )
@@ -196,17 +196,17 @@ class _CountrySelectionState extends State<CountrySelection> {
                         ),
                       );
                     }).toList(),
-                    onChanged: (String val) {
+                    onChanged: (String? val) {
                       setState(() {
-                        this.defaultPhoneValue = val;
-                        var flagValue = widget.countryObject.jsonPhoneMap.keys
+                        this.defaultPhoneValue = val!;
+                        var flagValue = widget.countryObject!.jsonPhoneMap.keys
                             .firstWhere(
                                 (k) =>
-                                    widget.countryObject.jsonPhoneMap[k] == val,
+                                    widget.countryObject!.jsonPhoneMap[k] == val,
                                 orElse: () => "DE");
                         defaultFlagValue = flagValue;
                         _model.areaCode = defaultPhoneValue;
-                        widget.onChange.call(_model);
+                        widget.onChange!.call(_model);
                       });
                     },
                   ),
@@ -229,13 +229,13 @@ class _CountrySelectionState extends State<CountrySelection> {
                         textInputType: TextInputType.number,
                         validationErrorMsg: AppLocalizations.of(context)
                             .commonWords_phoneInvalid,
-                        validation: _model.phone == null || _model.phone.isEmpty
+                        validation: _model.phone == null || _model.phone!.isEmpty
                             ? AuthRegex.emptyValue
                             : null,
                         autocorrect: false,
                         onTextChanged: (String text) {
                           _model.phone = text;
-                          widget.onChange.call(_model);
+                          widget.onChange!.call(_model);
                         }),
                   ],
                   onValidated: (bool isValid) {},

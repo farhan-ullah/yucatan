@@ -27,7 +27,7 @@ class LoginBloc {
       _loginResponseController.sink.add(response);
     } else {
       response.status = true;
-      response.message = null;
+      response.message.isEmpty;
       _loginResponseController.sink.add(response);
     }
   }
@@ -40,6 +40,6 @@ class LoginBloc {
 }
 
 class LoginResponse {
-  bool status;
-  String message;
+  late bool status;
+  late String message;
 }

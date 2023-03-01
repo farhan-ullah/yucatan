@@ -14,10 +14,11 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 
 class PaymentService extends BaseService {
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   // this class is static only
   PaymentService._() : super(BaseService.defaultURL + '/payments');
 
-  static Future<PaymentResponse> payWithCreditCard(
+  static Future<PaymentResponse?> payWithCreditCard(
       CreditCardModel creditCard, OrderModel order) async {
     CreditCardPaymentRequest creditCardPaymentRequest =
         CreditCardPaymentRequest(creditCard: creditCard, order: order);
@@ -29,14 +30,14 @@ class PaymentService extends BaseService {
 
     var httpData =
         (await new PaymentService._().post('/paywithcreditcard', requestBody))
-            ?.body;
+            .body;
     if (httpData != null) {
       return new PaymentResponse.fromJson(json.decode(httpData));
     } else
       return null;
   }
 
-  static Future<PaypalPaymentPurchaseResponse> payWithPaypal(
+  static Future<PaypalPaymentPurchaseResponse?> payWithPaypal(
       OrderModel order) async {
     //Log firebase event
     AnalyticsService.logRequestPurchase(order, 'paypal');
@@ -46,25 +47,25 @@ class PaymentService extends BaseService {
 
     var httpData = (await new PaymentService._()
             .post('/create-paypal-payment', requestBody))
-        ?.body;
+        .body;
     if (httpData != null) {
       return new PaypalPaymentPurchaseResponse.fromJson(json.decode(httpData));
     } else
       return null;
   }
 
-  static Future<String> payWithApplePay(String id) async {
+  static Future<String?> payWithApplePay(String id) async {
     //TODO implement Apple Pay
     return null;
   }
 
-  static Future<String> payWithGooglePay(String id) async {
+  static Future<String?> payWithGooglePay(String id) async {
     //TODO implement Google Pay
     return null;
   }
 
   //Refund entire booking
-  static Future<BookingSingleResponseEntity> refundBooking(
+  static Future<BookingSingleResponseEntity?> refundBooking(
       String bookingId) async {
     var requestBody = jsonEncode({
       'booking': bookingId,
@@ -72,7 +73,7 @@ class PaymentService extends BaseService {
 
     var httpData =
         (await new PaymentService._().post('/refund/booking', requestBody))
-            ?.body;
+            .body;
     if (httpData != null) {
       var result;
       try {
@@ -91,7 +92,7 @@ class PaymentService extends BaseService {
       if (result.status == 200) {
         //Log firebase event
         if (kReleaseMode) {
-          FirebaseAnalytics().logEvent(
+          analytics.logEvent(
             name: 'refund_booking',
             parameters: <String, dynamic>{
               'booking_id': result.data.id,
@@ -109,7 +110,7 @@ class PaymentService extends BaseService {
   }
 
   //Refund single ticket
-  static Future<BookingSingleResponseEntity> refundSingleTicket(
+  static Future<BookingSingleResponseEntity?> refundSingleTicket(
       String bookingId, String ticketId) async {
     var requestBody = jsonEncode({
       'booking': bookingId,
@@ -137,7 +138,7 @@ class PaymentService extends BaseService {
       if (result.status == 200) {
         //Log firebase event
         if (kReleaseMode) {
-          FirebaseAnalytics().logEvent(
+          analytics.logEvent(
             name: 'refund_ticket',
             parameters: <String, dynamic>{
               'booking_id': result.data.id,
@@ -159,7 +160,7 @@ class PaymentService extends BaseService {
   }
 
   //Refund entire booking as vendor
-  static Future<BookingSingleResponseEntity> refundBookingAsVendor(
+  static Future<BookingSingleResponseEntity?> refundBookingAsVendor(
       String bookingId) async {
     var requestBody = jsonEncode({
       'booking': bookingId,
@@ -186,7 +187,7 @@ class PaymentService extends BaseService {
       if (result.status == 200) {
         //Log firebase event
         if (kReleaseMode) {
-          FirebaseAnalytics().logEvent(
+          analytics.logEvent(
             name: 'refund_booking_vendor',
             parameters: <String, dynamic>{
               'booking_id': result.data.id,

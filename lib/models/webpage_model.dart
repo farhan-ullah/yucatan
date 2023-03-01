@@ -1,5 +1,5 @@
 class WebPageModel {
-  String url;
+  String? url;
 
   WebPageModel({this.url});
 }

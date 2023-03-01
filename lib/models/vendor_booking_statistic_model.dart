@@ -1,11 +1,10 @@
-
 class VendorBookingStatisticModel {
-  DateTime startDate;
-  DateTime endDate;
-  double revenue;
-  int numberOfBookings;
-  List<ActivityBookingDataItem> activityBookingDataList;
-  List<DailyRevenueItem> dailyRevenueItems;
+  DateTime? startDate;
+  DateTime? endDate;
+  double? revenue;
+  int? numberOfBookings;
+  List<ActivityBookingDataItem>? activityBookingDataList;
+  List<DailyRevenueItem>? dailyRevenueItems;
   VendorBookingStatisticModel(
       {this.revenue,
       this.activityBookingDataList,
@@ -34,8 +33,8 @@ class VendorBookingStatisticModel {
 }
 
 class ActivityBookingDataItem {
-  String activityTitle;
-  List<ProductDataItem> productDataList;
+  String? activityTitle;
+  List<ProductDataItem>? productDataList;
 
   ActivityBookingDataItem({this.activityTitle, this.productDataList});
 
@@ -51,9 +50,9 @@ class ActivityBookingDataItem {
 }
 
 class ProductDataItem {
-  int bookingAmount;
-  String productTitle;
-  double revenue;
+  int? bookingAmount;
+  String? productTitle;
+  double? revenue;
   ProductDataItem({this.bookingAmount, this.productTitle, this.revenue});
 
   factory ProductDataItem.fromJson(dynamic json) {
@@ -65,9 +64,9 @@ class ProductDataItem {
 }
 
 class DailyRevenueItem {
-  DateTime date;
-  double revenue;
-  int bookingAmount;
+  DateTime? date;
+  double? revenue;
+  int? bookingAmount;
 
   DailyRevenueItem({
     this.date,

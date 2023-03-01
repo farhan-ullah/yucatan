@@ -79,7 +79,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
 
   void initState() {
     eventBus.on<OnOpenSearch>().listen((event) {
-      if (mounted)
+      if (mounted) {
         setState(() {
           _selectedIndex = 0;
           widget.updateFragment!(
@@ -90,9 +90,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
               ),
               user!);
         });
+      }
     });
     animationController =
-        AnimationController(duration: Duration(milliseconds: 400), vsync: this);
+        AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
 
     _selectedIndex = widget.index!;
 
@@ -140,12 +141,12 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
                   BoxShadow(
                     color: CustomTheme.grey,
                     blurRadius: Dimensions.getScaledSize(4.0),
-                    offset: Offset(0, -2),
+                    offset: const Offset(0, -2),
                   ),
                 ],
               )
             : BoxDecoration(
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   begin: Alignment.bottomRight,
                   stops: [0.1, 0.9],
                   colors: [
@@ -157,7 +158,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
                   BoxShadow(
                     color: CustomTheme.grey,
                     blurRadius: Dimensions.getScaledSize(4.0),
-                    offset: Offset(0, -2),
+                    offset: const Offset(0, -2),
                   ),
                 ],
               ),
@@ -332,7 +333,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   }
 
   Widget showBottomBarViewRefactored() {
-    if (widgetOptions == widgetOptionsVendor)
+    if (widgetOptions == widgetOptionsVendor) {
       return Row(
         children: [
           _getIconMenuButton(
@@ -364,6 +365,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
           ),
         ],
       );
+    }
     return Row(
       children: [
         _getIconMenuButton(
@@ -610,7 +612,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         top: 5,
                         bottom: 5,
                       ),

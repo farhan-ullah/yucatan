@@ -6,8 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterDetails extends StatefulWidget {
-  final ValueChanged<RegisterDetailModel> onChange;
-  final RegisterValidationBloc registerValidationBloc;
+  final ValueChanged<RegisterDetailModel>? onChange;
+  final RegisterValidationBloc? registerValidationBloc;
   const RegisterDetails({Key? key, this.onChange, this.registerValidationBloc})
       : super(key: key);
 
@@ -27,17 +27,17 @@ class _RegisterDetailsState extends State<RegisterDetails> {
           validationFunc: (data) {
             if (data == null || data.length == 0 || data.length >= 5) {
               _model.isValid = true;
-              widget.onChange.call(_model);
+              widget.onChange!.call(_model);
               return null;
             }
 
             _model.isValid = false;
-            widget.onChange.call(_model);
+            widget.onChange!.call(_model);
             return AppLocalizations.of(context)!.commonWords_usernameInvalid;
           },
           onTextChanged: (String text) {
             _model.username = text;
-            widget.onChange.call(_model);
+            widget.onChange!.call(_model);
 
             if (_model.username == null ||
                 _model.username.length == 0 ||

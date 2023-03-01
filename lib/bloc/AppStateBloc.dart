@@ -18,11 +18,11 @@ class AppStateBloc {
     // When notifications data is null return None, needs to be checked
 
     if (model.data == null) return NotificationActions.NONE;
-    var notifcationData = NotificationData.fromJson(jsonDecode(model.data));
+    var notifcationData = NotificationData.fromJson(jsonDecode(model.data!));
     return NotificationActions.values.firstWhere(
         (element) =>
             element.toString().split('.')[1].toLowerCase() ==
-            notifcationData.action.toLowerCase(),
+            notifcationData.action!.toLowerCase(),
         orElse: () => NotificationActions.NONE);
   }
 
@@ -38,8 +38,8 @@ class AppStateBloc {
         await UserNotificationService.getSavedNotificationReadFlagData();
     savedNotifications.forEach((key, value) {
       SavedNotificationData savedNotificationData = value;
-      if (savedNotificationData.userId.trim() == user.sId.trim() &&
-          !savedNotificationData.read) {
+      if (savedNotificationData.userId!.trim() == user.sId.trim() &&
+          !savedNotificationData.read!) {
         currentUserCount += 1;
         currentVendorCount += 1;
       }
@@ -49,10 +49,10 @@ class AppStateBloc {
         notificationsRespone.notifications != null) {
       for (int i = 0; i < notificationsRespone.notifications.length; i += 1) {
         var notification = notificationsRespone.notifications.elementAt(i);
-        for (int j = 0; j < notification.target.userIds.length; j += 1) {
+        for (int j = 0; j < notification.target!.userIds!.length; j += 1) {
           if (user.sId.trim() ==
-                  notification.target.userIds.elementAt(j).userId.trim() &&
-              !notification.target.userIds.elementAt(j).read) {
+                  notification.target!.userIds!.elementAt(j).userId!.trim() &&
+              !notification.target!.userIds!.elementAt(j).read!) {
             try {
               if (notification.type == NotificationType.SYSTEM) {
                 currentVendorCount += 1;

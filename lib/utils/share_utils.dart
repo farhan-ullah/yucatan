@@ -14,21 +14,21 @@ class ShareUtils{
     final DynamicLinkParameters parameters = DynamicLinkParameters(
       uriPrefix: 'https://myappventure.page.link',
       link: Uri.parse(link),
-      androidParameters: AndroidParameters(
+      androidParameters: const AndroidParameters(
         packageName: 'de.myappventure.appventure',
         minimumVersion: 246,
       ),
-      iosParameters: IosParameters(
+      iosParameters: const IOSParameters(
         bundleId: 'de.myappventure.appventure',
         minimumVersion: '0.4.3',
         appStoreId: '1538207336',
       ),
-      googleAnalyticsParameters: GoogleAnalyticsParameters(
+      googleAnalyticsParameters: const GoogleAnalyticsParameters(
         campaign: 'share-with-friends',
         medium: 'social',
         source: 'mobile-app',
       ),
-      socialMetaTagParameters:  SocialMetaTagParameters(
+      socialMetaTagParameters:  const SocialMetaTagParameters(
         title: 'Appventure',
         description: 'Hi, sieh Dir diese Aktivität in Appventure an!',
       ),
@@ -36,7 +36,8 @@ class ShareUtils{
 
     //final Uri dynamicUrl = await parameters.buildUrl();
 
-    final ShortDynamicLink shortDynamicLink = await parameters.buildShortLink();
+    final ShortDynamicLink shortDynamicLink = await FirebaseDynamicLinks.instance.buildShortLink(parameters);
+    // parameters.buildShortLink();
     final Uri shortUrl = shortDynamicLink.shortUrl;
 
     shareText(shortUrl.toString());

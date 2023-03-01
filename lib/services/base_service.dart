@@ -37,10 +37,10 @@ abstract class BaseService {
 
   final String baseURL;
   final Map<String, String> headers = {"Content-Type": "application/json"};
-  final Codec encoding = Utf8Codec();
+  final Codec? encoding = Utf8Codec();
 
-  Uri _uri(String endpoint) =>
-      Uri.tryParse(baseURL + StringUtils.trimLeading('/', endpoint));
+  Uri? _uri(String endpoint) =>
+      Uri.tryParse(baseURL + StringUtils.trimLeading('/', endpoint)!);
 
   @protected
   BaseService(String baseURL)
@@ -48,27 +48,27 @@ abstract class BaseService {
 
   /// performs a HTTP GET request
   /// [endpoint] Endpoint URL on the server (trailing / should be omitted)
-  Future<http.Response> get(String endpoint) async {
+  Future<http.Response?> get(String endpoint) async {
     final HttpMetric metric = FirebasePerformance.instance
         .newHttpMetric(_uri(endpoint).toString(), HttpMethod.Get);
     metric.start();
     try {
       await _appendSpecificHeaders();
-      var response = await http.get(_uri(endpoint), headers: headers);
+      var response = await http.get(_uri(endpoint)!, headers: headers);
       if (response.statusCode == 401) {
         await UserProvider.refreshToken();
-        response = await http.get(_uri(endpoint), headers: headers);
+        response = await http.get(_uri(endpoint)!, headers: headers);
       }
       metric
         ..responsePayloadSize = response.contentLength
         ..responseContentType = response.headers['Content-Type']
-        ..requestPayloadSize = response.request.contentLength
+        ..requestPayloadSize = response.request!.contentLength
         ..httpResponseCode = response.statusCode;
 
       return response;
     } catch (e) {
       print(e);
-      return null;
+      // return null;
     } finally {
       await metric.stop();
     }
@@ -84,17 +84,17 @@ abstract class BaseService {
     metric.start();
     try {
       await _appendSpecificHeaders();
-      var response = await http.post(_uri(endpoint),
+      var response = await http.post(_uri(endpoint)!,
           headers: headers, body: body, encoding: encoding);
       if (response.statusCode == 401) {
         await UserProvider.refreshToken();
-        response = await http.post(_uri(endpoint),
+        response = await http.post(_uri(endpoint)!,
             headers: headers, body: body, encoding: encoding);
       }
       metric
         ..responsePayloadSize = response.contentLength
         ..responseContentType = response.headers['Content-Type']
-        ..requestPayloadSize = response.request.contentLength
+        ..requestPayloadSize = response.request!.contentLength
         ..httpResponseCode = response.statusCode;
       return response;
     } catch (e) {
@@ -109,23 +109,23 @@ abstract class BaseService {
   /// [endpoint] Endpoint URL on the server (trailing / should be omitted)
   /// [body] is a map of all data fields submitted to the server
   @protected
-  Future<http.Response> put(String endpoint, dynamic body) async {
+  Future<http.Response?> put(String endpoint, dynamic body) async {
     final HttpMetric metric = FirebasePerformance.instance
         .newHttpMetric(_uri(endpoint).toString(), HttpMethod.Put);
     metric.start();
     try {
       await _appendSpecificHeaders();
-      var response = await http.put(_uri(endpoint),
+      var response = await http.put(_uri(endpoint)!,
           headers: headers, body: body, encoding: encoding);
       if (response.statusCode == 401) {
         await UserProvider.refreshToken();
-        response = await http.put(_uri(endpoint),
+        response = await http.put(_uri(endpoint)!,
             headers: headers, body: body, encoding: encoding);
       }
       metric
         ..responsePayloadSize = response.contentLength
         ..responseContentType = response.headers['Content-Type']
-        ..requestPayloadSize = response.request.contentLength
+        ..requestPayloadSize = response.request!.contentLength
         ..httpResponseCode = response.statusCode;
       return response;
     } catch (e) {
@@ -146,17 +146,17 @@ abstract class BaseService {
     metric.start();
     try {
       await _appendSpecificHeaders();
-      var response = await http.patch(_uri(endpoint),
+      var response = await http.patch(_uri(endpoint)!,
           headers: headers, body: body, encoding: encoding);
       if (response.statusCode == 401) {
         await UserProvider.refreshToken();
-        response = await http.patch(_uri(endpoint),
+        response = await http.patch(_uri(endpoint)!,
             headers: headers, body: body, encoding: encoding);
       }
       metric
         ..responsePayloadSize = response.contentLength
         ..responseContentType = response.headers['Content-Type']
-        ..requestPayloadSize = response.request.contentLength
+        ..requestPayloadSize = response.request!.contentLength
         ..httpResponseCode = response.statusCode;
       return response;
     } catch (e) {

@@ -14,8 +14,8 @@ class ForgotPassword extends BaseService {
       'email': email,
     });
     var response = await new ForgotPassword._().post('forgotPassword', body);
-    if (response?.body != null) {
-      var result = ForgotPasswordModel.fromJson(json.decode(response?.body));
+    if (response.body != null) {
+      var result = ForgotPasswordModel.fromJson(json.decode(response.body));
       result.statusCode = response.statusCode;
       return result;
     } else

@@ -107,7 +107,7 @@ class BookingListRequestDeniedButton extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.31,
       child: OutlinedButton(
-        onPressed: onPressed,
+        onPressed: onPressed(),
         child: Text(
           buttonText,
           style: TextStyle(

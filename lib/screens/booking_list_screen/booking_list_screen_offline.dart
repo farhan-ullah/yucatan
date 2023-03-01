@@ -10,6 +10,7 @@ import 'package:yucatan/services/booking_service.dart';
 import 'package:yucatan/services/database/database_service.dart';
 import 'package:yucatan/services/notification_service/navigatable_by_notification.dart';
 import 'package:yucatan/services/notification_service/notification_actions.dart';
+import 'package:yucatan/services/response/api_error.dart';
 import 'package:yucatan/services/response/booking_detailed_multi_response.dart';
 import 'package:yucatan/services/response/user_login_response.dart';
 import 'package:yucatan/services/status_service.dart';
@@ -27,10 +28,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class BookingListScreenOffline extends StatefulWidget {
   static const String route = '/bookinglist';
 
-  final Function refresh;
-  final NotificationActions notificationAction;
+  final Function? refresh;
+  final NotificationActions? notificationAction;
   final dynamic notificationData;
-  final bool isBookingRequestType;
+  final bool? isBookingRequestType;
 
   BookingListScreenOffline({
     this.refresh,
@@ -46,13 +47,13 @@ class BookingListScreenOffline extends StatefulWidget {
 
 class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
     with NavigatableByNotifcation, TickerProviderStateMixin {
-  Future<UserLoginModel> user;
-  Future<BookingDetailedMultiResponseEntity> bookings;
+  Future<UserLoginModel>? user;
+  Future<BookingDetailedMultiResponseEntity>? bookings;
   List<BookingDetailedModel> used = [];
   List<BookingDetailedModel> usable = [];
   List<BookingDetailedModel> requested = [];
-  Future<bool> onlineStatus;
-  TabController _tabController;
+  Future<bool>? onlineStatus;
+  TabController? _tabController;
   bool offlineBookings = true;
 
   void removeDeniedBooking(bookingId) async {
@@ -66,13 +67,14 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
       requested.removeWhere((element) => element.id == bookingId);
       newBookings.data = [...used, ...usable, ...requested];
       newBookings.status = 200;
-      newBookings.errors = null;
+      // newBookings.errors = ApiError;
       setState(() {
         bookings = Future.value(newBookings);
       });
-    } else
+    } else {
       Fluttertoast.showToast(
           msg: AppLocalizations.of(context)!.commonWords_error);
+    }
   }
 
   void refresh() {
@@ -99,11 +101,11 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
     onlineStatus = StatusService.isConnected();
 
     if (widget.notificationAction != null && widget.notificationData != null) {
-      handleNavigation(widget.notificationAction, widget.notificationData);
+      handleNavigation(widget.notificationAction!, widget.notificationData);
     } else {
       _tabController = TabController(
           length: 3,
-          initialIndex: widget.isBookingRequestType ? 2 : 0,
+          initialIndex: widget.isBookingRequestType! ? 2 : 0,
           vsync: this);
     }
 
@@ -115,7 +117,7 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
       NotificationActions notificationAction, dynamic notificationData) async {
     final sharedPreferences = await SharedPreferences.getInstance();
 
-    bool handleNotifications = sharedPreferences.getBool('handleNotification');
+    bool handleNotifications = sharedPreferences.getBool('handleNotification')!;
 
     if (handleNotifications == false) {
       _tabController = TabController(length: 3, initialIndex: 0, vsync: this);
@@ -138,15 +140,16 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
 
   @override
   Widget build(BuildContext context) {
-    double height = Scaffold.of(context).appBarMaxHeight;
+    double height = Scaffold.of(context).appBarMaxHeight!;
     return FutureBuilder<bool>(
       builder: (context, snapshotConnected) {
         if (snapshotConnected.hasData) {
           // if there is no connectionn, get from SharedPrefs
-          if (snapshotConnected.data)
+          if (snapshotConnected.data!) {
             user = UserProvider.getUser();
-          else
+          } else {
             user = UserProvider.getOfflineUser();
+          }
           return Column(
             children: [
               Container(
@@ -190,36 +193,38 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
                   future: user,
                   builder: (context, userSnapshot) {
                     if (userSnapshot.hasData) {
-                      if (offlineBookings || !snapshotConnected.data) {
+                      if (offlineBookings || !snapshotConnected.data!) {
                         offlineBookings = true;
                         bookings = HiveService.getBookingResponse();
                       }
 
-                      if (snapshotConnected.data && offlineBookings) {
+                      if (snapshotConnected.data! && offlineBookings) {
                         BookingService.getAllForUserDetailed(
-                                userSnapshot.data.sId)
+                                userSnapshot.data!.sId)
                             .then((value) {
                           if (value != null &&
                               value.status == 200 &&
                               value.data != null) {
-                            if (mounted)
+                            if (mounted) {
                               setState(() {
                                 offlineBookings = false;
                                 bookings = Future.value(value);
                               });
+                            }
                           }
                         });
                       }
                       return FutureBuilder<BookingDetailedMultiResponseEntity>(
                         future: bookings,
                         builder: (context, bookingsSnapshot) {
-                          if (snapshotConnected.data &&
+                          if (snapshotConnected.data! &&
                               bookingsSnapshot.hasData &&
-                              bookingsSnapshot.data.data != null)
+                              bookingsSnapshot.data!.data != null) {
                             HiveService.storeBooking(
-                                bookingsSnapshot.data.data);
+                                bookingsSnapshot.data!.data);
+                          }
                           if (bookingsSnapshot.hasData &&
-                              bookingsSnapshot.data.data == null)
+                              bookingsSnapshot.data!.data == null) {
                             return Padding(
                               padding: EdgeInsets.only(
                                   top: Dimensions.getScaledSize(10),
@@ -229,12 +234,13 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
                               child: Text(AppLocalizations.of(context)
                                   .commonWords_error),
                             );
+                          }
 
                           if (bookingsSnapshot.hasData &&
-                              bookingsSnapshot.data.data != null) {
-                            bookingsSnapshot.data.data?.sort((a, b) =>
-                                a.bookingDate.compareTo(b.bookingDate));
-                            _separateBookings(bookingsSnapshot.data.data);
+                              bookingsSnapshot.data!.data != null) {
+                            bookingsSnapshot.data!.data.sort((a, b) =>
+                                a.bookingDate!.compareTo(b.bookingDate!));
+                            _separateBookings(bookingsSnapshot.data!.data);
 
                             return Container(
                               // height: MediaQuery.of(context).size.height -

@@ -27,19 +27,19 @@ class BookingDetailedModel {
   @HiveField(7)
   String? paypalPaymentId;
   @HiveField(8)
-  double totalPrice;
+  double? totalPrice;
   @HiveField(9)
-  DateTime bookingDate;
+  DateTime? bookingDate;
   @HiveField(10)
   String? reference;
   @HiveField(11)
-  List<BookingTicket> tickets;
+  List<BookingTicket>? tickets;
   @HiveField(12)
-  List<BookingProduct> products;
+  List<BookingProduct>? products;
   @HiveField(13)
   String? requestNote;
   @HiveField(14)
-  InvoiceAddressModel invoiceAddress;
+  InvoiceAddressModel? invoiceAddress;
 
   BookingDetailedModel({
     this.id,
@@ -95,21 +95,21 @@ class BookingDetailedModel {
 
   BookingModel toBookingModel() {
     BookingModel data = BookingModel(
-        activity: activity.sId,
-        currency: currency,
-        bookingDate: bookingDate,
-        paymentProvider: paymentProvider,
-        paypalPaymentId: paypalPaymentId,
-        id: id,
-        products: products,
-        reference: reference,
-        vendor: vendor,
-        requestNote: requestNote,
-        status: status,
-        tickets: tickets,
-        totalPrice: totalPrice,
-        user: user.sId,
-        invoiceAddress: invoiceAddress);
+        activity: activity!.sId!,
+        currency: currency!,
+        bookingDate: bookingDate!,
+        paymentProvider: paymentProvider!,
+        paypalPaymentId: paypalPaymentId!,
+        id: id!,
+        products: products!,
+        reference: reference!,
+        vendor: vendor!,
+        requestNote: requestNote!,
+        status: status!,
+        tickets: tickets!,
+        totalPrice: totalPrice!,
+        user: user!.sId,
+        invoiceAddress: invoiceAddress!);
 
     return data;
   }
@@ -139,7 +139,7 @@ ActivityModel activityModelFromJsonCustom(Map<String, dynamic> json) {
   if (json['categories'] != null) {
     data.categories = <ActivityCategory>[];
     (json['categories'] as List).forEach((v) {
-      data.categories.add(new ActivityCategory().fromJson(v));
+      data.categories!.add(new ActivityCategory().fromJson(v));
     });
   }
   if (json['_id'] != null) {
@@ -171,7 +171,7 @@ ActivityModel activityModelFromJsonCustom(Map<String, dynamic> json) {
   }
   if (json['reviewAverageRating'] != null) {
     data.reviewAverageRating =
-        double.tryParse(json['reviewAverageRating']?.toString());
+        double.tryParse(json['reviewAverageRating']!.toString());
   }
   if (json['priceFrom'] != null) {
     data.priceFrom = double.tryParse(json['priceFrom'].toString());

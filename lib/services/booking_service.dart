@@ -14,88 +14,96 @@ class BookingService extends BaseService {
   BookingService._() : super(BaseService.defaultURL + '/bookings');
 
   /// Query all bookings
-  static Future<BookingMultiResponseEntity> getAll() async {
-    var httpData = (await new BookingService._().get(''))?.body;
+  static Future<BookingMultiResponseEntity?> getAll() async {
+    var httpData = (await BookingService._().get(''))!.body;
     if (httpData != null) {
-      return new BookingMultiResponseEntity().fromJson(json.decode(httpData));
-    } else
+      return BookingMultiResponseEntity().fromJson(json.decode(httpData));
+    } else {
       return null;
+    }
   }
 
   /// Query all bookings for the logged in user
-  static Future<BookingMultiResponseEntity> getAllForUser(String userId) async {
-    var httpData = (await new BookingService._().get('/user/' + userId))?.body;
+  static Future<BookingMultiResponseEntity?> getAllForUser(String userId) async {
+    var httpData = (await BookingService._().get('/user/' + userId))!.body;
     if (httpData != null) {
-      return new BookingMultiResponseEntity().fromJson(json.decode(httpData));
-    } else
+      return BookingMultiResponseEntity().fromJson(json.decode(httpData));
+    } else {
       return null;
+    }
   }
 
   static Future<bool> deleteBooking(String bookingId) async {
-    var httpData = (await new BookingService._().delete('/$bookingId'))?.body;
+    var httpData = (await BookingService._().delete('/$bookingId')).body;
 
-    if (httpData != null)
+    if (httpData != null) {
       return json.decode(httpData)['status'] == 200;
-    else
+    } else {
       return false;
+    }
   }
 
-  static Future<BookingDetailedMultiResponseEntity> getAllForUserDetailed(
+  static Future<BookingDetailedMultiResponseEntity?> getAllForUserDetailed(
       String userId) async {
     var httpData =
-        (await new BookingService._().get('/user/$userId/detailed'))?.body;
+        (await BookingService._().get('/user/$userId/detailed'))!.body;
     if (httpData != null) {
       return BookingDetailedMultiResponseEntity.fromJson(json.decode(httpData));
-    } else
+    } else {
       return null;
+    }
   }
 
-  static Future<BookingDetailedSingleResponseEntity> getBoookingDetailed(
+  static Future<BookingDetailedSingleResponseEntity?> getBoookingDetailed(
       String id) async {
-    var httpData = (await new BookingService._().get('/$id/detailed'))?.body;
+    var httpData = (await BookingService._().get('/$id/detailed'))!.body;
     if (httpData != null) {
       return BookingDetailedSingleResponseEntity.fromJson(
           json.decode(httpData));
-    } else
+    } else {
       return null;
+    }
   }
 
   /// Queries an Booking by the given [id]
   /// [id] internal (object-)ID of the booking (BookingModel.sId)
-  static Future<BookingSingleResponseEntity> getBooking(String id) async {
-    var httpData = (await new BookingService._().get(id))?.body;
+  static Future<BookingSingleResponseEntity?> getBooking(String id) async {
+    var httpData = (await BookingService._().get(id))!.body;
     if (httpData != null) {
-      return new BookingSingleResponseEntity().fromJson(json.decode(httpData));
-    } else
+      return BookingSingleResponseEntity().fromJson(json.decode(httpData));
+    } else {
       return null;
+    }
   }
 
   /// Queries an Booking by the given qr code reference
   /// [id] internal (object-)ID of the booking (BookingModel.sId)
-  static Future<BookingSingleResponseEntity> getBookingByQrCodeReference(
+  static Future<BookingSingleResponseEntity?> getBookingByQrCodeReference(
       String qrCodeReference) async {
     var httpData =
-        (await new BookingService._().get('/qr/' + qrCodeReference))?.body;
+        (await BookingService._().get('/qr/' + qrCodeReference))!.body;
     if (httpData != null) {
-      return new BookingSingleResponseEntity().fromJson(json.decode(httpData));
-    } else
+      return BookingSingleResponseEntity().fromJson(json.decode(httpData));
+    } else {
       return null;
+    }
   }
 
   // Set Ticket to used
-  static Future<BookingSingleResponseEntity> setTicketToUsedForQr(
+  static Future<BookingSingleResponseEntity?> setTicketToUsedForQr(
       String qrCodeReference) async {
     var httpData =
-        (await new BookingService._().get('/useticket/' + qrCodeReference))
-            ?.body;
+        (await BookingService._().get('/useticket/' + qrCodeReference))
+            !.body;
     if (httpData != null) {
-      return new BookingSingleResponseEntity().fromJson(json.decode(httpData));
-    } else
+      return BookingSingleResponseEntity().fromJson(json.decode(httpData));
+    } else {
       return null;
+    }
   }
 
   // Get demand for date range
-  static Future<ProductDemandResponse> getDemandForDateRange(
+  static Future<ProductDemandResponse?> getDemandForDateRange(
       DateParameters dateParameters) async {
     Map<String, String> queryParams = Map();
 
@@ -107,17 +115,17 @@ class BookingService extends BaseService {
     }
 
     String query = Uri(queryParameters: queryParams).query;
-    var httpData = (await new BookingService._().get('/demand?$query'))?.body;
+    var httpData = (await BookingService._().get('/demand?$query'))!.body;
     if (httpData != null) {
-      return new ProductDemandResponse.fromJson(json.decode(httpData));
+      return ProductDemandResponse.fromJson(json.decode(httpData));
     } else {
       return null;
     }
   }
 
   // Get transations for date range
-  static Future<TransactionMultiResponseEntity> getTransactionsForDateRange(
-      {DateTime dateFrom, DateTime dateTo}) async {
+  static Future<TransactionMultiResponseEntity?> getTransactionsForDateRange(
+      {DateTime? dateFrom, DateTime? dateTo}) async {
     Map<String, String> queryParams = Map();
 
     if (dateFrom != null) {
@@ -129,36 +137,40 @@ class BookingService extends BaseService {
 
     String urlQuery = Uri(queryParameters: queryParams).query;
     var httpData =
-        (await new BookingService._().get('/transactions' + '?$urlQuery'))
-            ?.body;
+        (await BookingService._().get('/transactions' + '?$urlQuery'))!
+            .body;
     if (httpData != null) {
       return TransactionMultiResponseEntity.fromJson(json.decode(httpData));
-    } else
+    } else {
       return null;
+    }
   }
 
-  static Future<BookingSingleResponseEntity> acceptRequest(
+  static Future<BookingSingleResponseEntity?> acceptRequest(
       String id, String message) async {
     dynamic body;
-    if (message != null && message != "")
+    if (message != "") {
       body = json.encode({"requestNote": message});
+    }
     var httpData =
-        (await new BookingService._().post('/$id/accept-request', body))?.body;
+        (await BookingService._().post('/$id/accept-request', body)).body;
     if (httpData != null) {
-      return new BookingSingleResponseEntity().fromJson(json.decode(httpData));
-    } else
+      return BookingSingleResponseEntity().fromJson(json.decode(httpData));
+    } else {
       return null;
+    }
   }
 
-  static Future<BookingSingleResponseEntity> denyRequest(
+  static Future<BookingSingleResponseEntity?> denyRequest(
       String id, String message) async {
     dynamic body = json.encode({"requestNote": message});
     var httpResponse =
-        (await new BookingService._().post('/$id/deny-request', body));
-    var httpData = httpResponse?.body;
+        (await BookingService._().post('/$id/deny-request', body));
+    var httpData = httpResponse.body;
     if (httpData != null) {
-      return new BookingSingleResponseEntity().fromJson(json.decode(httpData));
-    } else
+      return BookingSingleResponseEntity().fromJson(json.decode(httpData));
+    } else {
       return null;
+    }
   }
 }

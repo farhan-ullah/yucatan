@@ -1,5 +1,6 @@
 import 'dart:io';
-
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:yucatan/components/no_network_screen.dart';
 import 'package:yucatan/screens/activity_list_screen/components/activity_list_category_view.dart';
 import 'package:yucatan/screens/activity_list_screen/components/activity_list_slider_view.dart';
@@ -17,16 +18,15 @@ import 'package:yucatan/utils/datefulWidget/DateStatefulWidget.dart';
 import 'package:yucatan/utils/datefulWidget/GlobalDate.dart';
 import 'package:yucatan/utils/network_utils.dart';
 import 'package:yucatan/utils/widget_dimensions.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 // ignore: must_be_immutable
 class ActivityListScreen extends DateStatefulWidget {
   static const route = '/activities';
 
-  final AnimationController animationController;
+  final AnimationController? animationController;
   final showSearch;
-  String activityId;
+  String? activityId;
 
   ActivityListScreen(
       {Key? key,
@@ -41,14 +41,14 @@ class ActivityListScreen extends DateStatefulWidget {
 
 class _ActivityListScreenState extends DateState<ActivityListScreen>
     with TickerProviderStateMixin {
-  ScrollController controller;
-  AnimationController _animationController;
+  ScrollController? controller;
+  AnimationController? _animationController;
   var sliderImageHeight = 0.0;
 
   // SelectedDate _selectedDate;
 
-  Future<UserLoginModel> user;
-  Future<List<String>> favoriteActivities;
+  Future<UserLoginModel>? user;
+  Future<List<String>>? favoriteActivities;
 
   bool isNetworkAvailable = false;
   bool _searchViewVisible = false;
@@ -60,7 +60,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
       //print("----------ActivityListScreen-------activityId=${widget.activityId}");
       if (widget.activityId != null && !isActivityApiCalling) {
         isActivityApiCalling = false;
-        ActivityService.getActivity(widget.activityId).then((value) {
+        ActivityService.getActivity(widget.activityId!).then((value) {
           isActivityApiCalling = true;
           if (value != null) {
             ActivitySingleResponse activitySingleResponse = value;
@@ -73,7 +73,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                 MaterialPageRoute(
                   builder: (context) => HotelDetailes(
                     //hotelData: activitySingleResponse.data,
-                    activityId: activitySingleResponse.data.sId,
+                    activityId: activitySingleResponse.data.sId!,
                     isFavorite: false,
                     onFavoriteChangedCallback: (activityId) {},
                   ),
@@ -87,7 +87,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
       print(e);
     }
 
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       if (mounted && widget.showSearch)
         setState(() {
           _searchViewVisible = widget.showSearch;
@@ -102,24 +102,24 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
       }
     });
     _animationController =
-        AnimationController(duration: Duration(milliseconds: 0), vsync: this);
-    widget.animationController.forward();
+        AnimationController(duration: const Duration(milliseconds: 0), vsync: this);
+    widget.animationController!.forward();
     controller = ScrollController(initialScrollOffset: 0.0);
 
-    controller.addListener(() {
+    controller!.addListener(() {
       if (context != null) {
-        if (controller.offset < 0) {
+        if (controller!.offset < 0) {
           // we static set the just below half scrolling values
-          _animationController.animateTo(0.0);
-        } else if (controller.offset > 0.0 &&
-            controller.offset < sliderImageHeight) {
+          _animationController!.animateTo(0.0);
+        } else if (controller!.offset > 0.0 &&
+            controller!.offset < sliderImageHeight) {
           // we need around half scrolling values
-          if (controller.offset < ((sliderImageHeight / 1.5))) {
-            _animationController
-                .animateTo((controller.offset / sliderImageHeight));
+          if (controller!.offset < ((sliderImageHeight / 1.5))) {
+            _animationController!
+                .animateTo((controller!.offset / sliderImageHeight));
           } else {
             // we static set the just above half scrolling values "around == 0.64"
-            _animationController
+            _animationController!
                 .animateTo((sliderImageHeight / 1.5) / sliderImageHeight);
           }
         }
@@ -136,18 +136,18 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
     sliderImageHeight = MediaQuery.of(context).size.height * 0.39;
     return WillPopScope(
         child: AnimatedBuilder(
-          animation: widget.animationController,
-          builder: (BuildContext context, Widget child) {
+          animation: widget.animationController!,
+          builder: (BuildContext , Widget) {
             return FadeTransition(
-              opacity: widget.animationController,
+              opacity: widget.animationController!,
               // FadeTransition and Transform : just for screen loading animation on fistTime
-              child: new Transform(
+              child: Transform(
                 transform: new Matrix4.translationValues(
-                    0.0, 40 * (1.0 - widget.animationController.value), 0.0),
+                    0.0, 40 * (1.0 - widget.animationController!.value), 0.0),
                 child: Scaffold(
                   backgroundColor: CustomTheme.backgroundColor,
                   body: SingleChildScrollView(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     child: Container(
                       height: MediaQuery.of(context).size.height -
                           Dimensions.getScaledSize(
@@ -155,7 +155,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                       MediaQuery.of(context).padding.bottom*/
                       ,
                       child: Stack(
-                        children: <Widget>[
+                        children: [
                           isNetworkAvailable
                               ? FutureBuilder<UserLoginModel>(
                                   future: user,
@@ -164,10 +164,10 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                                       return _getActivityCategoryViews([]);
                                     } else if (snapshotUserLoginModel.hasData) {
                                       print(
-                                          'Data Showed 0 Farhan: ${snapshotUserLoginModel.data.sId}');
+                                          'Data Showed 0 Farhan: ${snapshotUserLoginModel.data!.sId}');
                                       favoriteActivities = UserService
                                           .getFavoriteActivitiesForUser(
-                                              snapshotUserLoginModel.data.sId);
+                                              snapshotUserLoginModel.data!.sId);
 
                                       return FutureBuilder<List<String>>(
                                           future: favoriteActivities,
@@ -179,7 +179,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                                               print(
                                                   'Data Showed 1 Farhan : ${snapshotFavorites.data}');
                                               return _getActivityCategoryViews(
-                                                  snapshotFavorites.data);
+                                                  snapshotFavorites.data!);
                                             } else if (snapshotFavorites
                                                 .hasError) {
                                               return Padding(
@@ -200,7 +200,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                                                     '${snapshotFavorites.error}'),
                                               );
                                             }
-                                            return Center(
+                                            return const Center(
                                                 child:
                                                     CircularProgressIndicator());
                                           });
@@ -218,7 +218,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                                             '${snapshotUserLoginModel.error}'),
                                       );
                                     }
-                                    return Center(
+                                    return const Center(
                                       child: CircularProgressIndicator(),
                                     );
                                   },
@@ -272,7 +272,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                             bottom: 0,
                             child: GestureDetector(
                                 onVerticalDragEnd: (DragEndDetails details) {
-                                  if (details.primaryVelocity > 3) {
+                                  if (details.primaryVelocity! > 3) {
                                     setState(() {
                                       _searchViewVisible = false;
                                     });
@@ -284,7 +284,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                                     if (snapshot.hasData) {
                                       favoriteActivities = UserService
                                           .getFavoriteActivitiesForUser(
-                                              snapshot.data.sId);
+                                              snapshot.data!.sId);
 
                                       return FutureBuilder<List<String>>(
                                           future: favoriteActivities,
@@ -293,12 +293,12 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                                             List<String> fav = [];
 
                                             if (snapshotFavorites.hasData) {
-                                              fav = snapshotFavorites.data;
+                                              fav = snapshotFavorites.data!;
                                             }
                                             eventBus.fire(OnSearchPopUpOpen(
                                                 _searchViewVisible));
                                             return SearchPopupView(
-                                              userData: snapshot.data,
+                                              userData: snapshot.data!,
                                               height: MediaQuery.of(context)
                                                       .size
                                                       .height -
@@ -323,7 +323,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                                     eventBus.fire(
                                         OnSearchPopUpOpen(_searchViewVisible));
                                     return SearchPopupView(
-                                      userData: snapshot.data,
+                                      userData: snapshot.data!,
                                       height: MediaQuery.of(context)
                                               .size
                                               .height -
@@ -373,18 +373,18 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
         child: Column(
           children: [
             AnimatedBuilder(
-              animation: _animationController,
-              builder: (BuildContext context, Widget child) {
+              animation: _animationController!,
+              builder: (BuildContext, Widget) {
                 // we calculate the opacity between 0.64 to 1.0
                 var opacity = 1.0 -
-                    (_animationController.value > 0.64
+                    (_animationController!.value > 0.64
                         ? 1.0
-                        : _animationController.value);
+                        : _animationController!.value);
                 return SizedBox(
                   height: sliderImageHeight *
-                              (1.0 - _animationController.value) >=
+                              (1.0 - _animationController!.value) >=
                           MediaQuery.of(context).size.height * 0.14
-                      ? sliderImageHeight * (1.0 - _animationController.value)
+                      ? sliderImageHeight * (1.0 - _animationController!.value)
                       : MediaQuery.of(context).size.height * 0.14,
                   child: ActivityListSliderView(
                     opValue: opacity,
@@ -393,7 +393,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                         _searchViewVisible = !_searchViewVisible;
                       });
                     },
-                    animationController: _animationController,
+                    animationController: _animationController!,
                   ),
                 );
               },
@@ -537,7 +537,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
               boxShadow: <BoxShadow>[
                 BoxShadow(
                   color: CustomTheme.grey,
-                  offset: Offset(4, 4),
+                  offset: const Offset(4, 4),
                   blurRadius: Dimensions.getScaledSize(16.0),
                 ),
               ],
@@ -570,12 +570,12 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
             child: Container(),
           ),
           AnimatedBuilder(
-            animation: _animationController,
+            animation: _animationController!,
             builder: (context, child) {
-              return _animationController.value > 0.38
+              return _animationController!.value > 0.38
                   ? Opacity(
                       opacity:
-                          _getSearchIconOpacity(_animationController.value),
+                          _getSearchIconOpacity(_animationController!.value),
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
@@ -680,7 +680,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
   Widget _getActivityCategoryViews(List<String> favoriteIds) {
     return Container(
       child: ListView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         controller: controller,
         addAutomaticKeepAlives: true,
         scrollDirection: Axis.vertical,

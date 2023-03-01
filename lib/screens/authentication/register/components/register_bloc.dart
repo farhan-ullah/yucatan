@@ -76,15 +76,15 @@ class RegisterBloc {
     }
 
     var loginModel = UserLoginModel();
-    loginModel.email = emailModel.email;
+    loginModel.email = emailModel.email!;
     loginModel.username = detailModel.username;
-    loginModel.phone = countryPhoneModel.phone;
-    loginModel.areaCode = countryPhoneModel.areaCode;
-    loginModel.countryISO2 = countryPhoneModel.countryISO2Code;
+    loginModel.phone = countryPhoneModel.phone!;
+    loginModel.areaCode = countryPhoneModel.areaCode!;
+    loginModel.countryISO2 = countryPhoneModel.countryISO2Code!;
 
     _setLoadingState = LoadingState.START;
     var response = await UserService.createUser(
-        loginModel, passwordModel.password, passwordModel.passwordRepeat);
+        loginModel, passwordModel.password!, passwordModel.passwordRepeat!);
     _setLoadingState = LoadingState.STOP;
     _setRegisterResponse = response;
   }

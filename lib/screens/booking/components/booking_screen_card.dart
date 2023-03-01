@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookingScreenCard extends StatelessWidget {
-  final String title;
-  final String description;
-  final double price;
-  final String imageUrl;
-  final Function callback;
-  final bool isProduct;
-  final Product product;
-  final DateTime selectedDate;
+  final String? title;
+  final String? description;
+  final double? price;
+  final String? imageUrl;
+  final Function? callback;
+  final bool? isProduct;
+  final Product? product;
+  final DateTime? selectedDate;
 
   BookingScreenCard({
     this.title,
@@ -38,7 +38,7 @@ class BookingScreenCard extends StatelessWidget {
         right: Dimensions.getScaledSize(24.0),
       ),
       child: GestureDetector(
-        onTap: _isNotAvailableOnSelectedDate() ? () {} : callback,
+        onTap: _isNotAvailableOnSelectedDate() ? () {} : callback!(),
         child: Container(
           height: Dimensions.getScaledSize(130.0),
           decoration: BoxDecoration(
@@ -65,7 +65,7 @@ class BookingScreenCard extends StatelessWidget {
                           ),
                         ),
                         child: loadCachedNetworkImage(
-                          imageUrl,
+                          imageUrl!,
                           fit: BoxFit.cover,
                           height: Dimensions.getScaledSize(150.0),
                         ),
@@ -97,7 +97,7 @@ class BookingScreenCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
+                        title!,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: TextStyle(
@@ -111,7 +111,7 @@ class BookingScreenCard extends StatelessWidget {
                       SizedBox(
                         height: Dimensions.getScaledSize(5.0),
                       ),
-                      isProduct
+                      isProduct!
                           ? Text(
                               description ?? '',
                               style: TextStyle(
@@ -128,7 +128,7 @@ class BookingScreenCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         textBaseline: TextBaseline.alphabetic,
                         children: [
-                          isProduct
+                          isProduct!
                               ? Container()
                               : Text(
                                   '${AppLocalizations.of(context)!.commonWords_from} ',
@@ -141,7 +141,7 @@ class BookingScreenCard extends StatelessWidget {
                                   ),
                                 ),
                           Text(
-                            '${formatPriceDouble(price)}',
+                            '${formatPriceDouble(price!)}',
                             style: TextStyle(
                               fontSize: Dimensions.getScaledSize(16.0),
                               fontWeight: FontWeight.bold,
@@ -173,12 +173,12 @@ class BookingScreenCard extends StatelessWidget {
     );
   }
 
-  bool _isNotAvailableOnSelectedDate() {
-    return isProduct && selectedDate != null && product != null
+   _isNotAvailableOnSelectedDate() {
+    return isProduct! && selectedDate != null && product != null
         ? BookingTimeQuotaUtil.isProductAvailableOnDate(
-            product,
-            selectedDate,
-          )
+            product!,
+            selectedDate!,
+          )!
             ? false
             : true
         : false;

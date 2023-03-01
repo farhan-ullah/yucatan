@@ -1,11 +1,11 @@
 class FileModel {
-  String id;
-  String name;
-  String path;
-  String originalName;
-  String publicUrl;
-  String fileExtension;
-  double sizeInMb;
+  String? id;
+  String? name;
+  String? path;
+  String? originalName;
+  String? publicUrl;
+  String? fileExtension;
+  double? sizeInMb;
 
   FileModel({
     this.id,

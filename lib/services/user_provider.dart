@@ -15,33 +15,33 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class UserProvider extends BaseService {
   // this class is static only
   UserProvider._() : super(BaseService.defaultURL + '/users');
-  static UserLoginModel _loggedInUser;
+  static UserLoginModel? _loggedInUser;
 
   static Future<UserLoginModel> getOfflineUser() {
     return Future.value(_loggedInUser);
   }
 
   static UserLoginModel getUserSync() {
-    return _loggedInUser;
+    return _loggedInUser!;
   }
 
-  static Future<UserLoginModel> getUser() async {
+  static Future<UserLoginModel?> getUser() async {
     if (_loggedInUser == null) {
       var tmpUser = await _readUserInfo();
       if (await refreshToken() != null) {
         _loggedInUser = tmpUser;
-        return _loggedInUser;
+        return _loggedInUser!;
       } else
         return null;
       //if(await refreshToken() != null) return null;
       //else return (_loggedInUser = await _readUserInfo());
     } else
-      return _loggedInUser;
+      return _loggedInUser!;
   }
 
   // checks online status and gets user based on it (online => getUser(), offline => _loggedInUser)
-  static Future<UserLoginModel> getUserChecked() async {
-    Future<UserLoginModel> response;
+  static Future<Future<UserLoginModel?>> getUserChecked() async {
+    Future<UserLoginModel?> response;
     try {
       var status = await StatusService.getStatus();
       if (status == null) throw SocketException("Network error");
@@ -52,14 +52,14 @@ class UserProvider extends BaseService {
     return response;
   }
 
-  static Future<String> getJwtToken() async {
+  static Future<Future<String?>> getJwtToken() async {
     return await _readJWTToken();
   }
 
   //---------------------------------------------
 
   /// returns an [ApiError] if an error occurs, otherwise null
-  static Future<ApiError> login(String email, String password) async {
+  static Future<ApiError?> login(String email, String password) async {
     dynamic body = json.encode({
       'email': email,
       'password': password,
@@ -68,9 +68,9 @@ class UserProvider extends BaseService {
     var response = await new UserProvider._().post('login', body);
 
     print('login=${response}');
-    if (response?.body != null) {
+    if (response.body != null) {
       // print('login=${response.body}');
-      var user = UserLoginResponse().fromJson(json.decode(response?.body));
+      var user = UserLoginResponse().fromJson(json.decode(response.body));
       var result = await _validateLogin(user);
       UserCallbackHandler().userChanged();
       HiveService.updateDatabase();
@@ -78,7 +78,7 @@ class UserProvider extends BaseService {
       if (result == null) {
         //Log firebase event
 
-        await AnalyticsService.setUser(user.data.user);
+        await AnalyticsService.setUser(user.data!.user!);
       }
 
       return result;
@@ -87,10 +87,10 @@ class UserProvider extends BaseService {
   }
 
   /// returns an [ApiError] if an error occurs, otherwise null
-  static Future<ApiError> refreshToken() async {
+  static Future<ApiError?> refreshToken() async {
     var userInfo = await _readUserInfo();
 
-    if (userInfo == null || str.isNotNullOrEmpty(userInfo?.refreshToken)) {
+    if (userInfo == null || str.isNotNullOrEmpty(userInfo.refreshToken!)) {
       return ApiError().fromJson(
           {'message': 'Can not refresh jwt token, no stored user info found'});
     }
@@ -102,18 +102,18 @@ class UserProvider extends BaseService {
         await new UserProvider._().internalRefreshToken('refresh-token', body);
     if (response?.body != null) {
       return await _validateLogin(
-          UserLoginResponse().fromJson(json.decode(response?.body)));
+          UserLoginResponse().fromJson(json.decode(response.body)));
     } else
       return ApiError().fromJson({'message': 'A network error occurred'});
   }
 
   /// returns an [ApiError] if an error occurs, otherwise null
-  static Future<ApiError> _validateLogin(UserLoginResponse response) async {
-    var data = response?.data;
+  static Future<ApiError?> _validateLogin(UserLoginResponse response) async {
+    var data = response.data;
 
     // validate all fields not empty or null
     if (data != null) {
-      await _storeAll(data.token, data.user);
+      await _storeAll(data.token!, data.user!);
       return null;
     } else
       return response.errors;
@@ -129,7 +129,7 @@ class UserProvider extends BaseService {
   /// Updates the current logged in user with the given model
   /// [model] Model containing fields to update
   /// returns an [ApiError] only if an error occurs, otherwise [null]
-  static Future<ApiError> update(UserLoginModel model) async {
+  static Future<ApiError?> update(UserLoginModel model) async {
     if (model == null)
       return ApiError().fromJson({'message': 'No model provided'});
     if (_loggedInUser == null)
@@ -140,10 +140,10 @@ class UserProvider extends BaseService {
     dynamic body = json.encode(map);
 
     var intermediate =
-        await new UserProvider._().put('/${_loggedInUser.sId}', body);
+        await new UserProvider._().put('/${_loggedInUser!.sId}', body);
 
     var result = UserSingleResponseEntity()
-        .fromJson(json.decode(intermediate?.body ?? ''));
+        .fromJson(json.decode(intermediate!.body ?? ''));
 
     if (intermediate.statusCode == 200 && result.data != null) {
       _loggedInUser = result.data;
@@ -159,11 +159,11 @@ class UserProvider extends BaseService {
   static const _storageKeyToken = 'jwtToken';
   static const _storageKeyUser = 'userInfo';
 
-  static Future<String> _readJWTToken() async {
+  static Future<Future<String?>> _readJWTToken() async {
     return new FlutterSecureStorage().read(key: _storageKeyToken);
   }
 
-  static Future<UserLoginModel> _readUserInfo() async {
+  static Future<UserLoginModel?> _readUserInfo() async {
     var data = await new FlutterSecureStorage().read(key: _storageKeyUser);
     if (data == null)
       return null;

@@ -64,7 +64,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TicketPreviewHeader(
-            ticketNumber: widget.ticket.ticket,
+            ticketNumber: widget.ticket.ticket!,
             headerColor: _showCancellationConfirmation ||
                     _isRefundedTicket(widget.ticket)
                 ? CustomTheme.darkGrey.withOpacity(0.5)
@@ -151,8 +151,8 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                               : Text(
                                   AppLocalizations.of(context)
                                       .bookingListScreen_refundPeriodDuration(
-                                          widget.activity.activityDetails
-                                              .cancellation),
+                                          widget.activity.activityDetails!
+                                              .cancellation!),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: Dimensions.getScaledSize(10.0),
@@ -213,10 +213,10 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                                   : GestureDetector(
                                       onTap: () {
                                         for (int i = 0;
-                                            i < widget.booking.tickets.length;
+                                            i < widget.booking.tickets!.length;
                                             i++) {
                                           if (widget
-                                                  .booking.tickets[i].status ==
+                                                  .booking.tickets![i].status ==
                                               "REFUNDED") {
                                             checkIfTicketStatusIsRefunded =
                                                 true;
@@ -423,12 +423,12 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                                                               isNotNullOrEmpty(
                                                                   widget
                                                                       .activity
-                                                                      .thumbnail
-                                                                      .publicUrl)
+                                                                      .thumbnail!
+                                                                      .publicUrl!)
                                                           ? widget
                                                               .activity
-                                                              .thumbnail
-                                                              .publicUrl
+                                                              .thumbnail!
+                                                              .publicUrl!
                                                           : "",
                                                       height: Dimensions
                                                           .getScaledSize(120.0),
@@ -468,7 +468,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              widget.activity.title,
+                                              widget.activity.title!,
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 2,
                                               style: TextStyle(
@@ -492,9 +492,9 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
 
                                             TicketPreviewAddress(
                                               housenumber: widget.activity
-                                                  .location.housenumber,
+                                                  .location!.housenumber!,
                                               street: widget
-                                                  .activity.location.street,
+                                                  .activity.location!.street!,
                                               ticketRefunded: _isRefundedTicket(
                                                   widget.ticket),
                                             ),
@@ -507,9 +507,9 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
 
                                             TicketPreviewCityInfo(
                                               city:
-                                                  widget.activity.location.city,
+                                                  widget.activity.location!.city!,
                                               zipcode: widget
-                                                  .activity.location.zipcode
+                                                  .activity.location!.zipcode
                                                   .toString(),
                                               ticketRefunded: _isRefundedTicket(
                                                   widget.ticket),
@@ -521,7 +521,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                                             // Calendar and Date Information
                                             TicketPreviewDateInfo(
                                                 dateTime:
-                                                    widget.booking.bookingDate,
+                                                    widget.booking.bookingDate!,
                                                 ticketRefunded:
                                                     _isRefundedTicket(
                                                         widget.ticket)),
@@ -540,7 +540,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                               ),
                               SizedBox(height: Dimensions.getScaledSize(10.0)),
                               Text(
-                                '${_getProductById(widget.ticket.productId).categoryTitle}, ${_getProductById(widget.ticket.productId).subCategoryTitle}',
+                                '${_getProductById(widget.ticket.productId!).categoryTitle}, ${_getProductById(widget.ticket.productId!).subCategoryTitle}',
                                 style: TextStyle(
                                   fontSize: Dimensions.getScaledSize(12.0),
                                   fontWeight: FontWeight.bold,
@@ -570,9 +570,9 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                                 GestureDetector(
                                   onTap: () {
                                     for (int i = 0;
-                                        i < widget.booking.tickets.length;
+                                        i < widget.booking.tickets!.length;
                                         i++) {
-                                      if (widget.booking.tickets[i].status ==
+                                      if (widget.booking.tickets![i].status ==
                                           "REFUNDED") {
                                         checkIfTicketStatusIsRefunded = true;
                                       }
@@ -666,7 +666,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                                       CrossAxisAlignment.baseline,
                                   children: [
                                     Text(
-                                      '${formatPriceDouble(widget.ticket.price)}',
+                                      '${formatPriceDouble(widget.ticket.price!)}',
                                       style: TextStyle(
                                         fontSize:
                                             Dimensions.getScaledSize(20.0),
@@ -798,24 +798,24 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
   }
 
   BookingModel.BookingProduct _getProductById(String productId) {
-    return widget.booking.products.firstWhere(
+    return widget.booking.products!.firstWhere(
       (element) => element.id == productId,
-      orElse: () => null,
+      // orElse: () => null,
     );
   }
 
   BookingModel.ProductAdditionalService _getAdditionalServiceByTicketAndId(
       BookingModel.BookingTicket ticket, String additionalServiceId) {
-    var bookingProduct = _getProductById(ticket.productId);
+    var bookingProduct = _getProductById(ticket.productId!);
 
-    return bookingProduct.additionalServices.firstWhere(
+    return bookingProduct.additionalServices!.firstWhere(
       (element) => element.id == additionalServiceId,
-      orElse: () => null,
+      // orElse: () => null,
     );
   }
 
   Widget _getProductTextForTicket(BookingModel.BookingTicket ticket) {
-    var bookingProduct = _getProductById(ticket.productId);
+    var bookingProduct = _getProductById(ticket.productId!);
 
     return Text(
       '1x ${bookingProduct.title}',
@@ -832,11 +832,11 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
       BookingModel.BookingTicket ticket) {
     List<Widget> widgets = [];
 
-    var bookingProduct = _getProductById(ticket.productId);
+    var bookingProduct = _getProductById(ticket.productId!);
 
-    if (bookingProduct.quantity > 1) return [];
+    if (bookingProduct.quantity! > 1) return [];
 
-    bookingProduct.properties.forEach((productPropertyElemenet) {
+    bookingProduct.properties!.forEach((productPropertyElemenet) {
       widgets.add(
         Text(
           '${productPropertyElemenet.title}: ${productPropertyElemenet.value}',
@@ -855,7 +855,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
   int _getOpenTicketsForBooking(BookingModel.BookingModel booking) {
     int openTickets = 0;
 
-    booking.tickets.forEach((element) {
+    booking.tickets!.forEach((element) {
       if (element.status == "USABLE") {
         openTickets += 1;
       }
@@ -868,7 +868,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
       BookingModel.BookingTicket ticket) {
     List<Widget> widgets = [];
 
-    ticket.additionalServiceInfo.forEach((additionalServiceInfoElement) {
+    ticket.additionalServiceInfo!.forEach((additionalServiceInfoElement) {
       widgets.add(
         SizedBox(
           height: Dimensions.getScaledSize(10.0),
@@ -877,7 +877,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
 
       var additionalService = _getAdditionalServiceByTicketAndId(
         ticket,
-        additionalServiceInfoElement.additionalServiceId,
+        additionalServiceInfoElement.additionalServiceId!,
       );
 
       widgets.add(
@@ -905,9 +905,9 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
       BookingModel.ProductAdditionalService additionalService) {
     List<Widget> widgets = [];
 
-    if (additionalService.quantity > 1) return [];
+    if (additionalService.quantity! > 1) return [];
 
-    additionalService.properties.forEach((additionalServicePropertyElemenet) {
+    additionalService.properties!.forEach((additionalServicePropertyElemenet) {
       widgets.add(
         Text(
           '${additionalServicePropertyElemenet.title}: ${additionalServicePropertyElemenet.value}',
@@ -925,15 +925,15 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
 
   bool _canBeCancelled() {
     DateTime canBeCancelledUntil = DateTime(
-      widget.booking.bookingDate.year,
-      widget.booking.bookingDate.month,
-      widget.booking.bookingDate.day,
-      widget.booking.bookingDate.hour,
-      widget.booking.bookingDate.minute,
-      widget.booking.bookingDate.second,
+      widget.booking.bookingDate!.year,
+      widget.booking.bookingDate!.month,
+      widget.booking.bookingDate!.day,
+      widget.booking.bookingDate!.hour,
+      widget.booking.bookingDate!.minute,
+      widget.booking.bookingDate!.second,
     ).subtract(
       Duration(
-        hours: widget.activity.activityDetails.cancellation,
+        hours: widget.activity.activityDetails!.cancellation!,
       ),
     );
 
@@ -972,7 +972,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
 
   void _refundSingleTicket(BookingModel.BookingTicket ticket) async {
     var result =
-        await PaymentService.refundSingleTicket(widget.booking.id, ticket.id);
+        await PaymentService.refundSingleTicket(widget.booking.id!, ticket.id!);
     setState(() {
       _showProgress = false;
     });
@@ -1016,7 +1016,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
   }
 
   void _refundEntireBooking() async {
-    var result = await PaymentService.refundBooking(widget.booking.id);
+    var result = await PaymentService.refundBooking(widget.booking.id!);
     setState(() {
       _showProgress = false;
     });
@@ -1039,7 +1039,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
         ),
       );
       print('Notification:: Cancelled Scheduled Notification');
-      HiveService.getScheduledNotification(widget.booking.id).then((value) {
+      HiveService.getScheduledNotification(widget.booking.id!).then((value) {
         if (value == null) {
           return;
         }
@@ -1048,7 +1048,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
           service.cancelScheduleNotification(value.notificationId);
         });
       });
-      HiveService.deleteScheduledNotification(widget.booking.id);
+      HiveService.deleteScheduledNotification(widget.booking.id!);
       HiveService.updateDatabase();
     } else {
       Fluttertoast.showToast(

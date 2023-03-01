@@ -24,7 +24,7 @@ class BookingOfflineListViewItem extends StatefulWidget {
   final BookingDetailedModel booking;
   final BookingListCardType bookingListCardType;
   final bool online;
-  final NotificationActions notificationAction;
+  final NotificationActions? notificationAction;
   final dynamic notificationData;
 
   BookingOfflineListViewItem({
@@ -43,7 +43,7 @@ class BookingOfflineListViewItem extends StatefulWidget {
 class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
     with NavigatableByNotifcation, AutomaticKeepAliveClientMixin {
   // ActivityModel activity;
-  double initialBrightness;
+  late double initialBrightness;
 
   @override
   initState() {
@@ -55,7 +55,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.notificationAction != null &&
           widget.notificationData != null) {
-        handleNavigation(widget.notificationAction, widget.notificationData);
+        handleNavigation(widget.notificationAction!, widget.notificationData);
       }
     });
 
@@ -68,7 +68,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
     try {
       final sharedPreferences = await SharedPreferences.getInstance();
 
-      bool handleNotifications =
+      bool? handleNotifications =
           sharedPreferences.getBool('handleNotification');
 
       if (handleNotifications == false) return;
@@ -80,7 +80,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
           if (widget.bookingListCardType == BookingListCardType.USABLE &&
               (widget.booking.status == 'SUCCESS' ||
                   widget.booking.status == 'REQUEST_ACCEPTED')) {
-            _showTickets(widget.booking.activity);
+            _showTickets(widget.booking.activity!);
           }
           break;
         case NotificationActions.USER_SHOW_DENIED_REQUEST:
@@ -89,7 +89,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
             showDialog(
               context: context,
               builder: (context) => BookingRequestDeniedInfo(
-                text: widget.booking.requestNote,
+                text: widget.booking.requestNote!,
                 titleText: AppLocalizations.of(context)
                     .bookingListScreen_requestDenied,
               ),
@@ -137,7 +137,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
       children: [
         if (!_isCardTypeRequest())
           Text(
-            '${DateFormat('MMMM yyyy', "de-DE").format(widget.booking.bookingDate)}',
+            '${DateFormat('MMMM yyyy', "de-DE").format(widget.booking.bookingDate!)}',
             style: TextStyle(
               fontSize: Dimensions.getScaledSize(18.0),
               color: CustomTheme.primaryColorDark,
@@ -184,7 +184,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                           child: Stack(
                             children: [
                               widget.online &&
-                                      widget.booking?.activity?.thumbnail
+                                      widget.booking.activity?.thumbnail
                                               ?.publicUrl !=
                                           null
                                   ? GestureDetector(
@@ -196,12 +196,12 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                                                 widget.bookingListCardType ==
                                                     BookingListCardType.USED)) {
                                           navigateToHotelDetails(
-                                              context, widget.booking.activity);
+                                              context, widget.booking.activity!);
                                         }
                                       },
                                       child: loadCachedNetworkImage(
-                                        widget.booking?.activity?.thumbnail
-                                            ?.publicUrl,
+                                        widget.booking.activity!.thumbnail
+                                            !.publicUrl!,
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.35,
@@ -214,15 +214,15 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                                   : Container(),
                               if (_isRequestedOrRefunded())
                                 Container(
-                                    width: SizeConfig.screenWidth * 0.35,
-                                    height: SizeConfig.screenHeight * 0.15,
+                                    width: SizeConfig.screenWidth! * 0.35,
+                                    height: SizeConfig.screenHeight! * 0.15,
                                     decoration: BoxDecoration(
                                         color: CustomTheme.lightGrey
                                             .withOpacity(0.8))),
                               if (_isRequestedOrRefunded())
                                 Container(
-                                  width: SizeConfig.screenWidth * 0.35,
-                                  height: SizeConfig.screenHeight * 0.15,
+                                  width: SizeConfig.screenWidth! * 0.35,
+                                  height: SizeConfig.screenHeight! * 0.15,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -298,7 +298,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  widget.booking.activity.title,
+                                  widget.booking.activity!.title!,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
                                   style: TextStyle(
@@ -320,7 +320,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                                       action: () {
                                         if (widget.online)
                                           navigateToHotelDetails(
-                                              context, widget.booking.activity);
+                                              context, widget.booking.activity!);
                                       },
                                       backgroundColor:
                                           CustomTheme.primaryColorLight,
@@ -336,7 +336,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                                             action: () {
                                               if (widget.online)
                                                 _showAddReview(
-                                                    widget.booking.activity);
+                                                    widget.booking.activity!);
                                             },
                                             backgroundColor:
                                                 CustomTheme.accentColor3,
@@ -351,7 +351,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                                             action: () {
                                               if (widget.online)
                                                 _launchMapForActivity(
-                                                    widget.booking.activity);
+                                                    widget.booking.activity!);
                                             },
                                             text: AppLocalizations.of(context)
                                                 .bookingListScreen_navigationButton,
@@ -368,7 +368,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                                         BookingListActionButton(
                                           action: () {
                                             _showTickets(
-                                                widget.booking.activity);
+                                                widget.booking.activity!);
                                           },
                                           text: AppLocalizations.of(context)
                                               .commonWords_ticket,
@@ -418,7 +418,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                                 padding: EdgeInsets.only(
                                     top: Dimensions.getScaledSize(3.0)),
                                 child: Text(
-                                  '${DateFormat('E dd.MM.yyyy', "de-DE").format(widget.booking.bookingDate).replaceFirst('.', ',')}',
+                                  '${DateFormat('E dd.MM.yyyy', "de-DE").format(widget.booking.bookingDate!).replaceFirst('.', ',')}',
                                   style: TextStyle(
                                     fontSize: Dimensions.getScaledSize(11.0),
                                     color: _isRequestedOrRefunded()
@@ -450,7 +450,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                                 child: Padding(
                                   padding: EdgeInsets.only(top: 3),
                                   child: Text(
-                                    '${widget.booking.activity.location.zipcode} ${widget.booking.activity.location.city}',
+                                    '${widget.booking.activity!.location!.zipcode!} ${widget.booking.activity!.location!.city!}',
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: Dimensions.getScaledSize(11.0),
@@ -479,7 +479,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
                 showDialog(
                   context: context,
                   builder: (context) => BookingRequestDeniedInfo(
-                    text: widget.booking.requestNote,
+                    text: widget.booking.requestNote!,
                     titleText: AppLocalizations.of(context)
                         .bookingListScreen_requestDenied,
                   ),
@@ -583,7 +583,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
   int _getOpenTicketsForBooking(BookingDetailedModel booking) {
     int openTickets = 0;
 
-    booking.tickets.forEach((element) {
+    booking.tickets!.forEach((element) {
       if (element.status == "USABLE") {
         openTickets += 1;
       }
@@ -594,8 +594,8 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
 
   void _launchMapForActivity(ActivityModel activity) async {
     final availableMaps = await MapLauncher.installedMaps;
-    final coords = Coords(double.parse(activity.location.lat),
-        double.parse(activity.location.lon));
+    final coords = Coords(double.parse(activity.location.lat!),
+        double.parse(activity.location.lon!));
 
     availableMaps.first.showDirections(
       destination: coords,
@@ -609,7 +609,7 @@ class _BookingOfflineListViewItemState extends State<BookingOfflineListViewItem>
         builder: (context) => HotelDetailes(
           isFavorite: false,
           //hotelData: data,
-          activityId: data.sId,
+          activityId: data.sId!,
         ),
       ),
     );

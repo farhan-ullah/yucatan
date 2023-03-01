@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class NoAnimationMaterialPageRoute<T> extends MaterialPageRoute<T> {
   NoAnimationMaterialPageRoute({
     required WidgetBuilder builder,
-    RouteSettings settings,
+    RouteSettings? settings,
     bool maintainState = true,
     bool fullscreenDialog = false,
   }) : super(

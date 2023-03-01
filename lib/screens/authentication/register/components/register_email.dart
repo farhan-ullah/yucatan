@@ -8,8 +8,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../auth_regex.dart';
 
 class RegisterEmail extends StatefulWidget {
-  final ValueChanged<RegisterEmailModel> onChange;
-  final RegisterValidationBloc registerValidationBloc;
+  final ValueChanged<RegisterEmailModel>? onChange;
+  final RegisterValidationBloc? registerValidationBloc;
   const RegisterEmail({Key? key, this.onChange, this.registerValidationBloc})
       : super(key: key);
 
@@ -28,7 +28,7 @@ class _RegisterEmailState extends State<RegisterEmail> {
             //title: 'E-Mail-Adresse*',
             registerValidationBloc: widget.registerValidationBloc,
             hintText:
-                AppLocalizations.of(context)!.authenticationSceen_email + '*',
+                '${AppLocalizations.of(context).authenticationSceen_email}*',
             textInputType: TextInputType.emailAddress,
             validation: AuthRegex.email,
             validationErrorMsg:
@@ -36,7 +36,7 @@ class _RegisterEmailState extends State<RegisterEmail> {
             autocorrect: false,
             onTextChanged: (String text) {
               _model.email = text;
-              widget.onChange.call(_model);
+              widget.onChange!.call(_model);
               bool isEmail = text.contains(AuthRegex.email);
               if (isEmail) {
                 _model.isValid = true;
@@ -47,7 +47,7 @@ class _RegisterEmailState extends State<RegisterEmail> {
       ],
       onValidated: (bool isValid) {
         _model.isValid = isValid;
-        widget.onChange.call(_model);
+        widget.onChange!.call(_model);
       },
     );
   }

@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterPolicy extends StatefulWidget {
-  final ValueChanged<RegisterPolicyModel> onChange;
-  final RegisterValidationBloc registerValidationBloc;
+  final ValueChanged<RegisterPolicyModel>? onChange;
+  final RegisterValidationBloc? registerValidationBloc;
   const RegisterPolicy({Key? key, this.onChange, this.registerValidationBloc})
       : super(key: key);
 
@@ -53,7 +53,7 @@ class _RegisterPolicyState extends State<RegisterPolicy> {
             onChanged: (bool checked) {
               _model.tosAccepted = checked;
               _model.isValid = _model.tosAccepted && _model.privacyAccepted;
-              widget.onChange.call(_model);
+              widget.onChange!.call(_model);
             },
           ),
           InputCheckboxRich(
@@ -84,7 +84,7 @@ class _RegisterPolicyState extends State<RegisterPolicy> {
             onChanged: (bool checked) {
               _model.privacyAccepted = checked;
               _model.isValid = _model.tosAccepted && _model.privacyAccepted;
-              widget.onChange.call(_model);
+              widget.onChange!.call(_model);
             },
           ),
         ],
@@ -93,7 +93,7 @@ class _RegisterPolicyState extends State<RegisterPolicy> {
             debugPrint("onValidated RP");
             _model.isValid =
                 isValid && _model.tosAccepted && _model.privacyAccepted;
-            widget.onChange.call(_model);
+            widget.onChange!.call(_model);
           });
         });
   }

@@ -7,13 +7,13 @@ import 'package:validators/validators.dart';
 import '../StringUtils.dart';
 
 class NetworkImageCustom extends StatefulWidget {
-  final String url;
-  final String errorMessage;
+  final String? url;
+  final String? errorMessage;
   final bool showError;
-  final BoxFit fit;
-  final Alignment alignment;
-  final double height;
-  final double width;
+  final BoxFit? fit;
+  final Alignment? alignment;
+  final double? height;
+  final double? width;
 
   const NetworkImageCustom(
       {Key? key,
@@ -28,23 +28,23 @@ class NetworkImageCustom extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _NetworkImageCustomState(
-      url: url,
+      url: url!,
       showError: showError,
-      errorMessage: errorMessage,
-      fit: fit,
-      alignment: alignment,
-      height: height,
-      width: width);
+      errorMessage: errorMessage!,
+      fit: fit!,
+      alignment: alignment!,
+      height: height!,
+      width: width!);
 }
 
 class _NetworkImageCustomState extends State<NetworkImageCustom> {
-  final String url;
-  final String errorMessage;
-  final bool showError;
-  final BoxFit fit;
-  final Alignment alignment;
-  final double height;
-  final double width;
+  final String? url;
+  final String? errorMessage;
+  final bool? showError;
+  final BoxFit? fit;
+  final Alignment? alignment;
+  final double? height;
+  final double? width;
   Widget _child;
 
   final int maxRetries = 2;
@@ -62,7 +62,7 @@ class _NetworkImageCustomState extends State<NetworkImageCustom> {
       _load(0);
     } else {
       this._child = _errorWidget(
-          showError: showError ?? true, errorMessage: errorMessage);
+          showError: showError ?? true, errorMessage: errorMessage!);
     }
   }
 
@@ -79,15 +79,15 @@ class _NetworkImageCustomState extends State<NetworkImageCustom> {
     try {
       var futureData = await getImageData(url ?? '');
       if (futureData.isNotEmpty) {
-        _updateState(_imageWidget(futureData, fit: fit, alignment: alignment));
+        _updateState(_imageWidget(futureData, fit: fit!, alignment: alignment!));
       } else {
         _updateState(
-            _errorWidget(showError: showError, errorMessage: errorMessage));
+            _errorWidget(showError: showError!, errorMessage: errorMessage!));
       }
     } catch (e) {
       if (currentRetry >= 2) {
         _updateState(
-            _errorWidget(showError: showError, errorMessage: errorMessage));
+            _errorWidget(showError: showError!, errorMessage: errorMessage!));
       } else {
         _load(currentRetry++);
       }
@@ -110,8 +110,8 @@ class _NetworkImageCustomState extends State<NetworkImageCustom> {
     );
   }
 
-  Widget _errorWidget({bool showError = true, String errorMessage}) {
-    if (isNotNullOrEmpty(errorMessage) && showError) {
+  Widget _errorWidget({bool showError = true, String? errorMessage}) {
+    if (isNotNullOrEmpty(errorMessage!) && showError) {
       return Container(
         child: Row(
           children: [Icon(Icons.error), Text((errorMessage))],
@@ -122,7 +122,7 @@ class _NetworkImageCustomState extends State<NetworkImageCustom> {
   }
 
   Widget _imageWidget(Uint8List data,
-      {BoxFit fit, Alignment alignment = Alignment.center}) {
+      {BoxFit? fit, Alignment alignment = Alignment.center}) {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(

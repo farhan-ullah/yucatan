@@ -9,15 +9,18 @@ import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 
+import '../screens/booking/components/booking_bar.dart';
+
 class AnalyticsService {
   static initStore() {}
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   static final facebookAppEvents = FacebookAppEvents();
-
+  late Product productToReturn;
   static setUser(UserLoginModel user) async {
     if (kReleaseMode == false) return;
 
-    FirebaseAnalytics().logEvent(
+    analytics.logEvent(
       name: 'login',
       parameters: <String, dynamic>{
         'user_id': user.sId,
@@ -26,8 +29,8 @@ class AnalyticsService {
       },
     );
 
-    await FirebaseAnalytics().setUserId(user.sId);
-    await facebookAppEvents.setUserID(user.sId);
+    await analytics.setUserId();
+    await facebookAppEvents.setUserID(user.sId!);
     await facebookAppEvents.setUserData(
       email: user.email,
       city: "",
@@ -51,7 +54,7 @@ class AnalyticsService {
             ? activityModel.sId
             : ""
         : activityCategoryDataModel.id;
-    FirebaseAnalytics().logEvent(
+    analytics.logEvent(
       name: 'select_content',
       parameters: <String, dynamic>{
         'content_type': 'Activity',
@@ -70,12 +73,12 @@ class AnalyticsService {
   static logAddtoCart(OrderProduct orderProduct, Product product) {
     if (kReleaseMode == false) return;
 
-    FirebaseAnalytics().logEvent(
+    analytics.logEvent(
       name: 'add_to_cart',
       parameters: <String, dynamic>{
         'item': orderProduct.id,
         'item_name': product.title,
-        'value': product.price * orderProduct.amount,
+        'value': product.price! * orderProduct.amount!,
         'time': DateTime.now().toIso8601String(),
       },
     );
@@ -84,17 +87,17 @@ class AnalyticsService {
         'item_name': product.title,
         'time': DateTime.now().toIso8601String(),
       },
-      id: orderProduct.id,
+      id: orderProduct.id!,
       type: 'add_to_cart',
       currency: "EUR",
-      price: product.price * orderProduct.amount,
+      price: product.price! * orderProduct.amount!,
     );
   }
 
   static logAddToWishlist(String activityId, String userId) {
     if (kReleaseMode == false) return;
 
-    FirebaseAnalytics().logEvent(
+    analytics.logEvent(
       name: 'add_to_wishlist',
       parameters: <String, dynamic>{
         'activity_id': activityId,
@@ -117,7 +120,7 @@ class AnalyticsService {
     if (kReleaseMode == false) return;
 
     facebookAppEvents.logCompletedRegistration(registrationMethod: 'email');
-    FirebaseAnalytics().logEvent(
+    analytics.logEvent(
       name: 'sign_up',
       parameters: <String, dynamic>{
         'user_id': sId,
@@ -130,7 +133,7 @@ class AnalyticsService {
   static logInitiatedCheckout(OrderModel orderModel) async {
     if (kReleaseMode == false) return;
 
-    FirebaseAnalytics().logEvent(
+    analytics.logEvent(
       name: 'begin_checkout',
       parameters: <String, dynamic>{
         'time': DateTime.now().toIso8601String(),
@@ -138,18 +141,18 @@ class AnalyticsService {
     );
 
     var activityResponse =
-        await ActivityService.getActivity(orderModel.activityId);
+        await ActivityService.getActivity(orderModel.activityId!);
     if (activityResponse == null || activityResponse.data == null) return;
     double totalPrice = 0.0;
-    orderModel.products.forEach((product) {
-      var activityProduct = _findProduct(activityResponse.data, product.id);
-      totalPrice += product.amount * activityProduct.price;
+    orderModel.products!.forEach((product) {
+      var activityProduct = _findProduct(activityResponse.data, product.id!);
+      totalPrice += product.amount!* activityProduct.price!;
     });
     facebookAppEvents.logInitiatedCheckout(
       contentId: orderModel.activityId,
       contentType: 'begin_checkout',
       currency: "EUR",
-      numItems: orderModel.products.length,
+      numItems: orderModel.products!.length,
       paymentInfoAvailable: true,
       totalPrice: totalPrice,
     );
@@ -168,13 +171,13 @@ class AnalyticsService {
 
     await facebookAppEvents.clearUserData();
     await facebookAppEvents.clearUserID();
-    await FirebaseAnalytics().setUserId(null);
+    await analytics.setUserId();
   }
 
   static logRequestPurchase(OrderModel orderModel, String paymentType) async {
     if (kReleaseMode == false) return;
 
-    FirebaseAnalytics().logEvent(
+    analytics.logEvent(
       name: 'add_payment_info',
       parameters: <String, dynamic>{
         'payment_type': paymentType,
@@ -183,17 +186,17 @@ class AnalyticsService {
     );
 
     //Log firebase event
-    FirebaseAnalytics().logEvent(
+    analytics.logEvent(
       name: 'add_shipping_info',
       parameters: <String, dynamic>{
-        'address_json': AddressModel.toJson(orderModel.address),
+        'address_json': AddressModel.toJson(orderModel.address!),
         'time': DateTime.now().toIso8601String(),
       },
     );
   }
 
   static logPurchaseCompleted(BookingModel booking) {
-    FirebaseAnalytics().logEvent(
+    analytics.logEvent(
       name: 'purchase',
       parameters: <String, dynamic>{
         'booking_id': booking.id,
@@ -204,8 +207,8 @@ class AnalyticsService {
     );
 
     facebookAppEvents.logPurchase(
-      amount: booking.totalPrice,
-      currency: booking.currency,
+      amount: booking.totalPrice!,
+      currency: booking.currency!,
       parameters: <String, dynamic>{},
     );
   }
@@ -216,7 +219,7 @@ class AnalyticsService {
     facebookAppEvents.logRated(valueToSum: value);
   }
 
-  static logOpenNotification(RemoteMessage message) {
+  static logOpenNotification( message) {
     if (kReleaseMode == false) return;
 
     var parameters = <String, dynamic>{
@@ -228,17 +231,17 @@ class AnalyticsService {
     };
     facebookAppEvents.logPushNotificationOpen(payload: parameters);
 
-    FirebaseAnalytics()
+    analytics
         .logEvent(name: 'fcm_notification_open', parameters: parameters);
   }
 }
 
 Product _findProduct(ActivityModel activity, String productId) {
-  Product productToReturn;
+  // Product productToReturn;
 
-  activity.bookingDetails.productCategories.forEach(
+  activity.bookingDetails!.productCategories!.forEach(
     (category) {
-      category.products.forEach(
+      category.products!.forEach(
         (product) {
           if (product.id == productId) {
             productToReturn = product;
@@ -246,9 +249,9 @@ Product _findProduct(ActivityModel activity, String productId) {
         },
       );
 
-      category.productSubCategories.forEach(
+      category.productSubCategories!.forEach(
         (subCategory) {
-          subCategory.products.forEach(
+          subCategory.products!.forEach(
             (product) {
               if (product.id == productId) {
                 productToReturn = product;

@@ -7,10 +7,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 //Not longer in use, kept for possible reuse
 
 class TotalCostCard extends StatefulWidget {
-  final Map<ActivityPersonGroup, int> persons;
+  final Map<ActivityPersonGroup, int>? persons;
   // final ActivityBookingTicket ticketVariant;
   // final List<ActivityBookingTicketUpsell> upsells;
-  final Function callback;
+  final Function? callback;
 
   TotalCostCard({
     this.persons,
@@ -72,7 +72,7 @@ class _TotalCostCardState extends State<TotalCostCard> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        widget.callback.call();
+                        widget.callback!.call();
                       },
                       child: Text(
                         AppLocalizations.of(context)!.bookingScreen_checkout,

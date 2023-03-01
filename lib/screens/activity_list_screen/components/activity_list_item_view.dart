@@ -114,15 +114,16 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                     MaterialPageRoute(
                       builder: (context) => HotelDetailes(
                         //hotelData: widget.activity,
-                        activityId: widget.activityCategoryModel == null
+                        activityId: widget.activityCategoryModel.toString().isEmpty
                             ? widget.activityModel != null
-                                ? widget.activityModel!.sId
+                                ? widget.activityModel!.sId!
                                 : ""
                             : widget.activityCategoryModel!.id.toString(),
-                        isFavorite: _isFavorite,
+                        isFavorite: _isFavorite!,
                         onFavoriteChangedCallback: (activityId) {
-                          if (widget.onFavoriteChangedCallback != null)
+                          if (widget.onFavoriteChangedCallback != null) {
                             widget.onFavoriteChangedCallback!(activityId);
+                          }
                           setState(() {
                             _isFavorite = !_isFavorite!;
                           });
@@ -146,16 +147,16 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                   widget.activityCategoryModel == null
                                       ? widget.activityModel != null
                                           ? widget.activityModel!.thumbnail
-                                              ?.publicUrl
+                                              !.publicUrl!
                                           : ""
                                       : isNotNullOrEmpty(widget
-                                              .activityCategoryModel
+                                              .activityCategoryModel!
                                               .thumbnail
-                                              ?.publicUrl)
-                                          ? widget.activityCategoryModel
-                                              .thumbnail?.publicUrl
+                                              !.publicUrl!)
+                                          ? widget.activityCategoryModel!
+                                              .thumbnail!.publicUrl!
                                           : "",
-                                  width: widget.width,
+                                  width: widget.width!,
                                   fit: BoxFit.cover,
                                   height:
                                       Dimensions.getHeight(percentage: 20.0),
@@ -181,7 +182,7 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                 ),
                               ),
                               Positioned(
-                                bottom: widget.isComingFromFullMapScreen
+                                bottom: widget.isComingFromFullMapScreen!
                                     ? 0
                                     : Dimensions.getScaledSize(10.0),
                                 child: Container(
@@ -189,7 +190,7 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: widget
-                                                .isComingFromFullMapScreen
+                                                .isComingFromFullMapScreen!
                                             ? 0
                                             : Dimensions.getScaledSize(12.0)),
                                     child: Column(
@@ -198,7 +199,7 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        widget.isComingFromFullMapScreen
+                                        widget.isComingFromFullMapScreen!
                                             ? Container(
                                                 margin: EdgeInsets.fromLTRB(
                                                     Dimensions.getScaledSize(
@@ -209,7 +210,7 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                                 height:
                                                     Dimensions.getScaledSize(
                                                         40.0),
-                                                width: widget.width -
+                                                width: widget.width! -
                                                     Dimensions.getScaledSize(
                                                         135.0),
                                                 child: Align(
@@ -220,9 +221,9 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                                             null
                                                         ? widget.activityModel !=
                                                                 null
-                                                            ? "${widget.activityModel!.title.trim()}"
+                                                            ? "${widget.activityModel!.title!.trim()}"
                                                             : ""
-                                                        : "${widget.activityCategoryModel!.title.trim()}",
+                                                        : "${widget.activityCategoryModel!.title!.trim()}",
                                                     overflow: TextOverflow.clip,
                                                     textAlign: TextAlign.left,
                                                     maxLines: 2,
@@ -249,9 +250,9 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                                             null
                                                         ? widget.activityModel !=
                                                                 null
-                                                            ? "${widget.activityModel!.title.trim()}"
+                                                            ? "${widget.activityModel!.title!.trim()}"
                                                             : ""
-                                                        : "${widget.activityCategoryModel!.title.trim()}",
+                                                        : "${widget.activityCategoryModel!.title!.trim()}",
                                                     overflow: TextOverflow.clip,
                                                     textAlign: TextAlign.left,
                                                     maxLines: 2,
@@ -286,9 +287,9 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                 onTap: () {
                                   widget.activityCategoryModel == null
                                       ? _onFavoriteButtonPressed(
-                                          widget.activityModel!.sId)
+                                          widget.activityModel!.sId!)
                                       : _onFavoriteButtonPressed(
-                                          widget.activityCategoryModel!.id);
+                                          widget.activityCategoryModel!.id!);
                                 },
                                 child: Container(
                                   height: Dimensions.getScaledSize(32.0),
@@ -296,7 +297,7 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(
                                         Dimensions.getScaledSize(48.0)),
-                                    color: _isFavorite
+                                    color: _isFavorite!
                                         ? CustomTheme.accentColor1
                                         : Colors.white,
                                   ),
@@ -304,7 +305,7 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                     child: Icon(
                                       Icons.favorite_border,
                                       size: Dimensions.getScaledSize(24.0),
-                                      color: _isFavorite
+                                      color: _isFavorite!
                                           ? Colors.white
                                           : CustomTheme.accentColor1,
                                     ),
@@ -433,11 +434,11 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                                             null
                                                         ? widget.activityModel !=
                                                                 null
-                                                            ? (widget.activityModel
-                                                                            .reviewCount !=
+                                                            ? (widget.activityModel!
+                                                                            .reviewCount! !=
                                                                         null &&
-                                                                    widget.activityModel
-                                                                            .reviewCount >
+                                                                    widget.activityModel!
+                                                                            .reviewCount! >
                                                                         0)
                                                                 ? Row(
                                                                     children: [
@@ -475,11 +476,11 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                                                     ),
                                                                   )
                                                             : Container()
-                                                        : (widget.activityCategoryModel
+                                                        : (widget.activityCategoryModel!
                                                                         .reviewCount !=
                                                                     null &&
-                                                                widget.activityCategoryModel
-                                                                        .reviewCount >
+                                                                widget.activityCategoryModel!
+                                                                        .reviewCount! >
                                                                     0)
                                                             ? Row(
                                                                 children: [
@@ -546,12 +547,12 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                                               null
                                                           ? formatPriceDouble(
                                                               widget
-                                                                  .activityModel
-                                                                  .priceFrom)
+                                                                  .activityModel!
+                                                                  .priceFrom!)
                                                           : ""
                                                       : formatPriceDouble(widget
-                                                          .activityCategoryModel
-                                                          .priceFrom),
+                                                          .activityCategoryModel!
+                                                          .priceFrom!),
                                                   textAlign: TextAlign.left,
                                                   style: TextStyle(
                                                       fontWeight:
@@ -619,23 +620,24 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
       return;
     }
 
-    if (_isFavorite) {
+    if (_isFavorite!) {
       UserService.deleteUserFavoriteActivity(
         activityId: activityId,
-        userId: _user.sId,
+        userId: _user!.sId,
       );
     } else {
       UserService.addUserFavoriteActivity(
         activityId: activityId,
-        userId: _user.sId,
+        userId: _user!.sId,
       );
     }
 
-    if (widget.onFavoriteChangedCallback != null)
-      widget.onFavoriteChangedCallback(activityId);
+    if (widget.onFavoriteChangedCallback != null) {
+      widget.onFavoriteChangedCallback!(activityId)!;
+    }
 
     setState(() {
-      _isFavorite = !_isFavorite;
+      _isFavorite = !_isFavorite!;
     });
   }
 }

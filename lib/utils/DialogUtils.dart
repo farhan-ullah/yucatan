@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DialogUtils {
-  static Future<bool> displayForgotDialog(BuildContext context, String title,
+  static Future<bool?> displayForgotDialog(BuildContext context, String title,
       String body, String buttonText1, String buttonText2,
-      {bool showOKButton, bool showCancelButton}) async {
+      {bool? showOKButton, bool? showCancelButton}) async {
     return await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
@@ -14,9 +14,9 @@ class DialogUtils {
             return true;
           },
           child: ButtonBarTheme(
-            data: ButtonBarThemeData(alignment: MainAxisAlignment.center),
+            data: const ButtonBarThemeData(alignment: MainAxisAlignment.center),
             child: AlertDialog(
-              shape: RoundedRectangleBorder(
+              shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(10.0),
                 ),
@@ -25,18 +25,18 @@ class DialogUtils {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.check_outlined,
                     color: CustomTheme.accentColor2,
                     size: 35,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
                     title,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: CustomTheme.accentColor2,
                       fontWeight: FontWeight.w600,
                     ),
@@ -55,18 +55,18 @@ class DialogUtils {
                   children: <Widget>[
                     Container(
                       child: Visibility(
-                        visible: showOKButton,
+                        visible: showOKButton!,
                         child: MaterialButton(
                           minWidth: 150.0,
                           shape: RoundedRectangleBorder(
-                              side: BorderSide(
+                              side: const BorderSide(
                                   color: CustomTheme.primaryColorDark,
                                   width: 1,
                                   style: BorderStyle.solid),
                               borderRadius: BorderRadius.circular(5)),
                           child: Text(
                             buttonText2,
-                            style: TextStyle(fontWeight: FontWeight.w500),
+                            style: const TextStyle(fontWeight: FontWeight.w500),
                           ),
                           textColor: CustomTheme.primaryColorDark,
                           onPressed: () {
@@ -86,9 +86,9 @@ class DialogUtils {
     );
   }
 
-  static Future<bool> displayDialog(BuildContext context, String title,
+  static Future<bool?> displayDialog(BuildContext context, String title,
       String body, String buttonText1, String buttonText2,
-      {bool showOKButton, bool showCancelButton}) async {
+      {bool? showOKButton, bool? showCancelButton}) async {
     return await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
@@ -97,7 +97,7 @@ class DialogUtils {
             return true;
           },
           child: AlertDialog(
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(10.0),
               ),
@@ -112,11 +112,11 @@ class DialogUtils {
             ),
             actions: <Widget>[
               Visibility(
-                visible: showCancelButton,
-                child: new TextButton(
-                  child: new Text(
+                visible: showCancelButton!,
+                child: TextButton(
+                  child: Text(
                     buttonText1,
-                    style: TextStyle(color: Colors.blue),
+                    style: const TextStyle(color: Colors.blue),
                   ),
                   onPressed: () {
                     Navigator.of(context).pop(false);
@@ -124,11 +124,11 @@ class DialogUtils {
                 ),
               ),
               Visibility(
-                visible: showOKButton,
-                child: new TextButton(
+                visible: showOKButton!,
+                child: TextButton(
                   child: Text(
                     buttonText2,
-                    style: TextStyle(color: Colors.blue),
+                    style: const TextStyle(color: Colors.blue),
                   ),
                   onPressed: () {
                     Navigator.of(context).pop(true);
@@ -143,7 +143,7 @@ class DialogUtils {
     );
   }
 
-  static Future<bool> displayDeniedBookingInfoDialog(BuildContext context,
+  static Future<bool?> displayDeniedBookingInfoDialog(BuildContext context,
       String title, String body, String buttonText1) async {
     return await showDialog<bool>(
       context: context,
@@ -153,7 +153,7 @@ class DialogUtils {
             return true;
           },
           child: AlertDialog(
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(10.0),
               ),
@@ -163,7 +163,7 @@ class DialogUtils {
                 Align(
                   alignment: Alignment.centerRight,
                   child: IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.clear,
                         size: 30,
                       ),
@@ -172,13 +172,13 @@ class DialogUtils {
                       }),
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 20, 0, 10),
+                  margin: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
                       title,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: CustomTheme.accentColor1,
                         fontWeight: FontWeight.w600,
                       ),
@@ -190,7 +190,7 @@ class DialogUtils {
             content: Wrap(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 24,
                   ),
                   child: Text(
@@ -198,7 +198,7 @@ class DialogUtils {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 60,
                 ),
                 Align(
@@ -211,20 +211,20 @@ class DialogUtils {
                     child: Container(
                       width: 130,
                       height: 50,
-                      margin: EdgeInsets.fromLTRB(0, 25, 0, 25),
+                      margin: const EdgeInsets.fromLTRB(0, 25, 0, 25),
                       decoration: BoxDecoration(
                         border: Border.all(
                           width: 1,
                           color: CustomTheme.accentColor1.withOpacity(0.5),
                         ),
-                        borderRadius: BorderRadius.all(
+                        borderRadius: const BorderRadius.all(
                           Radius.circular(5),
                         ),
                       ),
                       child: Center(
                         child: Text(
                           buttonText1,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             color: CustomTheme.accentColor1,
                             fontWeight: FontWeight.w600,
@@ -234,7 +234,7 @@ class DialogUtils {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
               ],

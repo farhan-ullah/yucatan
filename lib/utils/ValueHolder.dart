@@ -1,4 +1,4 @@
 class ValueHolder<T> {
-  T value;
+  T? value;
   ValueHolder({this.value});
 }

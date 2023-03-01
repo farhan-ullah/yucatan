@@ -6,13 +6,13 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 class CustomCalendarView extends StatefulWidget {
-  final DateTime minimumDate;
-  final DateTime maximumDate;
-  final DateTime initialDate;
-  final Function(DateTime) startEndDateChange;
-  final List<DateTime> closedDates;
-  final bool usedForVendor;
-  final List<DateTime>
+  final DateTime? minimumDate;
+  final DateTime? maximumDate;
+  final DateTime? initialDate;
+  final Function(DateTime)? startEndDateChange;
+  final List<DateTime>? closedDates;
+  final bool? usedForVendor;
+  final List<DateTime>?
       notAvailableDates; //Not available dates are dates for a product where the quota limit has been reached
 
   const CustomCalendarView({
@@ -33,24 +33,24 @@ class CustomCalendarView extends StatefulWidget {
 class _CustomCalendarViewState extends State<CustomCalendarView> {
   List<DateTime> dateList = <DateTime>[];
   var currentMonthDate = DateTime.now();
-  DateTime selectedDate;
+  DateTime? selectedDate;
 
-  Color textColorSameMonth;
-  Color textColorOtherMonth;
-  Color textColorSelected;
-  Color textColorNotAvailable;
-  Color borderColorSelectable;
-  Color borderColorSelected;
-  Color borderColorNotSelectable;
-  Color borderColorNotAvailable;
-  Color backgroundColorNotSelected;
-  Color backgroundColorSelected;
-  Color backgroundColorNotAvailable;
+  Color? textColorSameMonth;
+  Color? textColorOtherMonth;
+  Color? textColorSelected;
+  Color? textColorNotAvailable;
+  Color? borderColorSelectable;
+  Color? borderColorSelected;
+  Color? borderColorNotSelectable;
+  Color? borderColorNotAvailable;
+  Color? backgroundColorNotSelected;
+  Color? backgroundColorSelected;
+  Color? backgroundColorNotAvailable;
 
   @override
   void initState() {
     if (widget.initialDate != null) {
-      currentMonthDate = widget.initialDate;
+      currentMonthDate = widget.initialDate!;
       selectedDate = widget.initialDate;
     }
 
@@ -59,7 +59,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
     initializeDateFormatting('de', null);
 
     //TODO: adjust colors for vendor, user colors are fine
-    if (widget.usedForVendor) {
+    if (widget.usedForVendor!) {
       textColorSameMonth = CustomTheme.primaryColorDark;
       textColorOtherMonth = CustomTheme.hintText;
       textColorSelected = Colors.white;
@@ -197,14 +197,14 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
           GestureDetector(
             behavior: HitTestBehavior.translucent,
             onHorizontalDragEnd: (DragEndDetails details) {
-              if (details.primaryVelocity > 3) {
+              if (details.primaryVelocity! > 3) {
                 setState(() {
                   currentMonthDate = DateTime(
                       currentMonthDate.year, currentMonthDate.month, 0);
                   setListOfDate(currentMonthDate);
                 });
               }
-              if (details.primaryVelocity < -3) {
+              if (details.primaryVelocity! < -3) {
                 setState(() {
                   currentMonthDate = DateTime(
                       currentMonthDate.year, currentMonthDate.month + 2, 0);
@@ -267,23 +267,23 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                   if (currentMonthDate.month == date.month) {
                     if (widget.minimumDate != null &&
                         widget.maximumDate != null) {
-                      var newminimumDate = DateTime(widget.minimumDate.year,
-                          widget.minimumDate.month, widget.minimumDate.day - 1);
-                      var newmaximumDate = DateTime(widget.maximumDate.year,
-                          widget.maximumDate.month, widget.maximumDate.day + 1);
+                      var newminimumDate = DateTime(widget.minimumDate!.year,
+                          widget.minimumDate!.month, widget.minimumDate!.day - 1);
+                      var newmaximumDate = DateTime(widget.maximumDate!.year,
+                          widget.maximumDate!.month, widget.maximumDate!.day + 1);
                       if (date.isAfter(newminimumDate) &&
                           date.isBefore(newmaximumDate)) {
                         onDateClick(date);
                       }
                     } else if (widget.minimumDate != null) {
-                      var newminimumDate = DateTime(widget.minimumDate.year,
-                          widget.minimumDate.month, widget.minimumDate.day - 1);
+                      var newminimumDate = DateTime(widget.minimumDate!.year,
+                          widget.minimumDate!.month, widget.minimumDate!.day - 1);
                       if (date.isAfter(newminimumDate)) {
                         onDateClick(date);
                       }
                     } else if (widget.maximumDate != null) {
-                      var newmaximumDate = DateTime(widget.maximumDate.year,
-                          widget.maximumDate.month, widget.maximumDate.day + 1);
+                      var newmaximumDate = DateTime(widget.maximumDate!.year,
+                          widget.maximumDate!.month, widget.maximumDate!.day + 1);
                       if (date.isBefore(newmaximumDate)) {
                         onDateClick(date);
                       }
@@ -309,7 +309,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                       ),
                     ),
                     border: Border.all(
-                      color: _getBorderColor(date),
+                      color: _getBorderColor(date)!,
                     ),
                     boxShadow: getIsSelectedDate(date)
                         ? <BoxShadow>[
@@ -354,7 +354,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
     return noList;
   }
 
-  Color _getTextColor(DateTime date) {
+  Color? _getTextColor(DateTime date) {
     return getIsSelectedDate(date)
         ? Colors.white
         : currentMonthDate.month == date.month
@@ -366,7 +366,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
             : CustomTheme.hintText;
   }
 
-  Color _getBorderColor(DateTime date) {
+  Color? _getBorderColor(DateTime date) {
     return getIsSelectedDate(date)
         ? borderColorSelected
         : currentMonthDate.month == date.month
@@ -378,7 +378,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
             : borderColorNotSelectable;
   }
 
-  Color _getBackgroundColor(DateTime date) {
+  Color? _getBackgroundColor(DateTime date) {
     return getIsSelectedDate(date)
         ? isNotAvailableDate(date)
             ? backgroundColorNotAvailable
@@ -388,9 +388,9 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
 
   bool getIsSelectedDate(DateTime date) {
     if (selectedDate != null &&
-        selectedDate.day == date.day &&
-        selectedDate.month == date.month &&
-        selectedDate.year == date.year) {
+        selectedDate!.day == date.day &&
+        selectedDate!.month == date.month &&
+        selectedDate!.year == date.year) {
       return true;
     } else {
       return false;
@@ -399,8 +399,8 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
 
   bool isStartDateRadius(DateTime date) {
     if (selectedDate != null &&
-        selectedDate.day == date.day &&
-        selectedDate.month == date.month) {
+        selectedDate!.day == date.day &&
+        selectedDate!.month == date.month) {
       return true;
     } else if (date.weekday == 1) {
       return true;
@@ -428,32 +428,32 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
             isBeforeToday(date) == false &&
             isClosedDate(date) == false &&
             (widget.maximumDate == null ||
-                GlobalDate.isSameDay(widget.maximumDate, date) ||
-                date.isBefore(widget.maximumDate)) ||
+                GlobalDate.isSameDay(widget.maximumDate!, date) ||
+                date.isBefore(widget.maximumDate!)) ||
         //vendor side
-        widget.usedForVendor &&
+        widget.usedForVendor! &&
             widget.minimumDate != null &&
-            date.isAfter(widget.minimumDate);
+            date.isAfter(widget.minimumDate!);
   }
 
   void onDateClick(DateTime date) {
     selectedDate = date;
     setState(() {
       try {
-        widget.startEndDateChange(selectedDate);
+        widget.startEndDateChange!(selectedDate!);
       } catch (e) {}
     });
   }
 
   bool isClosedDate(DateTime date) {
-    return widget.closedDates.any((element) =>
+    return widget.closedDates!.any((element) =>
         element.year == date.year &&
         element.month == date.month &&
         element.day == date.day);
   }
 
   bool isNotAvailableDate(DateTime date) {
-    return widget.notAvailableDates.any((element) =>
+    return widget.notAvailableDates!.any((element) =>
         element.year == date.year &&
         element.month == date.month &&
         element.day == date.day);

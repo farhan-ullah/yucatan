@@ -5,17 +5,17 @@ part 'invoice_address_model.g.dart';
 @HiveType(typeId: 60)
 class InvoiceAddressModel {
   @HiveField(0)
-  String name;
+  String? name;
   @HiveField(1)
-  String houseNumber;
+  String? houseNumber;
   @HiveField(2)
-  String street;
+  String? street;
   @HiveField(3)
-  String city;
+  String? city;
   @HiveField(4)
-  int zip;
+  int? zip;
   @HiveField(5)
-  String phone;
+  String? phone;
 
   InvoiceAddressModel({
     this.name,

@@ -123,48 +123,48 @@ class _InputTextFieldState extends State<InputTextField> {
                   return widget.validationFunc?.call(arg!);
                 } else if (widget.validation == null) {
                   return null;
-                } else if (arg.length == 0) {
+                } else if (arg!.length == 0) {
                   return widget.validationErrorMsg;
                 } else {
-                  if (widget.isPassword) {
+                  if (widget.isPassword!) {
                     bool? isPasswordCompliant =
                         AuthRegex.isPasswordCompliant(arg.trim());
                     return isPasswordCompliant
                         ? null
                         : widget.validationErrorMsg;
                   } else {
-                    return widget.validation.hasMatch(arg)
+                    return widget.validation!.hasMatch(arg)
                         ? null
                         : widget.validationErrorMsg;
                   }
                 }
               },
               onChanged: widget.onTextChanged,
-              autocorrect: widget.autocorrect,
+              autocorrect: widget.autocorrect!,
               controller: _controller,
               focusNode: _textFocus,
-              style: widget.isComingFromCheckout
+              style: widget.isComingFromCheckout!
                   ? TextStyle(fontSize: Dimensions.getScaledSize(15))
                   : null,
               textAlignVertical:
-                  widget.isPassword ? TextAlignVertical.center : null,
-              decoration: new InputDecoration(
+                  widget.isPassword! ? TextAlignVertical.center : null,
+              decoration: InputDecoration(
                   errorMaxLines: 4,
                   contentPadding: EdgeInsets.fromLTRB(
                       Dimensions.getScaledSize(5.0), 0, 0, 0),
                   hintText: widget.hintText,
                   hintStyle: TextStyle(color: CustomTheme.hintText),
-                  border: widget.showUnderline
+                  border: widget.showUnderline!
                       ? null
-                      : OutlineInputBorder(
+                      : const OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
-                  errorStyle: TextStyle(
+                  errorStyle: const TextStyle(
                     fontStyle: FontStyle.italic,
                   ),
-                  suffixIcon: widget.enable
+                  suffixIcon: widget.enable!
                       ? arrowIcon()
-                      : widget.showHelpIcon
+                      : widget.showHelpIcon!
                           ? _passwordToggle()
                           : helpIcon()),
             ),
@@ -177,16 +177,16 @@ class _InputTextFieldState extends State<InputTextField> {
   //---------------------------------------------
 
   Widget _passwordToggle() {
-    if (widget.isPassword) {
+    if (widget.isPassword!) {
       return IconButton(
         color: color,
-        icon: _obscureText
-            ? Icon(Icons.visibility, size: 20)
-            : Icon(Icons.visibility_off, size: 20),
+        icon: _obscureText!
+            ? const Icon(Icons.visibility, size: 20)
+            : const Icon(Icons.visibility_off, size: 20),
         onPressed: _toggle,
       );
     } else
-      return null;
+      return SizedBox();
   }
 
   Widget helpIcon() {
@@ -197,7 +197,7 @@ class _InputTextFieldState extends State<InputTextField> {
   }
 
   Widget arrowIcon() {
-    return Icon(
+    return const Icon(
       Icons.keyboard_arrow_down_sharp,
       size: 32,
     );
@@ -205,7 +205,7 @@ class _InputTextFieldState extends State<InputTextField> {
 
   void _toggle() {
     setState(() {
-      _obscureText = !_obscureText;
+      _obscureText = !_obscureText!;
     });
   }
 }

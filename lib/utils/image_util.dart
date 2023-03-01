@@ -11,13 +11,13 @@ import 'StringUtils.dart';
 
 class ImageUtil {
   static Widget getImageFrom(
-      {Icon icon, String networkImageURL, String assetPath}) {
-    return (isNotNullOrEmpty(assetPath)
+      {Icon? icon, String? networkImageURL, String? assetPath}) {
+    return (isNotNullOrEmpty(assetPath!)
         ? (assetPath.endsWith(".svg")
             ? SvgPicture.asset(assetPath, height: 15)
             : Image.asset(assetPath, height: 15))
-        : (isNotNullOrEmpty(networkImageURL)
-            ? (networkImageURL.endsWith(".svg")
+        : (isNotNullOrEmpty(networkImageURL!)
+            ? (networkImageURL!.endsWith(".svg")
                 ? SvgPicture.network(networkImageURL, height: 15)
                 : loadCachedNetworkImage(networkImageURL, height: 15))
             : (icon != null ? icon : SizedBox.shrink())));
@@ -94,7 +94,7 @@ class ImageUtil {
                   )),
             ),
             SizedBox(
-              height: SizeConfig.screenHeight * 0.3,
+              height: SizeConfig.screenHeight! * 0.3,
               /*child: Image.asset(
                 "lib/assets/images/bookings-placeholder.jpg",
                 fit: BoxFit.cover,
@@ -112,7 +112,7 @@ class ImageUtil {
     );
   }
 
-  static Widget showShimmerPlaceholder({double width, double height}) {
+  static Widget showShimmerPlaceholder({double? width, double? height}) {
     return SizedBox(
       width: width,
       height: height,
@@ -127,7 +127,7 @@ class ImageUtil {
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(
-              color: Colors.grey[300],
+              color: Colors.grey[300]!,
             ),
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),

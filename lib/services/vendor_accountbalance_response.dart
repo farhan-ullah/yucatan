@@ -14,8 +14,8 @@ class VendorAccountBalanceResponse {
     this.data,
   });
 
-  int status;
-  Data data;
+  int? status;
+  Data? data;
 
   factory VendorAccountBalanceResponse.fromJson(Map<String, dynamic> json) => VendorAccountBalanceResponse(
     status: json["status"],
@@ -24,7 +24,7 @@ class VendorAccountBalanceResponse {
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": data.toJson(),
+    "data": data!.toJson(),
   };
 }
 
@@ -33,7 +33,7 @@ class Data {
     this.accountBalance,
   });
 
-  int accountBalance;
+  int? accountBalance;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     accountBalance: json["accountBalance"],

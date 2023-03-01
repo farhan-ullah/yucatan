@@ -4,7 +4,7 @@ import 'package:yucatan/utils/datefulWidget/GlobalDate.dart';
 ///Class for time and quota logic throughout the booking funnel
 class BookingTimeQuotaUtil {
   //Returns a BookingScreenTimeSlotModel for a given product, date, time, category and/or sub category
-  static int getDailyAvailableQuota(
+  static int? getDailyAvailableQuota(
     Product product,
     DateTime date,
     String timeString,
@@ -14,29 +14,29 @@ class BookingTimeQuotaUtil {
     if (category == null) throw Exception("Category can not be null");
 
     if (category.quota != null) {
-      if (category.quota < 0) return 2147483647;
+      if (category.quota! < 0) return 2147483647;
 
-      return getRemainingQuota(product, category.quota, date, timeString);
+      return getRemainingQuota(product, category.quota!, date, timeString);
     }
 
     if (subCategory != null && subCategory.quota != null) {
-      if (subCategory.quota < 0) return 2147483647;
+      if (subCategory.quota! < 0) return 2147483647;
 
-      return getRemainingQuota(product, subCategory.quota, date, timeString);
+      return getRemainingQuota(product, subCategory.quota!, date, timeString);
     }
 
     if (product.timeSlots == null) return 2147483647;
 
-    if (product.timeSlots.dailyQuota != null) {
-      if (product.timeSlots.dailyQuota < 0) return 2147483647;
+    if (product.timeSlots!.dailyQuota! != null) {
+      if (product.timeSlots!.dailyQuota! < 0) return 2147483647;
 
       return getRemainingQuota(
-          product, product.timeSlots.dailyQuota, date, timeString);
+          product, product.timeSlots!.dailyQuota!, date, timeString);
     }
 
-    if (product.timeSlots.hasTimeSlots == false) {
+    if (product.timeSlots!.hasTimeSlots == false) {
       return getRemainingQuota(
-          product, product.timeSlots.dailyQuota, date, timeString);
+          product, product.timeSlots!.dailyQuota!, date, timeString);
     }
 
     return null;
@@ -51,21 +51,21 @@ class BookingTimeQuotaUtil {
     if (timeString != null) {
       var splittedTime = timeString.split(":");
 
-      hour = int.tryParse(splittedTime[0]);
+      hour = int.tryParse(splittedTime[0])!;
       hour = hour != null ? hour : 0;
 
-      minute = int.tryParse(splittedTime[1]);
+      minute = int.tryParse(splittedTime[1])!;
       minute = minute != null ? minute : 0;
     }
 
     var filterDate =
         DateTime.utc(date.year, date.month, date.day, hour, minute);
 
-    var availableQuotaObject = product.timeSlots.quotaAvailability?.firstWhere(
+    var availableQuotaObject = product.timeSlots!.quotaAvailability?.firstWhere(
       (element) {
         return element.date == filterDate;
       },
-      orElse: () => null,
+      // orElse: () => null,
     );
 
     if (availableQuotaObject == null)
@@ -75,7 +75,7 @@ class BookingTimeQuotaUtil {
   }
 
   ///Returns the max quota from either the category, sub category, dailyQuota field in timeSlots, specific time slot, days or hours
-  static int getMaxQuota(
+  static int? getMaxQuota(
     Product product,
     DateTime date,
     String timeString,
@@ -85,55 +85,58 @@ class BookingTimeQuotaUtil {
     if (category == null) throw Exception("Category can not be null");
 
     if (category.quota != null) {
-      if (category.quota < 0) return 2147483647;
+      if (category.quota! < 0) return 2147483647;
 
-      return category.quota;
+      return category.quota!;
     }
 
     if (subCategory != null && subCategory.quota != null) {
-      if (subCategory.quota < 0) return 2147483647;
+      if (subCategory.quota! < 0) return 2147483647;
 
-      return subCategory.quota;
+      return subCategory.quota!;
     }
 
     if (product.timeSlots?.hasTimeSlots == false &&
         product.timeSlots?.dailyQuota != null) {
-      if (product.timeSlots.dailyQuota < 0) return 2147483647;
+      if (product.timeSlots!.dailyQuota! < 0) return 2147483647;
 
-      return product.timeSlots.dailyQuota;
+      return product.timeSlots!.dailyQuota!;
     }
 
-    var specialTimeSlot = product.timeSlots.special?.firstWhere(
+    var specialTimeSlot = product.timeSlots!.special?.firstWhere(
       (specialTimeSlotElement) =>
-          GlobalDate.isSameDay(specialTimeSlotElement.date, date),
-      orElse: () => null,
+          GlobalDate.isSameDay(specialTimeSlotElement.date!, date),
+      // orElse: () => null,
     );
 
     if (specialTimeSlot != null) {
-      if (specialTimeSlot.quota != null)
-        return specialTimeSlot.quota < 0 ? 2147483647 : specialTimeSlot.quota;
+      if (specialTimeSlot.quota != null) {
+        return specialTimeSlot.quota! < 0 ? 2147483647 : specialTimeSlot.quota!;
+      }
 
       var specialTimeSlotHoursEntry = specialTimeSlot.hours?.firstWhere(
         (specialTimeSlotHoursElement) =>
             specialTimeSlotHoursElement.time == timeString,
-        orElse: () => null,
+        // orElse: () => null,
       );
 
       if (specialTimeSlotHoursEntry != null &&
-          specialTimeSlotHoursEntry.quota != null)
-        return specialTimeSlotHoursEntry.quota < 0
+          specialTimeSlotHoursEntry.quota != null) {
+        return specialTimeSlotHoursEntry.quota! < 0
             ? 2147483647
             : specialTimeSlotHoursEntry.quota;
+      }
     }
 
     var maxQuotaFromRegularTimeSlots =
         getMaxQuotaFromRegularTimeSlots(product, date, timeString);
 
-    if (maxQuotaFromRegularTimeSlots != null)
+    if (maxQuotaFromRegularTimeSlots != null) {
       return maxQuotaFromRegularTimeSlots != null &&
               maxQuotaFromRegularTimeSlots < 0
           ? 2147483647
           : maxQuotaFromRegularTimeSlots ?? 0;
+    }
 
     return 0;
   }
@@ -144,9 +147,9 @@ class BookingTimeQuotaUtil {
     DateTime date,
     String timeString,
   ) {
-    ProductTimeSlotsRegularDay regularTimeSlotDay;
+    ProductTimeSlotsRegularDay? regularTimeSlotDay;
 
-    product.timeSlots.regular?.forEach((regularTimeSlotElement) {
+    product.timeSlots!.regular?.forEach((regularTimeSlotElement) {
       if (regularTimeSlotElement.intervalType ==
           ProductTImeSlotsRegularIntervalType.WEEK) {
         //Get weeks for time slot duration
@@ -156,27 +159,27 @@ class BookingTimeQuotaUtil {
         //Loop trough regular time slot depending on intervalRepeat (if intervalRepeat == 2, skip every other entry)
         for (var i = 0;
             i < weeks.length;
-            i += regularTimeSlotElement.intervalRepeat) {
+            i += regularTimeSlotElement.intervalRepeat!) {
           var weekDays = weeks[i];
 
           //Loop through days of regular time slot
-          regularTimeSlotElement.days.forEach(
+          regularTimeSlotElement.days!.forEach(
             (productTimeSlotsRegularDay) {
               //Get date by weekday
               var localDate = weekDays.firstWhere(
                 (weekDaysElement) =>
                     weekDaysElement.weekday == productTimeSlotsRegularDay.day,
-                orElse: () => null,
+                // orElse: () => null,
               );
 
               //Skip if date is null
               if (localDate == null) return null;
 
               //Skip if date is out of range
-              if (localDate.isBefore(regularTimeSlotElement.startDate) ||
-                  (localDate.isAfter(regularTimeSlotElement.endDate) &&
+              if (localDate.isBefore(regularTimeSlotElement.startDate!) ||
+                  (localDate.isAfter(regularTimeSlotElement.endDate!) &&
                       GlobalDate.isSameDay(
-                              localDate, regularTimeSlotElement.endDate) ==
+                              localDate, regularTimeSlotElement.endDate!) ==
                           false)) return null;
 
               if (localDate != null && GlobalDate.isSameDay(date, localDate)) {
@@ -195,22 +198,22 @@ class BookingTimeQuotaUtil {
         //Loop trough regular time slot depending on intervalRepeat (if intervalRepeat == 2, skip every other entry)
         for (var i = 0;
             i < months.length;
-            i += regularTimeSlotElement.intervalRepeat) {
+            i += regularTimeSlotElement.intervalRepeat!) {
           var daysInMonth = months[i];
 
           //Loop through days of regular time slot
-          regularTimeSlotElement.days.forEach(
+          regularTimeSlotElement.days!.forEach(
             (productTimeSlotsRegularDay) {
               //Get week in month for which to apply time slot
               //0 = first week of month
               var weekInMonth =
-                  ((productTimeSlotsRegularDay.day - 1) / 7).floor();
+                  ((productTimeSlotsRegularDay.day! - 1) / 7).floor();
 
               //Get weekday for week in month
               //E.g. productTimeSlotsRegularDay.day == 1 = first monday of month, productTimeSlotsRegularDay.day == 8 = second monday of month
               //Both return 1 as weekday
               var weekdayInWeekInMonth =
-                  productTimeSlotsRegularDay.day - (weekInMonth * 7);
+                  productTimeSlotsRegularDay.day! - (weekInMonth * 7);
 
               //Get date by weekday
               var localDate = daysInMonth.firstWhere(
@@ -225,17 +228,17 @@ class BookingTimeQuotaUtil {
                   return daysInMonthElement.weekday == weekdayInWeekInMonth &&
                       isSameWeekInMonth;
                 },
-                orElse: () => null,
+                // orElse: () => null,
               );
 
               //Skip if date is null
               if (localDate == null) return null;
 
               //Skip if date is out of range
-              if (localDate.isBefore(regularTimeSlotElement.startDate) ||
-                  (localDate.isAfter(regularTimeSlotElement.endDate) &&
+              if (localDate.isBefore(regularTimeSlotElement.startDate!) ||
+                  (localDate.isAfter(regularTimeSlotElement.endDate!) &&
                       GlobalDate.isSameDay(
-                              localDate, regularTimeSlotElement.endDate) ==
+                              localDate, regularTimeSlotElement.endDate!) ==
                           false)) return null;
 
               if (localDate != null && GlobalDate.isSameDay(date, localDate)) {
@@ -250,18 +253,18 @@ class BookingTimeQuotaUtil {
 
     if (regularTimeSlotDay == null) return 0;
 
-    if (regularTimeSlotDay.quota != null) return regularTimeSlotDay.quota;
+    if (regularTimeSlotDay!.quota! != null) return regularTimeSlotDay!.quota!;
 
-    var regularTimeSlotDayHour = regularTimeSlotDay.hours.firstWhere(
+    var regularTimeSlotDayHour = regularTimeSlotDay!.hours!.firstWhere(
       (regularTimeSlotDayHoursElement) =>
           regularTimeSlotDayHoursElement.time == timeString,
-      orElse: () => null,
+      // orElse: () => null,
     );
 
     if (regularTimeSlotDayHour == null) return 0;
 
     if (regularTimeSlotDayHour.quota != null)
-      return regularTimeSlotDayHour.quota;
+      return regularTimeSlotDayHour.quota!;
 
     return 0;
   }
@@ -273,10 +276,10 @@ class BookingTimeQuotaUtil {
 
     //Get first and last week
     List<DateTime> firstWeek = GlobalDate.getWeekFromDate(
-      productTimeSlotsRegular.startDate,
+      productTimeSlotsRegular.startDate!,
     );
     List<DateTime> lastWeek = GlobalDate.getWeekFromDate(
-      productTimeSlotsRegular.endDate,
+      productTimeSlotsRegular.endDate!,
     );
 
     //Calcualte difference between start and end week without respecting time (HH:mm)
@@ -294,7 +297,7 @@ class BookingTimeQuotaUtil {
     //Generate weeks in beetween first and last
     for (var i = 1; i < startEndDifference.inDays / 7; i++) {
       var week = GlobalDate.getWeekFromDate(
-        productTimeSlotsRegular.startDate.add(
+        productTimeSlotsRegular.startDate!.add(
           Duration(days: i * 7),
         ),
       );
@@ -315,10 +318,10 @@ class BookingTimeQuotaUtil {
 
     //Get first and last moth
     List<DateTime> firstMonth = GlobalDate.getMonthFromDate(
-      productTimeSlotsRegular.startDate,
+      productTimeSlotsRegular.startDate!,
     );
     List<DateTime> lastMonth = GlobalDate.getMonthFromDate(
-      productTimeSlotsRegular.endDate,
+      productTimeSlotsRegular.endDate!,
     );
 
     //Calculate difference between start and end month
@@ -332,12 +335,12 @@ class BookingTimeQuotaUtil {
     //Generate months in beetween first and last
     for (var i = 1; i < differenceInMonths; i++) {
       var yearsInFuture =
-          ((productTimeSlotsRegular.startDate.month + i) / 12).floor();
+          ((productTimeSlotsRegular.startDate!.month + i) / 12).floor();
 
       var month = GlobalDate.getMonthFromDate(
         DateTime(
-          productTimeSlotsRegular.startDate.year + yearsInFuture,
-          productTimeSlotsRegular.startDate.month + i - (yearsInFuture * 12),
+          productTimeSlotsRegular.startDate!.year + yearsInFuture,
+          productTimeSlotsRegular.startDate!.month + i - (yearsInFuture * 12),
           1,
         ),
       );
@@ -352,22 +355,22 @@ class BookingTimeQuotaUtil {
   }
 
   ///Returns a bool wether a given product is available on a given date
-  static bool isProductAvailableOnDate(Product product, DateTime date) {
-    if (product.timeSlots != null && product.timeSlots.hasTimeSlots == false)
+  static bool? isProductAvailableOnDate(Product product, DateTime date) {
+    if (product.timeSlots != null && product.timeSlots!.hasTimeSlots == false)
       return true;
 
-    var specialOpen = product.timeSlots.special?.any(
+    var specialOpen = product.timeSlots!.special?.any(
       (specialTimeSlotElement) {
         return GlobalDate.isSameDay(
-          specialTimeSlotElement.date,
+          specialTimeSlotElement.date!,
           date,
         );
       },
     );
 
-    if (specialOpen) return true;
+    if (specialOpen!) return true;
 
-    return product.timeSlots.regular?.any((regularTimeSlotElement) {
+    return product.timeSlots!.regular?.any((regularTimeSlotElement) {
       if (regularTimeSlotElement.intervalType ==
           ProductTImeSlotsRegularIntervalType.WEEK) {
         //Get weeks for time slot duration
@@ -377,17 +380,17 @@ class BookingTimeQuotaUtil {
         //Loop trough regular time slot depending on intervalRepeat (if intervalRepeat == 2, skip every other entry)
         for (var i = 0;
             i < weeks.length;
-            i += regularTimeSlotElement.intervalRepeat) {
+            i += regularTimeSlotElement.intervalRepeat!) {
           var weekDays = weeks[i];
 
           //Loop through days of regular time slot
-          var isAvailable = regularTimeSlotElement.days.any(
+          var isAvailable = regularTimeSlotElement.days!.any(
             (productTimeSlotsRegularDay) {
               //Get date by weekday
               var localDate = weekDays.firstWhere(
                 (weekDaysElement) =>
                     weekDaysElement.weekday == productTimeSlotsRegularDay.day,
-                orElse: () => null,
+                // orElse: () => null,
               );
 
               if (localDate == null) return false;
@@ -407,22 +410,22 @@ class BookingTimeQuotaUtil {
         //Loop trough regular time slot depending on intervalRepeat (if intervalRepeat == 2, skip every other entry)
         for (var i = 0;
             i < months.length;
-            i += regularTimeSlotElement.intervalRepeat) {
+            i += regularTimeSlotElement.intervalRepeat!) {
           var daysInMonth = months[i];
 
           //Loop through days of regular time slot
-          var isAvailable = regularTimeSlotElement.days.any(
+          var isAvailable = regularTimeSlotElement.days!.any(
             (productTimeSlotsRegularDay) {
               //Get week in month for which to apply time slot
               //0 = first week of month
               var weekInMonth =
-                  ((productTimeSlotsRegularDay.day - 1) / 7).floor();
+                  ((productTimeSlotsRegularDay.day! - 1) / 7).floor();
 
               //Get weekday for week in month
               //E.g. productTimeSlotsRegularDay.day == 1 = first monday of month, productTimeSlotsRegularDay.day == 8 = second monday of month
               //Both return 1 as weekday
               var weekdayInWeekInMonth =
-                  productTimeSlotsRegularDay.day - (weekInMonth * 7);
+                  productTimeSlotsRegularDay.day! - (weekInMonth * 7);
 
               //Get date by weekday
               var localDate = daysInMonth.firstWhere(
@@ -437,7 +440,7 @@ class BookingTimeQuotaUtil {
                   return daysInMonthElement.weekday == weekdayInWeekInMonth &&
                       isSameWeekInMonth;
                 },
-                orElse: () => null,
+                // orElse: () => null,
               );
 
               if (localDate == null) return false;

@@ -11,7 +11,7 @@ class UserService extends BaseService {
   UserService._() : super(BaseService.defaultURL + '/users');
 
   /// Queries all users
-  static Future<UserMultiResponseEntity> getAll() async {
+  static Future<UserMultiResponseEntity?> getAll() async {
     var httpData = (await new UserService._().get(''))?.body;
     if (httpData != null) {
       return new UserMultiResponseEntity().fromJson(json.decode(httpData));
@@ -21,8 +21,8 @@ class UserService extends BaseService {
 
   /// Queries an User by the given [id]
   /// [id] internal ID of the user (UserModel.sId)
-  static Future<UserSingleResponseEntity> getUser(String id) async {
-    return _parseSingle((await new UserService._().get(id))?.body);
+  static Future<UserSingleResponseEntity?> getUser(String id) async {
+    return _parseSingle((await new UserService._().get(id))!.body);
   }
 
   /// Creates a new User
@@ -39,12 +39,12 @@ class UserService extends BaseService {
         .forEach((it) => map.remove(it));
 
     dynamic body = json.encode(map);
-    var result = _parseSingle((await new UserService._().post('', body))?.body);
+    var result = _parseSingle((await new UserService._().post('', body)).body);
 
     print('Result After Registration : $result');
-    if (result.status == 200) {
+    if (result!.status == 200) {
       //Log firebase event
-      AnalyticsService.logRegistration(result.data.sId, result.data.email);
+      AnalyticsService.logRegistration(result.data.sId!, result.data.email!);
     }
 
     return result;
@@ -52,15 +52,15 @@ class UserService extends BaseService {
 
   /// Deletes an User by the given [id]
   /// [id] internal ID of the user (UserModel.sId)
-  static Future<UserSingleResponseEntity> deleteUser(String id) async {
-    return _parseSingle((await new UserService._().delete(id))?.body);
+  static Future<UserSingleResponseEntity?> deleteUser(String id) async {
+    return _parseSingle((await new UserService._().delete(id)).body);
   }
 
   //---------------------------------------------
 
   /// takes the response body and parses it to json
   /// [httpData] HTTP-Response body returned by remote server
-  static UserSingleResponseEntity _parseSingle(String httpData) {
+  static UserSingleResponseEntity? _parseSingle(String httpData) {
     if (httpData != null) {
       return new UserSingleResponseEntity().fromJson(json.decode(httpData));
     } else
@@ -68,9 +68,9 @@ class UserService extends BaseService {
   }
 
   // Get favorite activities by user
-  static Future<List<String>> getFavoriteActivitiesForUser(
+  static Future<List<String>?> getFavoriteActivitiesForUser(
       String userId) async {
-    var httpData = (await new UserService._().get(userId + '/favorites'))?.body;
+    var httpData = (await new UserService._().get(userId + '/favorites'))!.body;
     if (httpData != null) {
       List<String> test = List.from(json.decode(httpData)["data"]);
       return test;
@@ -79,11 +79,11 @@ class UserService extends BaseService {
   }
 
   // Delete favorite activity for user
-  static Future<UserSingleResponseEntity> deleteUserFavoriteActivity(
-      {String activityId, String userId}) async {
+  static Future<UserSingleResponseEntity?> deleteUserFavoriteActivity(
+      {String? activityId, String? userId}) async {
     var httpData =
-        (await new UserService._().delete(userId + '/favorites/' + activityId))
-            ?.body;
+        (await new UserService._().delete(userId! + '/favorites/' + activityId!))
+            .body;
     if (httpData != null) {
       return new UserSingleResponseEntity().fromJson(json.decode(httpData));
     } else
@@ -91,16 +91,16 @@ class UserService extends BaseService {
   }
 
   // Add favorite activity for user
-  static Future<UserSingleResponseEntity> addUserFavoriteActivity(
-      {String activityId, String userId}) async {
+  static Future<UserSingleResponseEntity?> addUserFavoriteActivity(
+      {String? activityId, String? userId}) async {
     //Log firebase event
-    AnalyticsService.logAddToWishlist(activityId, userId);
+    AnalyticsService.logAddToWishlist(activityId!, userId!);
 
     var body = jsonEncode({
       'activityIds': [activityId]
     });
     var httpData =
-        (await new UserService._().post(userId + '/favorites', body))?.body;
+        (await new UserService._().post(userId + '/favorites', body)).body;
     if (httpData != null) {
       return new UserSingleResponseEntity().fromJson(json.decode(httpData));
     } else
@@ -108,11 +108,11 @@ class UserService extends BaseService {
   }
 
   // Confirm User
-  static Future<UserSingleResponseEntity> confirmUser(
-      {String email, String token}) async {
+  static Future<UserSingleResponseEntity?> confirmUser(
+      {String? email, String? token}) async {
     var httpData = (await new UserService._()
-            .get('/confirm?email=' + email + '&token=' + token))
-        ?.body;
+            .get('/confirm?email=' + email! + '&token=' + token!))!
+        .body;
     if (httpData != null) {
       return new UserSingleResponseEntity().fromJson(json.decode(httpData));
     } else
@@ -120,15 +120,15 @@ class UserService extends BaseService {
   }
 
   // Save FCM token to user
-  static Future<UserSingleResponseEntity> saveFcmToken(
-      {String userId, String fcmToken}) async {
+  static Future<UserSingleResponseEntity?> saveFcmToken(
+      {String? userId, String? fcmToken}) async {
     var requestBody = jsonEncode({'fcmToken': fcmToken});
 
     var httpData = (await new UserService._().post(
-      '/' + userId + '/fcmtoken',
+      '/' + userId! + '/fcmtoken',
       requestBody,
     ))
-        ?.body;
+        .body;
     if (httpData != null) {
       return new UserSingleResponseEntity().fromJson(json.decode(httpData));
     } else

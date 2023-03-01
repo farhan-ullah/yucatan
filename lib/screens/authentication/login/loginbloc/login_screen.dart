@@ -325,7 +325,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             controller: passwordController,
-                            validator: (val) => val.length < 6
+                            validator: (val) => val!.length < 6
                                 ? AppLocalizations.of(context)
                                     .authenticationSceen_passwordInvalid
                                 : null,

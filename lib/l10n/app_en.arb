@@ -507,14 +507,6 @@
   "@bookingListScreen_vendorWillRespondeSoon": {
     "description": "Vendor will responde soon"
   },
-  "bookingListScreen_refundPeriodDuration": "{count,plural, =1{cancellation only possible within {count} hour} other{cancellation only possible within {count} hours}}",
-  "@bookingListScreen_refundPeriodDuration": {
-    "description": "booking can be refunded before period",
-    "placeholders": {
-      "count": {
-      }
-    }
-  },
   "bookingListScreen_singleTicket": "single ticket",
   "@bookingListScreen_singleTicket": {
     "description": "single ticket"
@@ -714,14 +706,6 @@
   "hotelDetailesScreen_covidMeasures": "Covid-19: protective measures",
   "@hotelDetailesScreen_covidMeasures": {
     "description": " covid measures"
-  },
-  "hotelDetailesScreen_reviewCountHandlePlural": "{count,plural, =1{({count} rating)} other{({count} ratings})} ",
-  "@hotelDetailesScreen_reviewCountHandlePlural": {
-    "description": "plural message for review count",
-    "placeholders": {
-      "count": {
-      }
-    }
   },
   "hotelDetailesScreen_showAllReviews": "Show all reviews",
   "@hotelDetailesScreen_showAllReviews": {
@@ -1123,14 +1107,6 @@
   "@vendor_dashboardScreen_booking_requests": {
     "description": "booking requests"
   },
-  "vendor_dashboardScreen_requests": "{count,plural, =1{({count} open request)} other{({count} open requests})}",
-  "@vendor_dashboardScreen_requests": {
-    "description": "requests",
-    "placeholders": {
-      "count": {
-      }
-    }
-  },
   "vendor_table_count": "no.",
   "@vendor_table_count": {
     "description": "count (number)"
@@ -1142,14 +1118,6 @@
   "vendor_table_customer": "customer",
   "@vendor_table_customer": {
     "description": "customer"
-  },
-  "vendor_table_amount": "Amount({currency})",
-  "@vendor_table_amount": {
-    "description": "amount",
-    "placeholders": {
-      "currency": {
-      }
-    }
   },
   "vendor_table_noBookings": "No bookings available",
   "@vendor_table_noBookings": {
@@ -1498,15 +1466,22 @@
   "@payment_processing_screen_description": {
     "description": "Payment processing screen description text"
   }
-  ,
+,
   "location_permission_denied_alert_title": "Location approval required",
-      "@location_permission_denied_alert_title": {
-        "description": "if location is denied by the user"
+  "@location_permission_denied_alert_title": {
+    "description": "if location is denied by the user"
+  }
+,
+  "location_permission_denied_alert_body": "Please enable location sharing in settings",
+  "@location_permission_denied_alert_body": {
+    "description": "if location is denied by the user"
+  },
+  "bookingListScreen_refundPeriodDuration": "{count,plural, =1{cancellation only possible within {count} hour} other{cancellation only possible within {count} hours}}",
+  "@bookingListScreen_refundPeriodDuration": {
+    "description": "booking can be refunded before period",
+    "placeholders": {
+      "count": {
       }
-      ,
-    "location_permission_denied_alert_body": "Please enable location sharing in settings",
-     "@location_permission_denied_alert_body": {
-         "description": "if location is denied by the user"
-       }
+    }
+  }
 }
-

@@ -30,8 +30,8 @@ class _BookingTicketListState extends State<BookingTicketList> {
   @override
   void initState() {
     super.initState();
-    totalPages = widget.booking.tickets.length;
-    widget.booking.tickets.sort((a, b) {
+    totalPages = widget.booking.tickets!.length;
+    widget.booking.tickets!.sort((a, b) {
       if (a.status == "USABLE" && b.status == "USABLE") {
         return 0;
       } else if (a.status == "USABLE" && b.status != "USABLE") {
@@ -77,6 +77,7 @@ class _BookingTicketListState extends State<BookingTicketList> {
                   ),
                 ),
                 Visibility(
+                  visible: totalPages > 1,
                   child: Padding(
                     padding:
                         EdgeInsets.only(top: Dimensions.getScaledSize(20.0)),
@@ -85,7 +86,6 @@ class _BookingTicketListState extends State<BookingTicketList> {
                       numberOfPages: totalPages,
                     ),
                   ),
-                  visible: totalPages > 1,
                 )
               ],
             ),
@@ -96,7 +96,7 @@ class _BookingTicketListState extends State<BookingTicketList> {
   }
 
   List<Widget> _buildTickets() {
-    return widget.booking.tickets
+    return widget.booking.tickets!
         .map(
           (ticket) => BookingTicketListItem(
             initialBrightness: widget.initialBrightness,

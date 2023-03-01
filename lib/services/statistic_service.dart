@@ -8,7 +8,7 @@ class StatisticService extends BaseService {
   StatisticService._()
       : super(BaseService.defaultURL + '/statistics');
 
-  static Future<VendorBookingStatisticSingleResponseEntity>
+  static Future<VendorBookingStatisticSingleResponseEntity?>
       getVendorDetailedStatistic(String dateFrom, String dateTo) async {
     Map<String, String> queryParams = Map();
 
@@ -21,7 +21,7 @@ class StatisticService extends BaseService {
     String urlQuery = Uri(queryParameters: queryParams).query;
     var httpData =
         (await new StatisticService._().get('/vendor/details' + '?$urlQuery'))
-            ?.body;
+            !.body;
     if (httpData != null) {
       return VendorBookingStatisticSingleResponseEntity.fromJson(
           json.decode(httpData));

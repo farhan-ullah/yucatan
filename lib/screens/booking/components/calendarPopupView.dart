@@ -9,14 +9,14 @@ import 'customCalendar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CalendarPopupView extends StatefulWidget {
-  final DateTime minimumDate;
-  final DateTime maximumDate;
-  final bool barrierDismissible;
-  final DateTime initialDate;
-  final Function(DateTime) onApplyClick;
-  final Function onCancelClick;
-  final List<DateTime> closedDates;
-  final bool usedForVendor;
+  final DateTime? minimumDate;
+  final DateTime? maximumDate;
+  final bool? barrierDismissible;
+  final DateTime? initialDate;
+  final Function(DateTime)? onApplyClick;
+  final Function? onCancelClick;
+  final List<DateTime>? closedDates;
+  final bool? usedForVendor;
 
   const CalendarPopupView({
     Key? key,
@@ -36,8 +36,8 @@ class CalendarPopupView extends StatefulWidget {
 
 class _CalendarPopupViewState extends State<CalendarPopupView>
     with TickerProviderStateMixin {
-  AnimationController animationController;
-  DateTime date;
+  AnimationController? animationController;
+  DateTime? date;
 
   @override
   void initState() {
@@ -46,14 +46,14 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
     if (widget.initialDate != null) {
       date = widget.initialDate;
     }
-    animationController.forward();
+    animationController!.forward();
     super.initState();
     initializeDateFormatting('de', null);
   }
 
   @override
   void dispose() {
-    animationController.dispose();
+    animationController!.dispose();
     super.dispose();
   }
 
@@ -63,18 +63,18 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: AnimatedBuilder(
-          animation: animationController,
-          builder: (BuildContext context, Widget child) {
+          animation: animationController!,
+          builder: (BuildContext, Widget) {
             return AnimatedOpacity(
               duration: Duration(milliseconds: 100),
-              opacity: animationController.value,
+              opacity: animationController!.value,
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 hoverColor: Colors.transparent,
                 onTap: () {
-                  if (widget.barrierDismissible) Navigator.pop(context);
+                  if (widget.barrierDismissible!) Navigator.pop(context);
                 },
                 child: Center(
                   child: Padding(
@@ -99,7 +99,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
+                          children: [
                             Padding(
                               padding: EdgeInsets.only(
                                 top: Dimensions.getScaledSize(10.0),
@@ -109,7 +109,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                                 child: Text(
                                   date != null
                                       ? DateFormat("EEE, dd MMM", "de-DE")
-                                          .format(date)
+                                          .format(date!)
                                       : "--/-- ",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -122,16 +122,16 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                               height: Dimensions.getScaledSize(1.0),
                             ),
                             CustomCalendarView(
-                              minimumDate: widget.minimumDate,
-                              maximumDate: widget.maximumDate,
-                              initialDate: widget.initialDate,
+                              minimumDate: widget.minimumDate!,
+                              maximumDate: widget.maximumDate!,
+                              initialDate: widget.initialDate!,
                               startEndDateChange: (DateTime dateData) {
                                 setState(() {
                                   date = dateData;
                                 });
                               },
-                              closedDates: widget.closedDates,
-                              usedForVendor: widget.usedForVendor,
+                              closedDates: widget.closedDates!,
+                              usedForVendor: widget.usedForVendor!,
                             ),
                             Padding(
                               padding: EdgeInsets.only(
@@ -166,7 +166,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                                         // animationController.reverse().then((f) {
 
                                         // });
-                                        widget.onApplyClick(date);
+                                        widget.onApplyClick!(date!);
                                         Navigator.pop(context);
                                       } catch (e) {}
                                     },

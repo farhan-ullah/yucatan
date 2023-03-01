@@ -34,20 +34,20 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  RegisterDetailModel _detailModel;
-  RegisterEmailModel _emailModel;
-  RegisterPasswordModel _passwordModel;
-  RegisterPolicyModel _policyModel;
+  RegisterDetailModel? _detailModel;
+  RegisterEmailModel? _emailModel;
+  RegisterPasswordModel? _passwordModel;
+  RegisterPolicyModel? _policyModel;
 
-  CountryPhoneModel _countryPhoneModel;
+  CountryPhoneModel? _countryPhoneModel;
   final RegisterBloc bloc = RegisterBloc();
   final registerValidationBloc = RegisterValidationBloc();
-  bool isSubmitButtonPressed;
+  bool? isSubmitButtonPressed;
 
   @override
   void initState() {
     isSubmitButtonPressed = false;
-    registerValidationBloc.registerSubmitButtonPressed(isSubmitButtonPressed);
+    registerValidationBloc.registerSubmitButtonPressed(isSubmitButtonPressed!);
     registerValidationBloc.eventSink
         .add(RegisterValidationAction.IsButtonPressed);
     _getRegisterResponse();
@@ -86,7 +86,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             backgroundColor: CustomTheme.theme.primaryColorDark,
             textColor: Colors.white);
       } else {
-        UserProvider.login(response.data.email, _passwordModel.password)
+        UserProvider.login(response.data.email, _passwordModel!.password!)
             .then((value) {
           Navigator.pop(context, true);
         });
@@ -113,7 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 30, left: 20, right: 20),
+                margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
                 child: Column(
                   children: [
                     Align(
@@ -125,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: Dimensions.getScaledSize(16.0))),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(AppLocalizations.of(context)
                         .registerScreen_dataRequiredText)
                   ],
@@ -135,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Expanded(
                   child: SingleChildScrollView(
                 child: Container(
-                  alignment: Alignment(0.0, 0.0),
+                  alignment: const Alignment(0.0, 0.0),
                   margin: EdgeInsets.only(
                       top: 0,
                       left: Dimensions.getScaledSize(20.0),
@@ -145,6 +145,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     children: [
                       Visibility(
+                        visible: true,
+                        maintainState: true,
                         child: Column(
                           children: [
                             SizedBox(height: Dimensions.getScaledSize(10.0)),
@@ -164,14 +166,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     text: TextSpan(
                                         text: AppLocalizations.of(context)
                                             .registerScreen_secure_password_text,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.black,
                                             fontFamily: CustomTheme.fontFamily),
                                         children: [
                                       TextSpan(
                                         text: AppLocalizations.of(context)
                                             .registerScreen_learn_more_text,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: CustomTheme.primaryColor,
                                             fontFamily: CustomTheme.fontFamily),
                                         recognizer: TapGestureRecognizer()
@@ -191,8 +193,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             // just needed to compensate for matrix transformation of the container
                           ],
                         ),
-                        visible: true,
-                        maintainState: true,
                       ),
                     ],
                   ),
@@ -248,26 +248,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
         onChange: (RegisterDetailModel model) {
           _detailModel = model;
         },
-        registerValidationBloc: this.registerValidationBloc,
+        registerValidationBloc: registerValidationBloc,
       );
 
   Widget _emailWidget() => RegisterEmail(
         onChange: (RegisterEmailModel model) {
           _emailModel = model;
         },
-        registerValidationBloc: this.registerValidationBloc,
+        registerValidationBloc: registerValidationBloc,
       );
 
   Widget _countryWidget() => CountrySelection(
-      registerValidationBloc: this.registerValidationBloc,
+      registerValidationBloc: registerValidationBloc,
       isComingFromProfile: true,
       countryObject: CountryUtils.getInstance().countryObject,
       onChange: (CountryPhoneModel model) {
         _countryPhoneModel = model;
-        if (model.phone.isNotEmpty) {
-          _countryPhoneModel.isValid = true;
+        if (model.phone!.isNotEmpty) {
+          _countryPhoneModel!.isValid = true;
         } else {
-          _countryPhoneModel.isValid = false;
+          _countryPhoneModel!.isValid = false;
         }
       });
 
@@ -275,13 +275,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       onChange: (RegisterPasswordModel model) {
         _passwordModel = model;
       },
-      registerValidationBloc: this.registerValidationBloc);
+      registerValidationBloc: registerValidationBloc);
 
   Widget _policyWidget() => RegisterPolicy(
         onChange: (RegisterPolicyModel model) {
           _policyModel = model;
         },
-        registerValidationBloc: this.registerValidationBloc,
+        registerValidationBloc: registerValidationBloc,
       );
 
   void modalBottomSheetMenu() {
@@ -443,29 +443,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
       debugPrint("Cannot register. One of the models is null!");
       return;
     }
-    if (!_policyModel.isValid ||
-        !_countryPhoneModel.isValid ||
-        !_passwordModel.isValid ||
-        !_emailModel.isValid ||
-        !_detailModel.isValid) {
+    if (!_policyModel!.isValid ||
+        !_countryPhoneModel!.isValid ||
+        !_passwordModel!.isValid ||
+        !_emailModel!.isValid ||
+        !_detailModel!.isValid) {
       return;
     }
     showLoader(context);
     //var name = _addressModel.name.split(" ");
     var loginModel = UserLoginModel();
-    loginModel.email = _emailModel.email;
-    loginModel.username = _detailModel.username;
+    loginModel.email = _emailModel!.email!;
+    loginModel.username = _detailModel!.username;
     /*loginModel.lastname = _addressModel.nachName;
     loginModel.firstname = _addressModel.firstname;*/
-    loginModel.phone = _countryPhoneModel.phone;
-    loginModel.areaCode = _countryPhoneModel.areaCode;
-    loginModel.countryISO2 = _countryPhoneModel.countryISO2Code;
+    loginModel.phone = _countryPhoneModel!.phone!;
+    loginModel.areaCode = _countryPhoneModel!.areaCode!;
+    loginModel.countryISO2 = _countryPhoneModel!.countryISO2Code!;
     /*loginModel.street = _addressModel.street;
     loginModel.housenumber = _addressModel.houseNo;
     loginModel.zipcode = _addressModel.zipCode;
     loginModel.city = _addressModel.city;*/
     var response = await UserService.createUser(loginModel,
-        _passwordModel.password.trim(), _passwordModel.passwordRepeat.trim());
+        _passwordModel!.password!.trim(), _passwordModel!.passwordRepeat!.trim());
     Navigator.pop(context);
     hideKeyboard(context);
     if (response.errors != null) {
@@ -484,7 +484,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           textColor: Colors.white
       );*/
       // directly login user after successful register
-      UserProvider.login(response.data.email, _passwordModel.password)
+      UserProvider.login(response.data.email, _passwordModel!.password!)
           .then((value) {
         // Redirect to previous page
         Navigator.pop(context, true);
@@ -496,7 +496,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Widget _showRegisterButton(BuildContext context, String title) {
     var button = ButtonTheme(
-      minWidth: SizeConfig.screenWidth,
+      minWidth: SizeConfig.screenWidth!,
       child: MaterialButton(
         elevation: 0.0,
         color: CustomTheme.backgroundColor,
@@ -512,13 +512,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
             horizontal: Dimensions.getScaledSize(20.0)),
         onPressed: () {
           // _performRegister(context);
-          this.isSubmitButtonPressed = true;
+          isSubmitButtonPressed = true;
           registerValidationBloc
-              .registerSubmitButtonPressed(isSubmitButtonPressed);
+              .registerSubmitButtonPressed(isSubmitButtonPressed!);
           registerValidationBloc.eventSink
               .add(RegisterValidationAction.IsButtonPressed);
-          bloc.register(_detailModel, _emailModel, _passwordModel, _policyModel,
-              _countryPhoneModel);
+          bloc.register(_detailModel!, _emailModel!, _passwordModel!, _policyModel!,
+              _countryPhoneModel!);
         },
         child: Text(
           title,

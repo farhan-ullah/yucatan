@@ -4,8 +4,8 @@ import 'package:yucatan/config/flavor_config.dart';
 
 class FlavorBanner extends StatelessWidget {
   final Widget child;
-  BannerConfig bannerConfig;
-  FlavorBanner({required this.child});
+  BannerConfig? bannerConfig;
+  FlavorBanner({required this.child,this.bannerConfig});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class FlavorBanner extends StatelessWidget {
         height: 50,
         child: CustomPaint(
           painter: BannerPainter(
-            message: bannerConfig.bannerName,
+            message: bannerConfig!.bannerName,
             textDirection: Directionality.of(context),
             layoutDirection: Directionality.of(context),
             location: BannerLocation.topStart,
