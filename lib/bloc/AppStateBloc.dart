@@ -38,7 +38,7 @@ class AppStateBloc {
         await UserNotificationService.getSavedNotificationReadFlagData();
     savedNotifications.forEach((key, value) {
       SavedNotificationData savedNotificationData = value;
-      if (savedNotificationData.userId!.trim() == user.sId.trim() &&
+      if (savedNotificationData.userId!.trim() == user.sId!.trim() &&
           !savedNotificationData.read!) {
         currentUserCount += 1;
         currentVendorCount += 1;
@@ -50,7 +50,7 @@ class AppStateBloc {
       for (int i = 0; i < notificationsRespone.notifications.length; i += 1) {
         var notification = notificationsRespone.notifications.elementAt(i);
         for (int j = 0; j < notification.target!.userIds!.length; j += 1) {
-          if (user.sId.trim() ==
+          if (user.sId!.trim() ==
                   notification.target!.userIds!.elementAt(j).userId!.trim() &&
               !notification.target!.userIds!.elementAt(j).read!) {
             try {

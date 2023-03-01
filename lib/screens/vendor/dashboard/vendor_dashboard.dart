@@ -173,7 +173,7 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  AppLocalizations.of(context)
+                                  AppLocalizations.of(context)!
                                       .vendor_dashboardScreen_hello,
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
@@ -198,7 +198,7 @@ class _VendorDashboardState extends BaseState<VendorDashboard> {
                                   padding: EdgeInsets.only(
                                       top: Dimensions.getScaledSize(16.0)),
                                   child: Text(
-                                    AppLocalizations.of(context)
+                                    AppLocalizations.of(context)!
                                         .vendor_dashboardScreen_wellcomeToDashboard,
                                     textAlign: TextAlign.start,
                                     style: TextStyle(

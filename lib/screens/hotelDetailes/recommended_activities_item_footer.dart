@@ -33,7 +33,7 @@ class RecommendedActivitiesItemFooter extends StatelessWidget {
             style: TextStyle(fontSize: Dimensions.getScaledSize(12.0)),
           ),
           Text(
-            AppLocalizations.of(context)
+            AppLocalizations.of(context)!
                 .hotelDetailesScreen_reviewCountHandlePlural(
                     activity.reviewCount),
             style: TextStyle(fontSize: Dimensions.getScaledSize(12.0)),

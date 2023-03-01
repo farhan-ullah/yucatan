@@ -29,7 +29,7 @@ class PaymentService extends BaseService {
     var requestBody = CreditCardPaymentRequest.toJson(creditCardPaymentRequest);
 
     var httpData =
-        (await new PaymentService._().post('/paywithcreditcard', requestBody))
+        (await new PaymentService._().post('/paywithcreditcard', requestBody))!
             .body;
     if (httpData != null) {
       return new PaymentResponse.fromJson(json.decode(httpData));
@@ -46,7 +46,7 @@ class PaymentService extends BaseService {
         PaypalPaymentRequest.toJson(PaypalPaymentRequest(order: order));
 
     var httpData = (await new PaymentService._()
-            .post('/create-paypal-payment', requestBody))
+            .post('/create-paypal-payment', requestBody))!
         .body;
     if (httpData != null) {
       return new PaypalPaymentPurchaseResponse.fromJson(json.decode(httpData));
@@ -72,7 +72,7 @@ class PaymentService extends BaseService {
     });
 
     var httpData =
-        (await new PaymentService._().post('/refund/booking', requestBody))
+        (await new PaymentService._().post('/refund/booking', requestBody))!
             .body;
     if (httpData != null) {
       var result;

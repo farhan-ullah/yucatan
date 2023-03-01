@@ -135,7 +135,7 @@ class _BookingScreenTimeSelectionState
                                 _timeSlotsForDate[0].timeString == null
                             ? DateFormat('EEEE, dd. LLLL yyyy', 'de-DE')
                                 .format(_selectedDate!)
-                            : AppLocalizations.of(context)
+                            : AppLocalizations.of(context)!
                                 .bookingScreen_chooseTime
                         : DateFormat('EEEE, dd. LLLL yyyy', 'de-DE')
                             .format(_selectedDate!),

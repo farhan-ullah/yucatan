@@ -255,7 +255,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                             .withOpacity(0.075),
                                         width: 1),
                                   ),
-                                  hintText: AppLocalizations.of(context)
+                                  hintText: AppLocalizations.of(context)!
                                       .contact_message,
                                   hintStyle: TextStyle(
                                     color: CustomTheme.disabledColor
@@ -280,10 +280,10 @@ class _ContactScreenState extends State<ContactScreen> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                              text: AppLocalizations.of(context)
+                              text: AppLocalizations.of(context)!
                                   .contact_dataprotection_text),
                           TextSpan(
-                            text: AppLocalizations.of(context)
+                            text: AppLocalizations.of(context)!
                                 .contact_dataprotection,
                             style: TextStyle(
                               color: CustomTheme.primaryColor,

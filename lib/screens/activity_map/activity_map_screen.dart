@@ -53,7 +53,7 @@ class _ActivityMapScreenState extends DateState<ActivityMapScreen> {
   DateTime selectedDate = DateTime.now();
 
   UserLoginModel? _user;
-  List<String> _favoriteActivities = [];
+  List<String>? _favoriteActivities = [];
   bool? showAppBar;
 
   @override
@@ -98,7 +98,7 @@ class _ActivityMapScreenState extends DateState<ActivityMapScreen> {
     if (_user == null) return;
 
     _favoriteActivities =
-        await UserService.getFavoriteActivitiesForUser(_user!.sId);
+        await UserService.getFavoriteActivitiesForUser(_user!.sId!);
   }
 
   @override
@@ -250,11 +250,11 @@ class _ActivityMapScreenState extends DateState<ActivityMapScreen> {
   }*/
 
   void _loadActivities() async {
-    ActivityMultiResponse result = await ActivityService.getAll();
+    ActivityMultiResponse? result = await ActivityService.getAll();
 
     Set<Marker> localMarkers = Set<Marker>();
 
-    if (result.errors == null) {
+    if (result!.errors == null) {
       activities = result.data;
       result.data.forEach(
         (element) async {
@@ -299,15 +299,15 @@ class _ActivityMapScreenState extends DateState<ActivityMapScreen> {
           ActivityListViewItem(
             isComingFromFullMapScreen: true,
             activityModel: element,
-            isFavorite: _favoriteActivities.contains(element.sId),
+            isFavorite: _favoriteActivities!.contains(element.sId),
             width: Dimensions.getWidth(percentage: 75.0),
             onFavoriteChangedCallback: (String activityId) {
               if (mounted) {
                 setState(() {
-                  if (_favoriteActivities.contains(activityId))
-                    _favoriteActivities.remove(activityId);
+                  if (_favoriteActivities!.contains(activityId))
+                    _favoriteActivities!.remove(activityId);
                   else
-                    _favoriteActivities.add(activityId);
+                    _favoriteActivities!.add(activityId);
                 });
               }
             },

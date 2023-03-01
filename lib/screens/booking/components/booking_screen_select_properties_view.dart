@@ -105,8 +105,8 @@ class _BookingScreenSelectPropertiesViewState
     widget.product!.properties!.forEach((property) {
       if (property.isRequired!) {
         final orderdProperty = orderProduct!.properties!.firstWhere(
-            (element) => element.id == property.id,
-            // orElse: () => null
+          (element) => element.id == property.id,
+          // orElse: () => null
         );
         if (orderdProperty == null || orderdProperty.value == null) {
           propertiesValid = false;
@@ -138,7 +138,8 @@ class _BookingScreenSelectPropertiesViewState
                         child: Stack(
                           children: [
                             loadCachedNetworkImage(
-                              isNotNullOrEmpty(widget.product!.image!.publicUrl!)
+                              isNotNullOrEmpty(
+                                      widget.product!.image!.publicUrl!)
                                   ? widget.product!.image!.publicUrl!
                                   : "",
                               fit: BoxFit.cover,
@@ -873,7 +874,7 @@ class _BookingScreenSelectPropertiesViewState
                   children: [
                     Flexible(
                       child: Text(
-                        AppLocalizations.of(context)
+                        AppLocalizations.of(context)!
                             .bookingScreen_additionallService,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -956,8 +957,8 @@ class _BookingScreenSelectPropertiesViewState
   }
 
   List<Widget> _getAdditionalServiceItems() {
-    return widget.product!.additionalServices
-        !.map(
+    return widget.product!.additionalServices!
+        .map(
           (additionalService) => Container(
             padding: EdgeInsets.all(Dimensions.getScaledSize(10.0)),
             width: Dimensions.getScaledSize(150.0),
@@ -1095,8 +1096,8 @@ class _BookingScreenSelectPropertiesViewState
 
   void _removeAdditionalService(String additionalServiceId) {
     setState(() {
-      orderProduct!.additionalServices
-          !.removeWhere((element) => element.id == additionalServiceId);
+      orderProduct!.additionalServices!
+          .removeWhere((element) => element.id == additionalServiceId);
     });
   }
 

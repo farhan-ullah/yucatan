@@ -24,7 +24,8 @@ class BookingService extends BaseService {
   }
 
   /// Query all bookings for the logged in user
-  static Future<BookingMultiResponseEntity?> getAllForUser(String userId) async {
+  static Future<BookingMultiResponseEntity?> getAllForUser(
+      String userId) async {
     var httpData = (await BookingService._().get('/user/' + userId))!.body;
     if (httpData != null) {
       return BookingMultiResponseEntity().fromJson(json.decode(httpData));
@@ -34,7 +35,7 @@ class BookingService extends BaseService {
   }
 
   static Future<bool> deleteBooking(String bookingId) async {
-    var httpData = (await BookingService._().delete('/$bookingId')).body;
+    var httpData = (await BookingService._().delete('/$bookingId'))!.body;
 
     if (httpData != null) {
       return json.decode(httpData)['status'] == 200;
@@ -93,8 +94,7 @@ class BookingService extends BaseService {
   static Future<BookingSingleResponseEntity?> setTicketToUsedForQr(
       String qrCodeReference) async {
     var httpData =
-        (await BookingService._().get('/useticket/' + qrCodeReference))
-            !.body;
+        (await BookingService._().get('/useticket/' + qrCodeReference))!.body;
     if (httpData != null) {
       return BookingSingleResponseEntity().fromJson(json.decode(httpData));
     } else {
@@ -137,8 +137,7 @@ class BookingService extends BaseService {
 
     String urlQuery = Uri(queryParameters: queryParams).query;
     var httpData =
-        (await BookingService._().get('/transactions' + '?$urlQuery'))!
-            .body;
+        (await BookingService._().get('/transactions' + '?$urlQuery'))!.body;
     if (httpData != null) {
       return TransactionMultiResponseEntity.fromJson(json.decode(httpData));
     } else {
@@ -153,7 +152,7 @@ class BookingService extends BaseService {
       body = json.encode({"requestNote": message});
     }
     var httpData =
-        (await BookingService._().post('/$id/accept-request', body)).body;
+        (await BookingService._().post('/$id/accept-request', body))!.body;
     if (httpData != null) {
       return BookingSingleResponseEntity().fromJson(json.decode(httpData));
     } else {
@@ -166,7 +165,7 @@ class BookingService extends BaseService {
     dynamic body = json.encode({"requestNote": message});
     var httpResponse =
         (await BookingService._().post('/$id/deny-request', body));
-    var httpData = httpResponse.body;
+    var httpData = httpResponse!.body;
     if (httpData != null) {
       return BookingSingleResponseEntity().fromJson(json.decode(httpData));
     } else {

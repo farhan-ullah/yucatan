@@ -332,7 +332,7 @@ class _DetailedDescriptionScreenViewState
                       ),
                     )
                   : Text(
-                      AppLocalizations.of(context)
+                      AppLocalizations.of(context)!
                           .detailedDescriptionScreen_noOpeningHours,
                     ),
             ),

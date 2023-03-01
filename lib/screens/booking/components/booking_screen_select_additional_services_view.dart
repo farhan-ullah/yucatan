@@ -41,8 +41,8 @@ class _BookingScreenSelectAdditionalServicesViewState
     widget.additionalService.properties!.forEach((element) {
       if (element.type == ProductPropertyType.NUMBER ||
           element.type == ProductPropertyType.TEXT) {
-        _propertyTextEditingControllers!.putIfAbsent(
-            element.id!, () => TextEditingController());
+        _propertyTextEditingControllers!
+            .putIfAbsent(element.id!, () => TextEditingController());
       }
     });
 
@@ -100,8 +100,8 @@ class _BookingScreenSelectAdditionalServicesViewState
                         child: Stack(
                           children: [
                             loadCachedNetworkImage(
-                              isNotNullOrEmpty(
-                                      widget.additionalService.image!.publicUrl!)
+                              isNotNullOrEmpty(widget
+                                      .additionalService.image!.publicUrl!)
                                   ? widget.additionalService.image!.publicUrl!
                                   : "",
                               fit: BoxFit.cover,
@@ -183,7 +183,7 @@ class _BookingScreenSelectAdditionalServicesViewState
                                 ? Row(
                                     children: [
                                       Text(
-                                        AppLocalizations.of(context)
+                                        AppLocalizations.of(context)!
                                             .bookingScreen_count,
                                         style: TextStyle(
                                           fontSize:
@@ -210,7 +210,8 @@ class _BookingScreenSelectAdditionalServicesViewState
                                                             .amount! >
                                                         1) {
                                                       orderProductAdditionalService!
-                                                          .amount == 1;
+                                                              .amount ==
+                                                          1;
                                                     }
                                                   });
                                                 },
@@ -242,8 +243,8 @@ class _BookingScreenSelectAdditionalServicesViewState
                                                                   .properties!
                                                                   .length ==
                                                               0
-                                                          ? orderProductAdditionalService
-                                                                      !.amount! >
+                                                          ? orderProductAdditionalService!
+                                                                      .amount! >
                                                                   1
                                                               ? CustomTheme
                                                                   .darkGrey
@@ -289,7 +290,8 @@ class _BookingScreenSelectAdditionalServicesViewState
                                                 onTap: () {
                                                   setState(() {
                                                     orderProductAdditionalService!
-                                                        .amount! + 1;
+                                                            .amount! +
+                                                        1;
                                                   });
                                                 },
                                                 child: Container(
@@ -488,7 +490,7 @@ class _BookingScreenSelectAdditionalServicesViewState
                                   height: Dimensions.getScaledSize(5.0),
                                 ),
                                 Text(
-                                  AppLocalizations.of(context)
+                                  AppLocalizations.of(context)!
                                       .bookingScreen_warning,
                                   style: TextStyle(
                                     fontSize: Dimensions.getScaledSize(20.0),
@@ -505,7 +507,7 @@ class _BookingScreenSelectAdditionalServicesViewState
                                     right: Dimensions.getScaledSize(24.0),
                                   ),
                                   child: Text(
-                                    AppLocalizations.of(context)
+                                    AppLocalizations.of(context)!
                                         .bookingScreen_closeWindowWarning,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
@@ -538,7 +540,7 @@ class _BookingScreenSelectAdditionalServicesViewState
                                         ))),
                                     child: Center(
                                       child: Text(
-                                        AppLocalizations.of(context)
+                                        AppLocalizations.of(context)!
                                             .bookingScreen_next,
                                         style: TextStyle(
                                           fontSize:
@@ -572,7 +574,7 @@ class _BookingScreenSelectAdditionalServicesViewState
                                         ))),
                                     child: Center(
                                       child: Text(
-                                        AppLocalizations.of(context)
+                                        AppLocalizations.of(context)!
                                             .bookingScreen_clear,
                                         style: TextStyle(
                                           fontSize:
@@ -855,16 +857,17 @@ class _BookingScreenSelectAdditionalServicesViewState
   }
 
   String _getCurrentValueForProductProperty(String id) {
-    final productProperty = orderProductAdditionalService!.properties!.firstWhere(
+    final productProperty =
+        orderProductAdditionalService!.properties!.firstWhere(
       (element) => element.id == id,
     );
-
 
     return productProperty.value!;
   }
 
   void _updateProductProperty(String id, String value) {
-    final productProperty = orderProductAdditionalService!.properties!.firstWhere(
+    final productProperty =
+        orderProductAdditionalService!.properties!.firstWhere(
       (element) => element.id == id,
       // orElse: () => null,
     );

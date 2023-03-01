@@ -512,7 +512,7 @@ class _VendorBookingOverviewScreenState
                             Expanded(
                               flex: 3,
                               child: Text(
-                                  AppLocalizations.of(context)
+                                  AppLocalizations.of(context)!
                                       .vendor_table_date,
                                   style: _getListViewHeaderStyle(
                                       fontSize:
@@ -521,7 +521,7 @@ class _VendorBookingOverviewScreenState
                             Expanded(
                                 flex: 2,
                                 child: Text(
-                                    AppLocalizations.of(context)
+                                    AppLocalizations.of(context)!
                                         .vendor_table_count,
                                     style: _getListViewHeaderStyle(
                                         fontSize:
@@ -529,7 +529,7 @@ class _VendorBookingOverviewScreenState
                             Expanded(
                                 flex: 6,
                                 child: Text(
-                                    AppLocalizations.of(context)
+                                    AppLocalizations.of(context)!
                                         .vendor_table_customer,
                                     style: _getListViewHeaderStyle(
                                         fontSize:
@@ -537,7 +537,7 @@ class _VendorBookingOverviewScreenState
                             Expanded(
                               flex: 3,
                               child: Text(
-                                  AppLocalizations.of(context)
+                                  AppLocalizations.of(context)!
                                       .vendor_table_amount("€"),
                                   style: _getListViewHeaderStyle(
                                       fontSize:
@@ -575,7 +575,7 @@ class _VendorBookingOverviewScreenState
                                     return _getNoBookingsMessage(
                                         displayWidth,
                                         displayHeight,
-                                        AppLocalizations.of(context)
+                                        AppLocalizations.of(context)!
                                             .vendor_table_noBookings);
 
                                   return RefreshIndicator(

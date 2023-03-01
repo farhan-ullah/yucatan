@@ -4,12 +4,12 @@ import 'indicator.dart';
 
 class IndicatorList extends StatelessWidget {
   final int currentPage;
-  final int numberOfPages;
+  final int? numberOfPages;
   IndicatorList({required this.currentPage, this.numberOfPages});
 
   Widget _getIndicators() {
     List<Widget> indicatorList = [];
-    for (int i = 0; i < numberOfPages; i++) {
+    for (int i = 0; i < numberOfPages!; i++) {
       i == currentPage
           ? indicatorList.add(Indicator(active: true))
           : indicatorList.add(Indicator(active: false));

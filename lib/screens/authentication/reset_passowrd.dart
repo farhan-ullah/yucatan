@@ -93,7 +93,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                   ),
                                 ),
                                 Text(
-                                  AppLocalizations.of(context)
+                                  AppLocalizations.of(context)!
                                       .authenticationSceen_wellcome,
                                   style: TextStyle(
                                     color: Colors.white,
@@ -123,7 +123,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                   TextFormField(
                                     obscureText: _isHidden,
                                     decoration: InputDecoration(
-                                        hintText: AppLocalizations.of(context)
+                                        hintText: AppLocalizations.of(context)!
                                             .authenticationSceen_password,
                                         hintStyle:
                                             TextStyle(color: Colors.grey[500]),
@@ -137,7 +137,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                         )),
                                     controller: passwordController,
                                     validator: (val) => val!.length < 6
-                                        ? AppLocalizations.of(context)
+                                        ? AppLocalizations.of(context)!
                                             .authenticationSceen_passwordInvalid
                                         : null,
                                     onSaved: (val) => _password = val,
@@ -148,7 +148,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                   TextFormField(
                                     obscureText: _isPasswordHidden,
                                     decoration: InputDecoration(
-                                        hintText: AppLocalizations.of(context)
+                                        hintText: AppLocalizations.of(context)!
                                             .authenticationSceen_confirmPassword,
                                         hintStyle:
                                             TextStyle(color: Colors.grey[500]),
@@ -162,7 +162,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                         )),
                                     controller: repeatPasswordController,
                                     validator: (val) => val!.length < 6
-                                        ? AppLocalizations.of(context)
+                                        ? AppLocalizations.of(context)!
                                             .authenticationSceen_confirmPasswordInvalid
                                         : null,
                                     onSaved: (val) => repeatPassword = val,
@@ -196,7 +196,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                               ),
                               child: Center(
                                   child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .resetPasswordSceen_title,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 18),
@@ -222,21 +222,21 @@ class _ResetPasswordState extends State<ResetPassword> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                        AppLocalizations.of(context)
+                        AppLocalizations.of(context)!
                             .authenticationSceen_bottomBar1,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: Dimensions.getScaledSize(15.0))),
                     RichText(
                       text: TextSpan(
-                        text: AppLocalizations.of(context)
+                        text: AppLocalizations.of(context)!
                             .authenticationSceen_bottomBar2,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: Dimensions.getScaledSize(15.0)),
                         children: [
                           TextSpan(
-                              text: AppLocalizations.of(context)
+                              text: AppLocalizations.of(context)!
                                   .authenticationSceen_bottomBar3,
                               style: TextStyle(
                                   color: Colors.white,
@@ -259,7 +259,7 @@ class _ResetPasswordState extends State<ResetPassword> {
     if (form.validate()) {
       if (_password != repeatPassword) {
         Fluttertoast.showToast(
-            msg: AppLocalizations.of(context)
+            msg: AppLocalizations.of(context)!
                 .authenticationSceen_confirmPasswordInvalid,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
@@ -269,7 +269,8 @@ class _ResetPasswordState extends State<ResetPassword> {
         showLoader(context);
         String token = widget.link!.split("=").last;
         token = token.substring(0, token.length);
-        var result = await ResetPasswordService.resetPassword(token, _password!);
+        var result =
+            await ResetPasswordService.resetPassword(token, _password!);
         Navigator.pop(context);
         hideKeyboard(context);
         if (result.statusCode != 200) {

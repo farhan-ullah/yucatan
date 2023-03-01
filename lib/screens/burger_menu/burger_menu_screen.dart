@@ -127,7 +127,7 @@ class _BurgerMenuScreenState extends State<BurgerMenuScreen> {
                 color: CustomTheme.primaryColorDark)));
       } else if (user.isVendorPseudoUser()) {
         _widgets.add(BurgerMenuListItem(
-            text: AppLocalizations.of(context)
+            text: AppLocalizations.of(context)!
                 .burger_menu_to_the_provider_view_text,
             tapActionPre: () {
               user.switchToDefaultRole();

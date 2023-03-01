@@ -172,7 +172,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                                     },
                                     child: Center(
                                       child: Text(
-                                        AppLocalizations.of(context)
+                                        AppLocalizations.of(context)!
                                             .actions_confirm,
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500,

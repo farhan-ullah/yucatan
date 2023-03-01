@@ -235,7 +235,7 @@ class _ProfileWrapperState extends State<ProfileWrapper> {
                                     _submitForm();
                                   },
                                   child: Text(
-                                    AppLocalizations.of(context)
+                                    AppLocalizations.of(context)!
                                         .profile_save_button,
                                     style: TextStyle(
                                         color: CustomTheme.primaryColorDark,

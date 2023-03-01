@@ -12,7 +12,7 @@ class VendorShowRequestModel {
   factory VendorShowRequestModel.fromJson(Map<String, dynamic> json) {
     return VendorShowRequestModel(
       bookingId: json['bookingId'],
-      bookingDate: DateTime.tryParse(json['bookingDate']),
+      bookingDate: DateTime.tryParse(json['bookingDate'])!,
     );
   }
 }

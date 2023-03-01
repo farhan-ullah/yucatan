@@ -149,7 +149,7 @@ class FavoritesItemShimmer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         children: [
                           Text(
-                            AppLocalizations.of(context)
+                            AppLocalizations.of(context)!
                                 .favoritesScreen_availableFrom,
                             style: TextStyle(
                               fontSize: Dimensions.getScaledSize(13.0),

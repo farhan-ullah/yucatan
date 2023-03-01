@@ -45,7 +45,7 @@ class _NetworkImageCustomState extends State<NetworkImageCustom> {
   final Alignment? alignment;
   final double? height;
   final double? width;
-  Widget _child;
+  late Widget _child;
 
   final int maxRetries = 2;
 
@@ -79,7 +79,8 @@ class _NetworkImageCustomState extends State<NetworkImageCustom> {
     try {
       var futureData = await getImageData(url ?? '');
       if (futureData.isNotEmpty) {
-        _updateState(_imageWidget(futureData, fit: fit!, alignment: alignment!));
+        _updateState(
+            _imageWidget(futureData, fit: fit!, alignment: alignment!));
       } else {
         _updateState(
             _errorWidget(showError: showError!, errorMessage: errorMessage!));

@@ -50,7 +50,7 @@ class _ResetScreenState extends State<ResetScreen> {
                         child: InputFieldBox(
                           fields: [
                             InputField(
-                              title: AppLocalizations.of(context)
+                              title: AppLocalizations.of(context)!
                                   .resetPasswordSceen_email_username,
                               textInputType: TextInputType.emailAddress,
                               autocorrect: false,
@@ -59,10 +59,10 @@ class _ResetScreenState extends State<ResetScreen> {
                                 if (arg.length == 0) return null;
                                 if (arg.contains('@') &&
                                     !AuthRegex.email.hasMatch(arg))
-                                  return AppLocalizations.of(context)
+                                  return AppLocalizations.of(context)!
                                       .resetPasswordSceen_enter_valid_email;
                                 else if (!AuthRegex.username.hasMatch(arg))
-                                  return AppLocalizations.of(context)
+                                  return AppLocalizations.of(context)!
                                       .resetPasswordSceen_email_or_username_required;
                                 else
                                   return null;
@@ -100,7 +100,7 @@ class _ResetScreenState extends State<ResetScreen> {
                               margin: EdgeInsets.only(
                                   top: Dimensions.getScaledSize(10.0)),
                               child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .resetPasswordSceen_reset_sent,
                                 style: TextStyle(
                                     fontSize: Dimensions.getScaledSize(15.0),
@@ -124,7 +124,7 @@ class _ResetScreenState extends State<ResetScreen> {
                             });
                           },
                           child: Text(
-                            AppLocalizations.of(context)
+                            AppLocalizations.of(context)!
                                 .resetPasswordSceen_reset,
                             style: TextStyle(color: Colors.white),
                           ),

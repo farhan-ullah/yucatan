@@ -37,7 +37,7 @@ abstract class BaseService {
 
   final String baseURL;
   final Map<String, String> headers = {"Content-Type": "application/json"};
-  final Codec? encoding = Utf8Codec();
+  var encoding;
 
   Uri? _uri(String endpoint) =>
       Uri.tryParse(baseURL + StringUtils.trimLeading('/', endpoint)!);
@@ -78,7 +78,7 @@ abstract class BaseService {
   /// [endpoint] Endpoint URL on the server (trailing / should be omitted)
   /// [body] is a map of all data fields submitted to the server
   @protected
-  Future<http.Response> post(String endpoint, dynamic body) async {
+  Future<http.Response?> post(String endpoint, dynamic body) async {
     final HttpMetric metric = FirebasePerformance.instance
         .newHttpMetric(_uri(endpoint).toString(), HttpMethod.Post);
     metric.start();
@@ -140,7 +140,7 @@ abstract class BaseService {
   /// [endpoint] Endpoint URL on the server (trailing / should be omitted)
   /// [body] is a map of all data fields submitted to the server
   @protected
-  Future<http.Response> patch(String endpoint, dynamic body) async {
+  Future<http.Response?> patch(String endpoint, dynamic body) async {
     final HttpMetric metric = FirebasePerformance.instance
         .newHttpMetric(_uri(endpoint).toString(), HttpMethod.Patch);
     metric.start();
@@ -170,21 +170,21 @@ abstract class BaseService {
   /// preforms a HTTP DELETE request
   /// [endpoint] Endpoint URL on the server (trailing / should be omitted)
   @protected
-  Future<http.Response> delete(String endpoint) async {
+  Future<http.Response?> delete(String endpoint) async {
     final HttpMetric metric = FirebasePerformance.instance
         .newHttpMetric(_uri(endpoint).toString(), HttpMethod.Delete);
     metric.start();
     try {
       await _appendSpecificHeaders();
-      var response = await http.delete(_uri(endpoint), headers: headers);
+      var response = await http.delete(_uri(endpoint)!, headers: headers);
       if (response.statusCode == 401) {
         await UserProvider.refreshToken();
-        response = await http.delete(_uri(endpoint), headers: headers);
+        response = await http.delete(_uri(endpoint)!, headers: headers);
       }
       metric
         ..responsePayloadSize = response.contentLength
         ..responseContentType = response.headers['Content-Type']
-        ..requestPayloadSize = response.request.contentLength
+        ..requestPayloadSize = response.request!.contentLength
         ..httpResponseCode = response.statusCode;
       return response;
     } catch (e) {
@@ -198,7 +198,7 @@ abstract class BaseService {
   /// used only for refreshing the login.
   /// No additional headers will be appended here
   @protected
-  Future<http.Response> internalRefreshToken(
+  Future<http.Response?> internalRefreshToken(
       String endpoint, dynamic body) async {
     final HttpMetric metric = FirebasePerformance.instance
         .newHttpMetric(_uri(endpoint).toString(), HttpMethod.Post);
@@ -206,11 +206,11 @@ abstract class BaseService {
     try {
       await _appendSpecificHeaders(isRefresh: true);
       var response =
-          await http.post(_uri(endpoint), headers: headers, body: body);
+          await http.post(_uri(endpoint)!, headers: headers, body: body);
       metric
         ..responsePayloadSize = response.contentLength
         ..responseContentType = response.headers['Content-Type']
-        ..requestPayloadSize = response.request.contentLength
+        ..requestPayloadSize = response.request!.contentLength
         ..httpResponseCode = response.statusCode;
       return response;
     } catch (e) {

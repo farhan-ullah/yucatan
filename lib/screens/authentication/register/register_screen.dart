@@ -86,7 +86,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             backgroundColor: CustomTheme.theme.primaryColorDark,
             textColor: Colors.white);
       } else {
-        UserProvider.login(response.data.email, _passwordModel!.password!)
+        UserProvider.login(response.data.email!, _passwordModel!.password!)
             .then((value) {
           Navigator.pop(context, true);
         });
@@ -126,7 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               fontSize: Dimensions.getScaledSize(16.0))),
                     ),
                     const SizedBox(height: 5),
-                    Text(AppLocalizations.of(context)
+                    Text(AppLocalizations.of(context)!
                         .registerScreen_dataRequiredText)
                   ],
                 ),
@@ -164,14 +164,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 alignment: Alignment.centerLeft,
                                 child: RichText(
                                     text: TextSpan(
-                                        text: AppLocalizations.of(context)
+                                        text: AppLocalizations.of(context)!
                                             .registerScreen_secure_password_text,
                                         style: const TextStyle(
                                             color: Colors.black,
                                             fontFamily: CustomTheme.fontFamily),
                                         children: [
                                       TextSpan(
-                                        text: AppLocalizations.of(context)
+                                        text: AppLocalizations.of(context)!
                                             .registerScreen_learn_more_text,
                                         style: const TextStyle(
                                             color: CustomTheme.primaryColor,
@@ -187,7 +187,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             SizedBox(height: Dimensions.getScaledSize(25.0)),
                             _showRegisterButton(
                                 context,
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .registerScreen_start),
                             SizedBox(height: Dimensions.pixels_100),
                             // just needed to compensate for matrix transformation of the container
@@ -227,7 +227,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             fontSize: Dimensions.getScaledSize(15.0)),
                         children: [
                           TextSpan(
-                              text: AppLocalizations.of(context)
+                              text: AppLocalizations.of(context)!
                                   .registerScreen_bottomBarText3,
                               style: TextStyle(
                                   color: Colors.white,
@@ -328,7 +328,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          AppLocalizations.of(context)
+                          AppLocalizations.of(context)!
                               .registerScreen_securePasswordCriteria,
                           style: TextStyle(
                               color: CustomTheme.primaryColorLight,
@@ -342,7 +342,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          AppLocalizations.of(context)
+                          AppLocalizations.of(context)!
                               .registerScreen_minCharacters,
                           textAlign: TextAlign.left,
                           style: TextStyle(
@@ -354,7 +354,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          AppLocalizations.of(context)
+                          AppLocalizations.of(context)!
                               .registerScreen_minCapitalCharacters,
                           textAlign: TextAlign.left,
                           style: TextStyle(
@@ -377,7 +377,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          AppLocalizations.of(context)
+                          AppLocalizations.of(context)!
                               .registerScreen_minSpecialCharacters,
                           textAlign: TextAlign.left,
                           style: TextStyle(
@@ -411,14 +411,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               fontSize: Dimensions.getScaledSize(15.0))),
                       RichText(
                         text: TextSpan(
-                          text: AppLocalizations.of(context)
+                          text: AppLocalizations.of(context)!
                               .registerScreen_bottomBarText2,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: Dimensions.getScaledSize(15.0)),
                           children: [
                             TextSpan(
-                                text: AppLocalizations.of(context)
+                                text: AppLocalizations.of(context)!
                                     .registerScreen_bottomBarText3,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -464,8 +464,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     loginModel.housenumber = _addressModel.houseNo;
     loginModel.zipcode = _addressModel.zipCode;
     loginModel.city = _addressModel.city;*/
-    var response = await UserService.createUser(loginModel,
-        _passwordModel!.password!.trim(), _passwordModel!.passwordRepeat!.trim());
+    var response = await UserService.createUser(
+        loginModel,
+        _passwordModel!.password!.trim(),
+        _passwordModel!.passwordRepeat!.trim());
     Navigator.pop(context);
     hideKeyboard(context);
     if (response.errors != null) {
@@ -484,7 +486,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           textColor: Colors.white
       );*/
       // directly login user after successful register
-      UserProvider.login(response.data.email, _passwordModel!.password!)
+      UserProvider.login(response.data.email!, _passwordModel!.password!)
           .then((value) {
         // Redirect to previous page
         Navigator.pop(context, true);
@@ -517,8 +519,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               .registerSubmitButtonPressed(isSubmitButtonPressed!);
           registerValidationBloc.eventSink
               .add(RegisterValidationAction.IsButtonPressed);
-          bloc.register(_detailModel!, _emailModel!, _passwordModel!, _policyModel!,
-              _countryPhoneModel!);
+          bloc.register(_detailModel!, _emailModel!, _passwordModel!,
+              _policyModel!, _countryPhoneModel!);
         },
         child: Text(
           title,

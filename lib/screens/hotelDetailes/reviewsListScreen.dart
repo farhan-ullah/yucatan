@@ -254,7 +254,7 @@ class ReviewsView extends StatelessWidget {
                               ),
                               Text(
                                 review.userModel?.username ??
-                                    AppLocalizations.of(context)
+                                    AppLocalizations.of(context)!
                                         .reviewsListScren_anonymousGermany,
                                 style:
                                     new TextStyle(fontWeight: FontWeight.w600),

@@ -50,7 +50,7 @@ class TicketPreviewHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppLocalizations.of(context).helloWorld,
+                  AppLocalizations.of(context)!.helloWorld,
                   style: TextStyle(
                     fontSize: Dimensions.getScaledSize(11.0),
                     color: Colors.white,

@@ -167,7 +167,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   if (_user == null) {
                     return CustomErrorEmptyScreen(
                       title: AppLocalizations.of(context)!.commonWords_mistake,
-                      description: AppLocalizations.of(context)
+                      description: AppLocalizations.of(context)!
                           .notificationsNotLoggedInScreen_loginTosee,
                       rive: RiveAnimation(
                         riveFileName: 'notifications_animiert_loop.riv',
@@ -200,9 +200,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
                     return filterList.length == 0
                         ? CustomErrorEmptyScreen(
-                            title: AppLocalizations.of(context)
+                            title: AppLocalizations.of(context)!
                                 .commonWords_mistake,
-                            description: AppLocalizations.of(context)
+                            description: AppLocalizations.of(context)!
                                 .noNotificationsScreen_noNotifications,
                             rive: RiveAnimation(
                               riveFileName: 'notifications_animiert_loop.riv',

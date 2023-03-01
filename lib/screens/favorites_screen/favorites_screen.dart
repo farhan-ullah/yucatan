@@ -112,9 +112,9 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
                             snapshotActivity.data.length == 0) {
                           return CustomErrorEmptyScreen(
                             topPadding: Scaffold.of(context).appBarMaxHeight,
-                            title: AppLocalizations.of(context)
+                            title: AppLocalizations.of(context)!
                                 .commonWords_mistake,
-                            description: AppLocalizations.of(context)
+                            description: AppLocalizations.of(context)!
                                 .noFavoritesScreen_noFavorites,
                             //image: "lib/assets/images/favorites_empty.png",
                             rive: RiveAnimation(
@@ -124,7 +124,7 @@ class _FavoritesScreenState extends BaseState<FavoritesScreen> {
                                   'lib/assets/images/favorites_empty.png',
                               startAnimationAfterMilliseconds: 0,
                             ),
-                            customButtonText: AppLocalizations.of(context)
+                            customButtonText: AppLocalizations.of(context)!
                                 .noFavoritesScreen_goToSearch,
                             callback: () {
                               eventBus.fire(OnOpenSearch());

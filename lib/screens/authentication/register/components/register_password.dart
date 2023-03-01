@@ -113,7 +113,7 @@ class _RegisterPasswordState extends State<RegisterPassword> {
                               AuthRegex.isPasswordCompliant(arg!);
                           return isPasswordCompliant
                               ? null
-                              : AppLocalizations.of(context)
+                              : AppLocalizations.of(context)!
                                   .registerPassword_validation_msg;
                         },
                         onChanged: (String text) {
@@ -129,7 +129,7 @@ class _RegisterPasswordState extends State<RegisterPassword> {
                           errorMaxLines: 4,
                           contentPadding: EdgeInsets.fromLTRB(
                               Dimensions.getScaledSize(5.0), 0, 0, 0),
-                          hintText: AppLocalizations.of(context)
+                          hintText: AppLocalizations.of(context)!
                               .authenticationSceen_password,
                           hintStyle: TextStyle(color: CustomTheme.hintText),
                           errorStyle: TextStyle(
@@ -152,12 +152,12 @@ class _RegisterPasswordState extends State<RegisterPassword> {
                             return null;
                           }
                           if (isRegisterSubmitButtonPressed && arg!.isEmpty) {
-                            return AppLocalizations.of(context)
+                            return AppLocalizations.of(context)!
                                 .authenticationSceen_confirmPasswordInvalid;
                           } else {
                             return _passwordController.text == arg
                                 ? null
-                                : AppLocalizations.of(context)
+                                : AppLocalizations.of(context)!
                                     .authenticationSceen_confirmPasswordInvalid;
                           }
                         },
@@ -173,7 +173,7 @@ class _RegisterPasswordState extends State<RegisterPassword> {
                             errorMaxLines: 4,
                             contentPadding: EdgeInsets.fromLTRB(
                                 Dimensions.getScaledSize(5.0), 0, 0, 0),
-                            hintText: AppLocalizations.of(context)
+                            hintText: AppLocalizations.of(context)!
                                 .authenticationSceen_confirmPassword,
                             hintStyle: TextStyle(color: CustomTheme.hintText),
                             border: OutlineInputBorder(

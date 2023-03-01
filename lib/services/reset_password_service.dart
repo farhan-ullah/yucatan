@@ -16,7 +16,7 @@ class ResetPasswordService extends BaseService {
     var response = await new ResetPasswordService._()
         .post('/resetPassword?token=$token', body);
     if (response?.body != null) {
-      var result = ForgotPasswordModel.fromJson(json.decode(response.body));
+      var result = ForgotPasswordModel.fromJson(json.decode(response!.body));
       result.statusCode = result.statusCode;
       return result;
     } else

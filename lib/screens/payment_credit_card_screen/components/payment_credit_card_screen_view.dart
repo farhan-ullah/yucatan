@@ -340,7 +340,7 @@ class _PaymentCreditCardScreenViewState
                                   height: Dimensions.getScaledSize(1.0)),
                               InputField(
                                 context: context,
-                                hint: AppLocalizations.of(context)
+                                hint: AppLocalizations.of(context)!
                                     .paymentCreditCardScreen_creditCardNumber,
                                 keyboardType: TextInputType.number,
                                 validation:
@@ -355,7 +355,7 @@ class _PaymentCreditCardScreenViewState
                                   height: Dimensions.getScaledSize(1.0)),
                               InputField(
                                 context: context,
-                                hint: AppLocalizations.of(context)
+                                hint: AppLocalizations.of(context)!
                                     .paymentCreditCardScreen_expDateHint,
                                 keyboardType: TextInputType.number,
                                 validation: RegExp(
@@ -376,7 +376,7 @@ class _PaymentCreditCardScreenViewState
                               ),
                               InputField(
                                 context: context,
-                                hint: AppLocalizations.of(context)
+                                hint: AppLocalizations.of(context)!
                                     .paymentCreditCardScreen_securityCode,
                                 keyboardType: TextInputType.number,
                                 validation: RegExp(r'^\d{1,4}$'),
@@ -491,7 +491,7 @@ class _PaymentCreditCardScreenViewState
                       bookingDetails: widget.activity.bookingDetails,
                       orderProducts: widget.order.products,
                       onTap: _processPayment,
-                      buttonText: AppLocalizations.of(context)
+                      buttonText: AppLocalizations.of(context)!
                           .paymentCreditCardScreen_payNow,
                       showDivider: true,
                     ),

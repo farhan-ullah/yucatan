@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: MediaQuery.of(context).size.width,
                         child: Center(
                           child: Text(
-                            AppLocalizations.of(context)
+                            AppLocalizations.of(context)!
                                 .authenticationSceen_wellcome,
                             style: TextStyle(
                                 color: Colors.white,
@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               TextField(
                                 decoration: InputDecoration(
-                                  hintText: AppLocalizations.of(context)
+                                  hintText: AppLocalizations.of(context)!
                                       .authenticationSceen_email,
                                   hintStyle: TextStyle(
                                     color: Colors.grey[500],
@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               TextFormField(
                                 obscureText: _isHidden,
                                 decoration: InputDecoration(
-                                  hintText: AppLocalizations.of(context)
+                                  hintText: AppLocalizations.of(context)!
                                       .authenticationSceen_password,
                                   hintStyle: TextStyle(color: Colors.grey[500]),
                                   suffix: InkWell(
@@ -156,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 controller: passwordController,
                                 validator: (val) => val!.length < 6
-                                    ? AppLocalizations.of(context)
+                                    ? AppLocalizations.of(context)!
                                         .authenticationSceen_passwordInvalid
                                     : null,
                                 onChanged: (value) {
@@ -179,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        AppLocalizations.of(context)
+                                        AppLocalizations.of(context)!
                                             .loginSceen_forgotPassword,
                                         style: TextStyle(
                                           color: CustomTheme.primaryColorLight,
@@ -210,7 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               margin: EdgeInsets.only(
                                   top: Dimensions.getScaledSize(10)),
                               child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .loginSceen_loginWaiting,
                                 style: TextStyle(
                                     fontSize: Dimensions.getScaledSize(15),
@@ -268,7 +268,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     Text(
-                      AppLocalizations.of(context)
+                      AppLocalizations.of(context)!
                           .authenticationSceen_noProfile,
                       style: TextStyle(
                           color: CustomTheme.primaryColorDark,
@@ -276,14 +276,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Text.rich(
                       TextSpan(
-                        text: AppLocalizations.of(context)
+                        text: AppLocalizations.of(context)!
                             .authenticationSceen_registerNow,
                         style: TextStyle(
                             color: CustomTheme.primaryColorDark,
                             fontSize: Dimensions.getScaledSize(15)),
                         children: [
                           TextSpan(
-                              text: AppLocalizations.of(context)
+                              text: AppLocalizations.of(context)!
                                   .authenticationSceen_registerNowRegister,
                               style: TextStyle(
                                   color: CustomTheme.primaryColorLight,
@@ -309,21 +309,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                        AppLocalizations.of(context)
+                        AppLocalizations.of(context)!
                             .authenticationSceen_bottomBar1,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: Dimensions.getScaledSize(15))),
                     Text.rich(
                       TextSpan(
-                        text: AppLocalizations.of(context)
+                        text: AppLocalizations.of(context)!
                             .authenticationSceen_bottomBar2,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: Dimensions.getScaledSize(15)),
                         children: [
                           TextSpan(
-                              text: AppLocalizations.of(context)
+                              text: AppLocalizations.of(context)!
                                   .authenticationSceen_bottomBar3,
                               style: TextStyle(
                                   color: Colors.white,

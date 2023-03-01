@@ -101,7 +101,7 @@ class OnboardingPage extends StatelessWidget {
               borderRadius: BorderRadius.all(
                   Radius.circular(Dimensions.getScaledSize(10.0))),
               child: Image.asset(
-                model.imagePath,
+                model.imagePath!,
                 fit: BoxFit.cover,
                 width: imageWidth,
                 height: imageHeight,
@@ -116,14 +116,14 @@ class OnboardingPage extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: displayHeight * 0.03),
-              child: _OnboardingTitle(model.title),
+              child: _OnboardingTitle(model.title!),
             ),
             Expanded(
               child: Container(),
             ),
             Container(
               width: textWidth,
-              child: _OnboardingText(model.text),
+              child: _OnboardingText(model.text!),
             ),
             Expanded(
               child: Container(),
@@ -146,7 +146,7 @@ class OnboardingPage extends StatelessWidget {
                       : finish(context);
                 },
                 child: Text(
-                  model.buttonText,
+                  model.buttonText!,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,

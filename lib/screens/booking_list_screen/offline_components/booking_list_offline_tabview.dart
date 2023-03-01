@@ -51,8 +51,8 @@ class BookingListOfflineView extends StatelessWidget
 
       if (handleNotifications == false) return;
 
-      if (bookings
-              !.any((element) => element.id == notificationData.toString()) ==
+      if (bookings!
+              .any((element) => element.id == notificationData.toString()) ==
           false) return;
 
       switch (notificationAction) {
@@ -118,7 +118,7 @@ class BookingListOfflineView extends StatelessWidget
                     padding: EdgeInsets.symmetric(
                         horizontal: Dimensions.getScaledSize(12.0)),
                     child: Text(
-                      AppLocalizations.of(context)
+                      AppLocalizations.of(context)!
                           .bookingListScreen_pendingRequests,
                       style: TextStyle(
                         fontSize: Dimensions.getScaledSize(18.0),
@@ -222,8 +222,8 @@ class BookingListOfflineView extends StatelessWidget
   void _scrollToBookingListViewItem(String id) {
     //Scroll to the list view element which represents the booking sent via the notification
     _itemScrollController.scrollTo(
-      index: bookings
-          !.indexWhere((element) => element.id == notificationData.toString()),
+      index: bookings!
+          .indexWhere((element) => element.id == notificationData.toString()),
       duration: Duration(milliseconds: 800),
       curve: Curves.fastLinearToSlowEaseIn,
     );

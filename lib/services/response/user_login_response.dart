@@ -10,7 +10,7 @@ class UserLoginResponse with JsonConvert<UserLoginResponse> {
 
 class UserLoginResponseData with JsonConvert<UserLoginResponseData> {
   String? token;
-  UserLoginModel? user;
+  late UserLoginModel user;
 }
 
 class UserLoginModel with JsonConvert<UserLoginModel> {

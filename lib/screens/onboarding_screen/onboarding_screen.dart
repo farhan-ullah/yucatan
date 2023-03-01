@@ -94,7 +94,7 @@ class _OnboardingState extends State<OnboardingScreen> {
   List<OnboardingPageModel> getModels(BuildContext context) {
     var appLocaliations = AppLocalizations.of(context);
     final texts = [
-      appLocaliations.onboardingScreen_text1,
+      appLocaliations!.onboardingScreen_text1,
       appLocaliations.onboardingScreen_text2,
       appLocaliations.onboardingScreen_text3,
       appLocaliations.onboardingScreen_text4,

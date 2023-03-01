@@ -47,8 +47,8 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
 
   // SelectedDate _selectedDate;
 
-  Future<UserLoginModel>? user;
-  Future<List<String>>? favoriteActivities;
+  Future<UserLoginModel?>? user;
+  Future<List<String>?>? favoriteActivities;
 
   bool isNetworkAvailable = false;
   bool _searchViewVisible = false;
@@ -101,8 +101,8 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
         });
       }
     });
-    _animationController =
-        AnimationController(duration: const Duration(milliseconds: 0), vsync: this);
+    _animationController = AnimationController(
+        duration: const Duration(milliseconds: 0), vsync: this);
     widget.animationController!.forward();
     controller = ScrollController(initialScrollOffset: 0.0);
 
@@ -137,7 +137,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
     return WillPopScope(
         child: AnimatedBuilder(
           animation: widget.animationController!,
-          builder: (BuildContext , Widget) {
+          builder: (BuildContext, Widget) {
             return FadeTransition(
               opacity: widget.animationController!,
               // FadeTransition and Transform : just for screen loading animation on fistTime
@@ -157,8 +157,8 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                       child: Stack(
                         children: [
                           isNetworkAvailable
-                              ? FutureBuilder<UserLoginModel>(
-                                  future: user,
+                              ? FutureBuilder<UserLoginModel?>(
+                                  future: user!,
                                   builder: (context, snapshotUserLoginModel) {
                                     if (snapshotUserLoginModel.data == null) {
                                       return _getActivityCategoryViews([]);
@@ -167,9 +167,10 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                                           'Data Showed 0 Farhan: ${snapshotUserLoginModel.data!.sId}');
                                       favoriteActivities = UserService
                                           .getFavoriteActivitiesForUser(
-                                              snapshotUserLoginModel.data!.sId);
+                                              snapshotUserLoginModel
+                                                  .data!.sId!);
 
-                                      return FutureBuilder<List<String>>(
+                                      return FutureBuilder<List<String>?>(
                                           future: favoriteActivities,
                                           builder:
                                               (context, snapshotFavorites) {
@@ -278,15 +279,15 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                                     });
                                   }
                                 },
-                                child: FutureBuilder<UserLoginModel>(
+                                child: FutureBuilder<UserLoginModel?>(
                                   future: user,
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
                                       favoriteActivities = UserService
                                           .getFavoriteActivitiesForUser(
-                                              snapshot.data!.sId);
+                                              snapshot.data!.sId!);
 
-                                      return FutureBuilder<List<String>>(
+                                      return FutureBuilder<List<String>?>(
                                           future: favoriteActivities,
                                           builder:
                                               (context, snapshotFavorites) {

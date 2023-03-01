@@ -164,7 +164,7 @@ class _QRScannerState extends State<QRScannerScreen> {
                   if (ticket.status == 'USED' && !_isRedeemedDialog) {
                     return QrFeedback(
                       title: AppLocalizations.of(context)!.qrScreen_error,
-                      text: AppLocalizations.of(context)
+                      text: AppLocalizations.of(context)!
                           .qrScreen_ticketAlreadyRedeemedError,
                       mode: "REDEEMED",
                       goBack: () {

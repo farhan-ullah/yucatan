@@ -465,12 +465,12 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                         orderProduct.additionalServices != null &&
                                 orderProduct.additionalServices!.isNotEmpty
                             ? orderProduct.additionalServices!.firstWhere(
-                                        (element) => element.amount! > 0,
-                                        // orElse: () => null
-                        ) !=
+                                      (element) => element.amount! > 0,
+                                      // orElse: () => null
+                                    ) !=
                                     null
                                 ? Text(
-                                    AppLocalizations.of(context)
+                                    AppLocalizations.of(context)!
                                         .bookingScreen_additionallService,
                                     style: TextStyle(
                                       fontSize: Dimensions.getScaledSize(14.0),
@@ -487,10 +487,9 @@ class _BookingScreenViewState extends State<BookingScreenView> {
 
                           final additionalServiceProperty =
                               product.additionalServices!.firstWhere(
-                                  (element) =>
-                                      element.id == additionalService.id,
-                                  // orElse: () => null
-                              );
+                            (element) => element.id == additionalService.id,
+                            // orElse: () => null
+                          );
 
                           if (additionalServiceProperty == null) {
                             return Container();
@@ -510,9 +509,9 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                                   .map((property) {
                                 final selectedAdditionalServiceProperty =
                                     additionalService.properties!.firstWhere(
-                                        (element) => element.id == property.id,
-                                        // orElse: () => null
-                                    );
+                                  (element) => element.id == property.id,
+                                  // orElse: () => null
+                                );
 
                                 if (selectedAdditionalServiceProperty == null) {
                                   return Container();
@@ -601,8 +600,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                                           child: Center(
                                             child: Icon(
                                               Icons.remove,
-                                              color: product
-                                                          .properties!.isEmpty
+                                              color: product.properties!.isEmpty
                                                   ? orderProduct.amount! > 1
                                                       ? CustomTheme.darkGrey
                                                       : CustomTheme.mediumGrey
@@ -675,8 +673,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                                           child: Center(
                                             child: Icon(
                                               Icons.add,
-                                              color: product
-                                                          .properties!.isEmpty
+                                              color: product.properties!.isEmpty
                                                   ? orderProduct.bookingScreenTimeSlotItemModel!
                                                                   .remainingQuota -
                                                               orderProduct
@@ -896,13 +893,13 @@ class _BookingScreenViewState extends State<BookingScreenView> {
             child: Container(
               margin: EdgeInsets.only(
                 left: Dimensions.getScaledSize(24),
-                right:
-                    (widget.activity!.bookingDetails!.productCategories!.length -
-                                1) ==
-                            widget.activity!.bookingDetails!.productCategories!
-                                .indexOf(category)
-                        ? Dimensions.getScaledSize(24)
-                        : 0,
+                right: (widget.activity!.bookingDetails!.productCategories!
+                                .length -
+                            1) ==
+                        widget.activity!.bookingDetails!.productCategories!
+                            .indexOf(category)
+                    ? Dimensions.getScaledSize(24)
+                    : 0,
               ),
               padding: EdgeInsets.symmetric(
                 vertical: Dimensions.getScaledSize(13),
@@ -1052,8 +1049,8 @@ class _BookingScreenViewState extends State<BookingScreenView> {
           )
           .toList();
     } else {
-      return _selectedProductCategory!.products
-          !.map(
+      return _selectedProductCategory!.products!
+          .map(
             (product) => BookingScreenCard(
               title: product.title,
               description: product.subtitle,

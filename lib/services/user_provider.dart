@@ -68,7 +68,7 @@ class UserProvider extends BaseService {
     var response = await new UserProvider._().post('login', body);
 
     print('login=${response}');
-    if (response.body != null) {
+    if (response!.body != null) {
       // print('login=${response.body}');
       var user = UserLoginResponse().fromJson(json.decode(response.body));
       var result = await _validateLogin(user);
@@ -102,7 +102,7 @@ class UserProvider extends BaseService {
         await new UserProvider._().internalRefreshToken('refresh-token', body);
     if (response?.body != null) {
       return await _validateLogin(
-          UserLoginResponse().fromJson(json.decode(response.body)));
+          UserLoginResponse().fromJson(json.decode(response!.body)));
     } else
       return ApiError().fromJson({'message': 'A network error occurred'});
   }

@@ -12,7 +12,7 @@ class VendorShowRefundedBookindModel {
   factory VendorShowRefundedBookindModel.fromJson(Map<String, dynamic> json) {
     return VendorShowRefundedBookindModel(
       bookingId: json['bookingId'],
-      bookingDate: DateTime.tryParse(json['bookingDate']),
+      bookingDate: DateTime.tryParse(json['bookingDate'])!,
     );
   }
 }

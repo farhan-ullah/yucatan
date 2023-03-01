@@ -101,9 +101,9 @@ class _DiscardDialogState extends State<DiscardDialog> {
                   ),
                   child: Text(
                     widget.isComingFromAdditionalService
-                        ? AppLocalizations.of(context)
+                        ? AppLocalizations.of(context)!
                             .bookingScreen_closeWindowWarning
-                        : AppLocalizations.of(context)
+                        : AppLocalizations.of(context)!
                             .bookingScreen_closeWindowSelectionWarning,
                     textAlign: TextAlign.center,
                     style: TextStyle(

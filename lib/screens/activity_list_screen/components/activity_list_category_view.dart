@@ -24,7 +24,7 @@ class ActivityListCategoryView extends StatefulWidget {
 
 class _ActivityListCategoryViewState extends State<ActivityListCategoryView>
     with AutomaticKeepAliveClientMixin {
-  Future<ActivityByCategoryResponse>? activities;
+  Future<ActivityByCategoryResponse?>? activities;
   //List<ActivityModel> activityList = [];
 
   @override
@@ -55,7 +55,7 @@ class _ActivityListCategoryViewState extends State<ActivityListCategoryView>
         SizedBox(
           height: Dimensions.getScaledSize(10.0),
         ),
-        FutureBuilder<ActivityByCategoryResponse>(
+        FutureBuilder<ActivityByCategoryResponse?>(
           future: activities,
           builder: (context, snapshot) {
             if (snapshot.hasData) {

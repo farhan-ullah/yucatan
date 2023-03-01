@@ -126,7 +126,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                         width: MediaQuery.of(context).size.width,
                         child: Center(
                           child: Text(
-                            AppLocalizations.of(context)
+                            AppLocalizations.of(context)!
                                 .authenticationSceen_wellcome,
                             style: TextStyle(
                                 color: Colors.white,
@@ -155,7 +155,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          AppLocalizations.of(context)
+                          AppLocalizations.of(context)!
                               .forgotPasswordScreen_description,
                           style: TextStyle(
                               color: CustomTheme.primaryColorDark,
@@ -167,7 +167,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                         Container(
                           child: TextField(
                             decoration: InputDecoration(
-                                hintText: AppLocalizations.of(context)
+                                hintText: AppLocalizations.of(context)!
                                     .forgotPasswordScreen_emailHint,
                                 hintStyle: TextStyle(
                                   color: Colors.grey[500],
@@ -217,7 +217,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                 child: Column(
                   children: [
                     Text(
-                      AppLocalizations.of(context)
+                      AppLocalizations.of(context)!
                           .authenticationSceen_noProfile,
                       style: TextStyle(
                           color: CustomTheme.primaryColorDark,
@@ -225,14 +225,14 @@ class _ForgotScreenState extends State<ForgotScreen> {
                     ),
                     Text.rich(
                       TextSpan(
-                        text: AppLocalizations.of(context)
+                        text: AppLocalizations.of(context)!
                             .authenticationSceen_registerNow,
                         style: TextStyle(
                             color: CustomTheme.primaryColorDark,
                             fontSize: Dimensions.getScaledSize(15)),
                         children: [
                           TextSpan(
-                              text: AppLocalizations.of(context)
+                              text: AppLocalizations.of(context)!
                                   .authenticationSceen_registerNowRegister,
                               style: TextStyle(
                                   color: CustomTheme.primaryColorLight,
@@ -260,21 +260,21 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                        AppLocalizations.of(context)
+                        AppLocalizations.of(context)!
                             .authenticationSceen_bottomBar1,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: Dimensions.getScaledSize(15))),
                     Text.rich(
                       TextSpan(
-                        text: AppLocalizations.of(context)
+                        text: AppLocalizations.of(context)!
                             .authenticationSceen_bottomBar2,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: Dimensions.getScaledSize(15)),
                         children: [
                           TextSpan(
-                              text: AppLocalizations.of(context)
+                              text: AppLocalizations.of(context)!
                                   .authenticationSceen_bottomBar3,
                               style: TextStyle(
                                   color: Colors.white,

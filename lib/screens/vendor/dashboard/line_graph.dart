@@ -185,7 +185,7 @@ class _VendorStatisticGraphState extends BaseState<VendorStatisticGraph> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  AppLocalizations.of(context)
+                                  AppLocalizations.of(context)!
                                       .vendor_dashboardScreen_sales,
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
@@ -219,7 +219,7 @@ class _VendorStatisticGraphState extends BaseState<VendorStatisticGraph> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  AppLocalizations.of(context)
+                                  AppLocalizations.of(context)!
                                       .vendor_dashboardScreen_count,
                                   textAlign: TextAlign.start,
                                   style: TextStyle(

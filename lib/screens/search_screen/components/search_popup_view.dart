@@ -416,7 +416,7 @@ class _SearchPopupViewState extends DateState<SearchPopupView> {
                       )
                     : Center(
                         child: Text(searched
-                            ? AppLocalizations.of(context)
+                            ? AppLocalizations.of(context)!
                                 .searchScreen_noActivities
                             : ''),
                       ),

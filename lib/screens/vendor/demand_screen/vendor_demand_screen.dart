@@ -134,7 +134,7 @@ class _ProviderRequirementState extends DateState<VendorDemandScreen> {
                                 width: Dimensions.getScaledSize(celldiff),
                               ),
                               VendorBookingDateButton(
-                                  text: AppLocalizations.of(context)
+                                  text: AppLocalizations.of(context)!
                                       .commonWords_week,
                                   onTap: () =>
                                       onDateOptionClicked(SelectedDate.WEEK),

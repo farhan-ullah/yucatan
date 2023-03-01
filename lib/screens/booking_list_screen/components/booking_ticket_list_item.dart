@@ -108,11 +108,11 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                               Text(
                                 _canBeCancelled()
                                     ? _showCancellationConfirmation
-                                        ? AppLocalizations.of(context)
+                                        ? AppLocalizations.of(context)!
                                             .commonWords_areYouSure
-                                        : AppLocalizations.of(context)
+                                        : AppLocalizations.of(context)!
                                             .commonWords_warning_warnung
-                                    : AppLocalizations.of(context)
+                                    : AppLocalizations.of(context)!
                                         .commonWords_mistake,
                                 style: TextStyle(
                                   fontSize: Dimensions.getScaledSize(17.0),
@@ -129,13 +129,13 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                             _canBeCancelled()
                                 ? _showCancellationConfirmation
                                     ? _cancelEntireBooking
-                                        ? AppLocalizations.of(context)
+                                        ? AppLocalizations.of(context)!
                                             .bookingListScreen_refundBooking
-                                        : AppLocalizations.of(context)
+                                        : AppLocalizations.of(context)!
                                             .bookingListScreen_refundTicket
-                                    : AppLocalizations.of(context)
+                                    : AppLocalizations.of(context)!
                                         .bookingListScreen_refundBookingOrTicket
-                                : AppLocalizations.of(context)
+                                : AppLocalizations.of(context)!
                                     .bookingListScreen_refundPeriodExpired,
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -149,7 +149,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                           _canBeCancelled()
                               ? Container()
                               : Text(
-                                  AppLocalizations.of(context)
+                                  AppLocalizations.of(context)!
                                       .bookingListScreen_refundPeriodDuration(
                                           widget.activity.activityDetails!
                                               .cancellation!),
@@ -506,8 +506,8 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                                             // ZipCode and City Information
 
                                             TicketPreviewCityInfo(
-                                              city:
-                                                  widget.activity.location!.city!,
+                                              city: widget
+                                                  .activity.location!.city!,
                                               zipcode: widget
                                                   .activity.location!.zipcode
                                                   .toString(),
@@ -650,7 +650,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  AppLocalizations.of(context)
+                                  AppLocalizations.of(context)!
                                       .bookingListScreen_inValueOf,
                                   style: TextStyle(
                                     fontSize: Dimensions.getScaledSize(11.0),

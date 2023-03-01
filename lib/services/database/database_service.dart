@@ -18,12 +18,12 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveService {
-  static final String bookingBoxName = "booking";
-  static final String bookingDetailedBoxName = "bookingDetailedBox";
-  static final String localSearchHistory = "localSearchHistory";
+  static final String? bookingBoxName = "booking";
+  static final String? bookingDetailedBoxName = "bookingDetailedBox";
+  static final String? localSearchHistory = "localSearchHistory";
   static const scheduleNotificationBoxName = "scheduleNotificationBoxName";
 
-  static final String _hiveKey = "HiveKey2";
+  static final String? _hiveKey = "HiveKey2";
 
   static Future<void> initHive() async {
     Hive.registerAdapter(BookingProductPropertyTypeAdapter());
@@ -43,26 +43,26 @@ class HiveService {
     Hive.registerAdapter(ScheduleNotificationAdapter());
 
     var storage = FlutterSecureStorage();
-    if (!await storage.containsKey(key: _hiveKey)) {
-      List<int> key = Hive.generateSecureKey();
-      await storage.write(key: _hiveKey, value: base64UrlEncode(key));
+    if (!await storage.containsKey(key: _hiveKey!)) {
+      List<int>? key = Hive.generateSecureKey();
+      await storage.write(key: _hiveKey!, value: base64UrlEncode(key));
     }
-    var encryptionKey = base64Url.decode(await storage.read(key: _hiveKey));
+    var encryptionKey = base64Url.decode((await storage.read(key: _hiveKey!))!);
 
     await Hive.initFlutter();
 
     await Hive.openBox(
-      bookingDetailedBoxName,
+      bookingDetailedBoxName!,
       encryptionCipher: HiveAesCipher(encryptionKey),
     );
-    await Hive.openBox<LocalSearchModel>(localSearchHistory);
+    await Hive.openBox<LocalSearchModel>(localSearchHistory!);
     await Hive.openBox<ScheduleNotification>(scheduleNotificationBoxName);
   }
 
   static void updateDatabase() async {
     try {
-      UserLoginModel user = await UserProvider.getUser();
-      BookingService.getAllForUserDetailed(user.sId).then((value) {
+      UserLoginModel? user = await UserProvider.getUser();
+      BookingService.getAllForUserDetailed(user!.sId!).then((value) {
         if (value != null && value.data != null) storeBooking(value.data);
       });
     } catch (exception) {
@@ -75,23 +75,23 @@ class HiveService {
     bool connected = await StatusService.isConnected();
     if (!connected) return;
 
-    var bookingBox = Hive.box(bookingDetailedBoxName);
+    var bookingBox = Hive.box(bookingDetailedBoxName!);
     bookingBox.put("bookingList", models);
   }
 
   static List<BookingDetailedModel> getAll() {
-    var bookingBox = Hive.box(bookingDetailedBoxName);
+    var bookingBox = Hive.box(bookingDetailedBoxName!);
     var list = bookingBox.get("bookingList");
-    List<BookingDetailedModel> bookingDetailedList;
+    List<BookingDetailedModel>? bookingDetailedList;
     if (list != null)
       bookingDetailedList = list.cast<BookingDetailedModel>();
     else
       bookingDetailedList = null;
-    return bookingDetailedList;
+    return bookingDetailedList!;
   }
 
   static Future<int> clearStoredBookings() async {
-    var bookingBox = await Hive.openBox(bookingDetailedBoxName);
+    var bookingBox = await Hive.openBox(bookingDetailedBoxName!);
     return bookingBox.clear();
   }
 
@@ -113,13 +113,13 @@ class HiveService {
   }
 
   static void setLastSearchQuery(LocalSearchModel localSearchModel) async {
-    var bookingBox = await Hive.openBox<LocalSearchModel>(localSearchHistory);
+    var bookingBox = await Hive.openBox<LocalSearchModel>(localSearchHistory!);
     bookingBox.put(localSearchModel.index, localSearchModel);
   }
 
   static Future<List<LocalSearchModel>> getLastSearchQuery() async {
     var notificationBox =
-        await Hive.openBox<LocalSearchModel>(localSearchHistory);
+        await Hive.openBox<LocalSearchModel>(localSearchHistory!);
     if (notificationBox.isNotEmpty) {
       return notificationBox.values.toList().cast<LocalSearchModel>();
     }
@@ -128,7 +128,7 @@ class HiveService {
 
   static Future<int> clearLocalSearchHistory() async {
     var notificationBox =
-        await Hive.openBox<LocalSearchModel>(localSearchHistory);
+        await Hive.openBox<LocalSearchModel>(localSearchHistory!);
     return notificationBox.clear();
   }
 
@@ -153,7 +153,7 @@ class HiveService {
       String id) async {
     var notificationBox =
         await Hive.openBox<ScheduleNotification>(scheduleNotificationBoxName);
-    return notificationBox.get(id);
+    return notificationBox.get(id)!;
   }
 
   static Future<void> deleteScheduledNotification(String id) async {

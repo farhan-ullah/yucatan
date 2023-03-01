@@ -96,12 +96,12 @@ class _BurgerMenuProfileFragmentState extends State<BurgerMenuProfileFragment> {
                       color: Colors.black, fontFamily: CustomTheme.fontFamily),
                   children: [
                     TextSpan(
-                      text: AppLocalizations.of(context)
+                      text: AppLocalizations.of(context)!
                           .authenticationSceen_registerNow,
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                     TextSpan(
-                      text: AppLocalizations.of(context)
+                      text: AppLocalizations.of(context)!
                           .authenticationSceen_registerNowRegister,
                       style: TextStyle(
                           color: CustomTheme.primaryColor,

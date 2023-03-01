@@ -28,7 +28,7 @@ class _RegisterEmailState extends State<RegisterEmail> {
             //title: 'E-Mail-Adresse*',
             registerValidationBloc: widget.registerValidationBloc,
             hintText:
-                '${AppLocalizations.of(context).authenticationSceen_email}*',
+                '${AppLocalizations.of(context)!.authenticationSceen_email}*',
             textInputType: TextInputType.emailAddress,
             validation: AuthRegex.email,
             validationErrorMsg:

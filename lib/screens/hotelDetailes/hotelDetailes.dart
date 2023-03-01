@@ -826,7 +826,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                 right: Dimensions.getScaledSize(24),
                               ),
                               child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .hotelDetailesScreen_otherRecommendations,
                                 style: TextStyle(
                                   fontSize: Dimensions.getScaledSize(18.0),
@@ -1432,7 +1432,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                               top: Dimensions.getScaledSize(2.0),
                             ),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .hotelDetailesScreen_bookNow,
                               style: TextStyle(
                                 fontSize: Dimensions.getScaledSize(20),

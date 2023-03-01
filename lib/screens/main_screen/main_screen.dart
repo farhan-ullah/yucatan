@@ -28,11 +28,11 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   Widget fragment = Container();
   String appLink = "";
-  UserLoginModel user;
+  UserLoginModel? user;
   bool showAppBar = true;
 
   bool _visible = true;
-  AnimationController _controller;
+  AnimationController? _controller;
 
   void _updateFragment(Widget fragment, UserLoginModel user) {
     setState(() {

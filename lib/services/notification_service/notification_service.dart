@@ -24,10 +24,10 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
-  static NotificationService _instance;
-  GlobalKey<NavigatorState> _navigatorKey;
-  static FirebaseMessaging _firebaseMessaging;
-  static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  static NotificationService? _instance;
+  GlobalKey<NavigatorState>? _navigatorKey;
+  static FirebaseMessaging? _firebaseMessaging;
+  static FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
   NotificationService._(GlobalKey<NavigatorState> navigatorKey) {
     _navigatorKey = navigatorKey;
@@ -43,7 +43,7 @@ class NotificationService {
       _initTimeZone();
     }
 
-    return _instance;
+    return _instance!;
   }
 
   static void _initTimeZone() async {
@@ -60,7 +60,7 @@ class NotificationService {
   static Future<void> _initFirebaseMessaging() async {
     _firebaseMessaging = FirebaseMessaging.instance;
 
-    await _firebaseMessaging.requestPermission(
+    await _firebaseMessaging!.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -70,26 +70,26 @@ class NotificationService {
       sound: true,
     );
 
-    var fcmToken = await _firebaseMessaging.getToken();
-    _instance._saveFcmToken(fcmToken);
+    var fcmToken = await _firebaseMessaging!.getToken();
+    _instance!._saveFcmToken(fcmToken!);
 
-    _firebaseMessaging.getInitialMessage().then((message) {
+    _firebaseMessaging!.getInitialMessage().then((message) {
       if (message != null) {
         updateBadge();
-        _instance._handlePushWhileClosed(message);
+        _instance!._handlePushWhileClosed(message);
       }
     });
 
-    _firebaseMessaging.onTokenRefresh.listen(_instance._saveFcmToken);
+    _firebaseMessaging!.onTokenRefresh.listen(_instance!._saveFcmToken);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       updateBadge();
-      _instance._handlePushWhileOpen(message);
+      _instance!._handlePushWhileOpen(message);
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       updateBadge();
-      _instance._handlePushWhileClosed(message);
+      _instance!._handlePushWhileClosed(message);
     });
 
     return Future.sync(() => null);
@@ -100,7 +100,9 @@ class NotificationService {
       if (user == null) FlutterAppBadger.removeBadge();
 
       _getNotificationsStream(user).listen((event) {
-        if (event == 0) return FlutterAppBadger.updateBadgeCount(event);
+        if (event == 0) {
+          // return FlutterAppBadger.updateBadgeCount(event);
+        }
 
         FlutterAppBadger.updateBadgeCount(event);
       });
@@ -135,7 +137,7 @@ class NotificationService {
         android: androidPlatformChannelSpecifics,
         iOS: iOSPlatformChannelSpecifics);
     //TODO : Notification Message Required
-    await flutterLocalNotificationsPlugin.zonedSchedule(
+    await flutterLocalNotificationsPlugin!.zonedSchedule(
         notification.notificationId,
         '${notification.bookingTitle}',
         'Notification message required!',
@@ -147,7 +149,7 @@ class NotificationService {
   }
 
   void cancelScheduleNotification(int notificationId) async {
-    await flutterLocalNotificationsPlugin.cancel(notificationId);
+    await flutterLocalNotificationsPlugin!.cancel(notificationId);
   }
 
   static Future<void> _initLocalNotification() {
@@ -159,14 +161,14 @@ class NotificationService {
     var initializationSettings = new InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-    flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: _instance._onSelectNotification);
+    flutterLocalNotificationsPlugin!.initialize(initializationSettings,
+        onSelectNotification: _instance!._onSelectNotification);
 
     return Future.sync(() => null);
   }
 
   void _saveFcmToken(String token) async {
-    UserLoginModel user = await UserProvider.getUser();
+    UserLoginModel? user = await UserProvider.getUser();
     if (user != null) {
       UserService.saveFcmToken(userId: user.sId, fcmToken: token);
     }
@@ -188,11 +190,11 @@ class NotificationService {
 
     AnalyticsService.logOpenNotification(message);
 
-    NotificationData notificationData =
+    NotificationData? notificationData =
         parseBackgroundNotificationData(message.data);
 
     //Handle action
-    _handleAction(notificationData.action, notificationData.data, false);
+    _handleAction(notificationData!.action!, notificationData.data, false);
 
     return Future.sync(() => null);
   }
@@ -201,10 +203,10 @@ class NotificationService {
     updateBadge();
     appStateBloc.getNotifications();
 
-    NotificationData notificationData = parseNotificationData(data, false);
+    NotificationData? notificationData = parseNotificationData(data, false);
 
     //Handle action
-    _handleAction(notificationData.action, notificationData.data, false);
+    _handleAction(notificationData!.action!, notificationData.data, false);
   }
 
   void handleInApp(NotificationModel notification) {
@@ -213,36 +215,36 @@ class NotificationService {
 
     //Log firebase event
     if (kReleaseMode) {
-      FirebaseAnalytics().logEvent(
-        name: 'fcm_in_app_message_action',
-        parameters: <String, dynamic>{
-          'message_id': notification?.id,
-          'message_title': notification?.title,
-          'message_device_time': DateTime.now().toIso8601String(),
-        },
-      );
+      // FirebaseAnalytics.logEvent(
+      //   name: 'fcm_in_app_message_action',
+      //   parameters: <String, dynamic>{
+      //     'message_id': notification.id,
+      //     'message_title': notification.title,
+      //     'message_device_time': DateTime.now().toIso8601String(),
+      //   },
+      // );
     }
 
     //Handle action
-    NotificationData notificationData =
-        parseNotificationData(json.decode(notification.data), true);
+    NotificationData? notificationData =
+        parseNotificationData(json.decode(notification.data!), true);
 
     //Handle action
-    _handleAction(notificationData.action, notificationData.data, true);
+    _handleAction(notificationData!.action!, notificationData.data, true);
   }
 
   void _handleAction(String action, dynamic data, bool inApp) async {
-    NotificationActions notificationAction = NotificationActions.values
-        .firstWhere(
-            (element) =>
-                element.toString().split('.')[1].toLowerCase() ==
-                action.toLowerCase(),
-            orElse: () => null);
+    NotificationActions? notificationAction =
+        NotificationActions.values.firstWhere(
+      (element) =>
+          element.toString().split('.')[1].toLowerCase() ==
+          action.toLowerCase(),
+    );
 
     final sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setBool('handleNotification', true);
 
-    UserLoginModel user = await UserProvider.getUser();
+    UserLoginModel? user = await UserProvider.getUser();
 
     if (user == null) return;
 
@@ -250,14 +252,14 @@ class NotificationService {
       case NotificationActions.NONE:
         if (inApp) break;
 
-        _navigatorKey.currentState.pushNamed(NotificationsScreen.route);
+        _navigatorKey!.currentState!.pushNamed(NotificationsScreen.route);
 
         break;
       case NotificationActions.USER_SHOW_DENIED_REQUEST:
         user.switchToUserRole();
 
         bool stopRoutePop = false;
-        _navigatorKey.currentState.pushNamedAndRemoveUntil(
+        _navigatorKey!.currentState!.pushNamedAndRemoveUntil(
           MainScreen.route,
           (route) {
             if (stopRoutePop) return true;
@@ -278,7 +280,7 @@ class NotificationService {
         user.switchToUserRole();
 
         bool stopRoutePop = false;
-        _navigatorKey.currentState.pushNamedAndRemoveUntil(
+        _navigatorKey!.currentState!.pushNamedAndRemoveUntil(
           MainScreen.route,
           (route) {
             if (stopRoutePop) return true;
@@ -299,7 +301,7 @@ class NotificationService {
         user.switchToUserRole();
 
         bool stopRoutePop = false;
-        _navigatorKey.currentState.pushNamedAndRemoveUntil(
+        _navigatorKey!.currentState!.pushNamedAndRemoveUntil(
           MainScreen.route,
           (route) {
             if (stopRoutePop) return true;
@@ -321,10 +323,10 @@ class NotificationService {
 
         user.switchToDefaultRole();
 
-        _navigatorKey.currentState
+        _navigatorKey!.currentState!
             .popUntil(ModalRoute.withName(MainScreen.route));
 
-        _navigatorKey.currentState.pushReplacementNamed(
+        _navigatorKey!.currentState!.pushReplacementNamed(
           MainScreen.route,
           arguments: MainScreenParameter(
             bottomNavigationBarIndex: 0,
@@ -332,7 +334,7 @@ class NotificationService {
         );
 
         Future.delayed(Duration(milliseconds: 1000), () {
-          _navigatorKey.currentState.push(
+          _navigatorKey!.currentState!.push(
             MaterialPageRoute(
               builder: (BuildContext context) => VendorBookingOverviewScreen(
                 notificationAction: notificationAction,
@@ -348,10 +350,10 @@ class NotificationService {
 
         user.switchToDefaultRole();
 
-        _navigatorKey.currentState
+        _navigatorKey!.currentState!
             .popUntil(ModalRoute.withName(MainScreen.route));
 
-        _navigatorKey.currentState.pushReplacementNamed(
+        _navigatorKey!.currentState!.pushReplacementNamed(
           MainScreen.route,
           arguments: MainScreenParameter(
             bottomNavigationBarIndex: 0,
@@ -359,7 +361,7 @@ class NotificationService {
         );
 
         Future.delayed(Duration(milliseconds: 1000), () {
-          _navigatorKey.currentState.push(
+          _navigatorKey!.currentState!.push(
             MaterialPageRoute(
               builder: (BuildContext context) => VendorBookingOverviewScreen(
                 notificationAction: notificationAction,
@@ -372,13 +374,13 @@ class NotificationService {
         break;
       default:
         if (inApp) break;
-        _navigatorKey.currentState.pushNamed(NotificationsScreen.route);
+        _navigatorKey!.currentState!.pushNamed(NotificationsScreen.route);
     }
   }
 
-  void _showNotification(RemoteMessage message) async {
-    String title = message.notification.title;
-    String body = message.notification.body;
+  void _showNotification(RemoteMessage? message) async {
+    String? title = message!.notification!.title;
+    String? body = message.notification!.body;
 
     var android = AndroidNotificationDetails(
       'appventure',
@@ -392,18 +394,18 @@ class NotificationService {
     var iOS = IOSNotificationDetails(presentAlert: true);
     var platform = new NotificationDetails(android: android, iOS: iOS);
 
-    await flutterLocalNotificationsPlugin.show(0, '$title', '$body', platform,
+    await flutterLocalNotificationsPlugin!.show(0, '$title', '$body', platform,
         payload: jsonEncode(message.data));
   }
 
-  Future _onSelectNotification(String payload) {
+  Future _onSelectNotification(String? payload) {
     print('----------onSelectNotification-------$payload');
-    _handleLocal(json.decode(payload));
+    _handleLocal(json.decode(payload!));
 
     return Future.sync(() => true);
   }
 
-  NotificationData parseNotificationData(
+  NotificationData? parseNotificationData(
       Map<String, dynamic> data, bool inApp) {
     try {
       if (inApp) return NotificationData.fromJson(data);
@@ -415,7 +417,7 @@ class NotificationService {
     }
   }
 
-  NotificationData parseBackgroundNotificationData(Map<String, dynamic> data) {
+  NotificationData? parseBackgroundNotificationData(Map<String, dynamic> data) {
     try {
       return NotificationData.fromJson(data);
     } catch (e) {

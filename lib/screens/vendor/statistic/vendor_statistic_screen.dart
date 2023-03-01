@@ -448,7 +448,7 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
                                 top: Dimensions.getHeight(percentage: 50.0) -
                                     Scaffold.of(context).appBarMaxHeight),
                             child: Center(
-                              child: Text(AppLocalizations.of(context)
+                              child: Text(AppLocalizations.of(context)!
                                   .commonWords_error),
                             ),
                           );

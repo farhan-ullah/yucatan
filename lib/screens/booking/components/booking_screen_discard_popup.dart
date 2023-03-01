@@ -65,7 +65,7 @@ class BookingScreenDiscardPopup extends StatelessWidget {
                         right: Dimensions.getScaledSize(24.0),
                       ),
                       child: Text(
-                        AppLocalizations.of(context)
+                        AppLocalizations.of(context)!
                             .bookingScreen_closeWindowSelectionWarning,
                         textAlign: TextAlign.center,
                         style: TextStyle(

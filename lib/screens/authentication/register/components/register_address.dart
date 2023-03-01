@@ -69,7 +69,7 @@ class _RegisterAddressState extends State<RegisterAddress> {
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.20,
                 child: InputTextField(
-                  hintText: AppLocalizations.of(context)
+                  hintText: AppLocalizations.of(context)!
                           .commonWords_number_abbreviation +
                       '*',
                   onTextChanged: (String text) {
@@ -103,7 +103,7 @@ class _RegisterAddressState extends State<RegisterAddress> {
                 width: MediaQuery.of(context).size.width * 0.50,
                 child: InputTextField(
                   hintText:
-                      '${AppLocalizations.of(context).commonWords_city}*',
+                      '${AppLocalizations.of(context)!.commonWords_city}*',
                   onTextChanged: (String text) {
                     setState(() {
                       //_model.city = text;

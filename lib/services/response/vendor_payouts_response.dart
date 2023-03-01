@@ -16,8 +16,8 @@ class VendorPayoutsResponse {
     this.data,
   });
 
-  int status;
-  List<PayoutData> data;
+  int? status;
+  List<PayoutData>? data;
 
   factory VendorPayoutsResponse.fromJson(Map<String, dynamic> json) =>
       VendorPayoutsResponse(
@@ -28,7 +28,7 @@ class VendorPayoutsResponse {
 
   Map<String, dynamic> toJson() => {
         "status": status,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
       };
 }
 

@@ -55,7 +55,7 @@ class _CountrySelectionState extends State<CountrySelection> {
           .firstWhere(
               (element) =>
                   element.country.toLowerCase() ==
-                  _model.countryISO2Code.toLowerCase(),
+                  _model.countryISO2Code!.toLowerCase(),
               orElse: () => CountryData('', ''))
           .countryName;
 
@@ -100,8 +100,7 @@ class _CountrySelectionState extends State<CountrySelection> {
                     Icons.keyboard_arrow_down_rounded,
                     size: 30,
                   )),
-              controller:
-                  TextEditingController(text: _model.countryISO2Name),
+              controller: TextEditingController(text: _model.countryISO2Name),
               suggestions: widget.countryObject!.countryList2,
               textChanged: (text) => currentText = text,
               clearOnSubmit: false,
@@ -155,12 +154,12 @@ class _CountrySelectionState extends State<CountrySelection> {
                           value: value,
                           child: Row(
                             children: [
-                              Flag(
-                                defaultFlagValue,
-                                width: Dimensions.getScaledSize(32),
-                                height: Dimensions.getScaledSize(22),
-                                fit: BoxFit.fill,
-                              ),
+                              // Flag(
+                              //   defaultFlagValue,
+                              //   width: Dimensions.getScaledSize(32),
+                              //   height: Dimensions.getScaledSize(22),
+                              //   fit: BoxFit.fill,
+                              // ),
                               Expanded(
                                 child: Text(
                                   value.contains("+") ? value : "+$value",
@@ -202,7 +201,8 @@ class _CountrySelectionState extends State<CountrySelection> {
                         var flagValue = widget.countryObject!.jsonPhoneMap.keys
                             .firstWhere(
                                 (k) =>
-                                    widget.countryObject!.jsonPhoneMap[k] == val,
+                                    widget.countryObject!.jsonPhoneMap[k] ==
+                                    val,
                                 orElse: () => "DE");
                         defaultFlagValue = flagValue;
                         _model.areaCode = defaultPhoneValue;
@@ -224,14 +224,15 @@ class _CountrySelectionState extends State<CountrySelection> {
                         isComingFromCheckout: true,
                         phoneNumberValue: widget.phone,
                         isProfilePhoneNumber: true,
-                        hintText: AppLocalizations.of(context)
+                        hintText: AppLocalizations.of(context)!
                             .commonWords_phone_required,
                         textInputType: TextInputType.number,
-                        validationErrorMsg: AppLocalizations.of(context)
+                        validationErrorMsg: AppLocalizations.of(context)!
                             .commonWords_phoneInvalid,
-                        validation: _model.phone == null || _model.phone!.isEmpty
-                            ? AuthRegex.emptyValue
-                            : null,
+                        validation:
+                            _model.phone == null || _model.phone!.isEmpty
+                                ? AuthRegex.emptyValue
+                                : null,
                         autocorrect: false,
                         onTextChanged: (String text) {
                           _model.phone = text;

@@ -231,7 +231,7 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
                                   left: Dimensions.getScaledSize(20),
                                   bottom: Dimensions.getScaledSize(20),
                                   right: Dimensions.getScaledSize(20)),
-                              child: Text(AppLocalizations.of(context)
+                              child: Text(AppLocalizations.of(context)!
                                   .commonWords_error),
                             );
                           }
@@ -257,7 +257,7 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
                                     bookingListCardType:
                                         BookingListCardType.USABLE,
                                     noBookingsTitle:
-                                        AppLocalizations.of(context)
+                                        AppLocalizations.of(context)!
                                             .bookingListScreen_noActiveBookings,
                                     bookings: usable,
                                     refresh: refresh,
@@ -270,7 +270,7 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
                                     bookingListCardType:
                                         BookingListCardType.USED,
                                     noBookingsTitle:
-                                        AppLocalizations.of(context)
+                                        AppLocalizations.of(context)!
                                             .bookingListScreen_noUsedBookings,
                                     bookings: used,
                                     refresh: refresh,
@@ -334,7 +334,7 @@ class _BookingListScreenOfflineState extends State<BookingListScreenOffline>
                       return CustomErrorEmptyScreen(
                         title:
                             AppLocalizations.of(context)!.commonWords_mistake,
-                        description: AppLocalizations.of(context)
+                        description: AppLocalizations.of(context)!
                             .bookingListScreen_loginToSee,
                         rive: RiveAnimation(
                           riveFileName: 'tickets_animiert_loop.riv',

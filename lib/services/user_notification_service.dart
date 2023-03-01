@@ -27,7 +27,7 @@ class UserNotificationService extends BaseService {
     var httpData = (await new UserNotificationService._()
         .post('/$notificationId/setToRead', null));
     //print(httpData.body);
-    if (httpData.body != null) {
+    if (httpData!.body != null) {
       var result =
           NotificationsToReadResponse.fromJson(json.decode(httpData.body));
       return result;

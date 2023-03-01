@@ -39,7 +39,7 @@ class UserService extends BaseService {
         .forEach((it) => map.remove(it));
 
     dynamic body = json.encode(map);
-    var result = _parseSingle((await new UserService._().post('', body)).body);
+    var result = _parseSingle((await new UserService._().post('', body))!.body);
 
     print('Result After Registration : $result');
     if (result!.status == 200) {
@@ -53,7 +53,7 @@ class UserService extends BaseService {
   /// Deletes an User by the given [id]
   /// [id] internal ID of the user (UserModel.sId)
   static Future<UserSingleResponseEntity?> deleteUser(String id) async {
-    return _parseSingle((await new UserService._().delete(id)).body);
+    return _parseSingle((await new UserService._().delete(id))!.body);
   }
 
   //---------------------------------------------
@@ -82,7 +82,7 @@ class UserService extends BaseService {
   static Future<UserSingleResponseEntity?> deleteUserFavoriteActivity(
       {String? activityId, String? userId}) async {
     var httpData =
-        (await new UserService._().delete(userId! + '/favorites/' + activityId!))
+        (await new UserService._().delete(userId! + '/favorites/' + activityId!))!
             .body;
     if (httpData != null) {
       return new UserSingleResponseEntity().fromJson(json.decode(httpData));
@@ -100,7 +100,7 @@ class UserService extends BaseService {
       'activityIds': [activityId]
     });
     var httpData =
-        (await new UserService._().post(userId + '/favorites', body)).body;
+        (await new UserService._().post(userId + '/favorites', body))!.body;
     if (httpData != null) {
       return new UserSingleResponseEntity().fromJson(json.decode(httpData));
     } else
@@ -127,7 +127,7 @@ class UserService extends BaseService {
     var httpData = (await new UserService._().post(
       '/' + userId! + '/fcmtoken',
       requestBody,
-    ))
+    ))!
         .body;
     if (httpData != null) {
       return new UserSingleResponseEntity().fromJson(json.decode(httpData));

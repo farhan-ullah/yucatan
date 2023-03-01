@@ -28,13 +28,13 @@ class SearchScreen extends DateStatefulWidget {
 }
 
 class _SearchScreenState extends DateState<SearchScreen> {
-  ActivityMultiResponse activityMultiResponse;
+  late ActivityMultiResponse activityMultiResponse;
   bool submitted = false;
   bool searched = false;
-  SelectedDate _selectedDate;
+  late SelectedDate _selectedDate;
   List<String> _searchTerms = [];
   TextEditingController _searchTextController = TextEditingController();
-  String _searchTerm;
+  late String _searchTerm;
 
   @override
   void initState() {
@@ -223,7 +223,7 @@ class _SearchScreenState extends DateState<SearchScreen> {
                               decoration: new InputDecoration(
                                 errorText: null,
                                 border: InputBorder.none,
-                                hintText: AppLocalizations.of(context)
+                                hintText: AppLocalizations.of(context)!
                                     .searchScreen_text,
                                 hintStyle: TextStyle(
                                   color: CustomTheme.disabledColor,
@@ -237,24 +237,25 @@ class _SearchScreenState extends DateState<SearchScreen> {
                                 padding: EdgeInsets.all(
                                   Dimensions.getScaledSize(10.0),
                                 ),
-                                child: Text(AppLocalizations.of(context)
+                                child: Text(AppLocalizations.of(context)!
                                     .searchScreen_noItems),
                               );
                             },
-                            suggestionsCallback: (pattern) async {
-                              return await ActivityService.getSuggestions(
-                                query: pattern,
+                            suggestionsCallback: (Pattern? pattern) async {
+                              return (await ActivityService.getSuggestions(
+                                query: pattern.toString(),
                                 items: 10,
-                              );
+                              ))!;
                             },
                             itemBuilder: (context, suggestion) {
                               return ListTile(
-                                title: Text(suggestion),
+                                title: Text(suggestion.toString()),
                               );
                             },
                             onSuggestionSelected: (suggestion) {
-                              _searchTerm = suggestion;
-                              _searchTextController.text = suggestion;
+                              _searchTerm = suggestion.toString();
+                              _searchTextController.text =
+                                  suggestion.toString();
                               _searchActivities();
                             },
                           ),
@@ -382,7 +383,7 @@ class _SearchScreenState extends DateState<SearchScreen> {
                     )
                   : Center(
                       child: Text(searched
-                          ? AppLocalizations.of(context)
+                          ? AppLocalizations.of(context)!
                               .searchScreen_noActivities
                           : ''),
                     ),
@@ -400,14 +401,14 @@ class _SearchScreenState extends DateState<SearchScreen> {
     if (GlobalDate.current() != null) {
       String date = DateFormat('dd-MM-yy').format(GlobalDate.current());
 
-      activityMultiResponse = await ActivityService.getActivitiesBySearchTerm(
+      activityMultiResponse = (await ActivityService.getActivitiesBySearchTerm(
         date: date,
         searchTerm: _searchTerm,
-      );
+      ))!;
     } else {
-      activityMultiResponse = await ActivityService.getActivitiesBySearchTerm(
+      activityMultiResponse = (await ActivityService.getActivitiesBySearchTerm(
         searchTerm: _searchTerm,
-      );
+      ))!;
     }
 
     setState(() {
@@ -435,7 +436,7 @@ class _SearchScreenState extends DateState<SearchScreen> {
     });
 
     if (_selectedDate == SelectedDate.NONE) {
-      GlobalDate.set(null);
+      // GlobalDate.set(null);
     }
     if (_selectedDate == SelectedDate.TODAY) {
       GlobalDate.setToday();
@@ -449,9 +450,9 @@ class _SearchScreenState extends DateState<SearchScreen> {
     _showDateSelectorDialog(context: context);
   }
 
-  void _showDateSelectorDialog({BuildContext context}) {
+  void _showDateSelectorDialog({BuildContext? context}) {
     showDialog(
-      context: context,
+      context: context!,
       builder: (BuildContext context) => CalendarPopupView(
         barrierDismissible: true,
         minimumDate: DateTime.now(),
@@ -472,7 +473,7 @@ class _SearchScreenState extends DateState<SearchScreen> {
 }
 
 class ActivitySearchListViewItem extends StatelessWidget {
-  final ActivityModel activity;
+  final ActivityModel? activity;
 
   ActivitySearchListViewItem({this.activity});
 
@@ -513,7 +514,7 @@ class ActivitySearchListViewItem extends StatelessWidget {
                         //TODO
                         isFavorite: false,
                         //hotelData: activity,
-                        activityId: activity.sId,
+                        activityId: activity!.sId!,
                       ),
                     ),
                   );
@@ -527,9 +528,9 @@ class ActivitySearchListViewItem extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         height: Dimensions.getScaledSize(140.0),
                         child: loadCachedNetworkImage(
-                          isNotNullOrEmpty(activity.thumbnail?.publicUrl)
-                              ? activity.thumbnail?.publicUrl
-                              : "",
+                          (isNotNullOrEmpty((activity!.thumbnail?.publicUrl)!)
+                              ? activity!.thumbnail?.publicUrl!
+                              : "")!,
                           height: Dimensions.getScaledSize(140.0),
                           fit: BoxFit.cover,
                         ),
@@ -555,7 +556,7 @@ class ActivitySearchListViewItem extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
-                                        activity.title,
+                                        activity!.title!,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
@@ -565,7 +566,7 @@ class ActivitySearchListViewItem extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        activity.vendor.name,
+                                        activity!.vendor!.name!,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize:
@@ -610,7 +611,7 @@ class ActivitySearchListViewItem extends StatelessWidget {
                                                     ),
                                                     Expanded(
                                                       child: Text(
-                                                        '${activity.location.zipcode} ${activity.location.city} ',
+                                                        '${activity!.location!.zipcode} ${activity!.location!.city} ',
                                                         overflow: TextOverflow
                                                             .ellipsis,
                                                         style: TextStyle(
@@ -633,10 +634,10 @@ class ActivitySearchListViewItem extends StatelessWidget {
                                                       SmoothStarRating(
                                                         allowHalfRating: true,
                                                         starCount: 5,
-                                                        rating: activity
+                                                        rating: activity!
                                                                     .reviewAverageRating !=
                                                                 null
-                                                            ? activity
+                                                            ? activity!
                                                                 .reviewAverageRating
                                                             : 0,
                                                         size: Dimensions
@@ -647,9 +648,9 @@ class ActivitySearchListViewItem extends StatelessWidget {
                                                         borderColor: CustomTheme
                                                             .primaryColor,
                                                       ),
-                                                      activity.reviewCount > 0
+                                                      activity!.reviewCount! > 0
                                                           ? Text(
-                                                              " ${activity.reviewAverageRating.toString().replaceAll('.', ',')}",
+                                                              " ${activity!.reviewAverageRating.toString().replaceAll('.', ',')}",
                                                               style: TextStyle(
                                                                   fontSize: Dimensions
                                                                       .getScaledSize(
@@ -673,7 +674,7 @@ class ActivitySearchListViewItem extends StatelessWidget {
                                                 CrossAxisAlignment.end,
                                             children: <Widget>[
                                               Text(
-                                                AppLocalizations.of(context)
+                                                AppLocalizations.of(context)!
                                                     .searchScreen_availableFrom,
                                                 style: TextStyle(
                                                     fontSize: Dimensions
@@ -683,7 +684,7 @@ class ActivitySearchListViewItem extends StatelessWidget {
                                               ),
                                               Text(
                                                 formatPriceDouble(
-                                                    activity.priceFrom),
+                                                    activity!.priceFrom!),
                                                 textAlign: TextAlign.left,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,

@@ -121,16 +121,16 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                           title: AppLocalizations.of(context)
                               .paymentCreditCardScreen_wellDone,
                           description: requestRequired
-                              ? AppLocalizations.of(context)
+                              ? AppLocalizations.of(context)!
                                   .paymentCreditCardScreen_requestReceived
-                              : AppLocalizations.of(context)
+                              : AppLocalizations.of(context)!
                                   .paymentCreditCardScreen_bookingReceived,
                           image: 'lib/assets/images/success.png',
                           showButton: false,
                           customText: requestRequired
-                              ? AppLocalizations.of(context)
+                              ? AppLocalizations.of(context)!
                                   .paymentCreditCardScreen_willReceiveTicketsRequested
-                              : AppLocalizations.of(context)
+                              : AppLocalizations.of(context)!
                                   .paymentCreditCardScreen_willReceiveTicketsBooking,
                         ),
                         Positioned(
@@ -288,9 +288,9 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                 title: Center(
                   child: Text(
                     snapshot.data.success
-                        ? AppLocalizations.of(context)
+                        ? AppLocalizations.of(context)!
                             .paymentCreditCardScreen_paymentSuccess
-                        : AppLocalizations.of(context)
+                        : AppLocalizations.of(context)!
                             .paymentCreditCardScreen_paymentError,
                   ),
                 ),

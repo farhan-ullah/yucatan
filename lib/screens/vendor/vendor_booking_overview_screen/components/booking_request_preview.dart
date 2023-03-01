@@ -95,7 +95,7 @@ class _VendorBookingRequestPreviewState
                 Column(
                   children: [
                     Text(
-                        AppLocalizations.of(context)
+                        AppLocalizations.of(context)!
                             .bookingListScreen_inValueOf,
                         style: _getTextStyle(displayHeight * 0.015)),
                     Text(formatPriceDouble(widget.transactionModel.totalPrice),

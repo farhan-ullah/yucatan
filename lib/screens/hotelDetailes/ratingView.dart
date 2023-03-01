@@ -36,7 +36,7 @@ class RatingView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Text(
-                      AppLocalizations.of(context)
+                      AppLocalizations.of(context)!
                           .hotelDetailesScreen_overallRating,
                       textAlign: TextAlign.left,
                       style: TextStyle(

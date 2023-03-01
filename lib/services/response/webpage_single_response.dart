@@ -2,9 +2,9 @@ import 'package:yucatan/models/webpage_model.dart';
 import 'package:yucatan/services/response/api_error.dart';
 
 class WebPageSingleResponseEntity {
-  int status;
-  WebPageModel data;
-  ApiError errors;
+  late int status;
+  late WebPageModel data;
+  late ApiError errors;
 
   WebPageSingleResponseEntity();
 
