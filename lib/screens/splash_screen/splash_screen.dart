@@ -27,10 +27,11 @@ class _SplashScreenState extends State<SplashScreen> {
       () async {
         var prefs = await SharedPreferences.getInstance();
         bool firstOpenFlag = prefs.getBool("FirstOpen-Flag") ?? true;
-        if (firstOpenFlag)
+        // if (firstOpenFlag) {
           Navigator.of(context).popAndPushNamed(OnboardingScreen.route);
-        else
-          Navigator.of(context).pop();
+        // } else {
+        //   Navigator.of(context).pop();
+        // }
       },
     );
   }
@@ -60,42 +61,46 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
         child: Column(
           children: [
-            SizedBox(
-              height: Dimensions.getHeight(percentage: 30.0),
-            ),
-            Container(
-              height: Dimensions.getHeight(percentage: 25.0),
-              child: RiveAnimation(
-                riveFileName: 'app-start.riv',
-                riveAnimationName: 'Animation 1',
-                placeholderImage: 'lib/assets/images/appventure_icon_white.png',
-                startAnimationAfterMilliseconds: 0,
-              ),
-            ),
-            SizedBox(
-              height: Dimensions.getScaledSize(30.0),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.splashScreen_text1,
-                  style: TextStyle(
-                    fontSize: Dimensions.getScaledSize(22.0),
-                    fontWeight: FontWeight.w100,
-                    color: Colors.white,
-                  ),
-                ),
-                Text(
-                  AppLocalizations.of(context)!.splashScreen_text2,
-                  style: TextStyle(
-                    fontSize: Dimensions.getScaledSize(22.0),
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
+
+
+            Text('Hello'),
+
+            // SizedBox(
+            //   height: Dimensions.getHeight(percentage: 30.0),
+            // ),
+            // Container(
+            //   height: Dimensions.getHeight(percentage: 25.0),
+            //   child: RiveAnimation(
+            //     riveFileName: 'app-start.riv',
+            //     riveAnimationName: 'Animation 1',
+            //     placeholderImage: 'lib/assets/images/appventure_icon_white.png',
+            //     startAnimationAfterMilliseconds: 2,
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: Dimensions.getScaledSize(30.0),
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Text(
+            //       AppLocalizations.of(context)!.splashScreen_text1,
+            //       style: TextStyle(
+            //         fontSize: Dimensions.getScaledSize(22.0),
+            //         fontWeight: FontWeight.w100,
+            //         color: Colors.white,
+            //       ),
+            //     ),
+            //     Text(
+            //       AppLocalizations.of(context)!.splashScreen_text2,
+            //       style: TextStyle(
+            //         fontSize: Dimensions.getScaledSize(22.0),
+            //         fontWeight: FontWeight.bold,
+            //         color: Colors.white,
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),

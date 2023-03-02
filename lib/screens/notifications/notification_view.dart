@@ -109,51 +109,52 @@ class _NotificationViewState extends State<NotificationView> {
                   )),
         );
       },
-      child: StreamBuilder(
-        stream: _getNotificationsStream(_user),
-        builder: (context, snapshotNotifications) {
-          bool showNotificationBadge = false;
-          int? notificationsCounter = 0;
-          if (snapshotNotifications.hasData &&
-              int.parse(snapshotNotifications.data.toString()) > 0) {
-            notificationsCounter =
-                int.parse(snapshotNotifications.data.toString());
-            showNotificationBadge = true;
-          }
-
-          return Badge(
-            // elevation: 0,
-            child: Icon(
-              widget.defaultIcon! ? Icons.notifications_outlined : widget.icon,
-              size: Dimensions.getScaledSize(30.0),
-              color: widget.defaultIcon! ? Colors.white : widget.color,
-            ),
-            position: BadgePosition.topStart(
-              start: Dimensions.getScaledSize(16.0),
-              top: widget.negativePadding
-                  ? Dimensions.getScaledSize(-3)
-                  : Dimensions.getScaledSize(10),
-            ),
-            // badgeColor: CustomTheme.accentColor1,
-            // shape: BadgeShape.square,
-            // borderRadius: BorderRadius.circular(12),
-            showBadge: showNotificationBadge,
-            badgeContent: Padding(
-              padding: EdgeInsets.only(
-                left: Dimensions.getScaledSize(4),
-                right: Dimensions.getScaledSize(4),
-              ),
-              child: Text(
-                '${getNotificationCounterValue(notificationsCounter)}',
-                style: TextStyle(
-                  fontSize: Dimensions.getScaledSize(12),
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          );
-        },
-      ),
+      // child: StreamBuilder(
+      //   stream: _getNotificationsStream(_user),
+      //   builder: (context, snapshotNotifications) {
+      //     bool showNotificationBadge = false;
+      //     int? notificationsCounter = 0;
+      //     if (snapshotNotifications.hasData &&
+      //         int.parse(snapshotNotifications.data.toString()) > 0) {
+      //       notificationsCounter =
+      //           int.parse(snapshotNotifications.data.toString());
+      //       showNotificationBadge = true;
+      //     }
+      //
+      //     return Badge(
+      //       // elevation: 0,
+      //       child: Icon(
+      //         widget.defaultIcon! ? Icons.notifications_outlined : widget.icon,
+      //         size: Dimensions.getScaledSize(30.0),
+      //         color: widget.defaultIcon! ? Colors.white : widget.color,
+      //       ),
+      //       position: BadgePosition.topStart(
+      //         start: Dimensions.getScaledSize(16.0),
+      //         top: widget.negativePadding
+      //             ? Dimensions.getScaledSize(-3)
+      //             : Dimensions.getScaledSize(10),
+      //       ),
+      //       // badgeColor: CustomTheme.accentColor1,
+      //       // shape: BadgeShape.square,
+      //       // borderRadius: BorderRadius.circular(12),
+      //       showBadge: showNotificationBadge,
+      //       badgeContent: Padding(
+      //         padding: EdgeInsets.only(
+      //           left: Dimensions.getScaledSize(4),
+      //           right: Dimensions.getScaledSize(4),
+      //         ),
+      //         child: Text(
+      //           '${getNotificationCounterValue(notificationsCounter)}',
+      //           style: TextStyle(
+      //             fontSize: Dimensions.getScaledSize(12),
+      //             color: Colors.white,
+      //           ),
+      //         ),
+      //       ),
+      //     )
+      //     ;
+      //   },
+      // ),
     );
   }
 

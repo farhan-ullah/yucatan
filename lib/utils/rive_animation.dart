@@ -23,8 +23,8 @@ class RiveAnimation extends StatefulWidget {
 }
 
 class _RiveAnimationState extends State<RiveAnimation> {
-  late Artboard _riveArtboard;
-  late RiveAnimationController _controller;
+   Artboard? _riveArtboard;
+   RiveAnimationController? _controller;
 
   @override
   void initState() {
@@ -43,16 +43,16 @@ class _RiveAnimationState extends State<RiveAnimation> {
         // artboard.We store a reference to it so we can toggle playback.
         _controller = SimpleAnimation(widget.riveAnimationName);
 
-        artboard.addController(_controller);
+        artboard.addController(_controller!);
 
         if (widget.startAnimationAfterMilliseconds > 0) {
-          _controller.isActive = false;
+          _controller!.isActive = false;
 
           Future.delayed(
               Duration(milliseconds: widget.startAnimationAfterMilliseconds),
               () {
             setState(() {
-              _controller.isActive = true;
+              _controller!.isActive = true;
             });
           });
         }
@@ -67,7 +67,7 @@ class _RiveAnimationState extends State<RiveAnimation> {
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    _controller!.dispose();
   }
 
   @override
@@ -78,7 +78,7 @@ class _RiveAnimationState extends State<RiveAnimation> {
             fit: BoxFit.cover,
           )
         : Rive(
-            artboard: _riveArtboard,
+            artboard: _riveArtboard!,
             fit: BoxFit.contain,
           );
   }

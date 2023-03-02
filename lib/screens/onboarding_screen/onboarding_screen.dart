@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../newScreenforLogo/newLogoScreen.dart';
 import 'components/onboarding_page.dart';
 import 'components/onboarding_page_model.dart';
 
@@ -43,7 +44,13 @@ class _OnboardingState extends State<OnboardingScreen> {
   void finish(BuildContext context) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setBool("FirstOpen-Flag", false);
-    Navigator.of(context).pop();
+    // Navigator.of(context).pop();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const LogoScreen()),
+    );
+
   }
 
   @override
