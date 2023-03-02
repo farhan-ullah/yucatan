@@ -302,7 +302,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
                   ),
                 )
               : Text(
-                  AppLocalizations.of(context)
+                  AppLocalizations.of(context)!
                       .bookingScreen_noProductsSelectedError,
                   style: TextStyle(
                     fontSize: Dimensions.getScaledSize(16.0),
@@ -874,7 +874,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
         widgets.add(
           GestureDetector(
             onTap: () {
-              _categoriesSliderController.scrollTo(
+              _categoriesSliderController!.scrollTo(
                 index: widget.activity!.bookingDetails!.productCategories!
                     .indexOf(category),
                 duration: Duration(milliseconds: 800),
@@ -1167,15 +1167,15 @@ class _BookingScreenViewState extends State<BookingScreenView> {
   void _removeOrderProduct(OrderProduct orderProduct) {
     //Log firebase event
     if (kReleaseMode) {
-      FirebaseAnalytics().logEvent(
-        name: 'remove_from_cart',
-        parameters: <String, dynamic>{
-          'item': orderProduct.id,
-          'item_name': _findProduct(orderProduct.id!).title,
-          'value': _findProduct(orderProduct.id!).price! * orderProduct.amount!,
-          'time': DateTime.now().toIso8601String(),
-        },
-      );
+      // FirebaseAnalytics().logEvent(
+      //   name: 'remove_from_cart',
+      //   parameters: <String, dynamic>{
+      //     'item': orderProduct.id,
+      //     'item_name': _findProduct(orderProduct.id!).title,
+      //     'value': _findProduct(orderProduct.id!).price! * orderProduct.amount!,
+      //     'time': DateTime.now().toIso8601String(),
+      //   },
+      // );
     }
 
     setState(() {
@@ -1271,7 +1271,7 @@ class _BookingScreenViewState extends State<BookingScreenView> {
       );
     } else {
       // if the user is null, a login or register is required
-      UserLoginModel user = await UserProvider.getUser();
+      UserLoginModel? user = await UserProvider.getUser();
       if (user == null) {
         Navigator.of(context).pushNamed(LoginScreen.route);
       } else {
@@ -1331,18 +1331,18 @@ class _BookingScreenViewState extends State<BookingScreenView> {
   void _sendFirebaseEventProductSelected() {
     //Log firebase event
     if (kReleaseMode) {
-      FirebaseAnalytics().logEvent(
-        name: 'select_item',
-        parameters: <String, dynamic>{
-          'product_id': _selectedProduct!.id,
-          'product_name': _selectedProduct!.title,
-          'value': _selectedProduct!.price,
-          'activity_id': widget.activity!.sId,
-          'category_id': _selectedProductCategory!.id,
-          'sub_category_id': _selectedProductSubCategory?.id,
-          'time': DateTime.now().toIso8601String(),
-        },
-      );
+      // FirebaseAnalytics().logEvent(
+      //   name: 'select_item',
+      //   parameters: <String, dynamic>{
+      //     'product_id': _selectedProduct!.id,
+      //     'product_name': _selectedProduct!.title,
+      //     'value': _selectedProduct!.price,
+      //     'activity_id': widget.activity!.sId,
+      //     'category_id': _selectedProductCategory!.id,
+      //     'sub_category_id': _selectedProductSubCategory?.id,
+      //     'time': DateTime.now().toIso8601String(),
+      //   },
+      // );
     }
   }
 

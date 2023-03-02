@@ -7,19 +7,19 @@ import 'package:flutter/material.dart';
 import '../profile_event_handler.dart';
 
 class ProfileHeader extends StatefulWidget {
-  final UserLoginModel model;
-  final ProfileEventHandler eventHandler;
+  final UserLoginModel? model;
+  final ProfileEventHandler? eventHandler;
 
   const ProfileHeader({Key? key, this.model, this.eventHandler})
       : super(key: key);
 
   @override
   State<StatefulWidget> createState() =>
-      _ProfileHeaderState(model, eventHandler);
+      _ProfileHeaderState(model!, eventHandler!);
 }
 
 class _ProfileHeaderState extends State<ProfileHeader> {
-  String _username;
+  String? _username;
 
   _ProfileHeaderState(UserLoginModel model, ProfileEventHandler eventHandler) {
     this._username = model.username;
@@ -54,7 +54,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                     top: MediaQuery.of(context).size.height * 0.01),
                 child: Center(
                     child: Text(
-                  _username.isEmpty ? "U" : _username[0],
+                  _username!.isEmpty ? "U" : _username![0],
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.8),

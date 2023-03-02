@@ -5,7 +5,7 @@ import 'package:yucatan/utils/widget_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class RecommendedActivitiesItem extends StatefulWidget {
-  final ActivityModel activity;
+  final ActivityModel? activity;
 
   const RecommendedActivitiesItem({
     this.activity,
@@ -27,7 +27,7 @@ class _RecommendedActivitiesItemState extends State<RecommendedActivitiesItem> {
               //TODO check if it is favorite
               isFavorite: false,
               //hotelData: widget.activity,
-              activityId: widget.activity.sId,
+              activityId: widget.activity!.sId,
             ),
           ),
         );

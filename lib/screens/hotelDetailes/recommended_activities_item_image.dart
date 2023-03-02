@@ -23,7 +23,7 @@ class RecommendedActivitiesItemImage extends StatelessWidget {
         child: Container(
           width: MediaQuery.of(context).size.width,
           child: loadCachedNetworkImage(
-            activity.thumbnail?.publicUrl,
+            activity.thumbnail!.publicUrl!,
             fit: BoxFit.cover,
           ),
         ),

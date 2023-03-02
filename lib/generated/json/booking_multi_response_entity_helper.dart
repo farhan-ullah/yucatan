@@ -10,7 +10,7 @@ bookingMultiResponseEntityFromJson(
   if (json['data'] != null) {
     data.data = <BookingModel>[];
     (json['data'] as List).forEach((v) {
-      data.data.add(new BookingModel.fromJson(v));
+      data.data!.add(new BookingModel.fromJson(v));
     });
   }
   if (json['error'] != null) {

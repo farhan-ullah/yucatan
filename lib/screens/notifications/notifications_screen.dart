@@ -43,8 +43,8 @@ class NotificationsScreen extends StatefulWidget {
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
-  Future<UserNotificationResponse> _notificationsFuture;
-  UserLoginModel _user;
+  Future<UserNotificationResponse>? _notificationsFuture;
+  UserLoginModel? _user;
   bool isNetworkAvailable = true;
   String userRole = "User";
   List<SavedNotificationData> savedNotificationList = [];
@@ -93,14 +93,14 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   void storeNotificationReadFlag() {
     if (_notificationsFuture != null) {
-      _notificationsFuture.then((userNotificationResponse) {
-        userNotificationResponse.notifications.forEach((notificationData) {
+      _notificationsFuture!.then((userNotificationResponse) {
+        userNotificationResponse.notifications!.forEach((notificationData) {
           if (notificationData.type == NotificationType.SYSTEM) {
             SavedNotificationData savedNotificationData =
                 SavedNotificationData();
             savedNotificationData.notificationId = notificationData.id;
-            for (var notificationUserId in notificationData.target.userIds) {
-              if (notificationUserId.userId.trim() == _user.sId.trim()) {
+            for (var notificationUserId in notificationData.target!.userIds!) {
+              if (notificationUserId.userId!.trim() == _user!.sId!.trim()) {
                 savedNotificationData.read = true;
                 savedNotificationData.userId = notificationUserId.userId;
                 break;
@@ -192,11 +192,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       },
                     );
                   } else if (snapshot.hasData) {
-                    snapshot.data.notifications.sort((a, b) =>
-                        b.publishDateTime.compareTo(a.publishDateTime));
+                    snapshot.data!.notifications!.sort((a, b) =>
+                        b.publishDateTime!.compareTo(a.publishDateTime!));
 
                     var filterList =
-                        getFilteredNotifications(snapshot.data.notifications);
+                        getFilteredNotifications(snapshot.data!.notifications!);
 
                     return filterList.length == 0
                         ? CustomErrorEmptyScreen(
@@ -236,7 +236,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                             },
                           );
                   } else if (snapshot.hasError) {
-                    return Text(snapshot.error);
+                    return Text(snapshot.error.toString());
                   }
 
                   return NotificationListViewShimmer(
@@ -258,23 +258,23 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget _notificationItem(NotificationModel notificationModel, int index) {
     //Log firebase event
     if (kReleaseMode) {
-      FirebaseAnalytics().logEvent(
-        name: 'fcm_in_app_message_impression',
-        parameters: <String, dynamic>{
-          'message_id': notificationModel.id,
-          'message_title': notificationModel.title,
-          'message_device_time': DateTime.now().toIso8601String(),
-        },
-      );
+      // FirebaseAnalytics().logEvent(
+      //   name: 'fcm_in_app_message_impression',
+      //   parameters: <String, dynamic>{
+      //     'message_id': notificationModel.id,
+      //     'message_title': notificationModel.title,
+      //     'message_device_time': DateTime.now().toIso8601String(),
+      //   },
+      // );
     }
 
     if (notificationModel.type == NotificationType.SYSTEM) {
       notificationModel.opened =
           notificationMapObject.containsKey(notificationModel.id);
     } else {
-      for (var notificationUserIdArray in notificationModel.target.userIds) {
-        if (notificationUserIdArray.userId.trim() == _user.sId.trim() &&
-            notificationUserIdArray.read) {
+      for (var notificationUserIdArray in notificationModel.target!.userIds!) {
+        if (notificationUserIdArray.userId!.trim() == _user!.sId!.trim() &&
+            notificationUserIdArray.read!) {
           notificationModel.opened = true;
         }
       }
@@ -289,15 +289,15 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 SavedNotificationData();
             savedNotificationData.notificationId = notificationModel.id;
             savedNotificationData.read = true;
-            savedNotificationData.userId = _user.sId;
+            savedNotificationData.userId = _user!.sId;
             notificationMapObject['${notificationModel.id}'] =
                 savedNotificationData;
             widget.onNotificationClicked(notificationMapObject);
           });
         } else {
-          UserNotificationService.setNotificationsToRead(notificationModel.id)
+          UserNotificationService.setNotificationsToRead(notificationModel.id!)
               .then((userNotificationsResponse) {
-            NotificationsToReadResponse notificationsToReadResponse =
+            NotificationsToReadResponse? notificationsToReadResponse =
                 userNotificationsResponse;
             if (notificationsToReadResponse != null) {
               if (notificationsToReadResponse.status == 200) {
@@ -307,8 +307,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             }
           });
         }
-        NotificationService notificationServiceInstance =
-            await NotificationService.initialize(null);
+        GlobalKey<NavigatorState>? variable;
+        NotificationService? notificationServiceInstance =
+            await NotificationService.initialize(variable!);
 
         notificationServiceInstance.handleInApp(notificationModel);
       },
@@ -397,7 +398,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                             children: [
                               TextSpan(
                                 text: isNotNullOrEmpty(
-                                        notificationModel.descriptionSubject)
+                                        notificationModel.descriptionSubject!)
                                     ? ' | ${notificationModel.description}'
                                     : '${notificationModel.description}',
                                 style: TextStyle(
@@ -435,12 +436,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   Color _getActionColor(NotificationModel notificationModel) {
     NotificationData data =
-        NotificationData.fromJson(jsonDecode(notificationModel.data));
+        NotificationData.fromJson(jsonDecode(notificationModel.data!));
 
     var action = NotificationActions.values.firstWhere(
         (element) =>
             element.toString().split('.')[1].toLowerCase() ==
-            data.action.toLowerCase(),
+            data.action!.toLowerCase(),
         orElse: () => NotificationActions.NONE);
 
     switch (action) {
@@ -461,9 +462,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   String _getPublishedDateString(NotificationModel notificationModel) {
     var now = DateTime.now();
 
-    if (GlobalDate.isToday(notificationModel.publishDateTime)) {
+    if (GlobalDate.isToday(notificationModel.publishDateTime!)) {
       return AppLocalizations.of(context)!.today;
-    } else if (notificationModel.publishDateTime.isAfter(
+    } else if (notificationModel.publishDateTime!.isAfter(
       DateTime(
         now.year,
         now.month,
@@ -473,7 +474,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       ),
     )) {
       return AppLocalizations.of(context)!.notificationsScreen_oneDay;
-    } else if (notificationModel.publishDateTime.isAfter(
+    } else if (notificationModel.publishDateTime!.isAfter(
       DateTime(
         now.year,
         now.month,
@@ -483,7 +484,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       ),
     )) {
       return AppLocalizations.of(context)!.notificationsScreen_twoDay;
-    } else if (notificationModel.publishDateTime.isAfter(
+    } else if (notificationModel.publishDateTime!.isAfter(
       DateTime(
         now.year,
         now.month,
@@ -494,16 +495,16 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     )) {
       return AppLocalizations.of(context)!.notificationsScreen_threeDay;
     } else {
-      return DateFormat('dd.MM.yy').format(notificationModel.publishDateTime);
+      return DateFormat('dd.MM.yy').format(notificationModel.publishDateTime!);
     }
   }
 
   NotificationActions getNotificationAction(NotificationModel model) {
-    var notifcationData = NotificationData.fromJson(jsonDecode(model.data));
+    var notifcationData = NotificationData.fromJson(jsonDecode(model.data!));
     return NotificationActions.values.firstWhere(
         (element) =>
             element.toString().split('.')[1].toLowerCase() ==
-            notifcationData.action.toLowerCase(),
+            notifcationData.action!.toLowerCase(),
         orElse: () => NotificationActions.NONE);
   }
 

@@ -63,22 +63,22 @@ class _ActivityListCategoryViewState extends State<ActivityListCategoryView>
                 return Container();
               }
               return Container(
-                height: snapshot.data!.data.length > 0
+                height: snapshot.data!.data!.length > 0
                     ? Dimensions.getHeight(percentage: 29.0)
                     : 0,
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return ActivityListViewItem(
-                      activityCategoryModel: snapshot.data!.data[index],
+                      activityCategoryModel: snapshot.data!.data![index],
                       isFavorite: widget.favoriteIds == null
                           ? false
                           : widget.favoriteIds!
-                              .contains(snapshot.data!.data[index].id),
+                              .contains(snapshot.data!.data![index].id),
                       width: Dimensions.getScaledSize(280),
                     );
                   },
-                  itemCount: snapshot.data!.data.length,
+                  itemCount: snapshot.data!.data!.length,
                   scrollDirection: Axis.horizontal,
                   padding:
                       EdgeInsets.only(left: Dimensions.getScaledSize(12.0)),

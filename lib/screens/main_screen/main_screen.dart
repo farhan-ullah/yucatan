@@ -50,7 +50,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     });
   }
 
-  void _navigateToHomeScreen(BuildContext context, {String activityID}) {
+  void _navigateToHomeScreen(BuildContext context, {String? activityID}) {
     UserProvider.getUserSync()?.switchToUserRole();
     Navigator.of(context).popUntil(ModalRoute.withName(MainScreen.route));
     Navigator.of(context).pushReplacementNamed(
@@ -71,12 +71,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         this.appLink = event.link;
         if (this.appLink.contains('users/resetPassword')) {
-          _updateFragment(ResetPassword(), user);
+          _updateFragment(ResetPassword(), user!);
         } else if (this.appLink.contains('users/confirm')) {
           var email = this.appLink.split('email=')[1].split('&')[0];
           var token = this.appLink.split('token=')[1];
           UserService.confirmUser(email: email, token: token);
-          _updateFragment(LoginScreen(), user);
+          _updateFragment(LoginScreen(), user!);
         }
       });
     });
@@ -105,21 +105,21 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    if (_controller != null) _controller.dispose();
+    if (_controller != null) _controller!.dispose();
     // eventBus.destroy();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    MainScreenParameter parameter = ModalRoute.of(context).settings.arguments;
+    MainScreenParameter? parameter = ModalRoute.of(context)!.settings.arguments as MainScreenParameter?;
     SizeConfig().init(context);
 
     if (fragment is ResetPassword) {
       return ResetPassword(
         link: appLink,
         updateFragment: () {
-          _updateFragment(Container(), user);
+          _updateFragment(Container(), user!);
         },
       );
     } else if (fragment is LoginScreen) {
@@ -136,7 +136,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   notificationAction: parameter?.notificationAction,
                   notificationData: parameter?.notificationData,
                   activityId: parameter?.activityId,
-                  isBookingRequestType: parameter?.isBookingRequestType,
+                  isBookingRequestType: parameter!.isBookingRequestType!,
                 ),
               ),
             )
@@ -145,7 +145,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 extendBodyBehindAppBar: true,
                 appBar: showAppBar
                     ? SlidingAppBar(
-                        controller: _controller,
+                        controller: _controller!,
                         visible: _visible,
                         child: AppBar(
                           title: GestureDetector(
@@ -189,7 +189,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   notificationAction: parameter?.notificationAction,
                   notificationData: parameter?.notificationData,
                   activityId: parameter?.activityId,
-                  isBookingRequestType: parameter?.isBookingRequestType,
+                  isBookingRequestType: parameter!.isBookingRequestType!,
                 ),
               ),
             );

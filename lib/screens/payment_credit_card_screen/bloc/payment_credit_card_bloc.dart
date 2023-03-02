@@ -33,7 +33,7 @@ class PaymentCreditCardBloc {
       _paymentController.stream;
 
   set setPaymentResponse(Future<PaymentResponse> response) =>
-      _paymentController.sink.add(response);
+      _paymentController.sink.add((response));
 
   payment(String name, String cardNumber, String expireDate, String cvv,
       OrderModel order) {

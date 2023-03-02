@@ -44,8 +44,8 @@ class ActivityListViewShimmer extends StatelessWidget {
                     Radius.circular(Dimensions.getScaledSize(16.0))),
                 //Shimmer.fromColors(child: null, baseColor: null, highlightColor: null)
                 child: Shimmer.fromColors(
-                  baseColor: Colors.grey[300],
-                  highlightColor: Colors.grey[100],
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
                   child: Column(
                     children: <Widget>[
                       Stack(

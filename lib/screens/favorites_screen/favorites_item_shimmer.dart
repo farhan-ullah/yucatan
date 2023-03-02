@@ -19,8 +19,8 @@ class FavoritesItemShimmer extends StatelessWidget {
         color: Colors.white,
       ),
       child: Shimmer.fromColors(
-          baseColor: Colors.grey[300],
-          highlightColor: Colors.grey[100],
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
           child: Row(
             children: [
               Expanded(

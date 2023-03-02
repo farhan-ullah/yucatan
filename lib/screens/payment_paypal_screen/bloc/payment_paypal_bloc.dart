@@ -24,9 +24,9 @@ class PaymentPaypalBloc {
       _paymentSuccessController.sink.add(response);
 
   requestPayment(OrderModel orderModel) async {
-    PaypalPaymentPurchaseResponse response =
+    PaypalPaymentPurchaseResponse? response =
         await PaymentService.payWithPaypal(orderModel);
-    _setPaypalResponse = response;
+    _setPaypalResponse = response!;
   }
 
   proceedPaymentResponse(String data) {

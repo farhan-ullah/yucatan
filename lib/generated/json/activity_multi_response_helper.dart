@@ -10,7 +10,7 @@ activityMultiResponseFromJson(
   if (json['data'] != null) {
     data.data = <ActivityModel>[];
     (json['data'] as List).forEach((v) {
-      data.data.add(new ActivityModel().fromJson(v));
+      data.data!.add(new ActivityModel().fromJson(v));
     });
   }
   if (json['errors'] != null) {
@@ -23,10 +23,10 @@ Map<String, dynamic> activityMultiResponseToJson(ActivityMultiResponse entity) {
   final Map<String, dynamic> data = new Map<String, dynamic>();
   data['status'] = entity.status;
   if (entity.data != null) {
-    data['data'] = entity.data.map((v) => v.toJson()).toList();
+    data['data'] = entity.data!.map((v) => v.toJson()).toList();
   }
   if (entity.errors != null) {
-    data['errors'] = entity.errors.toJson();
+    data['errors'] = entity.errors!.toJson();
   }
   return data;
 }

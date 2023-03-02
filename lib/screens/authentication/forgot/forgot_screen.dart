@@ -62,7 +62,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
     bloc.getForgotResponse.listen((result) async {
       if (result != null) {
         if (result.statusCode != 200) {
-          showErrorMsg(result.message);
+          showErrorMsg(result.message!);
         } else {
           var dialogResult = await DialogUtils.displayForgotDialog(
               context,
@@ -306,7 +306,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
       hideKeyboard(context);
       if (result != null) {
         if (result.statusCode != 200) {
-          showErrorMsg(result.message);
+          showErrorMsg(result.message!);
         } else {
           var dialogResult = await DialogUtils.displayForgotDialog(
               context,

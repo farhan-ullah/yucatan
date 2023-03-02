@@ -80,13 +80,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
     bloc.getRegisterResponse.listen((response) {
       if (response.errors != null) {
         Fluttertoast.showToast(
-            msg: response.errors.message,
+            msg: response.errors!.message!,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             backgroundColor: CustomTheme.theme.primaryColorDark,
             textColor: Colors.white);
       } else {
-        UserProvider.login(response.data.email!, _passwordModel!.password!)
+        UserProvider.login(response.data!.email!, _passwordModel!.password!)
             .then((value) {
           Navigator.pop(context, true);
         });
@@ -472,7 +472,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     hideKeyboard(context);
     if (response.errors != null) {
       Fluttertoast.showToast(
-          msg: response.errors.message,
+          msg: response.errors!.message!,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           backgroundColor: CustomTheme.theme.primaryColorDark,
@@ -486,7 +486,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           textColor: Colors.white
       );*/
       // directly login user after successful register
-      UserProvider.login(response.data.email!, _passwordModel!.password!)
+      UserProvider.login(response.data!.email!, _passwordModel!.password!)
           .then((value) {
         // Redirect to previous page
         Navigator.pop(context, true);

@@ -61,7 +61,7 @@ class _VendorBookingRequestPreviewState
           }
           if (snapshot.hasData && !snapshot.hasError) {
             return _getBookingPreviev(
-                displayWidth, displayHeight, snapshot.data);
+                displayWidth, displayHeight, snapshot.data as BookingModel);
           }
           if (snapshot.hasError) {
             return Container(

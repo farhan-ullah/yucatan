@@ -30,7 +30,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PaymentSuccessScreen extends StatefulWidget {
   final Future<PaymentResponse> future;
   final ActivityModel activity;
-  final bool isPaypal;
+  final bool? isPaypal;
   final List<OrderProduct> order;
 
   PaymentSuccessScreen({
@@ -61,28 +61,28 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
   Future<bool> _requestRequestForBooking() async {
     bool requestRequired = false;
     widget.order.forEach((productElement) {
-      Product product = _findProduct(productElement.id);
-      if (product.requestRequired) {
+      Product product = _findProduct(productElement.id!)!;
+      if (product.requestRequired!) {
         requestRequired = true;
       }
     });
     return requestRequired;
   }
 
-  Product _findProduct(String productId) {
-    Product product;
-    widget.activity.bookingDetails.productCategories.forEach(
+  Product? _findProduct(String productId) {
+    Product? product;
+    widget.activity.bookingDetails!.productCategories!.forEach(
       (productCategoryElement) {
-        productCategoryElement.products.forEach(
+        productCategoryElement.products!.forEach(
           (productElement) {
             if (productElement.id == productId) {
               product = productElement;
             }
           },
         );
-        productCategoryElement.productSubCategories.forEach(
+        productCategoryElement.productSubCategories!.forEach(
           (productSubCategoryElement) {
-            productSubCategoryElement.products.forEach(
+            productSubCategoryElement.products!.forEach(
               (productElement) {
                 if (productElement.id == productId) {
                   product = productElement;
@@ -103,22 +103,22 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
         future: widget.future,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data.success) {
+            if (snapshot.data!.success!) {
               //Log firebase event
               if (kReleaseMode && firstBuild) {
                 firstBuild = false;
-                AnalyticsService.logPurchaseCompleted(snapshot.data.booking);
+                AnalyticsService.logPurchaseCompleted(snapshot.data!.booking!);
               }
 
               _giveFeedback();
-              _scheduleLocalNotification(snapshot.data.booking);
+              _scheduleLocalNotification(snapshot.data!.booking!);
             }
             return Scaffold(
-              body: snapshot.data.success
+              body: snapshot.data!.success!
                   ? Stack(
                       children: [
                         CustomErrorEmptyScreen(
-                          title: AppLocalizations.of(context)
+                          title: AppLocalizations.of(context)!
                               .paymentCreditCardScreen_wellDone,
                           description: requestRequired
                               ? AppLocalizations.of(context)!
@@ -181,7 +181,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                                                     top: Dimensions
                                                         .getScaledSize(2.0)),
                                                 child: Text(
-                                                  AppLocalizations.of(context)
+                                                  AppLocalizations.of(context)!
                                                       .paymentCreditCardScreen_bookings,
                                                   style: TextStyle(
                                                     fontSize: Dimensions
@@ -225,7 +225,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                                                     top: Dimensions
                                                         .getScaledSize(2.0)),
                                                 child: Text(
-                                                  AppLocalizations.of(context)
+                                                  AppLocalizations.of(context)!
                                                       .paymentCreditCardScreen_startSite,
                                                   style: TextStyle(
                                                     fontSize: Dimensions
@@ -250,34 +250,34 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                       ],
                     )
                   : CustomErrorEmptyScreen(
-                      titleColor: snapshot.data.success
+                      titleColor: snapshot.data!.success!
                           ? CustomTheme.primaryColorDark
                           : CustomTheme.accentColor1,
-                      title: snapshot.data.success
-                          ? AppLocalizations.of(context)
+                      title: snapshot.data!.success!
+                          ? AppLocalizations.of(context)!
                               .paymentCreditCardScreen_thankYou
-                          : AppLocalizations.of(context)
+                          : AppLocalizations.of(context)!
                               .paymentCreditCardScreen_mistake,
-                      description: snapshot.data.success
-                          ? AppLocalizations.of(context)
+                      description: snapshot.data!.success!
+                          ? AppLocalizations.of(context)!
                               .paymentCreditCardScreen_paymentReceivedSuccess
-                          : AppLocalizations.of(context)
+                          : AppLocalizations.of(context)!
                               .paymentCreditCardScreen_paymentReceivedError,
-                      image: snapshot.data.success
+                      image: snapshot.data!.success!
                           ? 'lib/assets/images/success.png'
                           : 'lib/assets/images/error.png',
-                      customText: snapshot.data.success
-                          ? AppLocalizations.of(context)
+                      customText: snapshot.data!.success!
+                          ? AppLocalizations.of(context)!
                               .paymentCreditCardScreen_bookingCompleted
-                          : AppLocalizations.of(context)
+                          : AppLocalizations.of(context)!
                               .paymentCreditCardScreen_bookingNotCompleted,
-                      customButtonText: snapshot.data.success
-                          ? AppLocalizations.of(context)
+                      customButtonText: snapshot.data!.success!
+                          ? AppLocalizations.of(context)!
                               .paymentCreditCardScreen_goToBookings
-                          : AppLocalizations.of(context)
+                          : AppLocalizations.of(context)!
                               .paymentCreditCardScreen_tryAgain,
                       callback: () {
-                        if (snapshot.data.success) {
+                        if (snapshot.data!.success!) {
                           _navigateToBookingList(context);
                         } else {
                           _navigateBack(context);
@@ -287,7 +287,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
               appBar: AppBar(
                 title: Center(
                   child: Text(
-                    snapshot.data.success
+                    snapshot.data!.success!
                         ? AppLocalizations.of(context)!
                             .paymentCreditCardScreen_paymentSuccess
                         : AppLocalizations.of(context)!
@@ -347,14 +347,14 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
 
     if (Platform.isIOS) return;
 
-    final AudioCache player = new AudioCache();
-    player.play('audio/payment_success.wav');
+    // final AudioCache? player = AudioCache();
+    // player!.play('audio/payment_success.wav');
   }
 
   void _scheduleLocalNotification(BookingModel booking) async {
-    DateTime notificationDate = booking.bookingDate;
+    DateTime notificationDate = booking.bookingDate!;
     var bookingTimeStrings =
-        booking.tickets.map((e) => e.bookingTimeString).toSet().toList();
+        booking.tickets!.map((e) => e.bookingTimeString).toSet().toList();
 
     bookingTimeStrings.forEach((element) async {
       SharedPreferences sharedPreferences =
@@ -363,21 +363,21 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
       sharedPreferences.setInt('notificationId', counter);
 
       DateFormat dateFormat = new DateFormat('yyyy-MM-dd');
-      String time = element;
+      String time = element!;
       if (!isNotNullOrEmpty(time)) {
         widget.activity.openingHours?.regularOpeningHours?.forEach((hrs) {
-          hrs.openingHours.forEach((element1) {
-            if (isNotNullOrEmpty(element1.start)) {
-              time = element1.start;
+          hrs.openingHours!.forEach((element1) {
+            if (isNotNullOrEmpty(element1.start!)) {
+              time = element1.start!;
             }
           });
         });
 
         if (!isNotNullOrEmpty(time)) {
           widget.activity.openingHours?.specialOpeningHours?.forEach((hrs) {
-            hrs.openingHours.forEach((element1) {
-              if (isNotNullOrEmpty(element1.start)) {
-                time = element1.start;
+            hrs.openingHours!.forEach((element1) {
+              if (isNotNullOrEmpty(element1.start!)) {
+                time = element1.start!;
               }
             });
           });
@@ -391,12 +391,13 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
       print('ScheduleDateTime:: ${dateTime.toString()}');
 
       ScheduleNotification scheduleNotification = ScheduleNotification(
-          booking.id,
-          booking.activity,
+          booking.id!,
+          booking.activity!,
           dateTime.subtract(const Duration(hours: 2)),
           counter);
       HiveService.setScheduledNotification(scheduleNotification);
-      NotificationService.initialize(null).then((value) {
+      GlobalKey<NavigatorState>? variable;
+      NotificationService.initialize(variable!).then((value) {
         try {
           value.scheduleNotification(scheduleNotification);
           print(

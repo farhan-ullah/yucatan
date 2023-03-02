@@ -32,12 +32,12 @@ class ActivityOverviewBloc {
         }
       }
       if (event == ActivityOverviewAction.UpdateActivityList) {
-        _activtyOverviewSink.add(this.vendorActivityOverviewResponse);
+        _activtyOverviewSink.add(this.vendorActivityOverviewResponse!);
       }
     });
   }
 
-  VendorActivtyOverviewResponse vendorActivityOverviewResponse;
+  VendorActivtyOverviewResponse? vendorActivityOverviewResponse;
   getUpdatedActivityOverviewList(
       VendorActivtyOverviewResponse vendorActivityOverviewResponse) {
     this.vendorActivityOverviewResponse = vendorActivityOverviewResponse;

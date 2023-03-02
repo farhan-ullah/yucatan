@@ -21,10 +21,10 @@ Map<String, dynamic> userSingleResponseEntityToJson(
   final Map<String, dynamic> data = new Map<String, dynamic>();
   data['status'] = entity.status;
   if (entity.data != null) {
-    data['data'] = entity.data.toJson();
+    data['data'] = entity.data!.toJson();
   }
   if (entity.errors != null) {
-    data['errors'] = entity.errors.toJson();
+    data['errors'] = entity.errors!.toJson();
   }
   return data;
 }

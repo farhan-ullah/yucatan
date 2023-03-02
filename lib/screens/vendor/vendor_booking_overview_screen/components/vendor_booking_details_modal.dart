@@ -79,14 +79,14 @@ class _VendorBookingDetailsModalState extends State<VendorBookingDetailsModal> {
                   return !showTicketList
                       ? Center(
                           child: BookingDetailsPreview(
-                            booking: snapshot.data,
+                            booking: snapshot.data as BookingDetailedModel,
                             category: widget.category!,
                             openTicketList: openTicketList,
                             refresh: widget.refresh,
                           ),
                         )
-                      : _ticketSlider(
-                          snapshot.data, _carouselController, currentPage);
+                      : _ticketSlider(snapshot.data as BookingDetailedModel,
+                          _carouselController, currentPage);
                 }
 
                 if (snapshot.hasError) {
@@ -133,9 +133,9 @@ class _VendorBookingDetailsModalState extends State<VendorBookingDetailsModal> {
 
   List<Widget> _buildTickets(BookingDetailedModel booking) {
     return widget.vendorBookingPreviewModel.ticketList.map((ticket) {
-      var bookingTicket = booking.tickets!
-          .firstWhere((element) => element.id == ticket.id,
-          // orElse: () => null
+      var bookingTicket = booking.tickets!.firstWhere(
+        (element) => element.id == ticket.id,
+        // orElse: () => null
       );
 
       return GestureDetector(

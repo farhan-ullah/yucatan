@@ -60,7 +60,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
       //print("----------ActivityListScreen-------activityId=${widget.activityId}");
       if (widget.activityId != null && !isActivityApiCalling) {
         isActivityApiCalling = false;
-        ActivityService.getActivity(widget.activityId!).then((value) {
+        ActivityService.getActivity(widget.activityId!)!.then((value) {
           isActivityApiCalling = true;
           if (value != null) {
             ActivitySingleResponse activitySingleResponse = value;
@@ -73,7 +73,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                 MaterialPageRoute(
                   builder: (context) => HotelDetailes(
                     //hotelData: activitySingleResponse.data,
-                    activityId: activitySingleResponse.data.sId!,
+                    activityId: activitySingleResponse.data!.sId!,
                     isFavorite: false,
                     onFavoriteChangedCallback: (activityId) {},
                   ),

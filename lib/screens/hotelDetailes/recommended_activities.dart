@@ -8,8 +8,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class RecommendedActivities extends StatefulWidget {
-  final String activityId;
-  final Future<ActivityMultiResponse> activities;
+  final String? activityId;
+  final Future<ActivityMultiResponse?> activities;
 
   RecommendedActivities({required this.activityId})
       : activities = ActivityService.getAll();
@@ -21,14 +21,14 @@ class RecommendedActivities extends StatefulWidget {
 class _RecommendedActivitiesState extends State<RecommendedActivities> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<ActivityMultiResponse>(
+    return FutureBuilder<ActivityMultiResponse?>(
       future: widget.activities,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Container(
             width: MediaQuery.of(context).size.width,
             child: CarouselSlider(
-              items: _buildRecommendedActivities(snapshot.data.data),
+              items: _buildRecommendedActivities(snapshot.data!.data!),
               options: CarouselOptions(
                 height: Dimensions.getHeight(percentage: 29.0),
                 viewportFraction: 0.85,

@@ -92,7 +92,7 @@ class _CountrySelectionState extends State<CountrySelection> {
           Container(
             margin: EdgeInsets.fromLTRB(Dimensions.pixels_5, 0, 0, 0),
             child: SimpleAutoCompleteTextField(
-              key: key,
+              key: key!,
               decoration: InputDecoration(
                   hintText:
                       AppLocalizations.of(context)!.commonWords_land_required,

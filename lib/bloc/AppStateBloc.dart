@@ -47,8 +47,8 @@ class AppStateBloc {
     if (notificationsRespone != null &&
         notificationsRespone.status == 200 &&
         notificationsRespone.notifications != null) {
-      for (int i = 0; i < notificationsRespone.notifications.length; i += 1) {
-        var notification = notificationsRespone.notifications.elementAt(i);
+      for (int i = 0; i < notificationsRespone.notifications!.length; i += 1) {
+        var notification = notificationsRespone.notifications!.elementAt(i);
         for (int j = 0; j < notification.target!.userIds!.length; j += 1) {
           if (user.sId!.trim() ==
                   notification.target!.userIds!.elementAt(j).userId!.trim() &&

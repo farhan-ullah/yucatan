@@ -81,7 +81,7 @@ class _PaymentCreditCardScreenViewState
           builder: (context) => PaymentCreditCardScreenThreeDSecureView(
               future: event,
               activity: widget.activity,
-              order: widget.order.products),
+              order: widget.order.products!),
         ),
       );
     });
@@ -105,7 +105,7 @@ class _PaymentCreditCardScreenViewState
     bloc.getInvalidValidation.listen((isValid) {
       if (!isValid) {
         Fluttertoast.showToast(
-          msg: AppLocalizations.of(context)
+          msg: AppLocalizations.of(context)!
               .paymentCreditCardScreen_valuesInvalid,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
@@ -187,7 +187,7 @@ class _PaymentCreditCardScreenViewState
       maskedCardNumber = formatCreditCardNumber(creditCardNumberValue);
     }
 
-    cardHolderController.text = cardDetails?.cardHolderName;
+    cardHolderController.text = cardDetails.cardHolderName!;
   }
 
   bool _showToolTip = false;
@@ -232,7 +232,7 @@ class _PaymentCreditCardScreenViewState
                         left: Dimensions.getScaledSize(24.0),
                         right: Dimensions.getScaledSize(24.0)),
                     child: Text(
-                      widget.activity.activityDetails.title,
+                      widget.activity.activityDetails!.title!,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: Dimensions.getScaledSize(18.0),
@@ -258,7 +258,7 @@ class _PaymentCreditCardScreenViewState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          AppLocalizations.of(context)
+                          AppLocalizations.of(context)!
                               .paymentCreditCardScreen_creditCardDetails,
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -420,7 +420,7 @@ class _PaymentCreditCardScreenViewState
                                                 color: CustomTheme.accentColor3,
                                               ),
                                               child: Text(
-                                                AppLocalizations.of(context)
+                                                AppLocalizations.of(context)!
                                                     .paymentCreditCardScreen_securityCodeInvalid,
                                                 style: TextStyle(
                                                   fontSize:
@@ -488,8 +488,8 @@ class _PaymentCreditCardScreenViewState
                 : Positioned(
                     bottom: 0,
                     child: BookingBar(
-                      bookingDetails: widget.activity.bookingDetails,
-                      orderProducts: widget.order.products,
+                      bookingDetails: widget.activity.bookingDetails!,
+                      orderProducts: widget.order.products!,
                       onTap: _processPayment,
                       buttonText: AppLocalizations.of(context)!
                           .paymentCreditCardScreen_payNow,
@@ -547,7 +547,7 @@ class _PaymentCreditCardScreenViewState
     var expDate = expDateController.text;
     var cvc = cvcController.text;
 
-    final FormState form1 = _formKey.currentState;
+    final FormState form1 = _formKey.currentState!;
     if (!form1.validate()) {
       bloc.setInvalidValidation = false;
       return;
@@ -566,15 +566,15 @@ enum ValidationType {
 }
 
 class InputField extends StatefulWidget {
-  final BuildContext context;
-  final String hint;
-  final TextInputType keyboardType;
-  final RegExp validation;
-  final Widget leading;
-  final MaskTextInputFormatter textInputFormatter;
-  final TextEditingController textEditingController;
-  final String errorMsg;
-  final Function validationFunction;
+  final BuildContext? context;
+  final String? hint;
+  final TextInputType? keyboardType;
+  final RegExp? validation;
+  final Widget? leading;
+  final MaskTextInputFormatter? textInputFormatter;
+  final TextEditingController? textEditingController;
+  final String? errorMsg;
+  final Function? validationFunction;
 
   InputField({
     this.context,
@@ -621,10 +621,10 @@ class _InputFieldState extends State<InputField> {
                     maxLines: 1,
                     controller: widget.textEditingController,
                     inputFormatters: widget.textInputFormatter != null
-                        ? [widget.textInputFormatter]
+                        ? [widget.textInputFormatter!]
                         : [],
                     keyboardType: widget.keyboardType,
-                    validator: (String arg) {
+                    validator: (String? arg) {
                       bloc.showBorder = false;
                       if (arg == null || arg == '') {
                         bloc.validation = ValidationType.NoValue;
@@ -634,7 +634,7 @@ class _InputFieldState extends State<InputField> {
                         return null;
                       } else {
                         var validationResult =
-                            widget.validation.hasMatch(arg) ? null : ' ';
+                            widget.validation!.hasMatch(arg) ? null : ' ';
                         bool newShowBorder = false;
                         ValidationType currentValidation;
 
@@ -646,7 +646,7 @@ class _InputFieldState extends State<InputField> {
                         }
 
                         if (widget.validationFunction != null &&
-                            !widget.validationFunction(arg) &&
+                            !widget.validationFunction!(arg) &&
                             currentValidation == ValidationType.Valid) {
                           validationResult = ' ';
                           currentValidation = ValidationType.Invalid;

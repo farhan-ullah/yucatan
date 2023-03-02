@@ -294,7 +294,7 @@ class _BookingScreenSelectPropertiesViewState
                                           top: Dimensions.getScaledSize(3),
                                         ),
                                         child: Text(
-                                          AppLocalizations.of(context)
+                                          AppLocalizations.of(context)!
                                               .bookingScreen_count,
                                           style: TextStyle(
                                             fontSize:
@@ -580,7 +580,7 @@ class _BookingScreenSelectPropertiesViewState
                     onTap: () {
                       if (!_checkproperties()) {
                         Fluttertoast.showToast(
-                          msg: AppLocalizations.of(context)
+                          msg: AppLocalizations.of(context)!
                               .bookingScreen_formInvalid,
                           backgroundColor: CustomTheme.primaryColorDark,
                           gravity: ToastGravity.CENTER,

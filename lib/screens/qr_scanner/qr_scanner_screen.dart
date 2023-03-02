@@ -24,8 +24,8 @@ class QRScannerScreen extends StatefulWidget {
 
 class _QRScannerState extends State<QRScannerScreen> {
   String qrCodeReference = '';
-  Future<BookingSingleResponseEntity> booking;
-  Future<ActivitySingleResponse> activity;
+  Future<BookingSingleResponseEntity?>? booking;
+  Future<ActivitySingleResponse>? activity;
   bool ticketRedeemed = false;
   bool _isRedeemedDialog = false;
   bool error = false;
@@ -47,7 +47,7 @@ class _QRScannerState extends State<QRScannerScreen> {
           QrCamera(
             qrCodeCallback: (code) => setState(() {
               if (qrCodeReference == "") {
-                qrCodeReference = code;
+                qrCodeReference = code!;
                 booking = BookingService.getBookingByQrCodeReference(code);
               }
             }),
@@ -70,11 +70,11 @@ class _QRScannerState extends State<QRScannerScreen> {
               return Scaffold(
                 backgroundColor: Colors.white,
                 body: Container(
-                    height: SizeConfig.screenHeight * 0.325,
-                    width: SizeConfig.screenWidth * 0.75,
+                    height: SizeConfig.screenHeight! * 0.325,
+                    width: SizeConfig.screenWidth! * 0.75,
                     margin: EdgeInsets.only(
-                        top: SizeConfig.screenHeight * 0.25,
-                        left: SizeConfig.screenWidth * 0.125),
+                        top: SizeConfig.screenHeight! * 0.25,
+                        left: SizeConfig.screenWidth! * 0.125),
                     child: Center(
                       child: Text(
                         AppLocalizations.of(context)!.qrScreen_error,
@@ -126,12 +126,12 @@ class _QRScannerState extends State<QRScannerScreen> {
   }
 
   redeemTicket() {
-    Future<BookingSingleResponseEntity> future =
+    Future<BookingSingleResponseEntity?> future =
         BookingService.setTicketToUsedForQr(qrCodeReference);
     future.then((value) {
       setState(() {
         ticketRedeemed = true;
-        if (value.error != null) redeemedError = true;
+        if (value!.error != null) redeemedError = true;
       });
     });
   }
@@ -148,17 +148,17 @@ class _QRScannerState extends State<QRScannerScreen> {
   }
 
   getPreviewBuilder() {
-    return FutureBuilder<BookingSingleResponseEntity>(
+    return FutureBuilder<BookingSingleResponseEntity?>(
       future: booking,
       builder: (context, snapshotBooking) {
         if (isResponseValid(snapshotBooking)) {
-          activity =
-              ActivityService.getActivity(snapshotBooking.data.data.activity);
+          activity = ActivityService.getActivity(
+              snapshotBooking.data!.data!.activity!);
           return FutureBuilder<ActivitySingleResponse>(
               future: activity,
               builder: (context, snapshotActivity) {
                 if (isResponseValid(snapshotActivity)) {
-                  BookingTicket ticket = snapshotBooking.data.data.tickets
+                  BookingTicket ticket = snapshotBooking.data!.data!.tickets!
                       .firstWhere((ticket) => ticket.qr == qrCodeReference);
 
                   if (ticket.status == 'USED' && !_isRedeemedDialog) {
@@ -176,8 +176,8 @@ class _QRScannerState extends State<QRScannerScreen> {
                   }
 
                   return BookingPreviewCard(
-                    activityModel: snapshotActivity.data.data,
-                    booking: snapshotBooking.data.data,
+                    activityModel: snapshotActivity.data!.data!,
+                    booking: snapshotBooking.data!.data!,
                     ticket: ticket,
                     goBack: _reset,
                     redeem: redeemTicket,

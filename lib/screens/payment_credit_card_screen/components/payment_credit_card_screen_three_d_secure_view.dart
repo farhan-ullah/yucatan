@@ -27,7 +27,7 @@ class PaymentCreditCardScreenThreeDSecureView extends StatefulWidget {
 
 class _PaymentCreditCardScreenThreeDSecureViewState
     extends State<PaymentCreditCardScreenThreeDSecureView> {
-  InAppWebViewController webView;
+  InAppWebViewController? webView;
   Payment3DSecureBloc bloc = Payment3DSecureBloc();
   bool showWebView = true;
 
@@ -66,8 +66,8 @@ class _PaymentCreditCardScreenThreeDSecureViewState
           future: widget.future,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              if (snapshot.data.booking != null ||
-                  snapshot.data.threeDSecurePayment == null) {
+              if (snapshot.data!.booking != null ||
+                  snapshot.data!.threeDSecurePayment == null) {
                 _proceedToSuccessScreen();
                 return Container();
               } else {
@@ -86,7 +86,7 @@ class _PaymentCreditCardScreenThreeDSecureViewState
                         return InAppWebView(
                           initialUrlRequest: URLRequest(
                               url: Uri.parse(
-                                  snapshot.data.threeDSecurePayment.url)),
+                                  snapshot.data!.threeDSecurePayment!.url!)),
                           initialOptions: InAppWebViewGroupOptions(
                             crossPlatform: InAppWebViewOptions(
                               useShouldOverrideUrlLoading: true,
@@ -104,14 +104,14 @@ class _PaymentCreditCardScreenThreeDSecureViewState
                             webView = controller;
                           },
                           onLoadStart:
-                              (InAppWebViewController controller, Uri uri) {},
-                          onLoadStop: (InAppWebViewController controller,
-                              Uri url) async {
+                              (InAppWebViewController? controller, Uri? uri) {},
+                          onLoadStop: (InAppWebViewController? controller,
+                              Uri? url) async {
                             if (url.toString().contains(
                                 'api/payments/confirm-creditcard-payment')) {
                               bloc.setWebview = false;
-                              bloc.proceedPaymentResponse(
-                                  await controller.evaluateJavascript(
+                              bloc.proceedPaymentResponse(await controller!
+                                  .evaluateJavascript(
                                       source: 'document.body.innerHTML'));
                             }
                           },
@@ -139,7 +139,7 @@ class _PaymentCreditCardScreenThreeDSecureViewState
 
   _proceedToSuccessScreen() async {
     PaymentResponse paymentResponse = await widget.future;
-    if (_checkPaymentResponseBooking(paymentResponse.booking)) {
+    if (_checkPaymentResponseBooking(paymentResponse.booking!)) {
       HiveService.updateDatabase();
     }
     Future.delayed(Duration(milliseconds: 50), () {

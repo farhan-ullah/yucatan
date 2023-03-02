@@ -979,7 +979,7 @@ class _BookingTicketListItemState extends State<BookingTicketListItem> {
 
     if (result!.error != null) {
       Fluttertoast.showToast(
-          msg: result.error!.message,
+          msg: result.error!.message!,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           backgroundColor: Color(0xff656565).withOpacity(0.9),

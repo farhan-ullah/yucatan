@@ -50,7 +50,7 @@ class BookingPreviewCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              BookingPreviewHeader(ticketNumber: ticket.ticket),
+              BookingPreviewHeader(ticketNumber: ticket.ticket!),
               SizedBox(height: displayHeight * 0.03),
               Container(
                 height: displayHeight * 0.3,
@@ -63,17 +63,17 @@ class BookingPreviewCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        activityModel.title,
+                        activityModel.title!,
                         style: getTextStyleBold(titleSize),
                       ),
                       SizedBox(height: displayHeight * 0.005),
                       Text(
-                        "${activityModel.location.street} ${activityModel.location.housenumber}",
+                        "${activityModel.location!.street} ${activityModel.location!.housenumber}",
                         style: getTextStyle(textSize),
                       ),
                       SizedBox(height: displayHeight * 0.005),
                       Text(
-                        "${activityModel.location.zipcode} ${activityModel.location.city}",
+                        "${activityModel.location!.zipcode} ${activityModel.location!.city}",
                         style: getTextStyle(textSize),
                       ),
                       SizedBox(height: displayHeight * 0.01),
@@ -86,7 +86,7 @@ class BookingPreviewCard extends StatelessWidget {
                             size: displayHeight * 0.025,
                           ),
                           Text(
-                            "${booking.bookingDate.day}.${booking.bookingDate.month}.${booking.bookingDate.year}",
+                            "${booking.bookingDate!.day}.${booking.bookingDate!.month}.${booking.bookingDate!.year}",
                             textScaleFactor: 1,
                             style: TextStyle(
                               color: CustomTheme.primaryColorDark,
@@ -103,7 +103,7 @@ class BookingPreviewCard extends StatelessWidget {
                           style: getTextStyleBold(titleSize)),
                       SizedBox(height: displayHeight * 0.01),
                       Text(
-                        '${_getProductById(ticket.productId).categoryTitle}, ${_getProductById(ticket.productId).subCategoryTitle}',
+                        '${_getProductById(ticket.productId!)!.categoryTitle}, ${_getProductById(ticket.productId!)!.subCategoryTitle}',
                         style: getTextStyleBold(textSize),
                       ),
                       _getProductTextForTicket(ticket, textSize),
@@ -127,7 +127,7 @@ class BookingPreviewCard extends StatelessWidget {
                       style: getTextStyle(0.03 * displayHeight),
                     ),
                     SizedBox(width: displayHeight * 0.01),
-                    Text("${formatPriceDouble(ticket.price)}€",
+                    Text("${formatPriceDouble(ticket.price!)}€",
                         style: getTextStyleBold(0.04 * displayHeight)),
                   ],
                 ),
@@ -142,12 +142,12 @@ class BookingPreviewCard extends StatelessWidget {
                         color: Colors.red,
                         buttonText:
                             AppLocalizations.of(context)!.actions_cancel,
-                        onPressed: goBack),
+                        onPressed: goBack()),
                     BookingPreviewButton(
                         color: isAlreadyRedeemed ? Colors.grey : Colors.green,
                         buttonText:
                             AppLocalizations.of(context)!.actions_confirm,
-                        onPressed: isAlreadyRedeemed ? null : redeem)
+                        onPressed: (isAlreadyRedeemed ? null : redeem())!)
                   ],
                 ),
               ),
@@ -173,10 +173,9 @@ class BookingPreviewCard extends StatelessWidget {
         fontWeight: FontWeight.bold);
   }
 
-  BookingProduct _getProductById(String productId) {
-    return booking.products.firstWhere(
+  BookingProduct? _getProductById(String? productId) {
+    return booking.products!.firstWhere(
       (element) => element.id == productId,
-      orElse: () => null,
     );
   }
 
@@ -184,9 +183,8 @@ class BookingPreviewCard extends StatelessWidget {
       BookingTicket ticket, String additionalServiceId) {
     var bookingProduct = _getProductById(ticket.productId);
 
-    return bookingProduct.additionalServices.firstWhere(
+    return bookingProduct!.additionalServices!.firstWhere(
       (element) => element.id == additionalServiceId,
-      orElse: () => null,
     );
   }
 
@@ -194,7 +192,7 @@ class BookingPreviewCard extends StatelessWidget {
     var bookingProduct = _getProductById(ticket.productId);
 
     return Text(
-      '1x ${bookingProduct.title}',
+      '1x ${bookingProduct!.title}',
       style: getTextStyle(fontSize),
     );
   }
@@ -205,9 +203,9 @@ class BookingPreviewCard extends StatelessWidget {
 
     var bookingProduct = _getProductById(ticket.productId);
 
-    if (bookingProduct.quantity > 1) return [];
+    if (bookingProduct!.quantity! > 1) return [];
 
-    bookingProduct.properties.forEach((productPropertyElemenet) {
+    bookingProduct.properties!.forEach((productPropertyElemenet) {
       widgets.add(
         Text(
           '${productPropertyElemenet.value}',
@@ -223,7 +221,7 @@ class BookingPreviewCard extends StatelessWidget {
       double paddingSize, double fontSize, double fontSize2) {
     List<Widget> widgets = [];
 
-    ticket.additionalServiceInfo.forEach((additionalServiceInfoElement) {
+    ticket.additionalServiceInfo!.forEach((additionalServiceInfoElement) {
       widgets.add(
         SizedBox(
           height: paddingSize,
@@ -232,7 +230,7 @@ class BookingPreviewCard extends StatelessWidget {
 
       var additionalService = _getAdditionalServiceByTicketAndId(
         ticket,
-        additionalServiceInfoElement.additionalServiceId,
+        additionalServiceInfoElement.additionalServiceId!,
       );
 
       widgets.add(
@@ -255,9 +253,9 @@ class BookingPreviewCard extends StatelessWidget {
       ProductAdditionalService additionalService, double fontSize) {
     List<Widget> widgets = [];
 
-    if (additionalService.quantity > 1) return [];
+    if (additionalService.quantity! > 1) return [];
 
-    additionalService.properties.forEach((additionalServicePropertyElemenet) {
+    additionalService.properties!.forEach((additionalServicePropertyElemenet) {
       widgets.add(
         Text(
           '${additionalServicePropertyElemenet.value}',
@@ -273,7 +271,7 @@ class BookingPreviewCard extends StatelessWidget {
 class BookingPreviewButton extends StatelessWidget {
   final Color color;
   final String buttonText;
-  final Function onPressed;
+  final void Function() onPressed;
 
   BookingPreviewButton(
       {required this.color, required this.buttonText, required this.onPressed});

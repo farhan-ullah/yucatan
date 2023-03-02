@@ -21,28 +21,30 @@ class LineGraphBloc {
   StreamSink<LineGraphAction> get eventSink => _eventStreamController.sink;
   Stream<LineGraphAction> get _eventStream => _eventStreamController.stream;
 
-  DateTime _dateFrom;
-  DateTime _dateTo;
+  DateTime? _dateFrom;
+  DateTime? _dateTo;
   int _numberOfDays = 8;
   double _maxRevenue = 100;
   int _maxBookingAmount = 0;
-  List<DailyRevenueItem> fullItemsList;
+  List<DailyRevenueItem>? fullItemsList;
 
   LineGraphBloc() {
     _eventStream.listen((event) async {
       if (event == LineGraphAction.FetchGraphData) {
         _dateTo = getCurrentDate();
-        _dateFrom = _dateTo.subtract(Duration(days: 7));
+        _dateFrom = _dateTo!.subtract(Duration(days: 7));
         VendorBookingStatisticSingleResponseEntity? response =
             await StatisticService.getVendorDetailedStatistic(
-                getDateString(_dateFrom), getDateString(_dateTo));
+                getDateString(_dateFrom!), getDateString(_dateTo!));
         if (response!.status == 200) {
           fullItemsList = [];
           _maxRevenue = 0;
           _maxBookingAmount = 0;
-          fullItemsList = getItemsForAllDates(response.data!.dailyRevenueItems!);
+          fullItemsList =
+              getItemsForAllDates(response.data!.dailyRevenueItems!);
           if (_maxRevenue == 0) _maxRevenue = 100;
-          fullItemsList = getItemsForAllDates(response.data!.dailyRevenueItems!);
+          fullItemsList =
+              getItemsForAllDates(response.data!.dailyRevenueItems!);
           response.fullItemsList = fullItemsList;
           response.maxRevenue = _maxRevenue;
         }
@@ -62,7 +64,7 @@ class LineGraphBloc {
 
   List<DailyRevenueItem> getItemsForAllDates(List<DailyRevenueItem> items) {
     List<DailyRevenueItem> fullList = [];
-    DateTime dateToAdd = _dateFrom;
+    DateTime dateToAdd = _dateFrom!;
 
     items.forEach((dailyRevenueItem) {
       if (dailyRevenueItem.revenue! > _maxRevenue)
@@ -79,7 +81,7 @@ class LineGraphBloc {
       dateToAdd = dailyRevenueItem.date!.add(Duration(days: 1));
       fullList.add(dailyRevenueItem);
     });
-    while (!dateToAdd.isAtSameMomentAs(_dateTo.add(Duration(days: 1))) &&
+    while (!dateToAdd.isAtSameMomentAs(_dateTo!.add(Duration(days: 1))) &&
         fullList.length < _numberOfDays) {
       fullList.add(
           DailyRevenueItem(bookingAmount: 0, revenue: 0.0, date: dateToAdd));

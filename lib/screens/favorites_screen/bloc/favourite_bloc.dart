@@ -24,9 +24,9 @@ class GetActivityBloc {
     _eventStream.listen((event) async {
       if (event == GetActivityAction.FetchActivity) {
         for (var activity in this.favoriteActivityList) {
-          ActivitySingleResponse activitySingleResponse =
+          ActivitySingleResponse? activitySingleResponse =
               await ActivityService.getActivity(activity);
-          activityList.add(activitySingleResponse);
+          activityList.add(activitySingleResponse!);
         }
         _getActivitySink.add(activityList);
       }

@@ -14,7 +14,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ProfileWrapper extends StatefulWidget {
-  final UserLoginModel model;
+  final UserLoginModel? model;
 
   const ProfileWrapper({Key? key, this.model}) : super(key: key);
 
@@ -27,10 +27,10 @@ class _ProfileWrapperState extends State<ProfileWrapper> {
   final _eventHandler = ProfileEventHandler();
   bool showSpinner = false;
   bool showBtn = true;
-  UserLoginModel
+  UserLoginModel?
       _internalModel; // used to store values of the fields that will be passe to the service
   var countryWidget;
-  CountryPhoneModel _countryPhoneModel;
+  CountryPhoneModel? _countryPhoneModel;
   ProfileBloc bloc = ProfileBloc();
 
   _ProfileWrapperState() {
@@ -53,7 +53,7 @@ class _ProfileWrapperState extends State<ProfileWrapper> {
           textColor: Colors.white);
 
       if (result == null && _internalModel != null) {
-        bloc.setUserStream = _internalModel;
+        bloc.setUserStream = _internalModel!;
       }
     });
   }
@@ -81,7 +81,7 @@ class _ProfileWrapperState extends State<ProfileWrapper> {
           child: StreamBuilder<UserLoginModel>(
               stream: bloc.userStream,
               builder: (context, snapshot) {
-                UserLoginModel userModel = snapshot.data ?? widget.model;
+                UserLoginModel userModel = snapshot.data ?? widget.model!;
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,10 +183,10 @@ class _ProfileWrapperState extends State<ProfileWrapper> {
                         phone: userModel.phone,
                         onChange: (CountryPhoneModel model) {
                           _countryPhoneModel = model;
-                          if (model.phone.isNotEmpty) {
-                            _countryPhoneModel.isValid = true;
+                          if (model.phone!.isNotEmpty) {
+                            _countryPhoneModel!.isValid = true;
                           } else {
-                            _countryPhoneModel.isValid = false;
+                            _countryPhoneModel!.isValid = false;
                           }
                         },
                         userLoginModel: userModel,
@@ -222,7 +222,7 @@ class _ProfileWrapperState extends State<ProfileWrapper> {
                                   right: Dimensions.getScaledSize(18.0),
                                   top: Dimensions.getScaledSize(15.0)),
                               child: ButtonTheme(
-                                minWidth: SizeConfig.screenWidth,
+                                minWidth: SizeConfig.screenWidth!,
                                 // ignore: deprecated_member_use
                                 child: ElevatedButton(
                                   // elevation: 0,
@@ -257,21 +257,21 @@ class _ProfileWrapperState extends State<ProfileWrapper> {
   //---------------------------------------------
 
   _firstnameCallback(String firstname) {
-    _internalModel.firstname = firstname;
+    _internalModel!.firstname = firstname;
   }
 
   _lastnameCallback(String lastname) {
-    _internalModel.lastname = lastname;
+    _internalModel!.lastname = lastname;
   }
 
   _usernameCallback(String username) {
-    _internalModel.username = username;
+    _internalModel!.username = username;
   }
 
   // currently made email read-only hence this will stay here for now
   // ignore: unused_element
   _emailCallback(String email) {
-    _internalModel.email = email;
+    _internalModel!.email = email;
   }
 
   /*_phoneCallback(String phone) {
@@ -279,19 +279,19 @@ class _ProfileWrapperState extends State<ProfileWrapper> {
   }*/
 
   _streetCallback(String street) {
-    _internalModel.street = street;
+    _internalModel!.street = street;
   }
 
   _houseNrCallback(String nr) {
-    _internalModel.housenumber = nr;
+    _internalModel!.housenumber = nr;
   }
 
   _zipCodeCallback(String zipCode) {
-    _internalModel.zipcode = zipCode;
+    _internalModel!.zipcode = zipCode;
   }
 
   _cityCallback(String city) {
-    _internalModel.city = city;
+    _internalModel!.city = city;
   }
 
   _profileEventListener(bool isEdit) {
@@ -307,19 +307,19 @@ class _ProfileWrapperState extends State<ProfileWrapper> {
   }*/
 
   _submitForm() async {
-    if (!_countryPhoneModel.isValid) {
+    if (!_countryPhoneModel!.isValid) {
       return;
     }
     // _eventHandler.broadcastState(false);
-    _internalModel = new UserLoginModel();
-    _internalModel.phone = _countryPhoneModel.phone;
-    _internalModel.areaCode = _countryPhoneModel.areaCode;
-    _internalModel.countryISO2 = _countryPhoneModel.countryISO2Code;
-    _internalModel.email = widget.model.email; // email must always be set
+    _internalModel = UserLoginModel();
+    _internalModel!.phone = _countryPhoneModel!.phone!;
+    _internalModel!.areaCode = _countryPhoneModel!.areaCode!;
+    _internalModel!.countryISO2 = _countryPhoneModel!.countryISO2Code!;
+    _internalModel!.email = widget.model!.email; // email must always be set
     _formKey.currentState?.save();
 
-    bloc.updateProfile(_internalModel);
+    bloc.updateProfile(_internalModel!);
 
-    _eventHandler?.broadcastUsernameState(_internalModel.username);
+    _eventHandler?.broadcastUsernameState(_internalModel!.username!);
   }
 }

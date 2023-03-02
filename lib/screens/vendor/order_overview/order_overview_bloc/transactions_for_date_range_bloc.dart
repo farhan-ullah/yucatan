@@ -18,7 +18,7 @@ class TransactionsForDateRangeBloc {
 
   //user input event StreamController
   PublishSubject<TransactionsForDateRangeBlocAction> _eventStreamController =
-      new PublishSubject();
+      PublishSubject();
   StreamSink<TransactionsForDateRangeBlocAction> get eventSink =>
       _eventStreamController.sink;
   Stream<TransactionsForDateRangeBlocAction> get _eventStream =>
@@ -31,8 +31,8 @@ class TransactionsForDateRangeBloc {
             await BookingService.getTransactionsForDateRange();
 
         List<TransactionModel> transactionDataList = response!.data!;
-        for (int i = 0; i < vendorPayoutsResponseObj.data!.length; i++) {
-          PayoutData payoutData = vendorPayoutsResponseObj.data![i];
+        for (int i = 0; i < vendorPayoutsResponseObj!.data!.length; i++) {
+          PayoutData payoutData = vendorPayoutsResponseObj!.data![i];
           //payoutData.status = "PAID";
           if (payoutData.status == "PAID") {
             TransactionModel transactionModel = TransactionModel();
@@ -51,7 +51,7 @@ class TransactionsForDateRangeBloc {
     });
   }
 
-  VendorPayoutsResponse vendorPayoutsResponseObj;
+  VendorPayoutsResponse? vendorPayoutsResponseObj;
   void sendVendorPayoutResponse(VendorPayoutsResponse vendorPayoutsResponse) {
     this.vendorPayoutsResponseObj = vendorPayoutsResponse;
   }

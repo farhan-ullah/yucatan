@@ -20,12 +20,12 @@ class Payment3DSecureBloc {
       _paymentSuccessController.sink.add(response);
 
   proceedPaymentResponse(String data) {
-    BookingModel bookingModel;
+    BookingModel? bookingModel;
     try {
       var parsedData = _parseData(data);
       bookingModel = BookingModel.fromJson(jsonDecode(parsedData)['data']);
     } catch (e) {}
-    if (_checkPaymentResponseBooking(bookingModel)) {
+    if (_checkPaymentResponseBooking(bookingModel!)) {
       HiveService.updateDatabase();
     }
     Future<PaymentResponse> future = Future<PaymentResponse>.sync(() {

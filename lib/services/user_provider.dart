@@ -29,8 +29,8 @@ class UserProvider extends BaseService {
     if (_loggedInUser == null) {
       var tmpUser = await _readUserInfo();
 
-        _loggedInUser = tmpUser;
-        return _loggedInUser!;
+      _loggedInUser = tmpUser;
+      return _loggedInUser!;
 
       //if(await refreshToken() != null) return null;
       //else return (_loggedInUser = await _readUserInfo());
@@ -77,7 +77,7 @@ class UserProvider extends BaseService {
       if (result == null) {
         //Log firebase event
 
-        await AnalyticsService.setUser(user.data!.user!);
+        await AnalyticsService.setUser(user.data!.user);
       }
 
       return result;
@@ -112,7 +112,7 @@ class UserProvider extends BaseService {
 
     // validate all fields not empty or null
     if (data != null) {
-      await _storeAll(data.token!, data.user!);
+      await _storeAll(data.token!, data.user);
       return null;
     } else
       return response.errors;
@@ -141,8 +141,8 @@ class UserProvider extends BaseService {
     var intermediate =
         await new UserProvider._().put('/${_loggedInUser!.sId}', body);
 
-    var result = UserSingleResponseEntity()
-        .fromJson(json.decode(intermediate!.body ?? ''));
+    var result =
+        UserSingleResponseEntity().fromJson(json.decode(intermediate!.body));
 
     if (intermediate.statusCode == 200 && result.data != null) {
       _loggedInUser = result.data;

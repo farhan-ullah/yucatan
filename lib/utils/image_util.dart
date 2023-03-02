@@ -118,7 +118,7 @@ class ImageUtil {
       height: height,
       child: Shimmer.fromColors(
         baseColor: Colors.white,
-        highlightColor: Colors.grey[200],
+        highlightColor: Colors.grey[200]!,
         enabled: true,
         child: Container(
           width: width,

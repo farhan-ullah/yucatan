@@ -6,7 +6,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RatingView extends StatelessWidget {
-  final ActivityModel hotelData;
+  final ActivityModel? hotelData;
 
   const RatingView({Key? key, this.hotelData}) : super(key: key);
 
@@ -19,7 +19,7 @@ class RatingView extends StatelessWidget {
             SizedBox(
               width: Dimensions.getScaledSize(80.0),
               child: Text(
-                hotelData.reviewAverageRating.toString().replaceAll('.', ','),
+                hotelData!.reviewAverageRating.toString().replaceAll('.', ','),
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -48,7 +48,7 @@ class RatingView extends StatelessWidget {
                     SmoothStarRating(
                       allowHalfRating: true,
                       starCount: 5,
-                      rating: hotelData.reviewAverageRating,
+                      rating: hotelData!.reviewAverageRating,
                       size: Dimensions.getScaledSize(24.0),
                       color: CustomTheme.accentColor3,
                       borderColor: CustomTheme.accentColor3,

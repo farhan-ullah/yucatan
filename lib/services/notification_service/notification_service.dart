@@ -96,7 +96,7 @@ class NotificationService {
   }
 
   static Future updateBadge() async {
-    UserProvider.getUser().then((user) {
+    UserProvider.getUser()!.then((user) {
       if (user == null) FlutterAppBadger.removeBadge();
 
       _getNotificationsStream(user).listen((event) {

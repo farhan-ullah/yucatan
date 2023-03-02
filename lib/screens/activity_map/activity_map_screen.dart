@@ -255,8 +255,8 @@ class _ActivityMapScreenState extends DateState<ActivityMapScreen> {
     Set<Marker> localMarkers = Set<Marker>();
 
     if (result!.errors == null) {
-      activities = result.data;
-      result.data.forEach(
+      activities = result.data!;
+      result.data!.forEach(
         (element) async {
           if (element.location!.lat != null && element.location!.lon != null) {
             localMarkers.add(

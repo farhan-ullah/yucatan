@@ -274,7 +274,7 @@ class _ResetPasswordState extends State<ResetPassword> {
         Navigator.pop(context);
         hideKeyboard(context);
         if (result.statusCode != 200) {
-          showErrorMsg(result.message);
+          showErrorMsg(result.message!);
         } else {
           var dialogResult = await DialogUtils.displayDialog(
               context,

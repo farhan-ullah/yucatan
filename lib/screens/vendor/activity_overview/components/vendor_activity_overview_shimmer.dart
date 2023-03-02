@@ -41,8 +41,8 @@ class VendorActivityOverviewListViewShimmer extends StatelessWidget {
                 borderRadius: BorderRadius.all(
                     Radius.circular(Dimensions.getScaledSize(16.0))),
                 child: Shimmer.fromColors(
-                  baseColor: Colors.grey[300],
-                  highlightColor: Colors.grey[100],
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
                   child: Column(
                     children: <Widget>[
                       Container(

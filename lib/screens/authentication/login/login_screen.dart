@@ -371,7 +371,7 @@ class _LoginScreenState extends State<LoginScreen> {
     print('Login Result : $result');
     if (result != null) {
       Fluttertoast.showToast(
-          msg: result.message,
+          msg: result.message!,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           backgroundColor: CustomTheme.theme.primaryColorDark,

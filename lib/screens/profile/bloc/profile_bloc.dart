@@ -31,7 +31,7 @@ class ProfileBloc {
     var result = await UserProvider.update(model);
     _setShowButton = true;
     _setshowProgress = false;
-    _setResult = result;
+    _setResult = result!;
   }
 
   dispose() {

@@ -23,7 +23,7 @@ class LoginBloc {
     if (result != null) {
       _loginProcessController.sink.add(false);
       response.status = false;
-      response.message = result.message;
+      response.message = result.message!;
       _loginResponseController.sink.add(response);
     } else {
       response.status = true;

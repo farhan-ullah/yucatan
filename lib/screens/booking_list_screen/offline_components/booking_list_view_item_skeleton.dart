@@ -145,8 +145,8 @@ class BookingListViewItemSkeleton extends StatelessWidget {
             ],
           ),
         ),
-        baseColor: Colors.grey[300],
-        highlightColor: Colors.grey[100],
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
       ),
     );
   }

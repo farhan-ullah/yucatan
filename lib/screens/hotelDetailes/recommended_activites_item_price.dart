@@ -30,7 +30,7 @@ class RecommendedActivitiesItemPrice extends StatelessWidget {
                 letterSpacing: CustomTheme.letterSpacing),
           ),
           Text(
-            '${formatPriceDouble(activity?.priceFrom)}€',
+            '${formatPriceDouble(activity.priceFrom!)}€',
             style: TextStyle(
                 fontSize: Dimensions.getScaledSize(22.0),
                 fontWeight: FontWeight.bold,

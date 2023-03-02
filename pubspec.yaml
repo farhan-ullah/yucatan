@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.6 <3.0.0"
+  sdk: ">=2.18.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -45,25 +45,25 @@ dependencies:
   adobe_xd: ^2.0.1
 #  flutter_localization: ^0.1.10
   flutter_screenutil: ^5.6.1
-  validators: ^2.0.0
+  validators: ^3.0.0
   flutter_cache_manager: ^3.0.2
   infinity_page_view: ^1.0.0
-  carousel_slider: ^2.2.1
+  carousel_slider: ^4.2.1
   hive: ^2.2.3
   google_maps_flutter: ^2.0.3
-  fluttertoast: ^7.0.2
+  fluttertoast: ^8.2.1
   location: ^4.1.1
-  permission_handler: ^7.1.0
-  shimmer: ^1.1.2
-  font_awesome_flutter: ^8.5.0
+  permission_handler: ^10.2.0
+  shimmer: ^2.0.0
+  font_awesome_flutter: ^10.4.0
   smooth_star_rating: ^1.0.4+2
   flutter_vibrate: ^1.0.0
 
   # Extra pacakges added
 
   event_bus: ^2.0.0
-  connectivity_plus: ^2.3.6
-  rive: ^0.7.10
+  connectivity_plus: ^3.0.3
+  rive: ^0.10.2
   share_plus: ^6.3.1
   firebase_dynamic_links: ^5.0.15
   flutter_secure_storage: ^8.0.0
@@ -72,13 +72,13 @@ dependencies:
   firebase_performance: ^0.9.0+14
   firebase_messaging: ^14.2.5
   facebook_app_events: ^0.18.3
-  package_info: ^0.4.1
+  package_info: ^2.0.2
   hive_flutter: ^1.0.0
   flutter_app_badger: ^1.2.0
-  flutter_local_notifications: ^5.0.0+4
-  flutter_native_timezone: ^1.0.10
-  autocomplete_textfield: ^1.7.3
-  flutter_typeahead: ^3.1.1
+  flutter_local_notifications: ^8.2.0
+  flutter_native_timezone: ^2.0.0
+  autocomplete_textfield: ^2.0.1
+  flutter_typeahead: ^4.3.1
   url_launcher: ^6.1.10
   fl_chart: ^0.61.0
   flutter_inappwebview: ^5.7.2+3
@@ -86,9 +86,18 @@ dependencies:
   flutter_slidable: ^2.0.0
   scrollable_positioned_list: ^0.3.5
   map_launcher: ^2.5.0+1
+  cached_network_image: ^3.0.0
+  mask_text_input_formatter: ^2.4.0
+  qr_mobile_vision: ^4.0.1
+  photo_view: ^0.14.0
+  audioplayers: ^3.0.1
+  simple_tooltip: ^1.2.0
   qr_flutter: ^4.0.0
+  badges: ^3.0.2
   flag: ^6.0.0
   better_player: ^0.0.83
+  
+  card_scanner: ^0.2.2
   visibility_detector: ^0.3.3
 
 flutter_icons:
@@ -150,3 +159,7 @@ flutter:
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+analyzer:
+  enable-experiment:
+  - non-nullable

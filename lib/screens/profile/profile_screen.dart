@@ -13,7 +13,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Future<UserLoginModel> user;
+  Future<UserLoginModel>? user;
 
   @override
   void initState() {
@@ -34,9 +34,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           future: user,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return _buildProfileView(snapshot.data);
+              return _buildProfileView(snapshot.data!);
             } else if (snapshot.hasError) {
-              return _getError(snapshot.error);
+              return _getError(snapshot.error!);
             }
             return _getProgressIndicator();
           },

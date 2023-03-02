@@ -6,16 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ProfileField extends StatefulWidget {
-  final Function(String) formCallback;
-  final Function(String) onChanged;
-  final String initialValue;
-  final String placeHolder;
-  final ProfileEventHandler eventHandler;
-  final TextInputType textInputType;
-  final int maxLength;
-  final bool isComingFromContactScreen;
-  final int lengthLimit;
-  final bool isSubmitPressed;
+  final Function(String)? formCallback;
+  final Function(String)? onChanged;
+  final String? initialValue;
+  final String? placeHolder;
+  final ProfileEventHandler? eventHandler;
+  final TextInputType? textInputType;
+  final int? maxLength;
+  final bool? isComingFromContactScreen;
+  final int? lengthLimit;
+  final bool? isSubmitPressed;
 
   const ProfileField(
       {Key? key,
@@ -33,16 +33,16 @@ class ProfileField extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() =>
-      _ProfileFieldState(initialValue, eventHandler);
+      _ProfileFieldState(initialValue!, eventHandler!);
 }
 
 class _ProfileFieldState extends State<ProfileField> {
-  TextEditingController _controller;
+  TextEditingController? _controller;
   var _isEnabled = false;
 
-  _ProfileFieldState(String initialValue, ProfileEventHandler eventHandler) {
+  _ProfileFieldState(String? initialValue, ProfileEventHandler? eventHandler) {
     this._controller = new TextEditingController(text: (initialValue ?? ''));
-    eventHandler?.subscribe(_profileEventListener);
+    eventHandler!.subscribe(_profileEventListener);
   }
 
   @override
@@ -50,9 +50,9 @@ class _ProfileFieldState extends State<ProfileField> {
     return Padding(
         padding: EdgeInsets.only(
             left: Dimensions.getScaledSize(
-                widget.isComingFromContactScreen ? 0 : 10.0),
+                widget.isComingFromContactScreen! ? 0 : 10.0),
             right: Dimensions.getScaledSize(
-                widget.isComingFromContactScreen ? 0 : 10.0),
+                widget.isComingFromContactScreen! ? 0 : 10.0),
             bottom: Dimensions.getScaledSize(5.0),
             top: Dimensions.getScaledSize(5.0)),
         child: Container(
@@ -73,7 +73,7 @@ class _ProfileFieldState extends State<ProfileField> {
             ),
           ),
           child: TextFormField(
-            inputFormatters: widget.isComingFromContactScreen
+            inputFormatters: widget.isComingFromContactScreen!
                 ? <TextInputFormatter>[
                     LengthLimitingTextInputFormatter(widget.lengthLimit)
                   ]
@@ -86,21 +86,21 @@ class _ProfileFieldState extends State<ProfileField> {
             maxLengthEnforcement: widget.maxLength != null
                 ? MaxLengthEnforcement.enforced
                 : MaxLengthEnforcement.none,
-            buildCounter: (BuildContext context,
-                {int currentLength, int maxLength, bool isFocused}) {
+            buildCounter: (BuildContext? context,
+                {int? currentLength, int? maxLength, bool? isFocused}) {
               return null;
             },
             // hide character counter
             decoration: _getFormFieldDecoration(),
-            onSaved: (String value) {
-              widget.formCallback?.call(value);
+            onSaved: (String? value) {
+              widget.formCallback?.call(value!);
             },
             onChanged: (String value) {
               try {
-                widget.onChanged(value);
+                widget.onChanged!(value);
               } catch (e) {}
             },
-            enabled: widget.isComingFromContactScreen ? true : _isEnabled,
+            enabled: widget.isComingFromContactScreen! ? true : _isEnabled,
           ),
         ));
   }
@@ -140,9 +140,9 @@ class _ProfileFieldState extends State<ProfileField> {
             BorderSide(color: CustomTheme.disabledColor.withOpacity(0.075)),
       ),
       enabledBorder: UnderlineInputBorder(
-          borderSide: widget.isSubmitPressed
+          borderSide: widget.isSubmitPressed!
               ? BorderSide(
-                  color: _controller.text.isEmpty
+                  color: _controller!.text.isEmpty
                       ? CustomTheme.accentColor1
                       : CustomTheme.disabledColor.withOpacity(0.075))
               : BorderSide(

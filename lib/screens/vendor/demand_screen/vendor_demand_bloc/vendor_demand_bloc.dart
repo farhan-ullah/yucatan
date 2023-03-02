@@ -24,8 +24,8 @@ class VendorDemandBloc {
   Stream<VendorDemandBlocAction> get _eventStream =>
       _eventStreamController.stream;
 
-  ProductDemandResponse productsResponse;
-  DateParameters dateParameters;
+  ProductDemandResponse? productsResponse;
+  DateParameters? dateParameters;
 
   VendorDemandBloc() {
     _eventStream.listen((event) async {
@@ -33,13 +33,13 @@ class VendorDemandBloc {
         // _vendorDemandSink.add(); // just to show loader
 
         productsResponse =
-            (await BookingService.getDemandForDateRange(dateParameters))!;
+            (await BookingService.getDemandForDateRange(dateParameters!))!;
 
         List<ProductDemand> productsList =
-            await groupingElementsbyTitle(productsResponse);
-        productsResponse.productsList = productsList;
+            await groupingElementsbyTitle(productsResponse!);
+        productsResponse!.productsList = productsList;
 
-        _vendorDemandSink.add(productsResponse);
+        _vendorDemandSink.add(productsResponse!);
       }
     });
   }

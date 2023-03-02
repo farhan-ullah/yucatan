@@ -23,9 +23,9 @@ class _InquiryScreenState extends State<InquiryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final InquiryScreenParameter arguments =
-        ModalRoute.of(context).settings.arguments;
-    final ActivityModel activity = arguments.activity;
+    final InquiryScreenParameter? arguments =
+        ModalRoute.of(context)!.settings.arguments as InquiryScreenParameter?;
+    final ActivityModel activity = arguments!.activity;
     final OrderModel order = arguments.order;
     final String selectedRoute = arguments.selectedPaymentRoute;
 
@@ -55,7 +55,7 @@ class _InquiryScreenState extends State<InquiryScreen> {
                           right: Dimensions.getScaledSize(24.0),
                         ),
                         child: Text(
-                          activity.title,
+                          ActivityModel().title!,
                           style: TextStyle(
                             fontSize: Dimensions.getScaledSize(18.0),
                             fontWeight: FontWeight.bold,
@@ -72,7 +72,7 @@ class _InquiryScreenState extends State<InquiryScreen> {
                           right: Dimensions.getScaledSize(24.0),
                         ),
                         child: Text(
-                          AppLocalizations.of(context)
+                          AppLocalizations.of(context)!
                               .inquiryScreen_limitedPlacesMessage,
                           style: TextStyle(
                             fontSize: Dimensions.getScaledSize(14.0),
@@ -98,8 +98,8 @@ class _InquiryScreenState extends State<InquiryScreen> {
               Positioned(
                 bottom: 0 - MediaQuery.of(context).viewInsets.bottom,
                 child: BookingBar(
-                  bookingDetails: activity.bookingDetails,
-                  orderProducts: order.products,
+                  bookingDetails: ActivityModel().bookingDetails!,
+                  orderProducts: OrderModel().products!,
                   onTap: () {
                     Navigator.of(context).pushNamed(
                       selectedRoute,

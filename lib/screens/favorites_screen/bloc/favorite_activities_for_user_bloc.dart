@@ -24,9 +24,9 @@ class FavoriteActivitiesForUserBloc {
     _eventStream.listen((event) async {
       if (event ==
           FavoriteActivitiesForUserAction.FetchFavoriteActivitiesForUser) {
-        List<String> favoriteActivitiesForUserList =
+        List<String>? favoriteActivitiesForUserList =
             await UserService.getFavoriteActivitiesForUser(userId);
-        _favoriteActivitiesForUserSink.add(favoriteActivitiesForUserList);
+        _favoriteActivitiesForUserSink.add(favoriteActivitiesForUserList!);
       }
     });
   }
@@ -35,7 +35,7 @@ class FavoriteActivitiesForUserBloc {
     _eventStreamController.close();
   }
 
-  String userId;
+  late String userId;
   void setUserId(String userId) {
     this.userId = userId;
   }

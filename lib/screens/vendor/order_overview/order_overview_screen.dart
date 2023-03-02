@@ -15,10 +15,11 @@ class OrderOverviewScreen extends StatefulWidget {
 class _OrderOverviewState extends State<OrderOverviewScreen> {
   @override
   Widget build(BuildContext context) {
-    final OrderOverviewScreenParameter arguments =
-        ModalRoute.of(context).settings.arguments;
+    final OrderOverviewScreenParameter arguments = ModalRoute.of(context)!
+        .settings
+        .arguments as OrderOverviewScreenParameter;
     final VendorDashboardResponse vendorDashboardResponse =
-        arguments.vendorDashboardResponse;
+        arguments.vendorDashboardResponse as VendorDashboardResponse;
 
     return Scaffold(
       backgroundColor: CustomTheme.backgroundColorVendor,

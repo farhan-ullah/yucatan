@@ -27,7 +27,7 @@ class _ImagesFullscreenViewState extends State<ImagesFullscreenView> {
     super.initState();
     currentImage = widget.imageUrl;
     sortedImages = _getSortedImages(
-        widget.activity.activityDetails.media.photos, widget.imageUrl);
+        widget.activity.activityDetails!.media!.photos!, widget.imageUrl);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
@@ -80,7 +80,7 @@ class _ImagesFullscreenViewState extends State<ImagesFullscreenView> {
                         value: event == null
                             ? 0
                             : event.cumulativeBytesLoaded /
-                                event.expectedTotalBytes,
+                                event.expectedTotalBytes!,
                       ),
                     ),
                   ),
@@ -138,7 +138,7 @@ class _ImagesFullscreenViewState extends State<ImagesFullscreenView> {
                     ),
                   ),
                   Text(
-                    "${sortedImages.indexOf(currentImage) + 1}/${widget.activity.activityDetails.media.photos.length}",
+                    "${sortedImages.indexOf(currentImage) + 1}/${widget.activity.activityDetails!.media!.photos!.length}",
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -159,16 +159,16 @@ class _ImagesFullscreenViewState extends State<ImagesFullscreenView> {
     List<String> sortedImageUrls = [];
 
     int clickedImageIndex =
-        files.indexWhere((element) => element?.publicUrl == clickedImageUrl);
+        files.indexWhere((element) => element.publicUrl == clickedImageUrl);
 
     sortedImageUrls.add(clickedImageUrl);
 
     for (var i = clickedImageIndex + 1; i < files.length; i++) {
-      sortedImageUrls.add(files[i]?.publicUrl);
+      sortedImageUrls.add(files[i].publicUrl!);
     }
 
     for (var i = 0; i < clickedImageIndex; i++) {
-      sortedImageUrls.add(files[i]?.publicUrl);
+      sortedImageUrls.add(files[i].publicUrl!);
     }
 
     return sortedImageUrls;

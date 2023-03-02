@@ -17,8 +17,9 @@ class PaymentCreditCardScreen extends StatefulWidget {
 class _PaymentCreditCardScreenState extends State<PaymentCreditCardScreen> {
   @override
   Widget build(BuildContext context) {
-    final PaymentCreditCardScreenParameter arguments =
-        ModalRoute.of(context).settings.arguments;
+    final PaymentCreditCardScreenParameter arguments = ModalRoute.of(context)!
+        .settings
+        .arguments as PaymentCreditCardScreenParameter;
     final ActivityModel activity = arguments.activity;
     final OrderModel order = arguments.order;
 

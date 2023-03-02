@@ -28,7 +28,8 @@ class _HotelRoomeListState extends State<HotelRoomeList> {
           Container(
             height: Dimensions.getHeight(percentage: 17.0),
             child: CarouselSlider(
-              items: _buildImages(widget.activity.activityDetails.media.photos),
+              items:
+                  _buildImages(widget.activity.activityDetails!.media!.photos!),
               options: CarouselOptions(
                 height: Dimensions.getHeight(percentage: 17.0),
                 viewportFraction: 0.5,
@@ -65,7 +66,7 @@ class _HotelRoomeListState extends State<HotelRoomeList> {
                 MaterialPageRoute(
                     builder: (context) => ImagesFullscreenView(
                           activity: widget.activity,
-                          imageUrl: file?.publicUrl,
+                          imageUrl: file.publicUrl!,
                         ),
                     fullscreenDialog: true),
               );
@@ -76,7 +77,7 @@ class _HotelRoomeListState extends State<HotelRoomeList> {
               child: Stack(
                 children: [
                   loadCachedNetworkImage(
-                    file?.publicUrl,
+                    file.publicUrl!,
                     fit: BoxFit.cover,
                     height: Dimensions.getHeight(percentage: 17.0),
                     width: MediaQuery.of(context).size.width,

@@ -18,7 +18,7 @@ class PaymentService extends BaseService {
   // this class is static only
   PaymentService._() : super(BaseService.defaultURL + '/payments');
 
-  static Future<PaymentResponse?> payWithCreditCard(
+  static Future<PaymentResponse> payWithCreditCard(
       CreditCardModel creditCard, OrderModel order) async {
     CreditCardPaymentRequest creditCardPaymentRequest =
         CreditCardPaymentRequest(creditCard: creditCard, order: order);
@@ -32,9 +32,9 @@ class PaymentService extends BaseService {
         (await new PaymentService._().post('/paywithcreditcard', requestBody))!
             .body;
     if (httpData != null) {
-      return new PaymentResponse.fromJson(json.decode(httpData));
-    } else
-      return null;
+      return PaymentResponse.fromJson(json.decode(httpData));
+    }
+    return null!;
   }
 
   static Future<PaypalPaymentPurchaseResponse?> payWithPaypal(

@@ -23,8 +23,8 @@ class ImpressumDatenschutz extends StatefulWidget {
 
 class _ImpressumDatenschutzState extends State<ImpressumDatenschutz> {
   final GlobalKey webViewKey = GlobalKey();
-  InAppWebViewController webViewController;
-  WebViewValues _currentWebViewValue;
+  InAppWebViewController? webViewController;
+  WebViewValues? _currentWebViewValue;
   List<String> webPages = [
     "https://myappventure.de",
     "https://myappventure.de",
@@ -41,11 +41,11 @@ class _ImpressumDatenschutzState extends State<ImpressumDatenschutz> {
       _currentWebViewValue = WebViewValues.IMPRINT;
     }
     CommonService.getLegalDocWebPageUrl().then((value) {
-      LegalDocWebPageResponse legalDocWebPageResponse = value;
-      webPages[0] = legalDocWebPageResponse.data.imprint;
-      webPages[1] = legalDocWebPageResponse.data.tos;
-      webPages[2] = legalDocWebPageResponse.data.privacy;
-      webPages[3] = legalDocWebPageResponse.data.rightOfWithdrawal;
+      LegalDocWebPageResponse legalDocWebPageResponse = value!;
+      webPages[0] = legalDocWebPageResponse.data!.imprint!;
+      webPages[1] = legalDocWebPageResponse.data!.tos!;
+      webPages[2] = legalDocWebPageResponse.data!.privacy!;
+      webPages[3] = legalDocWebPageResponse.data!.rightOfWithdrawal!;
     });
   }
 
@@ -130,16 +130,16 @@ class _ImpressumDatenschutzState extends State<ImpressumDatenschutz> {
                 child: InAppWebView(
                   key: webViewKey,
                   initialUrlRequest: URLRequest(
-                      url: Uri.parse(getViews(_currentWebViewValue))),
+                      url: Uri.parse(getViews(_currentWebViewValue!))),
                   initialOptions: InAppWebViewGroupOptions(),
                   onWebViewCreated: (InAppWebViewController controller) {
                     this.webViewController = controller;
                   },
                   onLoadStart: (
-                    InAppWebViewController controller,
-                    Uri url,
+                    InAppWebViewController? controller,
+                    Uri? url,
                   ) {},
-                  onUpdateVisitedHistory: (_, Uri uri, __) {},
+                  onUpdateVisitedHistory: (_, Uri? uri, __) {},
                 ),
               ),
             ),
@@ -157,9 +157,9 @@ class _ImpressumDatenschutzState extends State<ImpressumDatenschutz> {
         setState(() {
           _currentWebViewValue = value;
         });
-        webViewController.loadUrl(
+        webViewController!.loadUrl(
             urlRequest:
-                URLRequest(url: Uri.parse(getViews(_currentWebViewValue))));
+                URLRequest(url: Uri.parse(getViews(_currentWebViewValue!))));
       },
       child: Container(
         height: Dimensions.getScaledSize(36.0),

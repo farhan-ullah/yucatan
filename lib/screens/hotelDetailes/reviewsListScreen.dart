@@ -17,7 +17,7 @@ class ReviewsListScreen extends StatefulWidget {
 
 class _ReviewsListScreenState extends State<ReviewsListScreen>
     with TickerProviderStateMixin {
-  AnimationController animationController;
+  AnimationController? animationController;
   @override
   void initState() {
     animationController = AnimationController(
@@ -27,14 +27,14 @@ class _ReviewsListScreenState extends State<ReviewsListScreen>
 
   @override
   void dispose() {
-    animationController.dispose();
+    animationController!.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<ActivityModelActivityDetailsReview> reviews =
-        widget.activity.activityDetails.reviews;
+    List<ActivityModelActivityDetailsReview>? reviews =
+        widget.activity.activityDetails!.reviews;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -55,18 +55,18 @@ class _ReviewsListScreenState extends State<ReviewsListScreen>
               ),
               itemCount: reviews != null ? reviews.length : 0,
               itemBuilder: (context, index) {
-                var count = reviews.length > 10 ? 10 : reviews.length;
+                var count = reviews!.length > 10 ? 10 : reviews.length;
                 var animation = Tween(begin: 0.0, end: 1.0).animate(
                     CurvedAnimation(
-                        parent: animationController,
+                        parent: animationController!,
                         curve: Interval((1 / count) * index, 1.0,
                             curve: Curves.fastOutSlowIn)));
-                animationController.forward();
+                animationController!.forward();
                 return ReviewsView(
                   callback: () {},
                   review: reviews[index],
                   animation: animation,
-                  animationController: animationController,
+                  animationController: animationController!,
                 );
               },
             ),
@@ -153,9 +153,10 @@ class _ReviewsListScreenState extends State<ReviewsListScreen>
                 width: Dimensions.getScaledSize(10),
               ),
               Text(
-                AppLocalizations.of(context)
-                    .hotelDetailesScreen_reviewCountHandlePlural(
-                        widget.activity.reviewCount),
+                "widget.activity.reviewCount",
+                // AppLocalizations.of(context)
+                //     .hotelDetailesScreen_reviewCountHandlePlural(
+                //         widget.activity.reviewCount),
                 style: new TextStyle(
                   fontSize: Dimensions.getScaledSize(14.0),
                   color: CustomTheme.primaryColorDark,
@@ -170,10 +171,10 @@ class _ReviewsListScreenState extends State<ReviewsListScreen>
 }
 
 class ReviewsView extends StatelessWidget {
-  final VoidCallback callback;
-  final ActivityModelActivityDetailsReview review;
-  final AnimationController animationController;
-  final Animation animation;
+  final VoidCallback? callback;
+  final ActivityModelActivityDetailsReview? review;
+  final AnimationController? animationController;
+  final Animation? animation;
   final bool isComingFromHotelDetails;
 
   const ReviewsView({
@@ -188,13 +189,13 @@ class ReviewsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: animationController,
-      builder: (BuildContext context, Widget child) {
+      animation: animationController!,
+      builder: (BuildContext? context, Widget? child) {
         return FadeTransition(
-          opacity: animation,
+          opacity: animation!.value,
           child: new Transform(
             transform: new Matrix4.translationValues(
-                0.0, 40 * (1.0 - animation.value), 0.0),
+                0.0, 40 * (1.0 - animation!.value), 0.0),
             child: Padding(
               padding: EdgeInsets.only(
                   left: Dimensions.getScaledSize(24.0),
@@ -204,7 +205,7 @@ class ReviewsView extends StatelessWidget {
                   top: Dimensions.getScaledSize(16.0)),
               child: InkWell(
                 onTap: () {
-                  callback();
+                  callback!();
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -233,8 +234,8 @@ class ReviewsView extends StatelessWidget {
                             child: CircleAvatar(
                               backgroundColor: CustomTheme.hintText,
                               child: Text(
-                                review.userModel?.username != null
-                                    ? review.userModel?.username[0]
+                                review!.userModel?.username! != null
+                                    ? review!.userModel!.username![0]
                                     : 'A',
                                 style: new TextStyle(
                                   color: Colors.white,
@@ -253,17 +254,17 @@ class ReviewsView extends StatelessWidget {
                                 height: 5,
                               ),
                               Text(
-                                review.userModel?.username ??
-                                    AppLocalizations.of(context)!
+                                review!.userModel?.username ??
+                                    AppLocalizations.of(context!)!
                                         .reviewsListScren_anonymousGermany,
                                 style:
                                     new TextStyle(fontWeight: FontWeight.w600),
                               ),
                               Text(
-                                review.updatedAt == null
+                                review!.updatedAt == null
                                     ? ""
                                     : DateFormat('dd.MM.yyyy').format(
-                                        DateTime.parse(review.updatedAt),
+                                        DateTime.parse(review!.updatedAt!),
                                       ),
                                 style: new TextStyle(
                                   color: CustomTheme.dividerColor,
@@ -276,7 +277,7 @@ class ReviewsView extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.all(Dimensions.getScaledSize(8.0)),
                         child: Text(
-                          review.description.trim(),
+                          review!.description!.trim(),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 5,
                           style: new TextStyle(

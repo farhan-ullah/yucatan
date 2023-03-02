@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'notifications_screen.dart';
 
 class NotificationView extends StatefulWidget {
-  final bool defaultIcon;
-  final IconData icon;
-  final Color color;
+  final bool? defaultIcon;
+  final IconData? icon;
+  final Color? color;
   final bool negativePadding;
 
   NotificationView({
@@ -31,7 +31,7 @@ class NotificationView extends StatefulWidget {
 }
 
 class _NotificationViewState extends State<NotificationView> {
-  UserLoginModel _user;
+  UserLoginModel? _user;
   HashMap notificationMapObject = new HashMap<String, SavedNotificationData>();
 
   @override
@@ -113,18 +113,20 @@ class _NotificationViewState extends State<NotificationView> {
         stream: _getNotificationsStream(_user),
         builder: (context, snapshotNotifications) {
           bool showNotificationBadge = false;
-          int notificationsCounter = 0;
-          if (snapshotNotifications.hasData && snapshotNotifications.data > 0) {
-            notificationsCounter = snapshotNotifications.data;
+          int? notificationsCounter = 0;
+          if (snapshotNotifications.hasData &&
+              int.parse(snapshotNotifications.data.toString()) > 0) {
+            notificationsCounter =
+                int.parse(snapshotNotifications.data.toString());
             showNotificationBadge = true;
           }
 
           return Badge(
-            elevation: 0,
+            // elevation: 0,
             child: Icon(
-              widget.defaultIcon ? Icons.notifications_outlined : widget.icon,
+              widget.defaultIcon! ? Icons.notifications_outlined : widget.icon,
               size: Dimensions.getScaledSize(30.0),
-              color: widget.defaultIcon ? Colors.white : widget.color,
+              color: widget.defaultIcon! ? Colors.white : widget.color,
             ),
             position: BadgePosition.topStart(
               start: Dimensions.getScaledSize(16.0),
@@ -132,9 +134,9 @@ class _NotificationViewState extends State<NotificationView> {
                   ? Dimensions.getScaledSize(-3)
                   : Dimensions.getScaledSize(10),
             ),
-            badgeColor: CustomTheme.accentColor1,
-            shape: BadgeShape.square,
-            borderRadius: BorderRadius.circular(12),
+            // badgeColor: CustomTheme.accentColor1,
+            // shape: BadgeShape.square,
+            // borderRadius: BorderRadius.circular(12),
             showBadge: showNotificationBadge,
             badgeContent: Padding(
               padding: EdgeInsets.only(
@@ -149,7 +151,6 @@ class _NotificationViewState extends State<NotificationView> {
                 ),
               ),
             ),
-            padding: EdgeInsets.all(2),
           );
         },
       ),

@@ -20,8 +20,8 @@ class UserLoginModelBloc {
   UserLoginModelBloc() {
     _eventStream.listen((event) async {
       if (event == UserLoginAction.FetchLoggedInUser) {
-        UserLoginModel userLoginModel = await UserProvider.getUser();
-        _userModelSink.add(userLoginModel);
+        UserLoginModel? userLoginModel = await UserProvider.getUser();
+        _userModelSink.add(userLoginModel!);
       }
     });
   }

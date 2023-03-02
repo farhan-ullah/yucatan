@@ -22,8 +22,8 @@ class QrFeedback extends StatelessWidget {
     // double titleSize = displayHeight * 0.02;
     // double textSize = displayHeight * 0.018;
 
-    Color color;
-    String imagePath;
+    Color? color;
+    String? imagePath;
     if (mode == "SUCCESS") {
       color = Colors.green;
       imagePath = "lib/assets/images/warning.png";
@@ -56,7 +56,7 @@ class QrFeedback extends StatelessWidget {
             children: [
               SizedBox(
                 child: Image.asset(
-                  imagePath,
+                  imagePath!,
                   fit: BoxFit.cover,
                 ),
                 height: displayWidth * 0.5,

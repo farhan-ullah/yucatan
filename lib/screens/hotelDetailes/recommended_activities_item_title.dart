@@ -18,7 +18,7 @@ class RecommendedActivitiesItemTitle extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         child: Text(
-          activity.title,
+          activity.title!,
           textAlign: TextAlign.left,
           style: TextStyle(
               fontWeight: FontWeight.bold,

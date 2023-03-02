@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class NotificationListViewShimmer extends StatelessWidget {
-  final double width;
+  final double? width;
 
   const NotificationListViewShimmer({Key? key, this.width}) : super(key: key);
 
@@ -13,8 +13,8 @@ class NotificationListViewShimmer extends StatelessWidget {
     return Container(
       width: width,
       child: Shimmer.fromColors(
-        baseColor: Colors.grey[300],
-        highlightColor: Colors.grey[100],
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
         child: Container(
           // height: Dimensions.pixels_100,
           width: MediaQuery.of(context).size.width,
@@ -56,7 +56,7 @@ class NotificationListViewShimmer extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(
                               Dimensions.getScaledSize(16.0))),
-                      width: width * 0.25,
+                      width: width! * 0.25,
                       height: Dimensions.getScaledSize(17.0),
                     ),
                     SizedBox(
@@ -67,7 +67,7 @@ class NotificationListViewShimmer extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(
                               Dimensions.getScaledSize(16.0))),
-                      width: width * 0.5,
+                      width: width! * 0.5,
                       height: Dimensions.getScaledSize(30.0),
                     ),
                   ],

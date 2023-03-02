@@ -24,8 +24,8 @@ class PaymentPaypalScreenView extends StatefulWidget {
 }
 
 class _PaymentPaypalScreenViewState extends State<PaymentPaypalScreenView> {
-  InAppWebViewController webView;
-  Future<PaypalPaymentPurchaseResponse> paypalPaymentFuture;
+  InAppWebViewController? webView;
+  Future<PaypalPaymentPurchaseResponse>? paypalPaymentFuture;
   PaymentPaypalBloc bloc = PaymentPaypalBloc();
 
   @override
@@ -42,7 +42,7 @@ class _PaymentPaypalScreenViewState extends State<PaymentPaypalScreenView> {
           builder: (context) => PaymentSuccessScreen(
             future: event,
             activity: widget.activity,
-            order: widget.order.products,
+            order: widget.order.products!,
             isPaypal: true,
           ),
         ),
@@ -65,12 +65,13 @@ class _PaymentPaypalScreenViewState extends State<PaymentPaypalScreenView> {
         stream: bloc.paypalResponseStream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if (!isNotNullOrEmpty(snapshot.data.url)) {
+            if (!isNotNullOrEmpty(snapshot.data!.url!)) {
               return Center(
                   child: Text(AppLocalizations.of(context)!.commonWords_error));
             }
             return InAppWebView(
-              initialUrlRequest: URLRequest(url: Uri.parse(snapshot.data.url)),
+              initialUrlRequest:
+                  URLRequest(url: Uri.parse(snapshot.data!.url!)),
               initialOptions: InAppWebViewGroupOptions(
                 crossPlatform: InAppWebViewOptions(
                   useShouldOverrideUrlLoading: true,
@@ -86,12 +87,12 @@ class _PaymentPaypalScreenViewState extends State<PaymentPaypalScreenView> {
               onWebViewCreated: (InAppWebViewController controller) {
                 webView = controller;
               },
-              onLoadStart: (InAppWebViewController controller, Uri url) {},
-              onLoadStop: (InAppWebViewController controller, Uri url) async {
+              onLoadStart: (InAppWebViewController? controller, Uri? url) {},
+              onLoadStop: (InAppWebViewController? controller, Uri? url) async {
                 if (url
                     .toString()
                     .contains('api/payments/execute-paypal-payment')) {
-                  bloc.proceedPaymentResponse(await controller.getHtml());
+                  bloc.proceedPaymentResponse((await controller!.getHtml())!)!;
                 }
               },
             );

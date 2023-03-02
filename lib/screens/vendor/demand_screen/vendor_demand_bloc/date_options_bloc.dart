@@ -20,11 +20,11 @@ class DateOptionsBloc{
   DateOptionsBloc(){
     _eventStream.listen((event) async {
       if (event == DateOptionsAction.SelectedDate){
-        _dateOptionSink.add(selectedDate);
+        _dateOptionSink.add(selectedDate!);
       }
     });
   }
-  SelectedDate selectedDate;
+  SelectedDate? selectedDate;
   updateSelectedDate(SelectedDate selectedDate){
     this.selectedDate = selectedDate;
   }

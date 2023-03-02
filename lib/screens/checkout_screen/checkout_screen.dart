@@ -16,16 +16,15 @@ class CheckoutScreen extends StatefulWidget {
 class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
-    final CheckoutScreenParameter arguments =
-        ModalRoute.of(context).settings.arguments;
-    final ActivityModel activity = arguments.activity;
-    final OrderModel order = arguments.order;
+    final Object? arguments = ModalRoute.of(context)!.settings.arguments;
+    // final ActivityModel activity = arguments!.activity;
+    // final OrderModel order = arguments.order;
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: CheckoutScreenView(
-        activity: activity,
-        order: order,
+        activity: ActivityModel(),
+        order: OrderModel(),
       ),
       appBar: CustomAppBar(
         title: AppLocalizations.of(context)!.checkoutScreen_title,

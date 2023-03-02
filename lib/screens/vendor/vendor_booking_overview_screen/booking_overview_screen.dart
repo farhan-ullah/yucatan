@@ -333,13 +333,14 @@ class _VendorBookingOverviewScreenState
     double displayHeight = MediaQuery.of(context).size.height;
     double displayWidth = MediaQuery.of(context).size.width;
 
-    final BookingOverviewScreenParameter arguments =
-        ModalRoute.of(context).settings.arguments;
+    final BookingOverviewScreenParameter arguments = ModalRoute.of(context)!
+        .settings
+        .arguments as BookingOverviewScreenParameter;
 
     int buttonIndex = 0;
 
     if (arguments != null) {
-      buttonIndex = arguments.buttonIndex;
+      buttonIndex = arguments.buttonIndex!;
     }
 
     if (_firstOpen) {
@@ -379,7 +380,8 @@ class _VendorBookingOverviewScreenState
     }
 
     return Scaffold(
-      backgroundColor: isNetworkAvailable ? const Color(0xFFBDD4E1) : Colors.white,
+      backgroundColor:
+          isNetworkAvailable ? const Color(0xFFBDD4E1) : Colors.white,
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.vendor_bookingOverview_title),
         centerTitle: true,
@@ -537,7 +539,8 @@ class _VendorBookingOverviewScreenState
                             Expanded(
                               flex: 3,
                               child: Text(
-                                  "AppLocalizations.of(context)!.vendor_table_amount("")",
+                                  "AppLocalizations.of(context)!.vendor_table_amount("
+                                  ")",
                                   style: _getListViewHeaderStyle(
                                       fontSize:
                                           Dimensions.getScaledSize(12.0))),
@@ -564,8 +567,8 @@ class _VendorBookingOverviewScreenState
                                 if (snapshotTransactions.hasData) {
                                   if (snapshotTransactions.data!.data == null) {
                                     return Center(
-                                      child: Text(AppLocalizations.of(context)
-                                          !.vendor_table_noBookings),
+                                      child: Text(AppLocalizations.of(context)!
+                                          .vendor_table_noBookings),
                                     );
                                   }
                                   final transactionsToDisplay =
@@ -661,8 +664,8 @@ class _VendorBookingOverviewScreenState
       case SelectedDate.NONE:
         dateFrom = DateTime(now.year, now.month, now.day);
         dateFrom = dateFrom.subtract(const Duration(days: 730));
-        dateTo =
-            DateTime(now.year, now.month, now.day).add(const Duration(days: 730));
+        dateTo = DateTime(now.year, now.month, now.day)
+            .add(const Duration(days: 730));
         break;
       case SelectedDate.TODAY:
         dateFrom = DateTime(now.year, now.month, now.day);
