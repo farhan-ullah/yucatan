@@ -24,7 +24,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: must_be_immutable
 class CustomBottomNavigationBar extends StatefulWidget {
-  final Function(Widget, UserLoginModel)? updateFragment;
+  final Function(Widget, UserLoginModel?)? updateFragment;
   final int? index;
   final NotificationActions? notificationAction;
   final dynamic notificationData;
@@ -60,7 +60,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     shuffelActivitysList = false;
     setState(() {
       _selectedIndex = index;
-      widget.updateFragment!(widgetOptions[index], user!);
+      widget.updateFragment!(widgetOptions[index], user);
     });
   }
 
@@ -68,7 +68,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     print("---_onUserChanged----");
     user = await UserProvider.getUser();
     _updateWidgets(user!);
-    widget.updateFragment!(widgetOptions[_selectedIndex], user!);
+    widget.updateFragment!(widgetOptions[_selectedIndex], user);
   }
 
   @override
@@ -100,10 +100,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     widgetOptionsUser = [
       ActivityListScreen(
         animationController: animationController!,
-        activityId: widget.activityId!,
+        activityId: widget.activityId,
       ),
       BookingListScreenOffline(
-        notificationAction: widget.notificationAction!,
+        notificationAction: widget.notificationAction,
         notificationData: widget.notificationData,
         isBookingRequestType: widget.isBookingRequestType ?? false,
       ),
@@ -123,8 +123,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
 
     UserCallbackHandler().callbacks.add(_onUserChanged());
 
-    WidgetsBinding.instance.addPostFrameCallback(
-        (_) => widget.updateFragment!(widgetOptions[0], user!));
+    // WidgetsBinding.instance.addPostFrameCallback(
+    //     (_) => widget.updateFragment!(widgetOptions[0], user!));
     super.initState();
   }
 
@@ -194,7 +194,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   }
 
   _getIconMenuButton(
-      {String? text, int? buttonNumber, Color? selectedColor, iconData}) {
+      {String? text, int buttonNumber =0, Color? selectedColor, iconData}) {
     return Expanded(
       child: Material(
         color: Colors.transparent,
@@ -202,7 +202,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
           highlightColor: Colors.transparent,
           splashColor: CustomTheme.primaryColorLight.withOpacity(0.2),
           onTap: () {
-            _onItemTapped(buttonNumber!);
+            _onItemTapped(buttonNumber);
           },
           child: Column(
             children: <Widget>[

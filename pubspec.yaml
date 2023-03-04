@@ -74,6 +74,7 @@ dependencies:
   facebook_app_events: ^0.18.3
   package_info: ^2.0.2
   hive_flutter: ^1.0.0
+  image_picker: ^0.8.6+2
   flutter_app_badger: ^1.2.0
   flutter_local_notifications: ^8.2.0
   flutter_native_timezone: ^2.0.0

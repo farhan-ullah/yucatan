@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hive/hive.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../theme/custom_theme.dart';
 import '../../utils/widget_dimensions.dart';
@@ -15,6 +17,10 @@ class _LogoScreenState extends State<LogoScreen> {
   final List<String> language = ['English', 'Spanish'];
   var selectedValue = 'English';
   var initialIndex = 0;
+  var ImageData;
+  var box = Hive.box('myBox');
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -76,21 +82,26 @@ class _LogoScreenState extends State<LogoScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Container(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              // borderRadius: BorderRadius.circular(4),
-                              // color: Colors.pink,
-                              border: Border(
-                                top: BorderSide(
-                                    width: 1.0, color: Colors.grey.shade600),
-                                bottom: const BorderSide(
-                                    width: 1.0, color: Colors.black),
-                                left: const BorderSide(
-                                    width: 1.0, color: Colors.black),
-                                right: const BorderSide(
-                                    width: 1.0, color: Colors.black),
+                          child: GestureDetector(
+                            onTap: (){
+                              openGallery();
+                            },
+                            child: Container(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                // borderRadius: BorderRadius.circular(4),
+                                // color: Colors.pink,
+                                border: Border(
+                                  top: BorderSide(
+                                      width: 1.0, color: Colors.grey.shade600),
+                                  bottom: const BorderSide(
+                                      width: 1.0, color: Colors.black),
+                                  left: const BorderSide(
+                                      width: 1.0, color: Colors.black),
+                                  right: const BorderSide(
+                                      width: 1.0, color: Colors.black),
+                                ),
                               ),
                             ),
                           ),
@@ -205,7 +216,7 @@ class _LogoScreenState extends State<LogoScreen> {
                                   flex: 1,
                                   child: TextField(
                                     decoration: InputDecoration(
-                                        hintText:'Firstname',
+                                        hintText: 'Firstname',
                                         // AppLocalizations.of(context)!
                                         //     .forgotPasswordScreen_emailHint,
                                         hintStyle: TextStyle(
@@ -215,12 +226,14 @@ class _LogoScreenState extends State<LogoScreen> {
                                     keyboardType: TextInputType.emailAddress,
                                   ),
                                 ),
-                                SizedBox(width: Dimensions.pixels_30,),
+                                SizedBox(
+                                  width: Dimensions.pixels_30,
+                                ),
                                 Expanded(
                                   flex: 1,
                                   child: TextField(
                                     decoration: InputDecoration(
-                                        hintText:'Lastname',
+                                        hintText: 'Lastname',
                                         // AppLocalizations.of(context)!
                                         //     .forgotPasswordScreen_emailHint,
                                         hintStyle: TextStyle(
@@ -235,7 +248,7 @@ class _LogoScreenState extends State<LogoScreen> {
                             buildSizedBox(Dimensions.pixels_30),
                             TextField(
                               decoration: InputDecoration(
-                                  hintText:'Organization',
+                                  hintText: 'Organization',
                                   // AppLocalizations.of(context)!
                                   //     .forgotPasswordScreen_emailHint,
                                   hintStyle: TextStyle(
@@ -247,7 +260,7 @@ class _LogoScreenState extends State<LogoScreen> {
                             buildSizedBox(Dimensions.pixels_30),
                             TextField(
                               decoration: InputDecoration(
-                                  hintText:'E-mail-address',
+                                  hintText: 'E-mail-address',
                                   // AppLocalizations.of(context)!
                                   //     .forgotPasswordScreen_emailHint,
                                   hintStyle: TextStyle(
@@ -259,7 +272,7 @@ class _LogoScreenState extends State<LogoScreen> {
                             buildSizedBox(Dimensions.pixels_30),
                             TextField(
                               decoration: InputDecoration(
-                                  hintText:'Phone No.',
+                                  hintText: 'Phone No.',
                                   // AppLocalizations.of(context)!
                                   //     .forgotPasswordScreen_emailHint,
                                   hintStyle: TextStyle(
@@ -271,7 +284,7 @@ class _LogoScreenState extends State<LogoScreen> {
                           ],
                         ),
                       )
-                    : SizedBox(),
+                    : const SizedBox(),
             buildSizedBox(Dimensions.pixels_20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -285,12 +298,22 @@ class _LogoScreenState extends State<LogoScreen> {
                   ),
                   onPressed: () {
                     setState(() {
-                      initialIndex++;
-                      print(initialIndex);
+                      if (initialIndex>2){
+                        initialIndex++;
+                        print(initialIndex);
+                      } else {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                        // initialIndex++;
+                        print(initialIndex);
+                      }
                     });
                   },
-                  child: initialIndex == 0? Text('Confirm and go to next step'): initialIndex == 1? Text('Confirm and see app emulatio'): Text('')
-              ),
+                  child: initialIndex == 0
+                      ? const Text('Confirm and go to next step')
+                      : initialIndex == 1
+                          ? const Text('Confirm and see app emulatio')
+                          : const Text('')),
             ),
           ],
         ),
@@ -302,5 +325,18 @@ class _LogoScreenState extends State<LogoScreen> {
     return SizedBox(
       height: pixelValue,
     );
+  }
+
+  Future<void> openGallery() async {
+
+    final ImagePicker _picker = ImagePicker();
+    XFile? imageData = await _picker.pickImage(source: ImageSource.gallery);
+
+    box.put('imageData', imageData!.path);
+
+    var name = box.get('imageData');
+
+    print('Name: $name');
+
   }
 }

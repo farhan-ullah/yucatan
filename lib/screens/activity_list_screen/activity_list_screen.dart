@@ -126,7 +126,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
       }
     });
     user = UserProvider.getUser();
-    onDateChanged(GlobalDate.current());
+    // onDateChanged(GlobalDate.current());
 
     super.initState();
   }
@@ -324,7 +324,7 @@ class _ActivityListScreenState extends DateState<ActivityListScreen>
                                     eventBus.fire(
                                         OnSearchPopUpOpen(_searchViewVisible));
                                     return SearchPopupView(
-                                      userData: snapshot.data!,
+                                      userData: snapshot.data,
                                       height: MediaQuery.of(context)
                                               .size
                                               .height -

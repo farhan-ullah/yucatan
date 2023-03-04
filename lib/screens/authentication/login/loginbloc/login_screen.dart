@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:hive/hive.dart';
 import 'package:yucatan/components/colored_divider.dart';
 import 'package:yucatan/screens/authentication/forgot/forgot_screen.dart';
 import 'package:yucatan/screens/authentication/login/loginbloc/login_bloc.dart';
@@ -27,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   bool isLoginBtnPressed = false;
   LoginBloc loginBloc = LoginBloc();
+  late String Imageurl;
 
   @override
   void initState() {
@@ -60,22 +64,50 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
               Stack(
                 children: [
-                  Container(
-                    width: double.infinity,
-                    child: Image.asset(
-                      'lib/assets/images/login_header_no_text.png',
-                      fit: BoxFit.contain,
-                    ),
+                  FutureBuilder(
+                    future: _checkLogoResponse(), // a Future<String> or null
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      return snapshot.hasData
+                          ? SafeArea(
+                            child: Container(
+                              color: Colors.grey,
+
+                                height: 200,
+                                child: Image(
+                                  width:  double.infinity,
+                                  image: FileImage(
+                                    File(snapshot.data!),
+                                  ),
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                          )
+                          : SizedBox(
+                              width: double.infinity,
+                              child: Image.asset(
+                                'lib/assets/images/login_header_no_text.png',
+                                fit: BoxFit.contain,
+                              ),
+                            );
+                    },
                   ),
+                  // Container(
+                  //   width: double.infinity,
+                  //   child: Image.asset(
+                  //     'lib/assets/images/login_header_no_text.png',
+                  //     fit: BoxFit.contain,
+                  //   ),
+                  // ),
                   Positioned(
                       top: MediaQuery.of(context).padding.top + 5,
-                      left: Dimensions.getScaledSize(38),
+                      // left: Dimensions.getScaledSize(38),
                       child: GestureDetector(
                         onTap: () => Navigator.of(context).pop(),
                         child: SvgPicture.asset(
@@ -88,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       )),
                   Positioned(
                       bottom: 30,
-                      child: Container(
+                      child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: Center(
                           child: Text(
@@ -135,8 +167,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         text: AppLocalizations.of(context)!
                             .authenticationSceen_registerNow,
                         style: TextStyle(
-                            color: CustomTheme.primaryColorDark,
-                            fontSize: Dimensions.getScaledSize(15)),
+                          color: CustomTheme.primaryColorDark,
+                          fontSize: Dimensions.getScaledSize(15),
+                        ),
                         children: [
                           TextSpan(
                               text: AppLocalizations.of(context)!
@@ -151,11 +184,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               Expanded(flex: 1, child: Container()),
-              ColoredDivider(height: Dimensions.getScaledSize(3)),
+              // ColoredDivider(height: Dimensions.getScaledSize(3)),
               Container(
                 width: double.infinity,
-                height: Dimensions.getScaledSize(60.0) +
-                    MediaQuery.of(context).padding.bottom,
+                // height: Dimensions.getScaledSize(60.0) +
+                //     MediaQuery.of(context).padding.bottom,
                 padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).padding.bottom,
                 ),
@@ -210,7 +243,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Container _loginButton(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.45,
-      height: Dimensions.getScaledSize(45),
+      // height: Dimensions.getScaledSize(45),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(
@@ -248,7 +281,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text(
                     AppLocalizations.of(context)!.loginSceen_loginWaiting,
                     style: TextStyle(
-                        fontSize: Dimensions.getScaledSize(15),
+                        // fontSize: Dimensions.getScaledSize(15),
                         color: CustomTheme.theme.primaryColor),
                   ),
                 ),
@@ -349,7 +382,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: TextStyle(
                                 color: CustomTheme.primaryColorLight,
                                 fontSize: Dimensions.getScaledSize(16),
-                                //     fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                           ),
@@ -362,5 +395,25 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           );
         });
+  }
+
+  Future<String> _checkLogoResponse() async {
+    await Hive.openBox('mybox');
+
+    var box = Hive.box('myBox');
+
+    var name = box.get('imageData');
+
+    if (name.toString().isEmpty) {
+      Imageurl = 'lib/assets/images/appventure_icon_white.png';
+      print("Check if not Null");
+    } else {
+      Imageurl = name;
+
+      print("Hello See this");
+    }
+    print(Imageurl);
+
+    return Imageurl;
   }
 }

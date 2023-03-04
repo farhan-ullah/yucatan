@@ -21,7 +21,7 @@ class _OnboardingState extends State<OnboardingScreen> {
     scrollControler.animateTo(
       (page + 1) * widthOfSingleItem,
       curve: Curves.fastOutSlowIn,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
   }
 
@@ -29,7 +29,7 @@ class _OnboardingState extends State<OnboardingScreen> {
     scrollControler.animateTo(
       (page + 1) * widthOfSingleItem,
       curve: Curves.fastOutSlowIn,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
   }
 
@@ -37,7 +37,7 @@ class _OnboardingState extends State<OnboardingScreen> {
     scrollControler.animateTo(
       (page - 1) * widthOfSingleItem,
       curve: Curves.fastOutSlowIn,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
   }
 
@@ -64,11 +64,21 @@ class _OnboardingState extends State<OnboardingScreen> {
 
     return Scaffold(
       body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF052145),
+              Color(0xFF004D88),
+            ],
+          ),
+        ),
         child: ListView.builder(
           padding: EdgeInsets.symmetric(
             horizontal: listviewPadding,
           ),
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,
           itemCount: numberOfPages,
           itemBuilder: (_, e) => OnboardingPage(
@@ -83,16 +93,6 @@ class _OnboardingState extends State<OnboardingScreen> {
             toPreviousPageScroll: toPreviousPageScroll,
           ),
           controller: scrollControler,
-        ),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF052145),
-              Color(0xFF004D88),
-            ],
-          ),
         ),
       ),
     );

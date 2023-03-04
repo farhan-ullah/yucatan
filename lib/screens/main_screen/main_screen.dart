@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   bool _visible = true;
   AnimationController? _controller;
 
-  void _updateFragment(Widget fragment, UserLoginModel user) {
+  void _updateFragment(Widget fragment, UserLoginModel? user) {
     setState(() {
       this.fragment = fragment;
       this.user = user;
@@ -92,7 +92,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       if (this.mounted) {
         _navigateToHomeScreen(context, activityID: event.activityID);
       }
-      //_navigateToHomeScreen(context);
+      _navigateToHomeScreen(context);
     });
 
     // For Testing Purpose
@@ -125,74 +125,137 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     } else if (fragment is LoginScreen) {
       return LoginScreen();
     } else {
+
       print("Data Showed 2 Farhan : $fragment");
       return fragment is ActivityListScreen
-          ? FlavorBanner(
-              child: Scaffold(
-                body: fragment,
-                bottomNavigationBar: CustomBottomNavigationBar(
-                  updateFragment: _updateFragment,
-                  index: parameter?.bottomNavigationBarIndex ?? 0,
-                  notificationAction: parameter?.notificationAction,
-                  notificationData: parameter?.notificationData,
-                  activityId: parameter?.activityId,
-                  isBookingRequestType: parameter!.isBookingRequestType!,
-                ),
+          ? Scaffold(
+        body: fragment,
+        bottomNavigationBar: CustomBottomNavigationBar(
+          updateFragment: _updateFragment,
+          index: parameter?.bottomNavigationBarIndex ?? 0,
+          notificationAction: parameter?.notificationAction,
+          notificationData: parameter?.notificationData,
+          activityId: parameter?.activityId,
+          isBookingRequestType: false,
+        ),
+      )
+      // FlavorBanner(
+      //         child: Scaffold(
+      //           body: fragment,
+      //           bottomNavigationBar: CustomBottomNavigationBar(
+      //             updateFragment: _updateFragment,
+      //             index: parameter?.bottomNavigationBarIndex ?? 0,
+      //             notificationAction: parameter?.notificationAction,
+      //             notificationData: parameter?.notificationData,
+      //             activityId: parameter?.activityId,
+      //             isBookingRequestType: false,
+      //           ),
+      //         ),
+      //       )
+          : Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: showAppBar
+            ? SlidingAppBar(
+          controller: _controller!,
+          visible: _visible,
+          child: AppBar(
+            title: GestureDetector(
+              onTap: () {
+                _navigateToHomeScreen(context);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SvgPicture.asset(
+                    'lib/assets/images/logo.svg',
+                    color: Colors.white,
+                    height: Dimensions.getScaledSize(28.0),
+                  ),
+                ],
               ),
-            )
-          : FlavorBanner(
-              child: Scaffold(
-                extendBodyBehindAppBar: true,
-                appBar: showAppBar
-                    ? SlidingAppBar(
-                        controller: _controller!,
-                        visible: _visible,
-                        child: AppBar(
-                          title: GestureDetector(
-                            onTap: () {
-                              _navigateToHomeScreen(context);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SvgPicture.asset(
-                                  'lib/assets/images/logo.svg',
-                                  color: Colors.white,
-                                  height: Dimensions.getScaledSize(28.0),
-                                ),
-                              ],
-                            ),
-                          ),
-                          backgroundColor: CustomTheme.primaryColorDark,
-                          actions: [
-                            GestureDetector(
-                              onTap: () {
-                                /*Navigator.of(context)
+            ),
+            backgroundColor: CustomTheme.primaryColorDark,
+            actions: [
+              GestureDetector(
+                onTap: () {
+                  /*Navigator.of(context)
                               .pushNamed(NotificationsScreen.route);*/
-                              },
-                              //child: Icon( Icons.notifications,size: Dimensions.getScaledSize(28.0),
-                              child: NotificationView(
-                                negativePadding: false,
-                              ),
-                            ),
-                            SizedBox(
-                              width: Dimensions.getScaledSize(24.0),
-                            ),
-                          ],
-                        ),
-                      )
-                    : null,
-                body: fragment,
-                bottomNavigationBar: CustomBottomNavigationBar(
-                  updateFragment: _updateFragment,
-                  index: parameter?.bottomNavigationBarIndex ?? 0,
-                  notificationAction: parameter?.notificationAction,
-                  notificationData: parameter?.notificationData,
-                  activityId: parameter?.activityId,
-                  isBookingRequestType: parameter!.isBookingRequestType!,
+                },
+                //child: Icon( Icons.notifications,size: Dimensions.getScaledSize(28.0),
+                child: NotificationView(
+                  negativePadding: false,
                 ),
               ),
-            );
+              SizedBox(
+                width: Dimensions.getScaledSize(24.0),
+              ),
+            ],
+          ),
+        )
+            : null,
+        body: fragment,
+        bottomNavigationBar: CustomBottomNavigationBar(
+          updateFragment: _updateFragment,
+          index: parameter?.bottomNavigationBarIndex ?? 0,
+          notificationAction: parameter?.notificationAction,
+          notificationData: parameter?.notificationData,
+          activityId: parameter?.activityId,
+          isBookingRequestType: true,
+        ),
+      );
+      // FlavorBanner(
+      //         child: Scaffold(
+      //           extendBodyBehindAppBar: true,
+      //           appBar: showAppBar
+      //               ? SlidingAppBar(
+      //                   controller: _controller!,
+      //                   visible: _visible,
+      //                   child: AppBar(
+      //                     title: GestureDetector(
+      //                       onTap: () {
+      //                         _navigateToHomeScreen(context);
+      //                       },
+      //                       child: Row(
+      //                         mainAxisAlignment: MainAxisAlignment.start,
+      //                         children: [
+      //                           // SvgPicture.asset(
+      //                           //   'lib/assets/images/logo.svg',
+      //                           //   color: Colors.white,
+      //                           //   height: Dimensions.getScaledSize(28.0),
+      //                           // ),
+      //                         ],
+      //                       ),
+      //                     ),
+      //                     backgroundColor: CustomTheme.primaryColorDark,
+      //                     actions: [
+      //                       GestureDetector(
+      //                         onTap: () {
+      //                           /*Navigator.of(context)
+      //                         .pushNamed(NotificationsScreen.route);*/
+      //                         },
+      //                         //child: Icon( Icons.notifications,size: Dimensions.getScaledSize(28.0),
+      //                         child: NotificationView(
+      //                           negativePadding: false,
+      //                         ),
+      //                       ),
+      //                       // SizedBox(
+      //                       //   width: Dimensions.getScaledSize(24.0),
+      //                       // ),
+      //                     ],
+      //                   ),
+      //                 )
+      //               : null,
+      //           body: fragment,
+      //           bottomNavigationBar: CustomBottomNavigationBar(
+      //             updateFragment: _updateFragment,
+      //             index: parameter?.bottomNavigationBarIndex ?? 0,
+      //             notificationAction: parameter?.notificationAction,
+      //             notificationData: parameter?.notificationData,
+      //             activityId: parameter?.activityId,
+      //             isBookingRequestType: false,
+      //           ),
+      //         ),
+      //       );
     }
   }
 }
