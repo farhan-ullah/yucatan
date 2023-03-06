@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:yucatan/screens/main_screen/main_screen.dart';
 
 import '../newScreenforLogo/new_logo_screen.dart';
 import 'components/onboarding_page.dart';
@@ -45,11 +46,11 @@ class _OnboardingState extends State<OnboardingScreen> {
     var prefs = await SharedPreferences.getInstance();
     prefs.setBool("FirstOpen-Flag", false);
     // Navigator.of(context).pop();
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const LogoScreen()),
-    );
+    Navigator.of(context).popAndPushNamed(MainScreen.route);
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => const LogoScreen()),
+    // );
   }
 
   @override

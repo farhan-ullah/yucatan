@@ -27,14 +27,17 @@ class ProfileEventHandler {
   /// The provided value is stateless, meaning "true" may be submitted twice in a row.<br>
   /// [isEdit] the value to broadcast
   void broadcastState(bool isEdit) {
-    _listeners.forEach((listener) { listener?.call(isEdit); });
+    _listeners.forEach((listener) {
+      listener.call(isEdit);
+    });
   }
 
   /// Broadcast new State to all listeners.<br>
   /// The provided value is stateless, meaning "true" may be submitted twice in a row.<br>
   /// [username] the value to broadcast
   void broadcastUsernameState(String username) {
-    _usernameListener.forEach((listener) { listener?.call(username); });
+    _usernameListener.forEach((listener) {
+      listener.call(username);
+    });
   }
-
 }

@@ -68,7 +68,7 @@ class _VendorStatisticScreenState extends BaseState<VendorStatisticScreen> {
             maxBookingAmount = dailyRevenueItem.bookingAmount!;
           }
           if (dailyRevenueItem.revenue !> maxRevenue) {
-            maxRevenue = dailyRevenueItem!.revenue!;
+            maxRevenue = dailyRevenueItem.revenue!;
           }
           if (dailyRevenueItem.revenue! < minRevenue) {
             minRevenue = dailyRevenueItem.revenue!;

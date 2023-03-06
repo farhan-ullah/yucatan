@@ -111,8 +111,8 @@ class _OrderOverviewScreenAccountViewState
                     } else {
                       // this.vendorAccountBalanceResponse =
                       //     snapshotAccountBalance.data;
-                      transactionsForDateRangeBloc
-                          .sendVendorPayoutResponse(this.vendorPayoutsResponse!);
+                      transactionsForDateRangeBloc.sendVendorPayoutResponse(
+                          this.vendorPayoutsResponse!);
                       transactionsForDateRangeBloc.eventSink.add(
                           TransactionsForDateRangeBlocAction
                               .FetchVendorTransactions);
@@ -191,8 +191,9 @@ class _OrderOverviewScreenAccountViewState
                                               Align(
                                                 alignment: Alignment.centerLeft,
                                                 child: Container(
-                                                  padding: const EdgeInsets.only(
-                                                      top: 10.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 10.0),
                                                   child: const Text(
                                                     'Kontostand',
                                                     style: TextStyle(
@@ -222,7 +223,8 @@ class _OrderOverviewScreenAccountViewState
                                                             .centerLeft,
                                                         child: Container(
                                                           padding:
-                                                              const EdgeInsets.only(
+                                                              const EdgeInsets
+                                                                      .only(
                                                                   bottom: 8.0),
                                                           child: Text(
                                                             //"Nächste Auszahlung ${DateFormat('dd.MM.y').format(DateTime.now())}",
@@ -244,7 +246,8 @@ class _OrderOverviewScreenAccountViewState
                                                               .centerLeft,
                                                           child: Container(
                                                             padding:
-                                                                const EdgeInsets.only(
+                                                                const EdgeInsets
+                                                                        .only(
                                                                     bottom:
                                                                         8.0),
                                                             child: Text(
@@ -280,12 +283,13 @@ class _OrderOverviewScreenAccountViewState
                                                   return Expanded(
                                                     flex: 3,
                                                     child: Container(
-                                                      padding: const EdgeInsets.only(
+                                                      padding:
+                                                          const EdgeInsets.only(
                                                         top: 25,
                                                         bottom: 25,
                                                       ),
                                                       child: Text(
-                                                        '${formatPriceDouble(snapshot?.data?.data?.net ?? 0)}€',
+                                                        '${formatPriceDouble(snapshot.data?.data?.net ?? 0)}€',
                                                         style: const TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
@@ -397,18 +401,19 @@ class _OrderOverviewScreenAccountViewState
                                             decoration: const BoxDecoration(
                                               color: CustomTheme.accentColor2,
                                               borderRadius: BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(16),
+                                                bottomLeft: Radius.circular(16),
                                                 bottomRight:
                                                     Radius.circular(16),
                                               ),
                                             ),
                                             /*ListView **/
                                             child: ListView.builder(
-                                              physics: const ClampingScrollPhysics(),
+                                              physics:
+                                                  const ClampingScrollPhysics(),
                                               shrinkWrap: true,
-                                              padding: const EdgeInsets.symmetric(
-                                                  vertical: 0),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 0),
                                               itemCount:
                                                   transactionDataList.length,
                                               itemBuilder: (context, index) {
@@ -479,9 +484,9 @@ class _OrderOverviewScreenAccountViewState
                                                                 child:
                                                                     Container(
                                                                   padding: const EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              10.0),
+                                                                          .only(
+                                                                      left:
+                                                                          10.0),
                                                                   child: Text(
                                                                     _getDateWithFormat(
                                                                         transactionDataList,
@@ -499,10 +504,11 @@ class _OrderOverviewScreenAccountViewState
                                                                 child:
                                                                     Container(
                                                                   padding: const EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              10.0),
-                                                                  child: const Text(
+                                                                          .only(
+                                                                      left:
+                                                                          10.0),
+                                                                  child:
+                                                                      const Text(
                                                                     'Letzte Auszahlung',
                                                                     maxLines: 1,
                                                                     overflow:
@@ -520,13 +526,14 @@ class _OrderOverviewScreenAccountViewState
                                                                 flex: 5,
                                                                 child:
                                                                     Container(
-                                                                  padding: const EdgeInsets.only(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
                                                                       left:
                                                                           10.0,
                                                                       right:
                                                                           10.0),
                                                                   child: Text(
-                                                                    '+ ${formatPriceDouble(transactionModelObject.payoutData!.net! ?? 0)}',
+                                                                    '+ ${formatPriceDouble(transactionModelObject.payoutData!.net!)}',
                                                                     textAlign:
                                                                         TextAlign
                                                                             .end,
@@ -561,7 +568,8 @@ class _OrderOverviewScreenAccountViewState
                                                             ? BoxDecoration(
                                                                 color: CustomTheme
                                                                     .backgroundColor,
-                                                                borderRadius: const BorderRadius.only(
+                                                                borderRadius: const BorderRadius
+                                                                        .only(
                                                                     bottomRight:
                                                                         Radius.circular(
                                                                             15.0),
@@ -605,9 +613,9 @@ class _OrderOverviewScreenAccountViewState
                                                                 child:
                                                                     Container(
                                                                   padding: const EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              10.0),
+                                                                          .only(
+                                                                      left:
+                                                                          10.0),
                                                                   child: Text(
                                                                     '${_getDateWithFormat(transactionDataList, index)}',
                                                                     style:
@@ -624,9 +632,9 @@ class _OrderOverviewScreenAccountViewState
                                                                 child:
                                                                     Container(
                                                                   padding: const EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              10.0),
+                                                                          .only(
+                                                                      left:
+                                                                          10.0),
                                                                   child: Text(
                                                                     '${_getAmountTickets(transactionDataList, index)}',
                                                                     style:

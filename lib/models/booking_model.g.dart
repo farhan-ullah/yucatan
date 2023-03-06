@@ -73,8 +73,8 @@ class BookingModelAdapter extends TypeAdapter<BookingModel> {
       totalPrice: fields[8] as double,
       bookingDate: fields[9] as DateTime,
       reference: fields[10] as String,
-      tickets: (fields[11] as List)?.cast<BookingTicket>(),
-      products: (fields[12] as List)?.cast<BookingProduct>(),
+      tickets: (fields[11] as List).cast<BookingTicket>(),
+      products: (fields[12] as List).cast<BookingProduct>(),
       requestNote: fields[13] as String,
       invoiceAddress: fields[14] as InvoiceAddressModel,
     );
@@ -145,7 +145,7 @@ class BookingTicketAdapter extends TypeAdapter<BookingTicket> {
       status: fields[4] as String,
       price: fields[5] as double,
       additionalServiceInfo:
-          (fields[6] as List)?.cast<AdditionalServiceInfoTicket>(),
+          (fields[6] as List).cast<AdditionalServiceInfoTicket>(),
       bookingTimeString: fields[7] as String,
     );
   }
@@ -239,9 +239,9 @@ class BookingProductAdapter extends TypeAdapter<BookingProduct> {
       quantity: fields[4] as int,
       categoryTitle: fields[5] as String,
       subCategoryTitle: fields[6] as String,
-      properties: (fields[7] as List)?.cast<BookingProductProperty>(),
+      properties: (fields[7] as List).cast<BookingProductProperty>(),
       additionalServicesDescription: fields[8] as String,
-      additionalServices: (fields[9] as List)?.cast<ProductAdditionalService>(),
+      additionalServices: (fields[9] as List).cast<ProductAdditionalService>(),
     );
   }
 
@@ -299,7 +299,7 @@ class ProductAdditionalServiceAdapter
       description: fields[3] as String,
       price: fields[4] as double,
       quantity: fields[5] as int,
-      properties: (fields[6] as List)?.cast<BookingProductProperty>(),
+      properties: (fields[6] as List).cast<BookingProductProperty>(),
     );
   }
 

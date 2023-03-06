@@ -28,8 +28,8 @@ class BookingDetailedModelAdapter extends TypeAdapter<BookingDetailedModel> {
       totalPrice: fields[8] as double,
       bookingDate: fields[9] as DateTime,
       reference: fields[10] as String,
-      tickets: (fields[11] as List)?.cast<BookingTicket>(),
-      products: (fields[12] as List)?.cast<BookingProduct>(),
+      tickets: (fields[11] as List).cast<BookingTicket>(),
+      products: (fields[12] as List).cast<BookingProduct>(),
       requestNote: fields[13] as String,
       invoiceAddress: fields[14] as InvoiceAddressModel,
     );

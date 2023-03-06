@@ -17,7 +17,7 @@ class ImageUtil {
             ? SvgPicture.asset(assetPath, height: 15)
             : Image.asset(assetPath, height: 15))
         : (isNotNullOrEmpty(networkImageURL!)
-            ? (networkImageURL!.endsWith(".svg")
+            ? (networkImageURL.endsWith(".svg")
                 ? SvgPicture.network(networkImageURL, height: 15)
                 : loadCachedNetworkImage(networkImageURL, height: 15))
             : (icon != null ? icon : SizedBox.shrink())));

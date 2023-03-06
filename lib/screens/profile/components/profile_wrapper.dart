@@ -320,6 +320,6 @@ class _ProfileWrapperState extends State<ProfileWrapper> {
 
     bloc.updateProfile(_internalModel!);
 
-    _eventHandler?.broadcastUsernameState(_internalModel!.username!);
+    _eventHandler.broadcastUsernameState(_internalModel!.username!);
   }
 }

@@ -497,12 +497,13 @@ class _SearchPopupViewState extends State<SearchPopupView>
     ActivityService.getSuggestions(
       query: query,
       items: 10,
-    )!.then((value) {
+    )!
+        .then((value) {
       // try {
       //   FocusScope.of(context).requestFocus(FocusNode());
       // } catch (e) {}
       setState(() {
-        _suggestionList = value!;
+        _suggestionList = value;
         _isSearchingSuggestion = false;
       });
     });

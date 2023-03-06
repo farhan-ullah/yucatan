@@ -66,7 +66,7 @@ class _ActivityListSliderViewState extends State<ActivityListSliderView> {
   @override
   void dispose() {
     sliderTimer?.cancel();
-    pageController?.dispose();
+    pageController.dispose();
     super.dispose();
   }
 

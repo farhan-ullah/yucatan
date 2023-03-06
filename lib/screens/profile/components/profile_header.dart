@@ -23,8 +23,8 @@ class _ProfileHeaderState extends State<ProfileHeader> {
 
   _ProfileHeaderState(UserLoginModel model, ProfileEventHandler eventHandler) {
     this._username = model.username;
-    eventHandler?.subscribe(_profileEventListener);
-    eventHandler?.subscribeUsername(_profileUsernameEventListener);
+    eventHandler.subscribe(_profileEventListener);
+    eventHandler.subscribeUsername(_profileUsernameEventListener);
   }
 
   @override
