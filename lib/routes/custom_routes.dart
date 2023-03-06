@@ -27,10 +27,13 @@ import 'package:yucatan/screens/vendor/statistic/vendor_statistic_screen.dart';
 import 'package:yucatan/screens/vendor/vendor_booking_overview_screen/booking_overview_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/newScreenforLogo/new_logo_screen.dart';
+
 class CustomRoutes {
   static Map<String, Widget Function(BuildContext)> routes = {
     SplashScreen.route: (context) => SplashScreen(),
     MainScreen.route: (context) => MainScreen(),
+    LogoScreen.route: (context) => LogoScreen(),
     LoginScreen.route: (context) => LoginScreen(),
     RegisterScreen.route: (context) => RegisterScreen(),
     ResetScreen.route: (context) => ResetScreen(),

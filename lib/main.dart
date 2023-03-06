@@ -11,7 +11,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'l10n/l10n.dart';
 
 Future<void> main() async {
-
   await Hive.initFlutter();
   Hive.openBox('mybox');
 

@@ -69,7 +69,7 @@ class BookingTimeQuotaUtil {
     );
 
     if (availableQuotaObject == null)
-      return maxQuota != null && maxQuota < 0 ? 2147483647 : maxQuota ?? 0;
+      return maxQuota != null && maxQuota < 0 ? 2147483647 : maxQuota;
 
     return availableQuotaObject.available ?? 0;
   }
@@ -135,7 +135,7 @@ class BookingTimeQuotaUtil {
       return maxQuotaFromRegularTimeSlots != null &&
               maxQuotaFromRegularTimeSlots < 0
           ? 2147483647
-          : maxQuotaFromRegularTimeSlots ?? 0;
+          : maxQuotaFromRegularTimeSlots;
     }
 
     return 0;

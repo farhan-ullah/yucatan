@@ -51,7 +51,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   }
 
   void _navigateToHomeScreen(BuildContext context, {String? activityID}) {
-    UserProvider.getUserSync()?.switchToUserRole();
+    UserProvider.getUserSync().switchToUserRole();
     Navigator.of(context).popUntil(ModalRoute.withName(MainScreen.route));
     Navigator.of(context).pushReplacementNamed(
       MainScreen.route,

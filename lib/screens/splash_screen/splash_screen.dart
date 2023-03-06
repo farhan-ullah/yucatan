@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:yucatan/screens/newScreenforLogo/new_logo_screen.dart';
 import 'package:yucatan/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:yucatan/utils/rive_animation.dart';
 import 'package:yucatan/utils/size_custom_config.dart';
@@ -28,16 +29,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
     print('Going init');
 
-
-
     Timer(
       const Duration(seconds: 4),
       () async {
-
         var prefs = await SharedPreferences.getInstance();
         bool firstOpenFlag = prefs.getBool("FirstOpen-Flag") ?? true;
         // if (firstOpenFlag) {
-          Navigator.of(context).popAndPushNamed(OnboardingScreen.route);
+        Navigator.of(context).popAndPushNamed(LogoScreen.route);
         // } else {
         //   Navigator.of(context).pop();
         // }
@@ -70,8 +68,6 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
         child: Column(
           children: [
-
-
             // Text('Hello'),
 
             SizedBox(
@@ -79,24 +75,21 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             Container(
               height: Dimensions.getHeight(percentage: 25.0),
-              child:  FutureBuilder(
+              child: FutureBuilder(
                 future: checkCondition(), // a Future<String> or null
-                builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-
-                  return  snapshot.hasData ?
-                  Image(
-                    image: FileImage(File(snapshot.data!)),
-                  ) :
-                  RiveAnimation(
-                    riveFileName: 'app-start.riv',
-                    riveAnimationName: 'Animation 1',
-                    placeholderImage: 'lib/assets/images/appventure_icon_white.png',
-                    startAnimationAfterMilliseconds: 2,
-                  );
-
-
-
-
+                builder:
+                    (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  return snapshot.hasData
+                      ? Image(
+                          image: FileImage(File(snapshot.data!)),
+                        )
+                      : RiveAnimation(
+                          riveFileName: 'app-start.riv',
+                          riveAnimationName: 'Animation 1',
+                          placeholderImage:
+                              'lib/assets/images/appventure_icon_white.png',
+                          startAnimationAfterMilliseconds: 2,
+                        );
 
                   // switch (snapshot.connectionState) {
                   //   case ConnectionState.none:
@@ -172,26 +165,23 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-  Future<String> checkCondition() async{
+  Future<String> checkCondition() async {
     await Hive.openBox('mybox');
 
     var box = Hive.box('myBox');
 
     var name = box.get('imageData');
 
-
-    if(name.toString().isEmpty){
+    if (name.toString().isEmpty) {
       Imageurl = 'lib/assets/images/appventure_icon_white.png';
       print("Check if not Null");
-    }else{
+    } else {
       Imageurl = name;
 
       print("Hello See this");
-
     }
     print(Imageurl);
 
     return Imageurl;
-
   }
 }

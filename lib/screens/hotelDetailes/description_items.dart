@@ -42,9 +42,9 @@ class DescriptionItems extends StatelessWidget {
         .firstWhere((element) => element.key == name,
         // orElse: () => null
     )
-        ?.value;
+        .value;
 
-    return icon ?? Icons.info_outline;
+    return icon;
   }
 
   @override

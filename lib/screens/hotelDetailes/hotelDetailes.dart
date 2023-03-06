@@ -483,7 +483,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                           width: Dimensions.getScaledSize(10),
                                         ),
                                         Text(
-          "${widget.hotelData!.reviewCount!}",
+                                          "${widget.hotelData!.reviewCount!}",
                                           // AppLocalizations.of(context)!
                                           //     .hotelDetailesScreen_reviewCountHandlePlural(
                                           //         widget.hotelData.reviewCount!),
@@ -513,8 +513,11 @@ class _HotelDetailesState extends State<HotelDetailes>
                                           ? widget.hotelData!.activityDetails!
                                                       .reviews!.length <=
                                                   5
-                                              ? widget.hotelData!.activityDetails!
-                                                  .reviews!.length
+                                              ? widget
+                                                  .hotelData!
+                                                  .activityDetails!
+                                                  .reviews!
+                                                  .length
                                               : 5
                                           : 0,
                                       itemBuilder:
@@ -529,8 +532,10 @@ class _HotelDetailesState extends State<HotelDetailes>
                                                   40),
                                           child: ReviewsView(
                                             isComingFromHotelDetails: true,
-                                            review: widget.hotelData!
-                                                .activityDetails!.reviews![index],
+                                            review: widget
+                                                .hotelData!
+                                                .activityDetails!
+                                                .reviews![index],
                                             animation: animationController!,
                                             animationController:
                                                 animationController!,
@@ -734,8 +739,8 @@ class _HotelDetailesState extends State<HotelDetailes>
                                                 GoogleMapsFullscreen(
                                                     location: widget
                                                         .hotelData!.location,
-                                                    destinationTitle:
-                                                        widget.hotelData!.title),
+                                                    destinationTitle: widget
+                                                        .hotelData!.title),
                                           ),
                                         );
                                       },
@@ -752,10 +757,10 @@ class _HotelDetailesState extends State<HotelDetailes>
                                         Marker(
                                           markerId: MarkerId('0'),
                                           position: LatLng(
-                                            double.parse(
-                                                widget.hotelData!.location!.lat!),
-                                            double.parse(
-                                                widget.hotelData!.location!.lon!),
+                                            double.parse(widget
+                                                .hotelData!.location!.lat!),
+                                            double.parse(widget
+                                                .hotelData!.location!.lon!),
                                           ),
                                         ),
                                       ].toSet(),
@@ -840,7 +845,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                               height: Dimensions.getScaledSize(20.0),
                             ),
                             RecommendedActivities(
-                                activityId: widget!.hotelData!.sId!),
+                                activityId: widget.hotelData!.sId!),
                             SizedBox(
                               height: bookingBarHeight +
                                   Dimensions.getScaledSize(20),
@@ -1032,7 +1037,7 @@ class _HotelDetailesState extends State<HotelDetailes>
       right: 0,
       child: AnimatedBuilder(
         animation: _animationController!,
-        builder: (BuildContext, Widget ) {
+        builder: (BuildContext, Widget) {
           var opecity = 1.0 -
               (_animationController!.value >=
                       (((imageHeight / 1.2) - bookingBarHeight) / imageHeight)
@@ -1065,7 +1070,8 @@ class _HotelDetailesState extends State<HotelDetailes>
                           child: Container(
                             width: MediaQuery.of(context).size.width,
                             child: loadCachedNetworkImage(
-                              hotelData.activityDetails!.media!.cover!.publicUrl!,
+                              hotelData
+                                  .activityDetails!.media!.cover!.publicUrl!,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -1113,7 +1119,8 @@ class _HotelDetailesState extends State<HotelDetailes>
                           bottom: 0,
                           child: Container(
                             height: (imageHeight *
-                                            (1.0 - _animationController!.value) >
+                                            (1.0 -
+                                                _animationController!.value) >
                                         Dimensions.getScaledSize(200.0)
                                     ? imageHeight *
                                         (1.0 - _animationController!.value)
@@ -1155,7 +1162,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                   child: Opacity(
                     opacity: opecity,
                     child: Column(
-                      children:  [
+                      children: [
                         IgnorePointer(
                           child: Container(
                             padding: EdgeInsets.only(
@@ -1232,7 +1239,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                       children: [
                                         Column(
                                           mainAxisSize: MainAxisSize.min,
-                                          children:  [
+                                          children: [
                                             Text(
                                               AppLocalizations.of(context)!
                                                   .hotelDetailesScreen_moreDetails,
@@ -1390,7 +1397,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                           ),
                         ),
                         Text(
-                          "${formatPriceDouble(widget!.hotelData!.priceFrom!)}",
+                          "${formatPriceDouble(widget.hotelData!.priceFrom!)}",
                           style: TextStyle(
                             fontSize: Dimensions.getScaledSize(21),
                             fontWeight: FontWeight.bold,
@@ -1480,7 +1487,8 @@ class _HotelDetailesState extends State<HotelDetailes>
                           ? BetterPlayer(
                               controller: _betterPlayerController!,
                             )
-                          : CommonWidget.videoErrorView(false, widget.hotelData!)
+                          : CommonWidget.videoErrorView(
+                              false, widget.hotelData!)
                       : CommonWidget.videoErrorView(true, widget.hotelData!)),
             ),
             isValidPreviewVideo
@@ -1565,7 +1573,8 @@ class _HotelDetailesState extends State<HotelDetailes>
       isValidPreviewVideo = false;
       return;
     }
-    if (isURL(widget.hotelData!.activityDetails!.media!.previewVideo?.publicUrl)) {
+    if (isURL(
+        widget.hotelData!.activityDetails!.media!.previewVideo?.publicUrl)) {
       isVideoUrlValid = true;
 
       BetterPlayerControlsConfiguration controlsConfiguration =
@@ -1604,11 +1613,12 @@ class _HotelDetailesState extends State<HotelDetailes>
         },
         deviceOrientationsAfterFullScreen: [DeviceOrientation.portraitUp],
         placeholder:
-            widget.hotelData!.activityDetails!.media!.previewVideoThumbnail != null
+            widget.hotelData!.activityDetails!.media!.previewVideoThumbnail !=
+                    null
                 ? _buildVideoPlaceholder(
                     loadCachedNetworkImage(
-                      widget.hotelData!.activityDetails!.media
-                          !.previewVideoThumbnail!.publicUrl!,
+                      widget.hotelData!.activityDetails!.media!
+                          .previewVideoThumbnail!.publicUrl!,
                       fit: BoxFit.cover,
                     ),
                   )

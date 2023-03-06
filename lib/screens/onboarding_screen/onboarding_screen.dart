@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../newScreenforLogo/newLogoScreen.dart';
+import '../newScreenforLogo/new_logo_screen.dart';
 import 'components/onboarding_page.dart';
 import 'components/onboarding_page_model.dart';
 
@@ -50,7 +50,6 @@ class _OnboardingState extends State<OnboardingScreen> {
       context,
       MaterialPageRoute(builder: (context) => const LogoScreen()),
     );
-
   }
 
   @override
