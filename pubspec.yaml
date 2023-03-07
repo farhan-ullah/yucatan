@@ -96,13 +96,14 @@ dependencies:
   qr_flutter: ^4.0.0
   badges: ^3.0.2
   flag: ^6.0.0
+  firebase_core: ^2.7.0
   better_player: ^0.0.83
 
   provider:
   card_scanner: ^0.2.2
   visibility_detector: ^0.3.3
   flutter_colorpicker: ^1.0.3
-  dynamic_color: ^1.6.2
+  dynamic_color:
 
 flutter_icons:
   android: true
@@ -135,8 +136,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/assets/images/
+    - assets/images/
+    - assets/content/
+    - assets/countries/
     - lib/assets/audio/
-    - lib/assets/fonts/
+    - assets/audio/
+    - assets/rive/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -114,11 +114,12 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                     MaterialPageRoute(
                       builder: (context) => HotelDetailes(
                         //hotelData: widget.activity,
-                        activityId: widget.activityCategoryModel.toString().isEmpty
-                            ? widget.activityModel != null
-                                ? widget.activityModel!.sId!
-                                : ""
-                            : widget.activityCategoryModel!.id.toString(),
+                        activityId:
+                            widget.activityCategoryModel.toString().isEmpty
+                                ? widget.activityModel != null
+                                    ? widget.activityModel!.sId!
+                                    : ""
+                                : widget.activityCategoryModel!.id.toString(),
                         isFavorite: _isFavorite!,
                         onFavoriteChangedCallback: (activityId) {
                           if (widget.onFavoriteChangedCallback != null) {
@@ -146,13 +147,13 @@ class _ActivityListViewItemState extends State<ActivityListViewItem> {
                                 child: loadCachedNetworkImage(
                                   widget.activityCategoryModel == null
                                       ? widget.activityModel != null
-                                          ? widget.activityModel!.thumbnail
-                                              !.publicUrl!
+                                          ? widget.activityModel!.thumbnail!
+                                              .publicUrl!
                                           : ""
                                       : isNotNullOrEmpty(widget
                                               .activityCategoryModel!
-                                              .thumbnail
-                                              !.publicUrl!)
+                                              .thumbnail!
+                                              .publicUrl!)
                                           ? widget.activityCategoryModel!
                                               .thumbnail!.publicUrl!
                                           : "",

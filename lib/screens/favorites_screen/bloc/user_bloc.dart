@@ -21,7 +21,7 @@ class UserLoginModelBloc {
     _eventStream.listen((event) async {
       if (event == UserLoginAction.FetchLoggedInUser) {
         UserLoginModel? userLoginModel = await UserProvider.getUser();
-        _userModelSink.add(userLoginModel!);
+        _userModelSink.add(userLoginModel);
       }
     });
   }

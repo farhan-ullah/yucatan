@@ -86,16 +86,16 @@ class OnboardingPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: MediaQuery.of(context).padding.top),
-            Padding(
-              child: SvgPicture.asset(
-                "lib/assets/images/Appventure-Logotype_pos.svg",
-                fit: BoxFit.fill,
-                width: displayWidth * 0.5,
-                height: displayHeight * 0.05,
-                color: Colors.white,
-              ),
-              padding: EdgeInsets.symmetric(vertical: displayHeight * 0.03),
-            ),
+            // Padding(
+            //   child: SvgPicture.asset(
+            //     "lib/assets/images/Appventure-Logotype_pos.svg",
+            //     fit: BoxFit.fill,
+            //     width: displayWidth * 0.5,
+            //     height: displayHeight * 0.05,
+            //     color: Colors.white,
+            //   ),
+            //   padding: EdgeInsets.symmetric(vertical: displayHeight * 0.03),
+            // ),
             SizedBox(height: displayHeight * 0.03),
             ClipRRect(
               borderRadius: BorderRadius.all(

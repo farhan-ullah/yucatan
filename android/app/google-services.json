@@ -1,0 +1,84 @@
+{
+  "project_info": {
+    "project_number": "681634498746",
+    "project_id": "appventure-a983b",
+    "storage_bucket": "appventure-a983b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681634498746:android:3a8bddd6095b725f649a83",
+        "android_client_info": {
+          "package_name": "com.coregeniongmbh.yucatan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681634498746-i62hnb2eo95sckag003o9e95sfpqvdnt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjHE66yU2rSuVlKAcLqtmihIahYcnZjyE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681634498746-i62hnb2eo95sckag003o9e95sfpqvdnt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "681634498746-oiqn6gjpp113o0th1vq2r5csan8cq444.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "de.myappventure.appventure",
+                "app_store_id": "1538207336"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681634498746:android:ab8504f362d29262649a83",
+        "android_client_info": {
+          "package_name": "de.myappventure.appventure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681634498746-i62hnb2eo95sckag003o9e95sfpqvdnt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjHE66yU2rSuVlKAcLqtmihIahYcnZjyE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681634498746-i62hnb2eo95sckag003o9e95sfpqvdnt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "681634498746-oiqn6gjpp113o0th1vq2r5csan8cq444.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "de.myappventure.appventure",
+                "app_store_id": "1538207336"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

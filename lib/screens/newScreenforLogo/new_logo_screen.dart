@@ -70,7 +70,9 @@ class _LogoScreenState extends State<LogoScreen> {
                                 height: 13,
                                 width: 100,
                                 color: index == initialIndex
-                                    ? Provider.of<ThemeModel>(context,listen: true).primaryMainColor
+                                    ? Provider.of<ThemeModel>(context,
+                                            listen: true)
+                                        .primaryMainColor
                                     : Colors.grey,
                               ),
                             )),
@@ -92,8 +94,7 @@ class _LogoScreenState extends State<LogoScreen> {
                           style: TextStyle(color: Colors.grey),
                         ),
                         Padding(
-                          padding:
-                              const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: GestureDetector(
                             onTap: () {
                               openGallery();
@@ -106,8 +107,7 @@ class _LogoScreenState extends State<LogoScreen> {
                                 // color: Colors.pink,
                                 border: Border(
                                   top: BorderSide(
-                                      width: 1.0,
-                                      color: Colors.grey.shade600),
+                                      width: 1.0, color: Colors.grey.shade600),
                                   bottom: const BorderSide(
                                       width: 1.0, color: Colors.black),
                                   left: const BorderSide(
@@ -120,12 +120,14 @@ class _LogoScreenState extends State<LogoScreen> {
                           ),
                         ),
                         buildSizedBox(Dimensions.pixels_20),
+                        const Text(
+                          'Please tell us your primary colors',
+                          style: TextStyle(color: Colors.grey),
+                        ),
                         Padding(
-                          padding:
-                              const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: GestureDetector(
                             onTap: () {
-
                               // model.setPrimaryMainColor();
                               // model.setAppbarShadeColor(
                               //     const Color(0xffEB0060));
@@ -138,14 +140,16 @@ class _LogoScreenState extends State<LogoScreen> {
                                       child: ColorPicker(
                                         pickerColor: pickerColor,
                                         onColorChanged: (Color color) {
-
                                           setState(() {
                                             pickerColor = color;
                                             print(pickerColor);
-                                            var newPrimaryColor = pickerColor.toHex;
+                                            var newPrimaryColor =
+                                                pickerColor.toHex;
                                             print(
                                                 "Does it Change $newPrimaryColor");
-                                            Provider.of<ThemeModel>(context,listen: false).setPrimaryMainColor(color);
+                                            Provider.of<ThemeModel>(context,
+                                                    listen: false)
+                                                .setPrimaryMainColor(color);
                                           });
                                         },
                                       ),
@@ -154,8 +158,8 @@ class _LogoScreenState extends State<LogoScreen> {
                                       ElevatedButton(
                                         child: const Text('Got it'),
                                         onPressed: () {
-                                          setState(() =>
-                                              currentColor = pickerColor);
+                                          setState(
+                                              () => currentColor = pickerColor);
                                           Navigator.of(context).pop();
                                         },
                                       ),
@@ -172,8 +176,7 @@ class _LogoScreenState extends State<LogoScreen> {
                                 // color: Colors.pink,
                                 border: Border(
                                   top: BorderSide(
-                                      width: 1.0,
-                                      color: Colors.grey.shade600),
+                                      width: 1.0, color: Colors.grey.shade600),
                                   bottom: const BorderSide(
                                       width: 1.0, color: Colors.black),
                                   left: const BorderSide(
@@ -185,27 +188,25 @@ class _LogoScreenState extends State<LogoScreen> {
                             ),
                           ),
                         ),
-                        buildSizedBox(Dimensions.pixels_20),
-                        TextField(
-                          decoration: InputDecoration(
-                              hintText:
-                                  'Please tell us your secondary colors',
-                              // AppLocalizations.of(context)!
-                              //     .forgotPasswordScreen_emailHint,
-                              hintStyle: TextStyle(
-                                color: Colors.grey[500],
-                              )),
-                          // controller: emailController,
-                          keyboardType: TextInputType.name,
-                        ),
+                        // buildSizedBox(Dimensions.pixels_20),
+                        // TextField(
+                        //   decoration: InputDecoration(
+                        //       hintText: 'Please tell us your secondary colors',
+                        //       // AppLocalizations.of(context)!
+                        //       //     .forgotPasswordScreen_emailHint,
+                        //       hintStyle: TextStyle(
+                        //         color: Colors.grey[500],
+                        //       )),
+                        //   // controller: emailController,
+                        //   keyboardType: TextInputType.name,
+                        // ),
                         buildSizedBox(Dimensions.pixels_20),
                         const Text(
                           'In which language you want to preview the app?',
                           style: TextStyle(color: Colors.grey),
                         ),
                         Padding(
-                          padding:
-                              const EdgeInsets.symmetric(vertical: 13.0),
+                          padding: const EdgeInsets.symmetric(vertical: 13.0),
                           child: InputDecorator(
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()),
@@ -225,8 +226,7 @@ class _LogoScreenState extends State<LogoScreen> {
                                     child: Text(
                                       value,
                                       style: TextStyle(
-                                          color: Colors.black
-                                              .withOpacity(0.6)),
+                                          color: Colors.black.withOpacity(0.6)),
                                     ),
                                   );
                                 }).toList(),
@@ -333,11 +333,13 @@ class _LogoScreenState extends State<LogoScreen> {
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     elevation: 3,
-                    backgroundColor: Provider.of<ThemeModel>(context,listen: true).primaryMainColor,
+                    backgroundColor:
+                        Provider.of<ThemeModel>(context, listen: true)
+                            .primaryMainColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0)),
-                    minimumSize: Size(MediaQuery.of(context).size.width,
-                        40), //////// HERE
+                    minimumSize: Size(
+                        MediaQuery.of(context).size.width, 40), //////// HERE
                   ),
                   onPressed: () {
                     setState(() {
