@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:yucatan/screens/newScreenforLogo/new_logo_screen.dart';
 import 'package:yucatan/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:yucatan/utils/rive_animation.dart';
@@ -12,6 +13,8 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:device_info/device_info.dart';
+
+import '../../utils/theme_model.dart';
 
 class SplashScreen extends StatefulWidget {
   static const route = '/splashscreen';
@@ -54,17 +57,17 @@ class _SplashScreenState extends State<SplashScreen> {
     _setPreferredOrientations();
 
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColorDark,
+      backgroundColor: Provider.of<ThemeModel>(context,listen: true).primaryMainColor,
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF052145),
-              Color(0xFF004D88),
-            ],
-          ),
+          // gradient: LinearGradient(
+          //   begin: Alignment.topCenter,
+          //   end: Alignment.bottomCenter,
+          //   colors: [
+          //     Color(0xFF052145),
+          //     Color(0xFF004D88),
+          //   ],
+          // ),
         ),
         child: Column(
           children: [

@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:yucatan/screens/onboarding_screen/onboarding_screen.dart';
+import 'package:yucatan/utils/color_utils.dart';
 
+import '../../theme/custom_theme.dart';
+import '../../utils/theme_model.dart';
 import '../../utils/widget_dimensions.dart';
 
 class LogoScreen extends StatefulWidget {
   static const route = '/newScreenforLogo';
+  ThemeModel? model;
 
-  const LogoScreen({Key? key}) : super(key: key);
+  LogoScreen({Key? key, this.model}) : super(key: key);
 
   @override
   State<LogoScreen> createState() => _LogoScreenState();
@@ -19,6 +25,12 @@ class _LogoScreenState extends State<LogoScreen> {
   var selectedValue = 'English';
   var initialIndex = 0;
   var box = Hive.box('myBox');
+  Color pickerColor = Color(0xff443a49);
+  Color currentColor = Color(0xff443a49);
+
+  // Color mycolor = Colors.lightBlue;
+
+// ValueChanged<Color> callback
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +70,7 @@ class _LogoScreenState extends State<LogoScreen> {
                                 height: 13,
                                 width: 100,
                                 color: index == initialIndex
-                                    ? Colors.blueAccent
+                                    ? Provider.of<ThemeModel>(context,listen: true).primaryMainColor
                                     : Colors.grey,
                               ),
                             )),
@@ -80,7 +92,8 @@ class _LogoScreenState extends State<LogoScreen> {
                           style: TextStyle(color: Colors.grey),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          padding:
+                              const EdgeInsets.symmetric(vertical: 8.0),
                           child: GestureDetector(
                             onTap: () {
                               openGallery();
@@ -93,7 +106,74 @@ class _LogoScreenState extends State<LogoScreen> {
                                 // color: Colors.pink,
                                 border: Border(
                                   top: BorderSide(
-                                      width: 1.0, color: Colors.grey.shade600),
+                                      width: 1.0,
+                                      color: Colors.grey.shade600),
+                                  bottom: const BorderSide(
+                                      width: 1.0, color: Colors.black),
+                                  left: const BorderSide(
+                                      width: 1.0, color: Colors.black),
+                                  right: const BorderSide(
+                                      width: 1.0, color: Colors.black),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        buildSizedBox(Dimensions.pixels_20),
+                        Padding(
+                          padding:
+                              const EdgeInsets.symmetric(vertical: 8.0),
+                          child: GestureDetector(
+                            onTap: () {
+
+                              // model.setPrimaryMainColor();
+                              // model.setAppbarShadeColor(
+                              //     const Color(0xffEB0060));
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Pick a color!'),
+                                    content: SingleChildScrollView(
+                                      child: ColorPicker(
+                                        pickerColor: pickerColor,
+                                        onColorChanged: (Color color) {
+
+                                          setState(() {
+                                            pickerColor = color;
+                                            print(pickerColor);
+                                            var newPrimaryColor = pickerColor.toHex;
+                                            print(
+                                                "Does it Change $newPrimaryColor");
+                                            Provider.of<ThemeModel>(context,listen: false).setPrimaryMainColor(color);
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                        child: const Text('Got it'),
+                                        onPressed: () {
+                                          setState(() =>
+                                              currentColor = pickerColor);
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: Container(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                // borderRadius: BorderRadius.circular(4),
+                                // color: Colors.pink,
+                                border: Border(
+                                  top: BorderSide(
+                                      width: 1.0,
+                                      color: Colors.grey.shade600),
                                   bottom: const BorderSide(
                                       width: 1.0, color: Colors.black),
                                   left: const BorderSide(
@@ -108,19 +188,8 @@ class _LogoScreenState extends State<LogoScreen> {
                         buildSizedBox(Dimensions.pixels_20),
                         TextField(
                           decoration: InputDecoration(
-                              hintText: 'Please tell us your primary colors',
-                              // AppLocalizations.of(context)!
-                              //     .forgotPasswordScreen_emailHint,
-                              hintStyle: TextStyle(
-                                color: Colors.grey[500],
-                              )),
-                          // controller: emailController,
-                          keyboardType: TextInputType.name,
-                        ),
-                        buildSizedBox(Dimensions.pixels_20),
-                        TextField(
-                          decoration: InputDecoration(
-                              hintText: 'Please tell us your secondary colors',
+                              hintText:
+                                  'Please tell us your secondary colors',
                               // AppLocalizations.of(context)!
                               //     .forgotPasswordScreen_emailHint,
                               hintStyle: TextStyle(
@@ -135,7 +204,8 @@ class _LogoScreenState extends State<LogoScreen> {
                           style: TextStyle(color: Colors.grey),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 13.0),
+                          padding:
+                              const EdgeInsets.symmetric(vertical: 13.0),
                           child: InputDecorator(
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()),
@@ -155,7 +225,8 @@ class _LogoScreenState extends State<LogoScreen> {
                                     child: Text(
                                       value,
                                       style: TextStyle(
-                                          color: Colors.black.withOpacity(0.6)),
+                                          color: Colors.black
+                                              .withOpacity(0.6)),
                                     ),
                                   );
                                 }).toList(),
@@ -262,10 +333,11 @@ class _LogoScreenState extends State<LogoScreen> {
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     elevation: 3,
+                    backgroundColor: Provider.of<ThemeModel>(context,listen: true).primaryMainColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0)),
-                    minimumSize: Size(
-                        MediaQuery.of(context).size.width, 40), //////// HERE
+                    minimumSize: Size(MediaQuery.of(context).size.width,
+                        40), //////// HERE
                   ),
                   onPressed: () {
                     setState(() {
